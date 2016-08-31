@@ -20,13 +20,13 @@
         <!--android:textColor="@color/gray"/>-->
     <RelativeLayout
         android:layout_width="120dp"
-        android:background="@drawable/release_task_bg"
+        android:background="@drawable/toast_bg"
         android:layout_height="60dp">
     <TextView
         android:id="@+id/id_tv_loadingmsg"
         android:layout_width="wrap_content"
         android:text="正在刷新."
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:layout_centerInParent="true"
         android:layout_height="wrap_content" />
 

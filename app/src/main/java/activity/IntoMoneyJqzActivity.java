@@ -29,7 +29,7 @@ public class IntoMoneyJqzActivity extends BaseActivity {
     private TextView mTvLeftMoney;
     private EditText mEtMoney;
     private RelativeLayout mRtlConfirm;
-    private int money;
+    private double money;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -79,11 +79,9 @@ public class IntoMoneyJqzActivity extends BaseActivity {
         mRtlConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int InputMoney=Integer.parseInt(mEtMoney.getText().toString().trim());
+//                int InputMoney=Integer.parseInt(mEtMoney.getText().toString().trim());
                 if(mEtMoney.getText().toString().trim()==null){
                     showTip("提示:输入金额不能为空");
-                }else if(InputMoney > money){
-                    showTip("抱歉，请输入正常的金额");
                 }else {
                     IntoMoney2Jqz();
                 }
@@ -112,7 +110,7 @@ public class IntoMoneyJqzActivity extends BaseActivity {
         });
     }
     private void initdate() {
-        money = getIntent().getIntExtra("money",0);
+        money = getIntent().getDoubleExtra("money",0);
         mTvLeftMoney.setText(""+ money);
     }
     private void initview() {

@@ -37,13 +37,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:orientation="vertical"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/round_white_bg"
                 android:layout_height="wrap_content">
                 <RelativeLayout
                     android:layout_width="match_parent"
+                    android:visibility="gone"
                     android:layout_height="35dp">
                     <TextView
                         android:layout_width="wrap_content"
@@ -65,7 +66,7 @@
                         android:id="@+id/tv_yjqd"
                         android:layout_width="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:text="您已经签到"
+                        android:text="您已连续签到"
                         android:textSize="18sp"
                         android:textColor="@color/black"
                         android:layout_centerVertical="true"
@@ -75,7 +76,7 @@
                         android:layout_toRightOf="@+id/tv_yjqd"
                         android:layout_width="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:text="1"
+                        android:text="0"
                         android:textSize="18sp"
                         android:textColor="@color/red"
                         android:layout_centerVertical="true"
@@ -111,7 +112,7 @@
                         android:layout_toRightOf="@+id/tv_zgqd"
                         android:layout_width="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:text="1"
+                        android:text="0"
                         android:textSize="18sp"
                         android:textColor="@color/red"
                         android:layout_centerVertical="true"
@@ -199,6 +200,14 @@
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="@string/sign_introduce4"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
         </LinearLayout>
             <RelativeLayout
@@ -214,7 +223,7 @@
                     android:layout_marginLeft="10dp"
                     android:text="马上签到"
                     android:textSize="18sp"
-                    android:textColor="@color/white"
+                    android:textColor="@drawable/white2gray_seleclor"
                     android:layout_centerVertical="true"
                     android:layout_centerInParent="true"
                     android:layout_height="wrap_content" />

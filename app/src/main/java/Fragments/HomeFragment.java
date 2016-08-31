@@ -67,7 +67,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     private  List<TxRecord> mTxRecord=new ArrayList<>();
     private  ArrayList<String > mUserId=new ArrayList<>();
     private  List<String > mTimes=new ArrayList<>();
-    private List<String > mState=new ArrayList<>();
+    private List<String> mState=new ArrayList<>();
     private  ArrayList<JqzCrRecord> mCrJqz=new ArrayList<>();
     private  ArrayList<String > mJqzCrUserId=new ArrayList<>();
     private  ArrayList<String > mJqzCrTime=new ArrayList<>();
@@ -101,10 +101,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     private VerticalSwitchTextView mTvTime1;
     private VerticalSwitchTextView mTvState;
     private VerticalSwitchTextView mTvState1;
-    private int UserAccount;//聚钱庄余额
+    private double UserAccount;//聚钱庄余额
     public static  HomeFragment instance;
     private ReceiveBroadCast receiveBroadCast;
-
     public static HomeFragment getInstance(){
         if(instance==null){
             instance=new HomeFragment();
@@ -215,7 +214,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                     Log.i("数据",""+data.toString());
 //                  showTip(data.toString());
                     UserMoney userMoney = GsonUtils.parseJSON(data, UserMoney.class);
-                    UserAccount=Integer.parseInt(userMoney.getfNotPayIncome());
+                    UserAccount=Double.parseDouble(userMoney.getfNotPayIncome());
                     mTvAllIncome.setText(userMoney.getfNotPayIncome()+"元");
                     mTvTodyIncome.setText(""+userMoney.getfTodayIncome()+"元");
                 }

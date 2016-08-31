@@ -99,12 +99,9 @@ public class RoundProgressBar extends View {
 
         mTypedArray.recycle();
     }
-
-
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-
         /**
          * 画最外层的大圆环
          */
@@ -115,9 +112,7 @@ public class RoundProgressBar extends View {
         paint.setStrokeWidth(roundWidth); //设置圆环的宽度
         paint.setAntiAlias(true);  //消除锯齿
         canvas.drawCircle(centre, centre, radius, paint); //画出圆环
-
         Log.e("log", centre + "");
-
         /**
          * 画进度百分比
          */
@@ -126,17 +121,15 @@ public class RoundProgressBar extends View {
         paint.setTextSize(textSize);
         paint.setTypeface(Typeface.DEFAULT_BOLD); //设置字体
         int percent = (int)(((float)progress / (float)max) * 100);  //中间的进度百分比，先转换成float在进行除法运算，不然都为0
-        float textWidth = paint.measureText(""+percent + "%");   //测量字体宽度，我们需要根据字体的宽度设置在圆环中间
+        float textWidth = paint.measureText("余："+percent + "%");   //测量字体宽度，我们需要根据字体的宽度设置在圆环中间
+//        float textWidth = paint.measureText("剩余11");   //测量字体宽度，我们需要根据字体的宽度设置在圆环中间
 
         if(textIsDisplayable && percent != 0 && style == STROKE){
-            canvas.drawText(percent + "%", centre - textWidth / 2, centre + textSize/2, paint); //画出进度百分比
+            canvas.drawText("剩余:"+percent + "%", centre - textWidth / 2, centre + textSize/2, paint); //画出进度百分比
         }
-
-
         /**
          * 画圆弧 ，画圆环的进度
          */
-
         //设置进度是实心还是空心
         paint.setStrokeWidth(roundWidth); //设置圆环的宽度
         paint.setColor(roundProgressColor);  //设置进度的颜色
@@ -156,14 +149,10 @@ public class RoundProgressBar extends View {
                 break;
             }
         }
-
     }
-
-
     public synchronized int getMax() {
         return max;
     }
-
     /**
      * 设置进度的最大值
      * @param max

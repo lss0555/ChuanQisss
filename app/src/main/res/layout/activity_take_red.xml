@@ -224,11 +224,11 @@
                 android:layout_height="110dp">
                 <Views.RoundProgressBar
                     android:id="@+id/roundProgressBar"
-                    android:layout_width="47dp"
-                    android:layout_height="47dp"
+                    android:layout_width="67dp"
+                    android:layout_height="67dp"
                     android:layout_centerVertical="true"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="22dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_alignParentBottom="true"
                     android_custom:roundColor="@color/yellow_dark"
                     android_custom:roundProgressColor="@color/darks_gray"
@@ -236,7 +236,7 @@
                     android_custom:textIsDisplayable="true"
                     android_custom:roundWidth="5dip"
                     android_custom:max="100"
-                    android_custom:textSize="13sp"/>
+                    android_custom:textSize="12sp"/>
             </RelativeLayout>
             <TextView
                 android:id="@+id/tv_red_rules"
