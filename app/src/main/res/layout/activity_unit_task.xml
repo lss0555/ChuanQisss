@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@color/red"
+        android:layout_height="50dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="联盟任务"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:layout_centerInParent="true"
+            android:layout_height="wrap_content" />
+
+        <RelativeLayout
+            android:id="@+id/rtl_back"
+            android:layout_width="60dp"
+            android:onClick="back"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:background="@mipmap/g_fanhui"
+                android:layout_centerInParent="true"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+    </RelativeLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:id="@+id/rtl_youmi"
+                android:layout_width="match_parent"
+                android:layout_height="70dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="生钱宝1号机"
+                    android:layout_centerVertical="true"
+                    android:textSize="17sp"
+                    android:gravity="center"
+                    android:drawablePadding="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:drawableLeft="@mipmap/youmi"
+                    android:textColor="@color/black"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:background="@mipmap/w_tiaozhuan1"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:background="@color/gray"
+                android:layout_height="1dp"></View>
+            <RelativeLayout
+                android:id="@+id/rtl_dianle"
+                android:layout_width="match_parent"
+                android:layout_height="70dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="生钱宝2号机"
+                    android:layout_centerVertical="true"
+                    android:textSize="17sp"
+                    android:gravity="center"
+                    android:drawablePadding="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:drawableLeft="@mipmap/dianle"
+                    android:textColor="@color/black"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:background="@mipmap/w_tiaozhuan1"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:background="@color/gray"
+                android:layout_height="1dp"></View>
+            <RelativeLayout
+                android:id="@+id/rtl_dianlu"
+                android:layout_width="match_parent"
+                android:layout_height="70dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="生钱宝3号机"
+                    android:layout_centerVertical="true"
+                    android:textSize="17sp"
+                    android:gravity="center"
+                    android:drawablePadding="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:drawableLeft="@mipmap/dianlu"
+                    android:textColor="@color/black"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:background="@mipmap/w_tiaozhuan1"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:background="@color/gray"
+                android:layout_height="1dp"></View>
+            <RelativeLayout
+                android:id="@+id/rtl_duomeng"
+                android:layout_width="match_parent"
+                android:layout_height="70dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="生钱宝4号机"
+                    android:layout_centerVertical="true"
+                    android:textSize="17sp"
+                    android:gravity="center"
+                    android:drawablePadding="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:drawableLeft="@mipmap/duomeng"
+                    android:textColor="@color/black"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:background="@mipmap/w_tiaozhuan1"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:background="@color/gray"
+                android:layout_height="1dp"></View>
+            <RelativeLayout
+                android:id="@+id/rtl_qumi"
+                android:layout_width="match_parent"
+                android:layout_height="70dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="生钱宝5号机"
+                    android:layout_centerVertical="true"
+                    android:textSize="17sp"
+                    android:gravity="center"
+                    android:drawablePadding="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:drawableLeft="@mipmap/qumi"
+                    android:textColor="@color/black"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:background="@mipmap/w_tiaozhuan1"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:background="@color/gray"
+                android:layout_height="1dp"></View>
+            <RelativeLayout
+                android:id="@+id/rtl_zhangshanghudong"
+                android:layout_width="match_parent"
+                android:layout_height="70dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="生钱宝6号机"
+                    android:layout_centerVertical="true"
+                    android:textSize="17sp"
+                    android:gravity="center"
+                    android:drawablePadding="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:drawableLeft="@mipmap/zhangshanghudong"
+                    android:textColor="@color/black"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:background="@mipmap/w_tiaozhuan1"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:background="@color/gray"
+                android:layout_height="1dp"></View>
+            <RelativeLayout
+                android:id="@+id/rtl_wanpu"
+                android:layout_width="match_parent"
+                android:layout_height="70dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="生钱宝7号机"
+                    android:layout_centerVertical="true"
+                    android:textSize="17sp"
+                    android:gravity="center"
+                    android:drawablePadding="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:drawableLeft="@mipmap/wanpu"
+                    android:textColor="@color/black"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:background="@mipmap/w_tiaozhuan1"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:background="@color/gray"
+                android:layout_height="1dp"></View>
+            <RelativeLayout
+                android:id="@+id/rtl_souying"
+                android:layout_width="match_parent"
+                android:layout_height="70dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="生钱宝8号机"
+                    android:layout_centerVertical="true"
+                    android:textSize="17sp"
+                    android:gravity="center"
+                    android:drawablePadding="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:drawableLeft="@mipmap/souying"
+                    android:textColor="@color/black"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:background="@mipmap/w_tiaozhuan1"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:background="@color/gray"
+                android:layout_height="1dp"></View>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

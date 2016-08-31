@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@color/red"
+        android:layout_height="50dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="新手任务"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:layout_centerInParent="true"
+            android:layout_height="wrap_content" />
+        <RelativeLayout
+            android:id="@+id/rtl_back"
+            android:layout_width="60dp"
+            android:onClick="back"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:background="@mipmap/g_fanhui"
+                android:layout_centerInParent="true"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+    </RelativeLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:id="@+id/rtl_youmi"
+                android:layout_width="match_parent"
+                android:layout_height="70dp">
+                <ImageView
+                    android:id="@+id/img_lj"
+                    android:layout_width="wrap_content"
+                    android:background="@mipmap/liaojiepingtai"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_height="wrap_content" />
+                <LinearLayout
+                    android:layout_toRightOf="@+id/img_lj"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:orientation="vertical"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text="一步了解平台收益"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:textSize="15sp"
+                        android:layout_weight="1"
+                        android:text="立即获得0.3元奖励"
+                        android:gravity="center"
+                        android:textColor="@color/red"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:background="@mipmap/w_tiaozhuan1"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:background="@color/gray"
+                android:layout_height="1dp"></View>
+            <RelativeLayout
+                android:id="@+id/rtl_dianle"
+                android:layout_width="match_parent"
+                android:layout_height="70dp">
+                <ImageView
+                    android:id="@+id/img_wx"
+                    android:layout_width="wrap_content"
+                    android:background="@mipmap/bangdingweixin"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_height="wrap_content" />
+                <LinearLayout
+                    android:layout_toRightOf="@+id/img_wx"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="vertical"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text="点击绑定微信方便资金提现"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:textSize="15sp"
+                        android:layout_weight="1"
+                        android:text="实现微信登录"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:textSize="15sp"
+                        android:layout_weight="1"
+                        android:text="立即获得0.5元奖励"
+                        android:gravity="center"
+                        android:textColor="@color/red"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:background="@mipmap/w_tiaozhuan1"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:background="@color/gray"
+                android:layout_height="1dp"></View>
+            <RelativeLayout
+                android:id="@+id/rtl_dianlu"
+                android:layout_width="match_parent"
+                android:layout_height="70dp">
+                <ImageView
+                    android:id="@+id/img_alipay"
+                    android:layout_width="wrap_content"
+                    android:background="@mipmap/bangdingzhifubao"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_height="wrap_content" />
+                <LinearLayout
+                    android:layout_toRightOf="@+id/img_alipay"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:orientation="vertical"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text="点击绑定支付宝方便资金提现"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:textSize="15sp"
+                        android:layout_weight="1"
+                        android:text="立即获得0.5元奖励"
+                        android:gravity="center"
+                        android:textColor="@color/red"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:background="@mipmap/w_tiaozhuan1"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:background="@color/gray"
+                android:layout_height="1dp"></View>
+            <RelativeLayout
+                android:id="@+id/rtl_duomeng"
+                android:layout_width="match_parent"
+                android:layout_height="70dp">
+                <ImageView
+                    android:id="@+id/img_phone"
+                    android:layout_width="wrap_content"
+                    android:background="@mipmap/bangdingshouji"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_height="wrap_content" />
+                <LinearLayout
+                    android:layout_toRightOf="@+id/img_phone"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="vertical"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text="点击绑定手机号码"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:textSize="15sp"
+                        android:layout_weight="1"
+                        android:text="用户账号密码修改"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:textSize="15sp"
+                        android:layout_weight="1"
+                        android:text="立即获得0.5元奖励"
+                        android:gravity="center"
+                        android:textColor="@color/red"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:background="@mipmap/w_tiaozhuan1"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:background="@color/gray"
+                android:layout_height="1dp"></View>
+            <RelativeLayout
+                android:id="@+id/rtl_zhangshanghudong"
+                android:layout_width="match_parent"
+                android:layout_height="70dp">
+                <ImageView
+                    android:id="@+id/img_share"
+                    android:layout_width="wrap_content"
+                    android:background="@mipmap/fenxiangpingtai"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_height="wrap_content" />
+                <LinearLayout
+                    android:layout_toRightOf="@+id/img_share"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="vertical"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text="分享平台到微信好友,朋友圈"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:textSize="15sp"
+                        android:layout_weight="1"
+                        android:text="QQ空间，微博等"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:textSize="15sp"
+                        android:layout_weight="1"
+                        android:text="立即获得1元奖励"
+                        android:gravity="center"
+                        android:textColor="@color/red"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:background="@mipmap/w_tiaozhuan1"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:background="@color/gray"
+                android:layout_height="1dp"></View>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

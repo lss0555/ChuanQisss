@@ -1,0 +1,304 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context="Fragments.GetFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@color/red"
+        android:layout_height="50dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="抢红包，挖宝箱惊喜不断"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:id="@+id/textView"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+        <RelativeLayout
+            android:id="@+id/rtl_back"
+            android:layout_width="60dp"
+            android:onClick="back"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:background="@mipmap/g_fanhui"
+                android:layout_centerInParent="true"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+    </RelativeLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="易赚抢红包能赚钱，挖宝箱能挖到什么呢？"
+                    android:layout_marginRight="15dp"
+                    android:textSize="16sp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:background="@color/gray"
+                android:layout_height="0.2dp"></View>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                    <TextView
+                    android:layout_width="wrap_content"
+                    android:textSize="17sp"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="15dp"
+                    android:text="抢红包规则:"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="1.红包分别于9点，12点，15点，18点，21点发放领取"
+                    android:textSize="13sp"
+                    android:textColor="@color/red"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="2.每个账号每个时间点只能领取一次。"
+                    android:textSize="13sp"
+                    android:textColor="@color/red"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="3.每个时间点发放的红包数量为100个，数量有限。"
+                    android:textSize="13sp"
+                    android:textColor="@color/red"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="4.要领取红包需要绑定手机"
+                    android:textSize="13sp"
+                    android:textColor="@color/red"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="5.红包现金会发至手机号对应的账户余额中"
+                    android:textSize="13sp"
+                    android:textColor="@color/red"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="6.完成一次任务或者分享一次可获得一次抢红包机会，只限当天，不累计到第二天。"
+                    android:textSize="13sp"
+                    android:textColor="@color/red"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="7.每一包的金额不等，全看个人运气，最高可得10元"
+                    android:textSize="13sp"
+                    android:textColor="@color/red"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                    <TextView
+                    android:layout_width="wrap_content"
+                    android:textSize="17sp"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="15dp"
+                    android:text="挖宝箱规则:"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="1.完成注册成为易赚用户，挖宝藏+1"
+                    android:textSize="13sp"
+                    android:textColor="@color/red"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="2.每日成功签到，挖宝藏+1。"
+                    android:textSize="13sp"
+                    android:textColor="@color/red"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="3.完成10次任务，挖宝藏+1"
+                    android:textSize="13sp"
+                    android:textColor="@color/red"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="4.成功收5名徒弟并注册成功，挖宝藏+1"
+                    android:textSize="13sp"
+                    android:textColor="@color/red"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                    <TextView
+                    android:layout_width="wrap_content"
+                    android:textSize="17sp"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="15dp"
+                    android:text="挖宝箱清单:"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_height="wrap_content">
+                    <TextView
+                    android:layout_width="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="@color/red"
+                    android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                    android:layout_marginLeft="15dp"
+                    android:text="Iphone 6s Plus"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="@color/red"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="15dp"
+                    android:text="iPad mini2"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="@color/red"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="15dp"
+                    android:text="苹果MP3"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_height="wrap_content">
+                    <TextView
+                    android:layout_width="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="@color/red"
+                    android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                    android:layout_marginLeft="15dp"
+                    android:text="50元话费"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="@color/red"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="15dp"
+                    android:text="20元话费"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="@color/red"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="15dp"
+                    android:text="10元话费"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="@color/red"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="15dp"
+                    android:text="5G流量"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="@color/red"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="15dp"
+                    android:text="1G流量"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="@color/red"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_marginLeft="15dp"
+                    android:text="红包元0.01-10元"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:background="@color/red"
+      android:layout_height="50dp">
+      <TextView
+          android:layout_width="wrap_content"
+          android:text="转入聚钱庄"
+          android:textColor="@color/white"
+          android:textSize="20sp"
+          android:layout_centerInParent="true"
+          android:layout_height="wrap_content" />
+      <RelativeLayout
+          android:id="@+id/rtl_back"
+          android:layout_width="60dp"
+          android:onClick="back"
+          android:layout_height="match_parent">
+          <ImageView
+              android:layout_width="wrap_content"
+              android:background="@mipmap/g_fanhui"
+              android:layout_centerInParent="true"
+              android:layout_height="wrap_content" />
+      </RelativeLayout>
+  </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <TextView
+            android:id="@+id/tv_state"
+            android:layout_width="wrap_content"
+            android:text="您当前可用余额:"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_left_money"
+            android:layout_width="wrap_content"
+            android:text="100元"
+            android:textColor="@color/red"
+            android:textSize="18sp"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/tv_state"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:background="@color/gray"
+        android:layout_height="0.2dp"></View>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <TextView
+            android:id="@+id/tv_nums"
+            android:layout_width="wrap_content"
+            android:text="转入金额"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/et_money"
+            android:layout_width="wrap_content"
+            android:textColor="@color/red"
+            android:textSize="18sp"
+            android:hint="输入金额"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:inputType="number"
+            android:layout_toRightOf="@+id/tv_nums"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:background="@color/gray"
+        android:layout_height="0.2dp"></View>
+    <RelativeLayout
+        android:id="@+id/rtl_confirm"
+        android:layout_width="match_parent"
+        android:background="@drawable/round_red_bg"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_height="40dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="完成"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:layout_centerInParent="true"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+</LinearLayout>

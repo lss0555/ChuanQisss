@@ -1,0 +1,77 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context="Fragments.GetFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@color/red"
+        android:layout_height="50dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="联系我们"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:id="@+id/textView"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+        <ImageView
+            android:onClick="back"
+            android:layout_width="wrap_content"
+            android:background="@mipmap/g_fanhui"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <TextView
+            android:id="@+id/tv_text_qqun"
+            android:layout_width="wrap_content"
+            android:text="@string/gf_qqun"
+            android:layout_centerVertical="true"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:layout_marginLeft="10dp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_toRightOf="@+id/tv_text_qqun"
+            android:layout_width="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/red"
+            android:text="@string/contact_qqun"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <TextView
+            android:id="@+id/tv_text_qq"
+            android:layout_width="wrap_content"
+            android:textColor="@color/black"
+            android:text="@string/kefu_qq"
+            android:textSize="16sp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_toRightOf="@+id/tv_text_qq"
+            android:layout_width="wrap_content"
+            android:text="@string/contact_qq"
+            android:layout_centerVertical="true"
+            android:textColor="@color/red"
+            android:layout_marginLeft="10dp"
+            android:textSize="16sp"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+</LinearLayout>

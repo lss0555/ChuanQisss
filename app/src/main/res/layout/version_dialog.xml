@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="@color/white"
+    >
+
+    <LinearLayout
+        android:id="@+id/llSuccessBoard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:background="@color/red"
+            android:layout_height="45dp">
+            <TextView
+                android:id="@+id/tv_version"
+                android:layout_width="wrap_content"
+                android:text="发现新版本"
+                android:layout_centerHorizontal="true"
+                android:textSize="18sp"
+                android:textColor="@color/white"
+                android:layout_centerInParent="true"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:visibility="visible"
+            android:layout_marginTop="20dp"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="80dp">
+            <Button
+                android:id="@+id/btn_cancle"
+                android:layout_width="wrap_content"
+                android:text="稍后再说"
+                android:background="@drawable/round_white_bg"
+                android:textSize="15sp"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="15dp"
+                android:layout_height="wrap_content" />
+            <Button
+                android:id="@+id/btn_qd"
+                android:layout_width="wrap_content"
+                android:text="马上更新"
+                android:gravity="center"
+                android:textSize="15sp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:background="@drawable/release_task_bg"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:layout_marginRight="15dp"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+</RelativeLayout>

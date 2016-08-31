@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:background="@color/red"
+      android:layout_height="50dp">
+      <TextView
+          android:layout_width="wrap_content"
+          android:text="师徒列表"
+          android:textColor="@color/white"
+          android:textSize="@dimen/title_size"
+          android:layout_centerInParent="true"
+          android:layout_height="wrap_content" />
+      <RelativeLayout
+          android:id="@+id/rtl_back"
+          android:layout_width="60dp"
+          android:onClick="back"
+          android:layout_height="match_parent">
+          <ImageView
+              android:layout_width="wrap_content"
+              android:background="@mipmap/g_fanhui"
+              android:layout_centerInParent="true"
+              android:layout_height="wrap_content" />
+      </RelativeLayout>
+      <TextView
+          android:id="@+id/tv_receive"
+          android:layout_width="wrap_content"
+          android:text="收徒"
+          android:textSize="17sp"
+          android:textColor="@color/white"
+          android:layout_centerVertical="true"
+          android:layout_alignParentRight="true"
+          android:layout_marginRight="10dp"
+          android:layout_height="wrap_content" />
+  </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:textSize="18sp"
+            android:text="徒弟昵称"
+            android:textColor="@color/red"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:textSize="18sp"
+            android:text="来自TA的收益"
+            android:textColor="@color/red"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:background="@color/gray"
+        android:layout_height="0.2dp"></View>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Views.XListView.XListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/list" />
+    </RelativeLayout>
+</LinearLayout>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@color/yellow_dark"
+    android:layout_height="match_parent">
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:background="@color/red"
+      android:layout_height="50dp">
+      <TextView
+          android:layout_width="wrap_content"
+          android:text="收徒"
+          android:textColor="@color/white"
+          android:textSize="18sp"
+          android:layout_centerInParent="true"
+          android:layout_height="wrap_content" />
+      <RelativeLayout
+          android:id="@+id/rtl_back"
+          android:layout_width="60dp"
+          android:onClick="back"
+          android:layout_height="match_parent">
+          <ImageView
+              android:layout_width="wrap_content"
+              android:background="@mipmap/g_fanhui"
+              android:layout_centerInParent="true"
+              android:layout_height="wrap_content" />
+      </RelativeLayout>
+      <TextView
+          android:layout_width="wrap_content"
+          android:text="保存图片"
+          android:layout_centerVertical="true"
+          android:textColor="@color/white"
+          android:textSize="17sp"
+          android:layout_alignParentRight="true"
+          android:layout_marginRight="10dp"
+          android:layout_height="wrap_content" />
+  </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:background="@mipmap/shoutu"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_haoyou"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="您的好友"
+                android:textSize="18sp"
+                android:textColor="@color/yellow_dark"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_user"
+                android:layout_width="wrap_content"
+                android:text="lss0555"
+                android:textColor="@color/yellow_dark"
+                android:textSize="18sp"
+                android:layout_toRightOf="@+id/tv_haoyou"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="邀请您"
+                android:textColor="@color/yellow_dark"
+                android:layout_toRightOf="@+id/tv_user"
+                android:textSize="18sp"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="加入易赚ATM一起和TA赚钱"
+            android:textColor="@color/yellow_dark"
+            android:textSize="20sp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="一个能真正赚钱的APP"
+            android:textColor="@color/yellow_dark"
+            android:layout_marginTop="9dp"
+            android:layout_gravity="center"
+            android:textSize="18sp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_height="140dp">
+       <ImageView
+           android:layout_width="140dp"
+           android:background="@mipmap/ic_launcher"
+           android:layout_centerInParent="true"
+           android:scaleType="fitXY"
+           android:layout_height="match_parent" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="将此图片下载保存到手机上，转发到微信好友，微信朋友圈，微信群，QQ好友，QQ空间，微博等社交软件的分享，只要好友通过你发的专属二维码下载并注册便成为您的徒弟了！"
+            android:textSize="16sp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+</LinearLayout>

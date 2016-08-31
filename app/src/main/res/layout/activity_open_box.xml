@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_height="match_parent">
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:background="@color/red"
+      android:layout_height="50dp">
+      <TextView
+          android:layout_width="wrap_content"
+          android:text="挖宝最高奖Iphone 6s Plus"
+          android:textColor="@color/white"
+          android:textSize="18sp"
+          android:layout_centerInParent="true"
+          android:layout_height="wrap_content" />
+      <RelativeLayout
+          android:id="@+id/rtl_back"
+          android:layout_width="60dp"
+          android:onClick="back"
+          android:layout_height="match_parent">
+          <ImageView
+              android:layout_width="wrap_content"
+              android:background="@mipmap/g_fanhui"
+              android:layout_centerInParent="true"
+              android:layout_height="wrap_content" />
+      </RelativeLayout>
+  </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView" >>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:background="@mipmap/baoxiangtu"
+                        android:layout_height="match_parent" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_height="50dp">
+                    <TextView
+                        android:id="@+id/tv_hello"
+                        android:layout_width="wrap_content"
+                        android:text="您好，用户"
+                        android:textColor="@color/gold"
+                        android:textSize="16sp"
+                        android:layout_centerVertical="true"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/tv_user"
+                        android:layout_width="wrap_content"
+                        android:layout_toRightOf="@+id/tv_hello"
+                        android:layout_centerVertical="true"
+                        android:textColor="@color/gold"
+                        android:textSize="16sp"
+                        android:text="lss0555"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/tv_hkyw"
+                        android:layout_width="wrap_content"
+                        android:layout_toRightOf="@+id/tv_user"
+                        android:textColor="@color/gold"
+                        android:layout_centerVertical="true"
+                        android:textSize="16sp"
+                        android:text="当前还可以挖"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/tv_num"
+                        android:layout_width="wrap_content"
+                        android:layout_toRightOf="@+id/tv_hkyw"
+                        android:layout_centerVertical="true"
+                        android:textSize="16sp"
+                        android:text="0次"
+                        android:textColor="@color/red"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:textColor="@color/gold"
+                        android:layout_toRightOf="@+id/tv_num"
+                        android:layout_centerVertical="true"
+                        android:textSize="16sp"
+                        android:text="宝藏"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginRight="7dp"
+                    android:layout_height="80dp">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:background="@mipmap/baoxiang"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:background="@mipmap/baoxiang"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:background="@mipmap/baoxiang"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_height="50dp">
+                    <RelativeLayout
+                        android:id="@+id/rtl_open1"
+                        android:layout_width="match_parent"
+                        android:background="@drawable/round_dark_red_bg"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="7dp"
+                        android:layout_weight="1"
+                        android:layout_marginTop="7dp"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:textSize="18sp"
+                            android:textColor="@color/white"
+                            android:text="开宝箱"
+                            android:layout_height="wrap_content" />
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/rtl_open2"
+                        android:layout_width="match_parent"
+                        android:background="@drawable/round_dark_red_bg"
+                        android:layout_marginBottom="7dp"
+                        android:layout_weight="1"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="7dp"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:textSize="18sp"
+                            android:textColor="@color/white"
+                            android:text="开宝箱"
+                            android:layout_height="wrap_content" />
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/rtl_open3"
+                        android:layout_width="match_parent"
+                        android:background="@drawable/round_dark_red_bg"
+                        android:layout_marginBottom="7dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="1"
+                        android:layout_marginTop="7dp"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:textSize="18sp"
+                            android:textColor="@color/white"
+                            android:text="开宝箱"
+                            android:layout_height="wrap_content" />
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:textColor="@color/gold"
+                    android:text="怎样获取挖宝箱机会"
+                    android:textSize="17sp"
+                    android:layout_centerInParent="true"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="20dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:textColor="@color/gold"
+                    android:text="完成注册成为易赚用户，挖宝藏+1;"
+                    android:textSize="17sp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="20dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:textColor="@color/gold"
+                    android:text="每日成功签到，挖宝藏+1;"
+                    android:textSize="17sp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="20dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:textColor="@color/gold"
+                    android:text="完成10次任务，挖宝藏+1;"
+                    android:textSize="17sp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="20dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:textColor="@color/gold"
+                    android:text="成功收5名徒弟并注册成功，挖宝藏+1;"
+                    android:textSize="17sp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:textSize="17sp"
+                    android:textColor="@color/gold"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="15dp"
+                    android:text="挖宝箱清单:"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="@color/red"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="15dp"
+                    android:text="Iphone 6s Plus"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="@color/red"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="15dp"
+                    android:text="iPad mini2"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="@color/red"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="15dp"
+                    android:text="苹果MP3"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="@color/red"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="15dp"
+                    android:text="50元话费"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="@color/red"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="15dp"
+                    android:text="20元话费"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="@color/red"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="15dp"
+                    android:text="10元话费"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="@color/red"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="15dp"
+                    android:text="5G流量"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="@color/red"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="15dp"
+                    android:text="1G流量"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="@color/red"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_marginLeft="15dp"
+                    android:text="红包元0.01-10元"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

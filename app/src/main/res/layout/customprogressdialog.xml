@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@drawable/round_white_bg"
+    >
+    <!--<ImageView-->
+        <!--android:id="@+id/loadingImageView"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@anim/progress_round" />-->
+    <!--<TextView-->
+        <!--android:id="@+id/id_tv_loadingmsg"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:textSize="13sp"-->
+        <!--android:text="加载中..."-->
+        <!--android:textColor="@color/gray"/>-->
+    <RelativeLayout
+        android:layout_width="120dp"
+        android:background="@drawable/release_task_bg"
+        android:layout_height="60dp">
+    <TextView
+        android:id="@+id/id_tv_loadingmsg"
+        android:layout_width="wrap_content"
+        android:text="正在刷新."
+        android:textColor="@color/black"
+        android:layout_centerInParent="true"
+        android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+</LinearLayout>
