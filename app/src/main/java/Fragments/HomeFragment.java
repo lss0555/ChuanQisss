@@ -61,7 +61,7 @@ import model.TxRecord.TxRecord;
 import model.TxRecord.tx;
 import model.UserMoney;
 /**
- * A simple {@link Fragment} subclass.
+ * A simple {@link Fragment} subclass. update 2016.8.31
  */
 public class HomeFragment extends Fragment implements View.OnClickListener{
     private  List<TxRecord> mTxRecord=new ArrayList<>();
