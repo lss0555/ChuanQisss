@@ -124,10 +124,12 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
         OkHttpUtil.getInstance().Post(map, constance.URL.IS_BIND_PHONE,new OkHttpUtil.FinishListener() {
             @Override
             public void Successfully(boolean IsSuccess, String data, String Msg) {
-                yzm = GsonUtils.parseJSON(data, Yzm.class);
+                if(IsSuccess){
+                    yzm = GsonUtils.parseJSON(data, Yzm.class);
 ////                showTip(data.toString()+"是否绑定");
-                if(yzm.getRun().equals("1")){
-                    mTvBindPhoneState.setText("已绑定");
+                    if(yzm.getRun().equals("1")){
+                        mTvBindPhoneState.setText("已绑定");
+                    }
                 }
             }
         });
@@ -141,11 +143,15 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
             OkHttpUtil.getInstance().Post(map, constance.URL.USER_INFO, new OkHttpUtil.FinishListener() {
                 @Override
                 public void Successfully(boolean IsSuccess, String data, String Msg) {
-//                    showTip(data.toString());
-                    mUserInfo= GsonUtils.parseJSON(data,UserInfo.class);
-                    SharePre.saveUserId(getActivity(),mUserInfo.getId());
-                    UILUtils.displayImage(mUserInfo.getHeadportrait(),mImgIcons);
-                    mTvId.setText("ID:"+mUserInfo.getId());
+//                    showTip("个人资料:"+data.toString());
+                    if(IsSuccess){
+                        mUserInfo= GsonUtils.parseJSON(data,UserInfo.class);
+                        SharePre.saveUserId(getActivity(),mUserInfo.getId());
+                        UILUtils.displayImage(mUserInfo.getHeadportrait(),mImgIcons);
+                        mTvId.setText("ID:"+mUserInfo.getId());
+                    } else {
+                        Toast(data.toString());
+                    }
                 }
             });
     }
@@ -321,7 +327,11 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
             OkHttpUtil.getInstance().Post(map, constance.URL.USER_UDID, new OkHttpUtil.FinishListener() {
                 @Override
                 public void Successfully(boolean IsSuccess, String data, String Msg) {
-                    SharePre.saveIsPostUdid(getActivity(),true);
+                    if(IsSuccess){
+                        SharePre.saveIsPostUdid(getActivity(),true);
+                    }else {
+                        Toast(data.toString());
+                    }
 //                    showTip("Udid"+data.toString());
                 }
             });

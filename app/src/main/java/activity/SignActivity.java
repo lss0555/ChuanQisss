@@ -30,7 +30,6 @@ public class SignActivity extends BaseActivity implements View.OnClickListener{
     private String date;
     private SignCalendar mSc;
     private TextView mTvAllDayNum;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,35 +41,28 @@ public class SignActivity extends BaseActivity implements View.OnClickListener{
      * initdate
      */
     private void initdate() {
-//        mSigned.clear();
-//        mSigned.add("2016-08-01");
-//        mSigned.add("2016-08-02");
-//        mSigned.add("2016-08-03");
-//        mSigned.add("2016-08-04");
-//        mSigned.add("2016-08-05");
-//        mSigned.add("2016-08-14");
-//        mSigned.add("2016-08-22");
-//        mSigned.add("2016-08-12");
-//        mSigned.add("2016-08-21");
-//        mSigned.add("2016-08-30");
-//        mSigned.add("2016-08-28");
-//        mSigned.add("2016-08-11");
-//        mSc.addMarks(mSigned,0);
+//        showLoadingDialog("努力加载中...");
+
         startProgressDialog("加载中...");
         HashMap<String,String> map=new HashMap<>();
         map.put("userid", SharePre.getUserId(getApplicationContext()));
         OkHttpUtil.getInstance().Post(map, constance.URL.MONTH_SIGN, new OkHttpUtil.FinishListener() {
             @Override
             public void Successfully(boolean IsSuccess, String data, String Msg) {
+//                showTip(data.toString());
                 stopProgressDialog();
-                Signs signs = GsonUtils.parseJSON(data, Signs.class);
-                ArrayList<signDate> qdjl = signs.getQdjl();
-                mTvAllDayNum.setText(""+qdjl.size());
-                mSigned.clear();
-                for (int i=0;i<qdjl.size();i++){
-                    mSigned.add(qdjl.get(i).getDtime());
+                if(IsSuccess){
+                    Signs signs = GsonUtils.parseJSON(data, Signs.class);
+                    if(signs.getQdjl()!=null){
+                        ArrayList<signDate> qdjl = signs.getQdjl();
+                        mTvAllDayNum.setText(""+qdjl.size());
+                        mSigned.clear();
+                        for (int i=0;i<qdjl.size();i++){
+                            mSigned.add(qdjl.get(i).getDtime());
+                        }
+                        mSc.addMarks(mSigned,0);
+                    }
                 }
-                mSc.addMarks(mSigned,0);
             }
         });
     }
@@ -107,20 +99,25 @@ public class SignActivity extends BaseActivity implements View.OnClickListener{
            @Override
            public void Successfully(boolean IsSuccess, String data, String Msg) {
                stopProgressDialog();
-//               showTip(data.toString());
-               Result result = GsonUtils.parseJSON(data, Result.class);
-               if(result.getRun().equals("1")){
-                   Toast("签到成功");
-                   List<String> list = new ArrayList<String>();
-                   list.add(Utis.getDate());
-                   mSc.addMarks(list,0);
-                   Intent intent = new Intent();
-                   intent.putExtra("update",true);
-                   intent.setAction("update");   //
-                   sendBroadcast(intent);
-               }else {
-                   Toast.makeText(getApplicationContext(),"您今天已经签到过",Toast.LENGTH_SHORT).show();
+               if(IsSuccess){
+                   //               showTip(data.toString());
+                   Result result = GsonUtils.parseJSON(data, Result.class);
+                   if(result.getRun().equals("1")){
+                       Toast("签到成功");
+                       List<String> list = new ArrayList<String>();
+                       list.add(Utis.getDate());
+                       mSc.addMarks(list,0);
+                       Intent intent = new Intent();
+                       intent.putExtra("update",true);
+                       intent.setAction("update");   //
+                       sendBroadcast(intent);
+                   }else {
+                       Toast.makeText(getApplicationContext(),"您今天已经签到过",Toast.LENGTH_SHORT).show();
+                   }
+               } else {
+                   Toast(data.toString());
                }
+
            }
        });
     }

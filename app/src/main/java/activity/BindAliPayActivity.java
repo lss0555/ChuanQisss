@@ -37,11 +37,11 @@ public class BindAliPayActivity extends BaseActivity {
         getDate();
         initevent();
     }
-
     /**
      * 初始化绑定数据
      */
     private void getDate() {
+        startProgressDialog("加载中...");
         HashMap<String,String> map=new HashMap<String, String>();
         map.put("userid", SharePre.getUserId(getApplicationContext()));
         map.put("account", mEtAccount.getText().toString());
@@ -50,6 +50,7 @@ public class BindAliPayActivity extends BaseActivity {
         OkHttpUtil.getInstance().Post(map, constance.URL.IS_BIND_WX_ALIPAY_ACCOUNT, new OkHttpUtil.FinishListener() {
             @Override
             public void Successfully(boolean IsSuccess, String data, String Msg) {
+                stopProgressDialog();
                 IsBindAccount bindAccount = GsonUtils.parseJSON(data, IsBindAccount.class);
 //                showTip(data.toString());
                 if(!bindAccount.getAccount().equals("")){
@@ -57,7 +58,7 @@ public class BindAliPayActivity extends BaseActivity {
                     mEtName.setText(bindAccount.getName());
                     mEtAccount.setEnabled(false);
                     mEtName.setEnabled(false);
-                    mRtlComplite.setBackgroundColor(Color.GRAY);
+                    mRtlComplite.setBackground(getResources().getDrawable(R.drawable.round_gray_bg));
                     state=1;
                 }
             }

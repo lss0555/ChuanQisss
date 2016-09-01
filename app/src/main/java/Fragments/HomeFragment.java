@@ -63,7 +63,7 @@ import model.UserMoney;
 /**
  * A simple {@link Fragment} subclass. update 2016.8.31
  */
-public class HomeFragment extends Fragment implements View.OnClickListener{
+public class HomeFragment extends BaseFragment implements View.OnClickListener{
     private  List<TxRecord> mTxRecord=new ArrayList<>();
     private  ArrayList<String > mUserId=new ArrayList<>();
     private  List<String > mTimes=new ArrayList<>();
@@ -154,48 +154,56 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
             @Override
             public void Successfully(boolean IsSuccess, String data, String Msg) {
 //                showTip(data.toString());
-                Notice notice = GsonUtils.parseJSON(data, Notice.class);
-                mTvGongGao.setText(""+notice.getContent());
+                if(IsSuccess){
+                    Notice notice = GsonUtils.parseJSON(data, Notice.class);
+                    mTvGongGao.setText(""+notice.getContent());
+                }else {
+                    Toast(data.toString());
+                }
             }
         });
         //用户提现记录
         OkHttpUtil.getInstance().Get(constance.URL.USER_TX, new OkHttpUtil.FinishListener() {
             @Override
             public void Successfully(boolean IsSuccess, String data, String Msg) {
-                tx mTx = GsonUtils.parseJSON(data, tx.class);
-                mTxRecord.clear();
-                mTxRecord.addAll(mTx.getTx());
-                mUserId.clear();
-                mTimes.clear();
-                mState.clear();
-                for (int i=0;i<mTxRecord.size();i++){
-                    mUserId.add("用户"+mTxRecord.get(i).getUserid());
-                    mTimes.add(Utis.getDistanceTime(Utis.getTime(),mTxRecord.get(i).getTxtime())+"前");
-                    if(mTxRecord.get(i).getAccountstyle().equals("1")){
-                        mState.add("微信提现"+mTxRecord.get(i).getPrice()+"元到账");
-                    }else {
-                        mState.add("支付宝提现"+mTxRecord.get(i).getPrice()+"元到账");
+                if(IsSuccess){
+                    tx mTx = GsonUtils.parseJSON(data, tx.class);
+                    mTxRecord.clear();
+                    mTxRecord.addAll(mTx.getTx());
+                    mUserId.clear();
+                    mTimes.clear();
+                    mState.clear();
+                    for (int i=0;i<mTxRecord.size();i++){
+                        mUserId.add("用户"+mTxRecord.get(i).getUserid());
+                        mTimes.add(Utis.getDistanceTime(Utis.getTime(),mTxRecord.get(i).getTxtime())+"前");
+                        if(mTxRecord.get(i).getAccountstyle().equals("1")){
+                            mState.add("微信提现"+mTxRecord.get(i).getPrice()+"元到账");
+                        }else {
+                            mState.add("支付宝提现"+mTxRecord.get(i).getPrice()+"元到账");
+                        }
                     }
+                    initUserTx();
                 }
-                initUserTx();
             }
         });
 //        //聚钱庄存入记录
         OkHttpUtil.getInstance().Get(constance.URL.JQZ_CR, new OkHttpUtil.FinishListener() {
             @Override
             public void Successfully(boolean IsSuccess, String data, String Msg) {
-                jqzcr mJqzCr = GsonUtils.parseJSON(data, jqzcr.class);
-                mCrJqz.clear();
-                mJqzCrUserId.clear();
-                mJqzCrTime.clear();
-                mJqzCrMoney.clear();
-                mCrJqz.addAll(mJqzCr.getJqzcr());
-                for (int i=0;i<mCrJqz.size();i++){
-                    mJqzCrUserId.add("用户"+mCrJqz.get(i).getUserid());
-                    mJqzCrTime.add(Utis.getDistanceTime(Utis.getTime(),mCrJqz.get(i).getTdate())+"前");
-                    mJqzCrMoney.add("成功转入聚钱庄"+mCrJqz.get(i).getMoney()+"元");
+                if(IsSuccess){
+                    jqzcr mJqzCr = GsonUtils.parseJSON(data, jqzcr.class);
+                    mCrJqz.clear();
+                    mJqzCrUserId.clear();
+                    mJqzCrTime.clear();
+                    mJqzCrMoney.clear();
+                    mCrJqz.addAll(mJqzCr.getJqzcr());
+                    for (int i=0;i<mCrJqz.size();i++){
+                        mJqzCrUserId.add("用户"+mCrJqz.get(i).getUserid());
+                        mJqzCrTime.add(Utis.getDistanceTime(Utis.getTime(),mCrJqz.get(i).getTdate())+"前");
+                        mJqzCrMoney.add("成功转入聚钱庄"+mCrJqz.get(i).getMoney()+"元");
+                    }
+                    setJqzCrReord();
                 }
-                setJqzCrReord();
             }
         });
         UserAccount();  //用户余额
@@ -211,27 +219,41 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
             OkHttpUtil.getInstance().Post(maps, constance.URL.MONEY, new OkHttpUtil.FinishListener() {
                 @Override
                 public void Successfully(boolean IsSuccess, String data, String Msg) {
-                    Log.i("数据",""+data.toString());
+                    if(IsSuccess){
+                        Log.i("数据",""+data.toString());
 //                  showTip(data.toString());
-                    UserMoney userMoney = GsonUtils.parseJSON(data, UserMoney.class);
-                    UserAccount=Double.parseDouble(userMoney.getfNotPayIncome());
-                    mTvAllIncome.setText(userMoney.getfNotPayIncome()+"元");
-                    mTvTodyIncome.setText(""+userMoney.getfTodayIncome()+"元");
+                        UserMoney userMoney = GsonUtils.parseJSON(data, UserMoney.class);
+                        if(userMoney.getfTodayIncome()==null){
+                            UserAccount=0.0;
+                            mTvAllIncome.setText("0.0元");
+                            mTvTodyIncome.setText("0.0元");
+                        }else {
+                            UserAccount=Double.parseDouble(userMoney.getfNotPayIncome());
+                            mTvAllIncome.setText(userMoney.getfNotPayIncome()+"元");
+                            mTvTodyIncome.setText(""+userMoney.getfTodayIncome()+"元");
+                        }
+                    }
                 }
             });
     }
-
     private void JqzAccount() { //聚钱庄余额
         HashMap<String,String> maps1=new HashMap<>();
         maps1.put("udid", Utis.getIMEI(getActivity()));
         OkHttpUtil.getInstance().Post(maps1, constance.URL.JQZ_MONEY, new OkHttpUtil.FinishListener() {
             @Override
             public void Successfully(boolean IsSuccess, String data, String Msg) {
-                  Log.i("数据",""+data.toString());
+                if(IsSuccess){
+                    Log.i("数据",""+data.toString());
 //                showTip(data.toString());
-                JxzAccount mJxzAccount =GsonUtils.parseJSON(data, JxzAccount.class);
-                mTvJxzYue.setText(mJxzAccount.getYue()+"元");
-                mTvJxzAccrual.setText(mJxzAccount.getAccrual()+"元");
+                    JxzAccount mJxzAccount =GsonUtils.parseJSON(data, JxzAccount.class);
+                    if(mJxzAccount.getAccrual()==null){
+                        mTvJxzYue.setText("0.0元");
+                        mTvJxzAccrual.setText("0.0元");
+                    } else {
+                        mTvJxzYue.setText(mJxzAccount.getYue()+"元");
+                        mTvJxzAccrual.setText(mJxzAccount.getAccrual()+"元");
+                    }
+                }
             }
         });
     }
@@ -331,10 +353,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         OkHttpUtil.getInstance().Get(constance.URL.BANNER, new OkHttpUtil.FinishListener() {
             @Override
             public void Successfully(boolean IsSuccess, String data, String Msg) {
-                Banner banner = GsonUtils.parseJSON(data, Banner.class);
-                lannerBeans.clear();
-                lannerBeans.addAll(banner.getGgt());
-                mLanner.setLannerBeanList(lannerBeans);
+                if(IsSuccess){
+                    Banner banner = GsonUtils.parseJSON(data, Banner.class);
+                    lannerBeans.clear();
+                    lannerBeans.addAll(banner.getGgt());
+                    mLanner.setLannerBeanList(lannerBeans);
+                }else {
+                    Toast(data.toString());
+                }
             }
         });
         mLanner.setOnLannerItemClickListener(new Lanner.OnLannerItemClickListener() {

@@ -72,8 +72,8 @@ public class SendRedActivity extends BaseActivity {
             public void Successfully(boolean IsSuccess, String data, String Msg) {
 //                showTip(data.toString());
                 YiZhuanRed yiZhuanRed = GsonUtils.parseJSON(data, YiZhuanRed.class);
-                YiZhuanYue=Double.parseDouble(yiZhuanRed.getYue());
-                mTvYiZuan.setText("余额:"+YiZhuanYue+"元");
+//                YiZhuanYue=Double.parseDouble(yiZhuanRed.getYue());
+                mTvYiZuan.setText("余额:"+yiZhuanRed.getYue()+"元");
             }
         });
     }
@@ -89,8 +89,8 @@ public class SendRedActivity extends BaseActivity {
             public void Successfully(boolean IsSuccess, String data, String Msg) {
                 Log.i("数据",""+data.toString());
                 UserMoney userMoney = GsonUtils.parseJSON(data, UserMoney.class);
-                Yue=Integer.parseInt(userMoney.getfNotPayIncome());
-                mTvYue.setText("余额:"+Yue+"元");
+//                Yue=Integer.parseInt(userMoney.getfNotPayIncome());
+                mTvYue.setText("余额:"+userMoney.getfNotPayIncome()+"元");
             }
         });
     }
@@ -234,7 +234,7 @@ public class SendRedActivity extends BaseActivity {
         });
     }
     public  void  PayYue2RedPool(int price){
-        if(price<=Yue){
+//        if(price<=Yue){
             startProgressDialog("正在支付中...");
             HashMap<String,String> map=new HashMap<>();
             map.put("userid", SharePre.getUserId(getApplicationContext()));
@@ -258,12 +258,12 @@ public class SendRedActivity extends BaseActivity {
                     }
                 }
             });
-        }else {
-            showTip("抱歉，您的余额不足");
-        }
+//        }else {
+//            showTip("抱歉，您的余额不足");
+//        }
     }
     public  void  PayYizhuanRed2RedPool(int price){
-        if(price<=YiZhuanYue){
+//        if(price<=YiZhuanYue){
             startProgressDialog("正在支付中...");
             HashMap<String,String> map=new HashMap<>();
             map.put("userid", SharePre.getUserId(getApplicationContext()));
@@ -288,8 +288,8 @@ public class SendRedActivity extends BaseActivity {
                     }
                 }
             });
-        }else {
-            showTip("抱歉，您的余额不足");
-        }
+//        }else {
+//            showTip("抱歉，您的余额不足");
+//        }
     }
 }

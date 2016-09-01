@@ -21,7 +21,6 @@
                 android:id="@+id/img_icons"
                 android:layout_width="120dp"
                 app:border_width="1dp"
-                android:src="@mipmap/ic_launcher"
                 app:border_color="@color/gray"
                 android:layout_centerInParent="true"
                 android:layout_height="120dp"
@@ -42,7 +41,6 @@
             <TextView
                 android:id="@+id/tv_id"
                 android:layout_width="wrap_content"
-                android:text="ID:132132"
                 android:textColor="@color/white"
                 android:textSize="17sp"
                 android:layout_centerInParent="true"

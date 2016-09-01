@@ -2,17 +2,16 @@ package activity;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
+import android.content.Context;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.view.Gravity;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -28,6 +27,14 @@ import java.util.Map;
 import dialog.CustomProgressDialog;
 
 public class BaseActivity extends FragmentActivity {
+	/**
+	 * 获取当前网络类型
+	 * @return 0：没有网络   1：WIFI网络   2：WAP网络    3：NET网络
+	 */
+
+	public static final int NETTYPE_WIFI = 11;
+	public static final int NETTYPE_CMWAP = 12;
+	public static final int NETTYPE_CMNET = 13;
 	public final static int RESULT_CLOSE_ACTIVITY = -9999;
 	private static ArrayList<BaseActivity> activityList = new ArrayList<BaseActivity>();
 	private boolean background = false;
@@ -49,12 +56,13 @@ public class BaseActivity extends FragmentActivity {
 	@Override
 	protected void onStart() {
 		super.onStart();
-//		StatusBarCompat.setStatusBarColor(this,R.color.red, false);
+//		StatusBarCompat.setStatusBarColor(this,R.color.red, true);
 	}
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		activityList.add(this);
 		preInit();
+//		StatusBarCompat.setStatusBarColor(this,R.color.red, true);
 	}
 	public void back(View view) {
 		finish();
@@ -96,6 +104,27 @@ public class BaseActivity extends FragmentActivity {
 			if( r != null ) touchListenerMap.put(v, r);
 			else  touchListenerMap.remove(v);
 		}
+	}
+	public void NetTip(){
+		if(!isNetworkConnected(getApplicationContext())){
+			Toast("当前无网络，请检查网络");
+		}
+	}
+	/**
+	 * 判断有无网络
+	 * @param context
+	 * @return
+     */
+	public boolean isNetworkConnected(Context context) {
+		if (context != null) {
+			ConnectivityManager mConnectivityManager = (ConnectivityManager) context
+					.getSystemService(Context.CONNECTIVITY_SERVICE);
+			NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
+			if (mNetworkInfo != null) {
+				return mNetworkInfo.isAvailable();
+			}
+		}
+		return false;
 	}
 	public void onDestroy() {
 		background = true;
@@ -174,14 +203,12 @@ public class BaseActivity extends FragmentActivity {
 
 		progressDialog.show();
 	}
-
 	public void stopProgressDialog(){
 		if (progressDialog != null){
 			progressDialog.dismiss();
 			progressDialog = null;
 		}
 	}
-
 	/**
 	 * ����һ�����ض������趨һ����ʱʱ�䣬���ʱ�䵽��û�б��رգ����Զ��رղ���ʾ������ʾ
 	 * @param title ����

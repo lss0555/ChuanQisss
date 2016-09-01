@@ -8,6 +8,8 @@ import android.app.Application;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
@@ -74,8 +76,6 @@ public class BaseApp extends Application {
         OkHttpUtils.getInstance().debug("testDebug").setConnectTimeout(100000, TimeUnit.MILLISECONDS);
 		getAppPackages();
 	}
-
-
 	/**
 	 * 获取应用的信息
 	 */

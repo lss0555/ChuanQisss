@@ -2,6 +2,8 @@ package Utis;
 
 import android.util.Log;
 import java.io.File;
+import java.io.IOException;
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -44,8 +46,14 @@ public class OkHttpUtil {
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e) {
-                        if(dataFinishListener!=null){
-                            dataFinishListener.Successfully(false,e.toString(),null);
+                        if (e instanceof SocketTimeoutException) {
+                            if(dataFinishListener!=null){
+                                dataFinishListener.Successfully(false,"连接超时，加载失败",null);
+                            }
+                        } else if (e instanceof IOException) {
+                            dataFinishListener.Successfully(false,"网络异常，请检查网络",null);
+                        } else {
+                            dataFinishListener.Successfully(false,"加载失败",null);
                         }
                     }
                     @Override
@@ -205,4 +213,5 @@ public class OkHttpUtil {
                     });
         }
     }
+
 }

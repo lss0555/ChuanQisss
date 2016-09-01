@@ -4,7 +4,6 @@
     android:layout_height="fill_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="@drawable/round_white_bg"
     >
     <!--<ImageView-->
         <!--android:id="@+id/loadingImageView"-->
@@ -19,14 +18,15 @@
         <!--android:text="加载中..."-->
         <!--android:textColor="@color/gray"/>-->
     <RelativeLayout
-        android:layout_width="120dp"
+        android:layout_width="130dp"
         android:background="@drawable/toast_bg"
-        android:layout_height="60dp">
+        android:layout_height="100dp">
     <TextView
         android:id="@+id/id_tv_loadingmsg"
         android:layout_width="wrap_content"
         android:text="正在刷新."
         android:textColor="@color/white"
+        android:textSize="15sp"
         android:layout_centerInParent="true"
         android:layout_height="wrap_content" />
 
