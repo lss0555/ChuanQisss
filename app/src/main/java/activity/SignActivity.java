@@ -22,6 +22,7 @@ import Utis.GsonUtils;
 import Utis.Utis;
 import Views.SignCalendar;
 import model.Result;
+import model.sign.DaySign;
 import model.sign.Signs;
 import model.sign.signDate;
 
@@ -30,6 +31,8 @@ public class SignActivity extends BaseActivity implements View.OnClickListener{
     private String date;
     private SignCalendar mSc;
     private TextView mTvAllDayNum;
+    private TextView mTvDayNum;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,8 +44,9 @@ public class SignActivity extends BaseActivity implements View.OnClickListener{
      * initdate
      */
     private void initdate() {
-//        showLoadingDialog("努力加载中...");
-
+        /**
+         * 一个月中签到得天
+         */
         startProgressDialog("加载中...");
         HashMap<String,String> map=new HashMap<>();
         map.put("userid", SharePre.getUserId(getApplicationContext()));
@@ -65,12 +69,36 @@ public class SignActivity extends BaseActivity implements View.OnClickListener{
                 }
             }
         });
+        /**
+         * 获取连续签到天数
+         */
+        startProgressDialog("加载中...");
+        HashMap<String,String> map1=new HashMap<>();
+        map.put("userid",SharePre.getUserId(getApplicationContext()));
+        OkHttpUtil.getInstance().Post(map1, constance.URL.DAY_SIGN, new OkHttpUtil.FinishListener() {
+            @Override
+            public void Successfully(boolean IsSuccess, String data, String Msg) {
+//                showTip(data.toString());
+                stopProgressDialog();
+                if(IsSuccess){
+                    DaySign daySign = GsonUtils.parseJSON(data, DaySign.class);
+                    if(daySign.getCount()+""== null){
+                        mTvDayNum.setText("0");
+                    }else {
+                        mTvDayNum.setText(""+daySign.getCount());
+                    }
+                }
+            }
+        });
+
+
     }
 
     /**
      * UI
      */
     private void initview() {
+        mTvDayNum = (TextView) findViewById(R.id.tv_day_num);
         mTvAllDayNum = (TextView) findViewById(R.id.tv_all_day_num);
         mSc = (SignCalendar) findViewById(R.id.sc);
         findViewById(R.id.rtl_sign).setOnClickListener(this);

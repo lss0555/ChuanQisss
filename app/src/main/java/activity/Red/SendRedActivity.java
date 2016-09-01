@@ -73,7 +73,11 @@ public class SendRedActivity extends BaseActivity {
 //                showTip(data.toString());
                 YiZhuanRed yiZhuanRed = GsonUtils.parseJSON(data, YiZhuanRed.class);
 //                YiZhuanYue=Double.parseDouble(yiZhuanRed.getYue());
-                mTvYiZuan.setText("余额:"+yiZhuanRed.getYue()+"元");
+                if(yiZhuanRed.getYue()==null || yiZhuanRed.getYue().equals("null")|| yiZhuanRed.getYue().equals("")){
+                    mTvYiZuan.setText("余额:"+"0.0元");
+                }else {
+                    mTvYiZuan.setText("余额:"+yiZhuanRed.getYue()+"元");
+                }
             }
         });
     }
@@ -90,7 +94,11 @@ public class SendRedActivity extends BaseActivity {
                 Log.i("数据",""+data.toString());
                 UserMoney userMoney = GsonUtils.parseJSON(data, UserMoney.class);
 //                Yue=Integer.parseInt(userMoney.getfNotPayIncome());
-                mTvYue.setText("余额:"+userMoney.getfNotPayIncome()+"元");
+                if(userMoney.getfNotPayIncome()==null || userMoney.getfNotPayIncome().equals("null")|| userMoney.getfNotPayIncome().equals("")){
+                    mTvYue.setText("余额:"+"0.0元");
+                }else {
+                    mTvYue.setText("余额:"+userMoney.getfNotPayIncome()+"元");
+                }
             }
         });
     }

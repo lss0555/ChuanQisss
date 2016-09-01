@@ -61,6 +61,8 @@ public class constance {
         public static final String SIGN = BASE_URL+"sign.php";
         /* 用户一个月内签到得天数*/
         public static final String MONTH_SIGN = BASE_URL+"month_sign.php";
+        /* 获取连续签到的天数*/
+        public static final String DAY_SIGN = BASE_URL+"day_sign.php";
     }
     public static final class INTENT {
         public static final int INTO_JQZ_SUCCESS = 2132;

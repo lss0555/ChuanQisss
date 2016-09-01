@@ -76,7 +76,6 @@
                         android:layout_toRightOf="@+id/tv_yjqd"
                         android:layout_width="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:text="0"
                         android:textSize="18sp"
                         android:textColor="@color/red"
                         android:layout_centerVertical="true"

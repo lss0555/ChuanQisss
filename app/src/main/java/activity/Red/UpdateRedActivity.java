@@ -53,15 +53,23 @@ public class UpdateRedActivity extends BaseActivity {
      * 余额与易赚红包的数据
      */
     private void initdate() {
+        startProgressDialog("玩命加载中...");
         HashMap<String,String> map=new HashMap<>();
         map.put("userid", SharePre.getUserId(getApplicationContext()));
         OkHttpUtil.getInstance().Post(map, constance.URL.YIZUAN_RED, new OkHttpUtil.FinishListener() {
             @Override
             public void Successfully(boolean IsSuccess, String data, String Msg) {
-//                showTip(data.toString());
-                YiZhuanRed yiZhuanRed = GsonUtils.parseJSON(data, YiZhuanRed.class);
-                YiZhuanYue=Integer.parseInt(yiZhuanRed.getYue());
-                mTvYiZuan.setText("余额:"+YiZhuanYue+"元");
+                stopProgressDialog();
+                if(IsSuccess){
+                    YiZhuanRed yiZhuanRed = GsonUtils.parseJSON(data, YiZhuanRed.class);
+                    if(yiZhuanRed.getYue()==null || yiZhuanRed.getYue().equals("null")|| yiZhuanRed.getYue().equals("")){
+                        mTvYiZuan.setText("余额:"+"0.0元");
+                    }else {
+                        mTvYiZuan.setText("余额:"+yiZhuanRed.getYue()+"元");
+                    }
+                } else {
+                    Toast(data.toString());
+                }
             }
         });
         HashMap<String,String> maps=new HashMap<>();
@@ -69,10 +77,14 @@ public class UpdateRedActivity extends BaseActivity {
         OkHttpUtil.getInstance().Post(maps, constance.URL.MONEY, new OkHttpUtil.FinishListener() {
             @Override
             public void Successfully(boolean IsSuccess, String data, String Msg) {
-                Log.i("数据",""+data.toString());
-                UserMoney userMoney = GsonUtils.parseJSON(data, UserMoney.class);
-                Yue=Integer.parseInt(userMoney.getfNotPayIncome());
-                mTvYue.setText("余额:"+Yue+"元");
+                if(IsSuccess){
+                    Log.i("数据",""+data.toString());
+                    UserMoney userMoney = GsonUtils.parseJSON(data, UserMoney.class);
+                    Yue=Integer.parseInt(userMoney.getfNotPayIncome());
+                    mTvYue.setText("余额:"+Yue+"元");
+                } else {
+                    Toast(data.toString());
+                }
             }
         });
     }
