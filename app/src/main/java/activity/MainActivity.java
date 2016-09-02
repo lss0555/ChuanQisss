@@ -17,6 +17,7 @@ import Fragments.GetFragment;
 import Fragments.HomeFragment;
 import Fragments.MineFragment;
 import Fragments.ShareFragment;
+import Interfaces.ConnectionChangeReceiver;
 import Mob.Share.OnekeyShare;
 import Utis.StatusBarUtils;
 import Views.UnSlideViewPager;
@@ -42,12 +43,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
-
         initview();
         initPage();
+        initState();
     }
+
+    private void initState() {
+
+    }
+
     public  static  MainActivity getInstance(){
         if(instance==null){
             instance=new MainActivity();
@@ -67,15 +72,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         mTvGet = (TextView) findViewById(R.id.tv_get);
         mTvMine = (TextView) findViewById(R.id.tv_mine);
         mTvShare = (TextView) findViewById(R.id.tv_share);
-
-
         mRtlHome.setOnClickListener(this);
         mRtlShare.setOnClickListener(this);
         mRtlGet.setOnClickListener(this);
         mRtlMine.setOnClickListener(this);
-
     }
-
     private void initPage() {
         mVpTabs.setOffscreenPageLimit(4);
         mFragments=new ArrayList<Fragment>();
@@ -182,5 +183,4 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         mTv.setCompoundDrawables(null, drawable, null, null);
         mTv.setTextColor(getResources().getColor(color));
     }
-
 }

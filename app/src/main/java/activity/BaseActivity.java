@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Map;
 
+import Interfaces.ConnectionChangeReceiver;
 import dialog.CustomProgressDialog;
 
 public class BaseActivity extends FragmentActivity {
@@ -31,7 +33,6 @@ public class BaseActivity extends FragmentActivity {
 	 * 获取当前网络类型
 	 * @return 0：没有网络   1：WIFI网络   2：WAP网络    3：NET网络
 	 */
-
 	public static final int NETTYPE_WIFI = 11;
 	public static final int NETTYPE_CMWAP = 12;
 	public static final int NETTYPE_CMNET = 13;
@@ -45,6 +46,8 @@ public class BaseActivity extends FragmentActivity {
 	private int loadingCount = 0; // loading��������ʱ�ж���
 	private Map<View, Runnable> touchListenerMap = new Hashtable<>();
 	private boolean containVisiableStartActivity = false;
+	private ConnectionChangeReceiver myReceiver;
+	private boolean IsConnectNet=true;
 	/**
 	 */
 	public static boolean isAllActivityBackground() {
@@ -57,27 +60,37 @@ public class BaseActivity extends FragmentActivity {
 	protected void onStart() {
 		super.onStart();
 //		StatusBarCompat.setStatusBarColor(this,R.color.red, true);
+		IntentFilter filter=new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+		myReceiver=new ConnectionChangeReceiver();
+		myReceiver.SetNetStateListner(new ConnectionChangeReceiver.NetStateListner() {
+			@Override
+			public void NetState(boolean IsConnect) {
+				if(IsConnect){
+					IsConnectNet=true;
+				}else {
+					IsConnectNet=false;
+				}
+//				Toast("连接网络状态:"+IsConnect);
+			}
+		});
+		registerReceiver(myReceiver, filter);
+	}
+	public  void IsNewConnect(boolean IsConnectNet){
+		Toast("连接网络网站"+IsConnectNet);
+	}
+	public void onDestroy() {
+		background = true;
+		activityList.remove(this);
+		unregisterReceiver(myReceiver);
+		super.onDestroy();
 	}
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		activityList.add(this);
-		preInit();
 //		StatusBarCompat.setStatusBarColor(this,R.color.red, true);
 	}
 	public void back(View view) {
 		finish();
-	}
-	/**
-	 * У�鵱ǰ��¼״̬�����û��¼����ʾ��¼����
-	 */
-	private void preInit() {
-//		if(  !(this instanceof LoginActivity || this instanceof RegisterActivity || this instanceof FindPasswordActivity) ) {
-//			if (!LoginState.getInstance().isLogin(this)) {
-//				Intent intent = new Intent(this, LoginActivity.class);
-//				intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-//				startActivity(intent);
-//			}
-//		}
 	}
 	/**
 	 */
@@ -126,11 +139,7 @@ public class BaseActivity extends FragmentActivity {
 		}
 		return false;
 	}
-	public void onDestroy() {
-		background = true;
-		activityList.remove(this);
-		super.onDestroy();
-	}
+
 	public void onResume() {
 		background = false;
 //		AndroidSystem.getInstance().clearNotification();
@@ -175,7 +184,6 @@ public class BaseActivity extends FragmentActivity {
 	}
 
 	/**
-	 * ����һ��������ʾ��������ͼ��
 	 * @param msg
 	 */
 	public void showErrorTip(String msg) {
@@ -209,13 +217,7 @@ public class BaseActivity extends FragmentActivity {
 			progressDialog = null;
 		}
 	}
-	/**
-	 * ����һ�����ض������趨һ����ʱʱ�䣬���ʱ�䵽��û�б��رգ����Զ��رղ���ʾ������ʾ
-	 * @param title ����
-	 * @param msg ��Ϣ
-	 * @param timeout ��ʱʱ�䣬��λ����
-	 * @param timeoutCallback ��ʱ�ص�����,����Ϊnull
-	 * @deprecated
+	/*eprecated
 	 */
 	public void showLoading(String title, String msg, int timeout, final String timeoutMsg, final Runnable timeoutCallback) {
 		if( loading == null ) loading = new ProgressDialog(this);
@@ -250,7 +252,6 @@ public class BaseActivity extends FragmentActivity {
 	}
 
 	/**
-	 * ����һ���Ի�����ȷ����ȡ��������ť���õ��������Ӧ����
 	 * @param msg
 	 * @param ok
 	 * @param cancle
@@ -265,8 +266,6 @@ public class BaseActivity extends FragmentActivity {
 	}
 
 	/**
-	 * У���¼�˺�,�˺Ų���Ϊ�գ�6��11λ,���԰�����������ĸ�������ִ�Сд�������������ַ�
-	 * @return �Ƿ�ͨ��У��
 	 */
 	public boolean validateLoginAccount(TextView view) {
 		int minLen = 6;
@@ -292,8 +291,6 @@ public class BaseActivity extends FragmentActivity {
 	}
 
 	/**
-	 * У���¼����,6-16λ������Ϊ��
-	 * @return �Ƿ�ͨ��У��
 	 */
 	public boolean validateLoginPassword(TextView view) {
 		int minLen = 6;
@@ -315,7 +312,6 @@ public class BaseActivity extends FragmentActivity {
 	}
 
 	/**
-	 * У���ֻ�����
 	 * @return
 	 */
 	public boolean validateTelNumber(TextView view){
@@ -333,7 +329,6 @@ public class BaseActivity extends FragmentActivity {
 		return true;
 	}
 	/**
-	 * У���¼��
 	 * @return
 	 */
 	public boolean validateLoginNumber(TextView view){
@@ -349,7 +344,6 @@ public class BaseActivity extends FragmentActivity {
 	}
 
 	/**
-	 * У����֤��
 	 * @return
 	 */
 	public boolean validateCode(TextView view){
@@ -368,7 +362,6 @@ public class BaseActivity extends FragmentActivity {
 	}
 
 	/**
-	 * У���Ƿ�Ϊ��
 	 * @return
 	 */
 	public boolean validateEmpty(TextView view){
@@ -378,59 +371,5 @@ public class BaseActivity extends FragmentActivity {
 		}
 		return true;
 	}
-//
-//	/**
-//	 * ���ظ�activity
-//	 * @see #show
-//	 */
-//	public void hide() {
-//		if( !(this instanceof MainActivity) )
-//			setVisible(false);
-//	}
-//
-//	/**
-//	 * ��ʾ��activity
-//	 * @see #hide()
-//	 */
-//	public void show() {
-//		setVisible(true);
-//	}
-//
-//	/**
-//	 * ����һ��activity�����ص�ǰactivity
-//	 * @see #nextTimeStartActivityContainVisiable
-//	 */
-//	public void startActivityForResult(Intent intent, int requestCode) {
-//		startActivityForResult(intent, requestCode, null);
-//	}
-//
-//	/**
-//	 * ����һ��activity�����ص�ǰactivity
-//	 * @see #nextTimeStartActivityContainVisiable
-//	 */
-//	public void startActivityForResult(Intent intent, int requestCode, @Nullable Bundle options) {
-//		if( !containVisiableStartActivity ) {
-//			hide();
-//		}
-//		containVisiableStartActivity = false;
-//		super.startActivityForResult(intent, requestCode, options);
-//	}
-//
-//	/**
-//	 * ����һ��activity�������ص�ǰactivity
-//	 */
-//	public void startActivityForResultNotHide(Intent intent, int requestCode) {
-//		super.startActivityForResult(intent, requestCode);
-//	}
-//	/**
-//	 * ��һ��ʹ��startActivityForResult���ֽ�����ʾ
-//	 */
-//	protected void nextTimeStartActivityContainVisiable() {
-//		this.containVisiableStartActivity = true;
-//	}
-//
-//	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//		super.onActivityResult(requestCode, resultCode, data);
-//		show();
-//	}
+
 }

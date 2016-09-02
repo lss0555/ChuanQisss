@@ -147,5 +147,10 @@
         </activity>
         <!-- 高德地图定位 -->
         <service android:name="com.amap.api.location.APSService"></service>
-        </application>
+        <!--<receiver android:name="cn.broadcastreceiver.NetBroadcastReceiver" >-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.net.conn.CONNECTIVITY_CHANGE" />-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
+    </application>
 </manifest>

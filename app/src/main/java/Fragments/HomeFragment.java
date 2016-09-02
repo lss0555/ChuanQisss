@@ -3,6 +3,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +31,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import Constance.constance;
+import Interfaces.ConnectionChangeReceiver;
 import Utis.OkHttpUtil;
 import Utis.Utis;
 import Utis.StatusBarUtils;
@@ -76,7 +79,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
     private  ArrayList<JxzAccount> mJxzAccount=new ArrayList<>();
     protected boolean isVisible;
     final ArrayList<String> list = new ArrayList<String>(Arrays.asList("30分钟", "20分钟", "12秒钟", "2小时"));
-    int num=100000;
     private boolean IsTouch=true;
     private ViewPager page;
     private ViewPageIndicator viewPageIndicator;
@@ -104,6 +106,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
     private double UserAccount;//聚钱庄余额
     public static  HomeFragment instance;
     private ReceiveBroadCast receiveBroadCast;
+    private ScrollView mSvDate;
+    private View mEmptyDate;
+    private ConnectionChangeReceiver myReceiver;
+    private TextView mTvUpLoad;
+
     public static HomeFragment getInstance(){
         if(instance==null){
             instance=new HomeFragment();
@@ -116,26 +123,40 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View layout=inflater.inflate(R.layout.fragment_home,null);
-        initViewPage(layout);
         initview(layout);
+        initViewPage();
         initdate();
         registBrocasts();
         return layout;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        IntentFilter filter=new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        myReceiver=new ConnectionChangeReceiver();
+        myReceiver.SetNetStateListner(new ConnectionChangeReceiver.NetStateListner() {
+            @Override
+            public void NetState(boolean IsConnect) {
+                if(!IsConnect){
+                    mSvDate.setVisibility(View.GONE);
+                    Toast("网络连接已断开");
+                }
+            }
+        });
+        getActivity().registerReceiver(myReceiver, filter);
+    }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        getActivity().unregisterReceiver(myReceiver);
+    }
     private void registBrocasts() {
         receiveBroadCast = new ReceiveBroadCast();
         IntentFilter filter = new IntentFilter();
         filter.addAction("update");    //只有持有相同的action的接受者才能接收此广播
         getActivity().registerReceiver(receiveBroadCast, filter);
     }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        getActivity().unregisterReceiver(receiveBroadCast);
-    }
-
     public class ReceiveBroadCast extends BroadcastReceiver
     {
         @Override
@@ -149,6 +170,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
      * inidate
      */
     private void initdate() {
+
         //公告
         OkHttpUtil.getInstance().Get( constance.URL.GONGGAO, new OkHttpUtil.FinishListener() {
             @Override
@@ -323,12 +345,15 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
         mTvTime1.setTextContent(mJqzCrTime);
     }
     private void initview(View layout) {
-        mTvId = (VerticalSwitchTextView) layout.findViewById(R.id.tv_id);
-        mTvId1 = (VerticalSwitchTextView) layout.findViewById(R.id.tv_id1);
-        mTvTime = (VerticalSwitchTextView) layout.findViewById(R.id.tv_time);
-        mTvTime1 = (VerticalSwitchTextView) layout.findViewById(R.id.tv_time1);
-        mTvState = (VerticalSwitchTextView) layout.findViewById(R.id.tv_state);
-        mTvState1 = (VerticalSwitchTextView) layout.findViewById(R.id.tv_state1);
+        mLanner= (Lanner) layout.findViewById(R.id.lanner);
+        mSvDate = (ScrollView) layout.findViewById(R.id.sv_date);
+        mEmptyDate = layout.findViewById(R.id.no_date);
+        mTvId = (VerticalSwitchTextView) layout.findViewById(R.id.tv_id_l);
+        mTvId1 = (VerticalSwitchTextView) layout.findViewById(R.id.tv_id_2);
+        mTvTime = (VerticalSwitchTextView) layout.findViewById(R.id.tv_time_1);
+        mTvTime1 = (VerticalSwitchTextView) layout.findViewById(R.id.tv_time_2);
+        mTvState = (VerticalSwitchTextView) layout.findViewById(R.id.tv_state_1);
+        mTvState1 = (VerticalSwitchTextView) layout.findViewById(R.id.tv_state_2);
         mTvGongGao=  (TextView) layout.findViewById(R.id.tv_gonggao);
         mTvTodyIncome = (TextView) layout.findViewById(R.id.tv_today_income);
         mTvAllIncome = (TextView) layout.findViewById(R.id.tv_all_income);
@@ -347,9 +372,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
         layout.findViewById(R.id.tv_help_center).setOnClickListener(this);
         layout.findViewById(R.id.rtl_howto_earn).setOnClickListener(this);
         layout.findViewById(R.id.tv_master_center).setOnClickListener(this);
+         mEmptyDate.findViewById(R.id.tv_upload).setOnClickListener(this);
     }
-    private void initViewPage(View layout) {
-        mLanner= (Lanner) layout.findViewById(R.id.lanner);
+    private void initViewPage() {
         OkHttpUtil.getInstance().Get(constance.URL.BANNER, new OkHttpUtil.FinishListener() {
             @Override
             public void Successfully(boolean IsSuccess, String data, String Msg) {
@@ -428,6 +453,14 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
             case  R.id.tv_master_center://师徒中心
                 Intent intent_st=new Intent(getActivity(), ApprenticeListActivity.class);
                 getActivity().startActivity(intent_st);
+                break;
+            case  R.id.tv_upload://点击网络加载
+                if(Utis.isNetworkConnected(getActivity())){
+                   mSvDate.setVisibility(View.VISIBLE);
+                    initdate();
+                }else {
+                    Toast("当前无网络，请稍后再试");
+                }
                 break;
         }
     }

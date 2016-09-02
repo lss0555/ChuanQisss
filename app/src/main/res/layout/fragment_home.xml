@@ -23,461 +23,470 @@
             android:layout_centerHorizontal="true" />
     </RelativeLayout>
 
-    <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/scrollView2" >
-        <LinearLayout
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <include
+            android:id="@+id/no_date"
             android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:layout_marginBottom="60dp"
-            android:layout_height="wrap_content">
-
+            android:layout_height="match_parent"
+            layout="@layout/no_date_view" />
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:visibility="visible"
+            android:background="@color/white"
+            android:layout_height="wrap_content"
+            android:id="@+id/sv_date" >
             <LinearLayout
                 android:layout_width="match_parent"
                 android:orientation="vertical"
-                android:layout_height="match_parent">
+                android:layout_marginBottom="60dp"
+                android:layout_height="wrap_content">
 
                 <LinearLayout
+                    android:layout_width="match_parent"
                     android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="125dp">
-                    <FrameLayout
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
-                        <Views.Banners.Lanner
-                            android:id="@+id/lanner"
+                        android:layout_height="125dp">
+                        <FrameLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            app:dotsSelectedIcon="@mipmap/dot_focus"
-                            app:dotsUnSelectedIcon="@mipmap/dot_blur"
-                            app:delayTime="3000"
-                            app:scrollerDuration="800"/>
-                    </FrameLayout>
-                </LinearLayout>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="25dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:text="今日收入"
-                    android:textSize="15sp"
-                    android:layout_centerVertical="true"
-                    android:textColor="@color/black"
-                    android:layout_marginLeft="15dp"
-                    android:layout_height="wrap_content" />
-
+                            android:layout_height="match_parent" >
+                            <Views.Banners.Lanner
+                                android:id="@+id/lanner"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                app:dotsSelectedIcon="@mipmap/dot_focus"
+                                app:dotsUnSelectedIcon="@mipmap/dot_blur"
+                                app:delayTime="3000"
+                                app:scrollerDuration="800"/>
+                        </FrameLayout>
+                    </LinearLayout>
                     <RelativeLayout
-                        android:layout_width="100dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_height="match_parent" >
-                        <TextView
-                            android:id="@+id/jxz_yue"
-                            android:layout_width="wrap_content"
-                            android:text="聚钱庄余额"
-                            android:singleLine="true"
-                            android:layout_marginRight="15dp"
-                            android:textColor="@color/black"
-                            android:layout_centerVertical="true"
-                            android:textSize="15sp"
-                            android:layout_height="wrap_content" />
-                </RelativeLayout>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="20dp">
-                    <TextView
-                        android:id="@+id/tv_today_income"
-                        android:layout_width="wrap_content"
-                        android:textColor="@color/red"
-                        android:textSize="16sp"
-                        android:layout_marginLeft="30dp"
-                        android:layout_alignParentLeft="true"
-                        android:layout_centerVertical="true"
-                        android:layout_height="wrap_content" />
-                    <TextView
-                        android:id="@+id/tv_jqzyue"
-                        android:layout_width="wrap_content"
-                        android:textColor="@color/red"
-                        android:layout_centerVertical="true"
-                        android:textSize="16sp"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="30dp"
-                        android:layout_height="wrap_content" />
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="25dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:text="总余额"
-                    android:textSize="15sp"
-                    android:layout_centerVertical="true"
-                    android:textColor="@color/black"
-                    android:layout_marginLeft="14dp"
-                    android:layout_height="wrap_content" />
-
-                    <RelativeLayout
-                        android:layout_width="100dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_height="match_parent" >
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:text="聚钱庄收益"
-                            android:layout_marginRight="16dp"
-                            android:singleLine="true"
-                            android:layout_centerVertical="true"
-                            android:textColor="@color/black"
-                            android:textSize="15sp"
-                            android:layout_height="wrap_content" />
-                </RelativeLayout>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="20dp">
-                    <TextView
-                        android:id="@+id/tv_all_income"
-                        android:layout_width="wrap_content"
-                        android:textColor="@color/red"
-                        android:textSize="16sp"
-                        android:layout_marginLeft="30dp"
-                        android:layout_alignParentLeft="true"
-                        android:layout_centerVertical="true"
-                        android:layout_height="wrap_content" />
-                    <TextView
-                        android:id="@+id/tv_jxz_accrual"
-                        android:layout_width="wrap_content"
-                        android:textColor="@color/red"
-                        android:layout_centerVertical="true"
-                        android:textSize="16sp"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="30dp"
-                        android:layout_height="wrap_content" />
-                </RelativeLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_height="40dp">
-                    <RelativeLayout
-                        android:id="@+id/rtl_withdraw"
                         android:layout_width="match_parent"
-                        android:background="@drawable/round_red_bg"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginBottom="7dp"
-                        android:layout_weight="1"
-                        android:layout_marginTop="7dp"
-                        android:layout_height="match_parent">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:textSize="15sp"
-                            android:textColor="@drawable/white_gray_seleclor"
-                            android:text="立即提现"
-                            android:layout_height="wrap_content" />
-                    </RelativeLayout>
-                    <RelativeLayout
-                        android:id="@+id/rtl_howto_earn"
-                        android:layout_width="match_parent"
-                        android:background="@drawable/round_red_bg"
-                        android:layout_marginBottom="7dp"
-                        android:layout_weight="1"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="7dp"
-                        android:layout_height="match_parent">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:textSize="15sp"
-                            android:textColor="@drawable/white_gray_seleclor"
-                            android:text="赚钱攻略"
-                            android:layout_height="wrap_content" />
-                    </RelativeLayout>
-                    <RelativeLayout
-                        android:id="@+id/rtl_save_money"
-                        android:layout_width="match_parent"
-                        android:background="@drawable/round_red_bg"
-                        android:layout_marginBottom="7dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_weight="1"
-                        android:layout_marginTop="7dp"
-                        android:layout_height="match_parent">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:textSize="15sp"
-                            android:textColor="@drawable/white_gray_seleclor"
-                            android:text="转入钱庄"
-                            android:layout_height="wrap_content" />
-                    </RelativeLayout>
-                </LinearLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_marginBottom="5dp"
-                    android:background="@color/gray"
-                    android:layout_height="1dp"></View>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_height="wrap_content">
-                    >
+                        android:layout_height="25dp">
                     <TextView
-                        android:id="@+id/tv_fast_task"
                         android:layout_width="wrap_content"
-                        android:textColor="@drawable/textcolor_seleclor"
-                        android:text="快速任务"
-                        android:textSize="12sp"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:drawableTop="@mipmap/s_kuaisu"
-                        android:layout_height="wrap_content" />
-                    <TextView
-                        android:id="@+id/tv_unit_task"
-                        android:layout_width="wrap_content"
-                        android:textColor="@drawable/textcolor_seleclor"
-                        android:textSize="12sp"
-                        android:layout_weight="1"
-                        android:text="联盟任务"
-                        android:gravity="center"
-                        android:drawableTop="@mipmap/s_lianmeng"
-                        android:layout_height="wrap_content" />
-                    <TextView
-                        android:id="@+id/tv_newer_task"
-                        android:layout_width="wrap_content"
-                        android:layout_weight="1"
-                        android:textColor="@drawable/textcolor_seleclor"
-                        android:textSize="12sp"
-                        android:text="新手任务"
-                        android:gravity="center"
-                        android:drawableTop="@mipmap/s_xinshou"
-                        android:layout_height="wrap_content" />
-                    <TextView
-                        android:id="@+id/tv_day_sign"
-                        android:layout_width="wrap_content"
-                        android:layout_weight="1"
-                        android:textColor="@drawable/textcolor_seleclor"
-                        android:text="每日签到"
-                        android:textSize="12sp"
-                        android:gravity="center"
-                        android:drawableTop="@mipmap/s_qiandao"
-                        android:layout_height="wrap_content" />
-                    <TextView
-                        android:id="@+id/tv_master_center"
-                        android:layout_width="wrap_content"
-                        android:textColor="@drawable/textcolor_seleclor"
-                        android:textSize="12sp"
-                        android:text="师徒中心"
-                        android:gravity="center"
-                        android:drawableTop="@mipmap/s_shitu"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_height="wrap_content">
-                    >
-                    <TextView
-                        android:id="@+id/tv_day_shop"
-                        android:layout_width="wrap_content"
-                        android:textColor="@drawable/textcolor_seleclor"
-                        android:textSize="12sp"
-                        android:text="每日夺宝"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:drawableTop="@mipmap/s_duobao"
-                        android:layout_height="wrap_content" />
-                    <TextView
-                        android:id="@+id/tv_take_red"
-                        android:layout_width="wrap_content"
-                        android:textColor="@drawable/textcolor_seleclor"
-                        android:textSize="12sp"
-                        android:layout_weight="1"
-                        android:text="抢红包"
-                        android:gravity="center"
-                        android:drawableTop="@mipmap/s_hongbao"
-                        android:layout_height="wrap_content" />
-                    <TextView
-                        android:id="@+id/tv_open_box"
-                        android:layout_width="wrap_content"
-                        android:layout_weight="1"
-                        android:textColor="@drawable/textcolor_seleclor"
-                        android:text="幸运开宝箱"
-                        android:gravity="center"
-                        android:textSize="12sp"
-                        android:drawableTop="@mipmap/s_baoxiang"
-                        android:layout_height="wrap_content" />
-                    <TextView
-                        android:id="@+id/tv_jxz"
-                        android:layout_width="wrap_content"
-                        android:layout_weight="1"
-                        android:textColor="@drawable/textcolor_seleclor"
-                        android:textSize="12sp"
-                        android:text="聚钱庄"
-                        android:gravity="center"
-                        android:drawableTop="@mipmap/s_qianzhuang"
-                        android:layout_height="wrap_content" />
-                    <TextView
-                        android:id="@+id/tv_help_center"
-                        android:layout_width="wrap_content"
-                        android:textColor="@drawable/textcolor_seleclor"
-                        android:text="帮助中心"
-                        android:gravity="center"
-                        android:textSize="12sp"
-                        android:drawableTop="@mipmap/s_bangzhu"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:background="@color/gray"
-                    android:layout_height="1dp"></View>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp">
-                    <TextView
-                        android:id="@+id/tv_gonggao"
-                        android:layout_width="300dp"
-                        android:layout_height="match_parent"
+                        android:text="今日收入"
+                        android:textSize="15sp"
+                        android:layout_centerVertical="true"
                         android:textColor="@color/black"
-                        android:ellipsize="marquee"
-                        android:focusable="true"
-                        android:focusableInTouchMode="true"
-                        android:layout_marginLeft="10dp"
-                        android:gravity="center"
-                        android:textSize="13sp"
-                        android:drawableLeft="@mipmap/s_gonggao"
-                        android:marqueeRepeatLimit="marquee_forever"
-                        android:singleLine="true"
-                        android:text="每日分享朋友圈，邀请好友可获得更多的奖金哦！" />
-                </RelativeLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:background="@color/gray"
-                    android:layout_height="1dp"></View>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:background="@mipmap/s_wenbenkuang"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_height="70dp">
-                  <LinearLayout
-                      android:layout_width="match_parent"
-                      android:layout_weight="1"
-                      android:layout_marginTop="5dp"
-                      android:layout_marginBottom="5dp"
-                      android:orientation="vertical"
-                      android:layout_height="match_parent">
-                      <LinearLayout
-                          android:layout_width="match_parent"
-                          android:layout_weight="1"
-                          android:layout_marginLeft="15dp"
-                          android:orientation="horizontal"
-                          android:gravity="center|left"
-                          android:layout_height="match_parent"
-                          >
-                          <Views.VerticalSwitchTextView
-                              android:id="@+id/tv_id"
-                              android:layout_width="wrap_content"
-                              android:layout_height="wrap_content"
-                              vswitch:idleDuaration="2000"
-                              android:layout_weight="0.7"
-                              vswitch:switchDuaration="500"
-                              vswitch:switchOrientation="up" />
+                        android:layout_marginLeft="15dp"
+                        android:layout_height="wrap_content" />
 
-                          <Views.VerticalSwitchTextView
-                              android:id="@+id/tv_time"
-                              android:layout_width="wrap_content"
-                              android:layout_height="wrap_content"
-                              android:gravity="left|center"
-                              android:layout_weight="1"
-                              android:textColor="@color/blue_light"
-                              vswitch:idleDuaration="2000"
-                              vswitch:switchDuaration="500"
-                              vswitch:switchOrientation="up" />
+                        <RelativeLayout
+                            android:layout_width="100dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_height="match_parent" >
+                            <TextView
+                                android:id="@+id/jxz_yue"
+                                android:layout_width="wrap_content"
+                                android:text="聚钱庄余额"
+                                android:singleLine="true"
+                                android:layout_marginRight="15dp"
+                                android:textColor="@color/black"
+                                android:layout_centerVertical="true"
+                                android:textSize="15sp"
+                                android:layout_height="wrap_content" />
+                    </RelativeLayout>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp">
+                        <TextView
+                            android:id="@+id/tv_today_income"
+                            android:layout_width="wrap_content"
+                            android:textColor="@color/red"
+                            android:textSize="16sp"
+                            android:layout_marginLeft="30dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/tv_jqzyue"
+                            android:layout_width="wrap_content"
+                            android:textColor="@color/red"
+                            android:layout_centerVertical="true"
+                            android:textSize="16sp"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="30dp"
+                            android:layout_height="wrap_content" />
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="25dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text="总余额"
+                        android:textSize="15sp"
+                        android:layout_centerVertical="true"
+                        android:textColor="@color/black"
+                        android:layout_marginLeft="14dp"
+                        android:layout_height="wrap_content" />
 
-                      </LinearLayout>
-                      <RelativeLayout
-                          android:layout_width="match_parent"
-                          android:layout_weight="1"
-                          android:layout_marginLeft="15dp"
-                          android:gravity="center|left"
-                          android:layout_height="match_parent">
-                          <Views.VerticalSwitchTextView
-                              android:id="@+id/tv_state"
-                              android:layout_width="wrap_content"
-                              android:singleLine="true"
-                              android:layout_centerVertical="true"
-                              android:layout_marginRight="5dp"
-                              android:layout_height="wrap_content" />
-                      </RelativeLayout>
-                  </LinearLayout>
+                        <RelativeLayout
+                            android:layout_width="100dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_height="match_parent" >
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:text="聚钱庄收益"
+                                android:layout_marginRight="16dp"
+                                android:singleLine="true"
+                                android:layout_centerVertical="true"
+                                android:textColor="@color/black"
+                                android:textSize="15sp"
+                                android:layout_height="wrap_content" />
+                    </RelativeLayout>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp">
+                        <TextView
+                            android:id="@+id/tv_all_income"
+                            android:layout_width="wrap_content"
+                            android:textColor="@color/red"
+                            android:textSize="16sp"
+                            android:layout_marginLeft="30dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/tv_jxz_accrual"
+                            android:layout_width="wrap_content"
+                            android:textColor="@color/red"
+                            android:layout_centerVertical="true"
+                            android:textSize="16sp"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="30dp"
+                            android:layout_height="wrap_content" />
+                    </RelativeLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_weight="1"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:orientation="vertical"
-                        android:layout_height="match_parent">
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_weight="1"
-                            android:layout_marginLeft="15dp"
-                            android:orientation="horizontal"
-                            android:gravity="center|left"
-                            android:layout_height="match_parent"
-                            >
-                            <Views.VerticalSwitchTextView
-                                android:id="@+id/tv_id1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                vswitch:idleDuaration="2000"
-                                android:layout_weight="0.7"
-                                vswitch:switchDuaration="500"
-                                vswitch:switchOrientation="up" />
-
-                            <Views.VerticalSwitchTextView
-                                android:id="@+id/tv_time1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="left|center"
-                                android:layout_weight="1"
-                                android:textColor="@color/blue_light"
-                                vswitch:idleDuaration="2000"
-                                vswitch:switchDuaration="500"
-                                vswitch:switchOrientation="up" />
-
-                        </LinearLayout>
+                        android:orientation="horizontal"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_height="40dp">
                         <RelativeLayout
+                            android:id="@+id/rtl_withdraw"
                             android:layout_width="match_parent"
+                            android:background="@drawable/round_red_bg"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="7dp"
                             android:layout_weight="1"
-                            android:layout_marginLeft="15dp"
-                            android:gravity="center|left"
+                            android:layout_marginTop="7dp"
                             android:layout_height="match_parent">
-                            <Views.VerticalSwitchTextView
-                                android:id="@+id/tv_state1"
+                            <TextView
                                 android:layout_width="wrap_content"
-                                android:singleLine="true"
-                                android:layout_marginRight="5dp"
+                                android:layout_centerInParent="true"
+                                android:textSize="15sp"
+                                android:textColor="@drawable/white_gray_seleclor"
+                                android:text="立即提现"
+                                android:layout_height="wrap_content" />
+                        </RelativeLayout>
+                        <RelativeLayout
+                            android:id="@+id/rtl_howto_earn"
+                            android:layout_width="match_parent"
+                            android:background="@drawable/round_red_bg"
+                            android:layout_marginBottom="7dp"
+                            android:layout_weight="1"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="7dp"
+                            android:layout_height="match_parent">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:textSize="15sp"
+                                android:textColor="@drawable/white_gray_seleclor"
+                                android:text="赚钱攻略"
+                                android:layout_height="wrap_content" />
+                        </RelativeLayout>
+                        <RelativeLayout
+                            android:id="@+id/rtl_save_money"
+                            android:layout_width="match_parent"
+                            android:background="@drawable/round_red_bg"
+                            android:layout_marginBottom="7dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:layout_marginTop="7dp"
+                            android:layout_height="match_parent">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:textSize="15sp"
+                                android:textColor="@drawable/white_gray_seleclor"
+                                android:text="转入钱庄"
                                 android:layout_height="wrap_content" />
                         </RelativeLayout>
                     </LinearLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_marginBottom="5dp"
+                        android:background="@color/gray"
+                        android:layout_height="1dp"></View>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_height="wrap_content">
+                        >
+                        <TextView
+                            android:id="@+id/tv_fast_task"
+                            android:layout_width="wrap_content"
+                            android:textColor="@drawable/textcolor_seleclor"
+                            android:text="快速任务"
+                            android:textSize="12sp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:drawableTop="@mipmap/s_kuaisu"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/tv_unit_task"
+                            android:layout_width="wrap_content"
+                            android:textColor="@drawable/textcolor_seleclor"
+                            android:textSize="12sp"
+                            android:layout_weight="1"
+                            android:text="联盟任务"
+                            android:gravity="center"
+                            android:drawableTop="@mipmap/s_lianmeng"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/tv_newer_task"
+                            android:layout_width="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@drawable/textcolor_seleclor"
+                            android:textSize="12sp"
+                            android:text="新手任务"
+                            android:gravity="center"
+                            android:drawableTop="@mipmap/s_xinshou"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/tv_day_sign"
+                            android:layout_width="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@drawable/textcolor_seleclor"
+                            android:text="每日签到"
+                            android:textSize="12sp"
+                            android:gravity="center"
+                            android:drawableTop="@mipmap/s_qiandao"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/tv_master_center"
+                            android:layout_width="wrap_content"
+                            android:textColor="@drawable/textcolor_seleclor"
+                            android:textSize="12sp"
+                            android:text="师徒中心"
+                            android:gravity="center"
+                            android:drawableTop="@mipmap/s_shitu"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_height="wrap_content">
+                        >
+                        <TextView
+                            android:id="@+id/tv_day_shop"
+                            android:layout_width="wrap_content"
+                            android:textColor="@drawable/textcolor_seleclor"
+                            android:textSize="12sp"
+                            android:text="每日夺宝"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:drawableTop="@mipmap/s_duobao"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/tv_take_red"
+                            android:layout_width="wrap_content"
+                            android:textColor="@drawable/textcolor_seleclor"
+                            android:textSize="12sp"
+                            android:layout_weight="1"
+                            android:text="抢红包"
+                            android:gravity="center"
+                            android:drawableTop="@mipmap/s_hongbao"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/tv_open_box"
+                            android:layout_width="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@drawable/textcolor_seleclor"
+                            android:text="幸运开宝箱"
+                            android:gravity="center"
+                            android:textSize="12sp"
+                            android:drawableTop="@mipmap/s_baoxiang"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/tv_jxz"
+                            android:layout_width="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@drawable/textcolor_seleclor"
+                            android:textSize="12sp"
+                            android:text="聚钱庄"
+                            android:gravity="center"
+                            android:drawableTop="@mipmap/s_qianzhuang"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/tv_help_center"
+                            android:layout_width="wrap_content"
+                            android:textColor="@drawable/textcolor_seleclor"
+                            android:text="帮助中心"
+                            android:gravity="center"
+                            android:textSize="12sp"
+                            android:drawableTop="@mipmap/s_bangzhu"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:background="@color/gray"
+                        android:layout_height="1dp"></View>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp">
+                        <TextView
+                            android:id="@+id/tv_gonggao"
+                            android:layout_width="300dp"
+                            android:layout_height="match_parent"
+                            android:textColor="@color/black"
+                            android:ellipsize="marquee"
+                            android:focusable="true"
+                            android:focusableInTouchMode="true"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center"
+                            android:textSize="13sp"
+                            android:drawableLeft="@mipmap/s_gonggao"
+                            android:marqueeRepeatLimit="marquee_forever"
+                            android:singleLine="true"
+                            android:text="每日分享朋友圈，邀请好友可获得更多的奖金哦！" />
+                    </RelativeLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:background="@color/gray"
+                        android:layout_height="1dp"></View>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:background="@mipmap/s_wenbenkuang"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_height="70dp">
+                      <LinearLayout
+                          android:layout_width="match_parent"
+                          android:layout_weight="1"
+                          android:layout_marginTop="5dp"
+                          android:layout_marginBottom="5dp"
+                          android:orientation="vertical"
+                          android:layout_height="match_parent">
+                          <LinearLayout
+                              android:layout_width="match_parent"
+                              android:layout_weight="1"
+                              android:layout_marginLeft="15dp"
+                              android:orientation="horizontal"
+                              android:gravity="center|left"
+                              android:layout_height="match_parent"
+                              >
+                              <Views.VerticalSwitchTextView
+                                  android:id="@+id/tv_id_l"
+                                  android:layout_width="wrap_content"
+                                  android:layout_height="wrap_content"
+                                  vswitch:idleDuaration="2000"
+                                  android:layout_weight="0.7"
+                                  vswitch:switchDuaration="500"
+                                  vswitch:switchOrientation="up" />
 
+                              <Views.VerticalSwitchTextView
+                                  android:id="@+id/tv_time_1"
+                                  android:layout_width="wrap_content"
+                                  android:layout_height="wrap_content"
+                                  android:gravity="left|center"
+                                  android:layout_weight="1"
+                                  android:textColor="@color/blue_light"
+                                  vswitch:idleDuaration="2000"
+                                  vswitch:switchDuaration="500"
+                                  vswitch:switchOrientation="up" />
+
+                          </LinearLayout>
+                          <RelativeLayout
+                              android:layout_width="match_parent"
+                              android:layout_weight="1"
+                              android:layout_marginLeft="15dp"
+                              android:gravity="center|left"
+                              android:layout_height="match_parent">
+                              <Views.VerticalSwitchTextView
+                                  android:id="@+id/tv_state_1"
+                                  android:layout_width="wrap_content"
+                                  android:singleLine="true"
+                                  android:layout_centerVertical="true"
+                                  android:layout_marginRight="5dp"
+                                  android:layout_height="wrap_content" />
+                          </RelativeLayout>
+                      </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_weight="1"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:orientation="vertical"
+                            android:layout_height="match_parent">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_weight="1"
+                                android:layout_marginLeft="15dp"
+                                android:orientation="horizontal"
+                                android:gravity="center|left"
+                                android:layout_height="match_parent"
+                                >
+                                <Views.VerticalSwitchTextView
+                                    android:id="@+id/tv_id_2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    vswitch:idleDuaration="2000"
+                                    android:layout_weight="0.7"
+                                    vswitch:switchDuaration="500"
+                                    vswitch:switchOrientation="up" />
+
+                                <Views.VerticalSwitchTextView
+                                    android:id="@+id/tv_time_2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="left|center"
+                                    android:layout_weight="1"
+                                    android:textColor="@color/blue_light"
+                                    vswitch:idleDuaration="2000"
+                                    vswitch:switchDuaration="500"
+                                    vswitch:switchOrientation="up" />
+
+                            </LinearLayout>
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_weight="1"
+                                android:layout_marginLeft="15dp"
+                                android:gravity="center|left"
+                                android:layout_height="match_parent">
+                                <Views.VerticalSwitchTextView
+                                    android:id="@+id/tv_state_2"
+                                    android:layout_width="wrap_content"
+                                    android:singleLine="true"
+                                    android:layout_marginRight="5dp"
+                                    android:layout_height="wrap_content" />
+                            </RelativeLayout>
+                        </LinearLayout>
+
+                </LinearLayout>
+                </LinearLayout>
             </LinearLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"></View>
-            </LinearLayout>
-        </LinearLayout>
-        </ScrollView>
+            </ScrollView>
+
+    </FrameLayout>
 
 </LinearLayout>

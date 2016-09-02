@@ -3,6 +3,8 @@ package Fragments;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface.OnClickListener;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -19,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Map;
 
+import Interfaces.ConnectionChangeReceiver;
 import dialog.CustomProgressDialog;
 
 public class BaseFragment extends Fragment {
@@ -33,6 +36,8 @@ public class BaseFragment extends Fragment {
 	private Map<View, Runnable> touchOutsideListenerMap = new Hashtable<>();
 	private Map<View, Runnable> touchListenerMap = new Hashtable<>();
 	private boolean containVisiableStartActivity = false;
+	private ConnectionChangeReceiver myReceiver;
+	public boolean IsConnectNet=true;
 	/**
 	 */
 	public static boolean isAllActivityBackground() {
@@ -42,29 +47,13 @@ public class BaseFragment extends Fragment {
 		return true;
 	}
 
-	// ÿ�����洴��ʱ�ȼ���¼״̬���������δ��¼������ʾ��¼����
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		activityList.add(this);
-		preInit();
 	}
 
-	/**
-	 * У�鵱ǰ��¼״̬�����û��¼����ʾ��¼����
-	 */
-	private void preInit() {
-//		// ��¼��ע����治��Ҫ�жϵ�¼״̬
-//		if(  !(this instanceof LoginActivity || this instanceof RegisterActivity || this instanceof FindPasswordActivity) ) {
-//			if (!LoginState.getInstance().isLogin(this)) {
-//				Intent intent = new Intent(this, LoginActivity.class);
-//				intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-//				startActivity(intent);
-//			}
-//		}
-	}
 
 	/**
-	 * �����Ƿ��ں�̨
 	 */
 	public boolean isBackground() {
 		return background;

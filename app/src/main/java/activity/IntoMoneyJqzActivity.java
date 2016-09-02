@@ -18,8 +18,10 @@ import java.util.HashMap;
 import Constance.constance;
 import Fragments.HomeFragment;
 import Utis.OkHttpUtil;
+import Utis.GsonUtils;
 import Utis.SharePre;
 import Utis.Utis;
+import model.Result;
 
 /**
  * 存入钱庄
@@ -98,12 +100,22 @@ public class IntoMoneyJqzActivity extends BaseActivity {
                     @Override
                     public void Successfully(boolean IsSuccess, String data, String Msg) {
                         stopProgressDialog();
-                        setResult(constance.INTENT.INTO_JQZ_SUCCESS);
-                        Intent intent = new Intent();
-                        intent.putExtra("update",true);
-                        intent.setAction("update");   //
-                        sendBroadcast(intent);   //发送广播
-                        finish();
+                        if(IsSuccess){
+                            Result result = GsonUtils.parseJSON(data, Result.class);
+                            if(result.getRun().equals("1")){
+                                Toast("恭新您，转入成功");
+                                setResult(constance.INTENT.INTO_JQZ_SUCCESS);
+                                Intent intent = new Intent();
+                                intent.putExtra("update",true);
+                                intent.setAction("update");   //
+                                sendBroadcast(intent);   //发送广播
+                                finish();
+                            }else if(result.getRun().equals("0")){
+                                 Toast("抱歉，余额不足");
+                            }
+                        }else {
+                            Toast(data.toString());
+                        }
                     }
                 });
             }
