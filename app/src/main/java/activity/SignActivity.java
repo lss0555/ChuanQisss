@@ -3,6 +3,7 @@ package activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,7 +33,6 @@ public class SignActivity extends BaseActivity implements View.OnClickListener{
     private SignCalendar mSc;
     private TextView mTvAllDayNum;
     private TextView mTvDayNum;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,7 +74,7 @@ public class SignActivity extends BaseActivity implements View.OnClickListener{
          */
         startProgressDialog("加载中...");
         HashMap<String,String> map1=new HashMap<>();
-        map.put("userid",SharePre.getUserId(getApplicationContext()));
+        map1.put("userid",SharePre.getUserId(getApplicationContext()));
         OkHttpUtil.getInstance().Post(map1, constance.URL.DAY_SIGN, new OkHttpUtil.FinishListener() {
             @Override
             public void Successfully(boolean IsSuccess, String data, String Msg) {
@@ -90,10 +90,7 @@ public class SignActivity extends BaseActivity implements View.OnClickListener{
                 }
             }
         });
-
-
     }
-
     /**
      * UI
      */
@@ -108,11 +105,7 @@ public class SignActivity extends BaseActivity implements View.OnClickListener{
         switch (view.getId()){
             case R.id.rtl_sign:
                 SignToday();
-
-
-
                 break;
-
         }
     }
     /**
@@ -121,17 +114,17 @@ public class SignActivity extends BaseActivity implements View.OnClickListener{
     private void SignToday() {
         startProgressDialog("加载中...");
         HashMap<String,String> map=new HashMap<>();
-        map.put("userid", SharePre.getUserId(getApplicationContext()));
+        map.put("userid",SharePre.getUserId(getApplicationContext()));
         map.put("dtime",Utis.getDate());
        OkHttpUtil.getInstance().Post(map, constance.URL.SIGN, new OkHttpUtil.FinishListener() {
            @Override
            public void Successfully(boolean IsSuccess, String data, String Msg) {
+               Result result = GsonUtils.parseJSON(data, Result.class);
                stopProgressDialog();
+//               showTip(data.toString());
+               Log.i("签到信息",""+data.toString());
                if(IsSuccess){
-                   //               showTip(data.toString());
-                   Result result = GsonUtils.parseJSON(data, Result.class);
                    if(result.getRun().equals("1")){
-                       Toast("签到成功");
                        List<String> list = new ArrayList<String>();
                        list.add(Utis.getDate());
                        mSc.addMarks(list,0);
@@ -139,13 +132,13 @@ public class SignActivity extends BaseActivity implements View.OnClickListener{
                        intent.putExtra("update",true);
                        intent.setAction("update");   //
                        sendBroadcast(intent);
-                   }else {
+                       Toast.makeText(getApplicationContext(),"签到成功",Toast.LENGTH_SHORT).show();
+                   }else if(result.getRun().equals("0")){
                        Toast.makeText(getApplicationContext(),"您今天已经签到过",Toast.LENGTH_SHORT).show();
                    }
                } else {
                    Toast(data.toString());
                }
-
            }
        });
     }

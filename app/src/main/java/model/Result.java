@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by zss on 2016/8/15.
  */
-public class Result implements Serializable {
+public class Result  {
     private  String run;
 
     public String getRun() {

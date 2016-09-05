@@ -55,11 +55,11 @@ public class BannerLinkActivity extends BaseActivity {
         @Override
         public void onProgressChanged(WebView view, int newProgress) {
             super.onProgressChanged(view, newProgress);
-//            if(newProgress==100){
-//                stopProgressDialog();
-//            }else {
-//                startProgressDialog("努力加载中...");
-//            }
+            if(newProgress==100){
+                stopProgressDialog();
+            }else {
+                startProgressDialog("努力加载中...");
+            }
         }
     }
 }

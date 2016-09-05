@@ -68,7 +68,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
         initLocation();
         getUserUdidAndCity();
         initUserInfo();
-        initBindAccound();
+//        initBindAccound();
         return layout;
     }
     /**
@@ -113,26 +113,28 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
         mOption.setOnceLocationLatest(false);//可选，设置是否等待wifi刷新，默认为false.如果设置为true,会自动变为单次定位，持续定位时不要使用
         return mOption;
     }
-
     /**
      * 初始化绑定信息
      */
     private Yzm yzm;
     private void initBindAccound() {
-        HashMap<String,String> map=new HashMap<>();
-        map.put("userid",SharePre.getUserId(getActivity()));
-        OkHttpUtil.getInstance().Post(map, constance.URL.IS_BIND_PHONE,new OkHttpUtil.FinishListener() {
-            @Override
-            public void Successfully(boolean IsSuccess, String data, String Msg) {
+        if(!SharePre.getUserId(getActivity()).equals("")){
+            HashMap<String,String> map=new HashMap<>();
+            map.put("userid",SharePre.getUserId(getActivity()));
+            OkHttpUtil.getInstance().Post(map, constance.URL.IS_BIND_PHONE,new OkHttpUtil.FinishListener() {
+                @Override
+                public void Successfully(boolean IsSuccess, String data, String Msg) {
+//                    showTip(data.toString()+"用户UserId"+SharePre.getUserId(getActivity()));
+                    Log.w("绑定状态",""+data.toString()+"用户UserId"+SharePre.getUserId(getActivity()));
                 if(IsSuccess){
                     yzm = GsonUtils.parseJSON(data, Yzm.class);
-////                showTip(data.toString()+"是否绑定");
                     if(yzm.getRun().equals("1")){
                         mTvBindPhoneState.setText("已绑定");
                     }
                 }
-            }
-        });
+                }
+            });
+        }
     }
     /**
      * 根据手机设备号指定一个用户ID
@@ -144,11 +146,13 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
                 @Override
                 public void Successfully(boolean IsSuccess, String data, String Msg) {
 //                    showTip("个人资料:"+data.toString());
+                    Log.i("个人资料",""+data.toString());
                     if(IsSuccess){
                         mUserInfo= GsonUtils.parseJSON(data,UserInfo.class);
                         SharePre.saveUserId(getActivity(),mUserInfo.getId());
                         UILUtils.displayImage(mUserInfo.getHeadportrait(),mImgIcons);
                         mTvId.setText("ID:"+mUserInfo.getId());
+                        initBindAccound();
                     } else {
                         Toast(data.toString());
                     }

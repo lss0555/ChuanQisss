@@ -80,8 +80,11 @@ public class UpdateRedActivity extends BaseActivity {
                 if(IsSuccess){
                     Log.i("数据",""+data.toString());
                     UserMoney userMoney = GsonUtils.parseJSON(data, UserMoney.class);
-                    Yue=Integer.parseInt(userMoney.getfNotPayIncome());
-                    mTvYue.setText("余额:"+Yue+"元");
+                    if(userMoney.getfNotPayIncome()==null || userMoney.getfNotPayIncome().equals("null")||userMoney.getfNotPayIncome().equals("")){
+                        mTvYue.setText("余额:"+"0.0元");
+                    }else {
+                        mTvYue.setText("余额:"+userMoney.getfNotPayIncome()+"元");
+                    }
                 } else {
                     Toast(data.toString());
                 }

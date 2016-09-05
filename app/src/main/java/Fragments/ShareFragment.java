@@ -4,13 +4,18 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.chuanqi.yz.R;
 
+import java.util.HashMap;
+
 import Mob.Share.OnekeyShare;
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
 
-public class ShareFragment extends Fragment {
+public class ShareFragment extends BaseFragment {
     public ShareFragment() {
 
     }
@@ -53,6 +58,21 @@ public class ShareFragment extends Fragment {
         // siteUrl是分享此内容的网站地址，仅在QQ空间使用
         oks.setSiteUrl("http://sharesdk.cn");
         // 启动分享GUI
+
+        oks.setCallback(new PlatformActionListener() {
+            @Override
+            public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
+                Toast("分享成功");
+            }
+            @Override
+            public void onError(Platform platform, int i, Throwable throwable) {
+                Toast("分享失败");
+            }
+            @Override
+            public void onCancel(Platform platform, int i) {
+                Toast("分享取消");
+            }
+        });
         oks.show(getActivity());
     }
 }

@@ -101,7 +101,7 @@
                         android:id="@+id/tv_zgqd"
                         android:layout_width="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:text="总共签到"
+                        android:text="本月总共签到"
                         android:textSize="18sp"
                         android:textColor="@color/black"
                         android:layout_centerVertical="true"

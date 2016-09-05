@@ -42,7 +42,9 @@ public class TakeRedActivity extends BaseActivity {
     private  int ThisTime;
     private TextView mTvRedRules;
     private TextView mTvYaoQing;
-
+    private final int RED_TOP_1=1;
+    private final int RED_TOP_2=2;
+    private final int RED_TOP_3=3;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -157,16 +159,36 @@ public class TakeRedActivity extends BaseActivity {
                             if(redList.getTimerecord()!=null){
                                 mDate.clear();
                                 mDate.addAll(redList.getTimerecord());
-                                mTvPrice1.setText("￥"+mDate.get(0).getJine());
-                                mTvPrice2.setText("￥"+mDate.get(1).getJine());
-                                mTvPrice3.setText("￥"+mDate.get(2).getJine());
-                                mTvID1.setText("ID:"+mDate.get(0).getUserid());
-                                mTvID2.setText("ID:"+mDate.get(1).getUserid());
-                                mTvID3.setText("ID:"+mDate.get(2).getUserid());
+                                switch (mDate.size()){
+                                    case RED_TOP_1:
+                                        mTvPrice1.setText("￥"+mDate.get(0).getJine());
+                                        mTvPrice2.setText("暂无");
+                                        mTvPrice3.setText("暂无");
+                                        mTvID1.setText("ID:"+mDate.get(0).getUserid());
+                                        mTvID2.setText("暂无");
+                                        mTvID3.setText("暂无");
+                                        break;
+                                    case RED_TOP_2:
+                                        mTvPrice1.setText("￥"+mDate.get(0).getJine());
+                                        mTvPrice2.setText("￥"+mDate.get(1).getJine());
+                                        mTvPrice3.setText("暂无");
+                                        mTvID1.setText("ID:"+mDate.get(0).getUserid());
+                                        mTvID2.setText("ID:"+mDate.get(1).getUserid());
+                                        mTvID3.setText("暂无");
+                                        break;
+                                    case RED_TOP_3:
+                                        mTvPrice1.setText("￥"+mDate.get(0).getJine());
+                                        mTvPrice2.setText("￥"+mDate.get(1).getJine());
+                                        mTvPrice3.setText("￥"+mDate.get(2).getJine());
+                                        mTvID1.setText("ID:"+mDate.get(0).getUserid());
+                                        mTvID2.setText("ID:"+mDate.get(1).getUserid());
+                                        mTvID3.setText("ID:"+mDate.get(2).getUserid());
+                                        break;
+                                }
                             }else {
-                                mTvPrice1.setText("0.00元");
-                                mTvPrice2.setText("0.00元");
-                                mTvPrice3.setText("0.00元");
+                                mTvPrice1.setText("暂无");
+                                mTvPrice2.setText("暂无");
+                                mTvPrice3.setText("暂无");
                                 mTvID1.setText("暂无");
                                 mTvID2.setText("暂无");
                                 mTvID3.setText("暂无");
@@ -192,19 +214,40 @@ public class TakeRedActivity extends BaseActivity {
             @Override
             public void Successfully(boolean IsSuccess, String data, String Msg) {
                 RedList redList = GsonUtils.parseJSON(data, RedList.class);
+//                showTip(data.toString());
                 if(redList.getTimerecord()!=null){
                     mDate.clear();
                     mDate.addAll(redList.getTimerecord());
-                    mTvPrice1.setText("￥"+mDate.get(0).getJine());
-                    mTvPrice2.setText("￥"+mDate.get(1).getJine());
-                    mTvPrice3.setText("￥"+mDate.get(2).getJine());
-                    mTvID1.setText("ID:"+mDate.get(0).getUserid());
-                    mTvID2.setText("ID:"+mDate.get(1).getUserid());
-                    mTvID3.setText("ID:"+mDate.get(2).getUserid());
+                    switch (mDate.size()){
+                        case RED_TOP_1:
+                            mTvPrice1.setText("￥"+mDate.get(0).getJine());
+                            mTvPrice2.setText("暂无");
+                            mTvPrice3.setText("暂无");
+                            mTvID1.setText("ID:"+mDate.get(0).getUserid());
+                            mTvID2.setText("暂无");
+                            mTvID3.setText("暂无");
+                            break;
+                        case RED_TOP_2:
+                            mTvPrice1.setText("￥"+mDate.get(0).getJine());
+                            mTvPrice2.setText("￥"+mDate.get(1).getJine());
+                            mTvPrice3.setText("暂无");
+                            mTvID1.setText("ID:"+mDate.get(0).getUserid());
+                            mTvID2.setText("ID:"+mDate.get(1).getUserid());
+                            mTvID3.setText("暂无");
+                            break;
+                        case RED_TOP_3:
+                            mTvPrice1.setText("￥"+mDate.get(0).getJine());
+                            mTvPrice2.setText("￥"+mDate.get(1).getJine());
+                            mTvPrice3.setText("￥"+mDate.get(2).getJine());
+                            mTvID1.setText("ID:"+mDate.get(0).getUserid());
+                            mTvID2.setText("ID:"+mDate.get(1).getUserid());
+                            mTvID3.setText("ID:"+mDate.get(2).getUserid());
+                            break;
+                    }
                 }else {
-                    mTvPrice1.setText("0.00元");
-                    mTvPrice2.setText("0.00元");
-                    mTvPrice3.setText("0.00元");
+                    mTvPrice1.setText("暂无");
+                    mTvPrice2.setText("暂无");
+                    mTvPrice3.setText("暂无");
                     mTvID1.setText("暂无");
                     mTvID2.setText("暂无");
                     mTvID3.setText("暂无");

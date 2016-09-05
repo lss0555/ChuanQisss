@@ -22,6 +22,7 @@ import java.util.Hashtable;
 import java.util.Map;
 
 import Interfaces.ConnectionChangeReceiver;
+import Utis.SystemBarTintManager;
 import dialog.CustomProgressDialog;
 
 public class BaseFragment extends Fragment {
@@ -38,6 +39,7 @@ public class BaseFragment extends Fragment {
 	private boolean containVisiableStartActivity = false;
 	private ConnectionChangeReceiver myReceiver;
 	public boolean IsConnectNet=true;
+	private SystemBarTintManager tintManager;
 	/**
 	 */
 	public static boolean isAllActivityBackground() {
@@ -50,8 +52,18 @@ public class BaseFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		activityList.add(this);
+		setSystemTintBar(R.color.yellow_dark);
 	}
-
+	protected void setSystemTintBar(int ColorId){
+		// create our manager instance after the content view is set
+		tintManager = new SystemBarTintManager(getActivity());
+		// enable status bar tint
+		tintManager.setStatusBarTintEnabled(true);
+		// enable navigation bar tint
+		tintManager.setNavigationBarTintEnabled(true);
+		// set a custom tint color for all system bars
+		tintManager.setStatusBarTintColor(getResources().getColor(ColorId));
+	}
 
 	/**
 	 */
@@ -66,7 +78,6 @@ public class BaseFragment extends Fragment {
 			else touchOutsideListenerMap.remove(v);
 		}
 	}
-
 	/**
 	 */
 	public void setViewClickListener(View v, Runnable r) {

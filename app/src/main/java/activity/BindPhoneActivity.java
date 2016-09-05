@@ -87,16 +87,20 @@ public class BindPhoneActivity extends BaseActivity{
                  OkHttpUtil.getInstance().Post(map, constance.URL.BIND_PHONE, new OkHttpUtil.FinishListener() {
                      @Override
                      public void Successfully(boolean IsSuccess, String data, String Msg) {
-                         Yzm yzm = GsonUtils.parseJSON(data, Yzm.class);
-                         if(yzm.getRun().equals("0")){
-                             if(mEtYzm.getText().toString().trim().equals(mYzm.getRun())){
-                                 showTip("恭喜您，绑定成功");
-                                 finish();
+                         if(IsSuccess){
+                             Yzm yzm = GsonUtils.parseJSON(data, Yzm.class);
+                             if(yzm.getRun().equals("0")){
+                                 if(mEtYzm.getText().toString().trim().equals(mYzm.getRun())){
+                                     showTip("恭喜您，绑定成功");
+                                     finish();
+                                 }else {
+                                     showErrorTip("抱歉，您的验证码有误");
+                                 }
                              }else {
-                                 showErrorTip("抱歉，您的验证码有误");
+                                 showErrorTip("抱歉，该手机已绑定过");
                              }
                          }else {
-                             showErrorTip("抱歉，该手机已绑定过");
+                             Toast(data.toString());
                          }
                      }
                  });

@@ -58,9 +58,7 @@ dependencies {
     compile files('libs/gson-2.2.4.jar')
     compile files('libs/okhttp-3.0.0-RC1.jar')
     compile files('libs/okio-1.6.0.jar')
-    compile files('libs/dm_offerwall_4.1.0.jar')
     compile files('libs/YoumiSdk_v6.1.0_2016-02-26.jar')
-    compile files('libs/qumi_jfq_3.1.3.jar')
     compile files('libs/AppOffer_2.4.7.jar')
     compile 'com.android.support:appcompat-v7:24.0.0'
     compile 'com.android.support:design:24.0.0'

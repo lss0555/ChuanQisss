@@ -82,8 +82,8 @@ public class IntoMoneyJqzActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
 //                int InputMoney=Integer.parseInt(mEtMoney.getText().toString().trim());
-                if(mEtMoney.getText().toString().trim()==null){
-                    showTip("提示:输入金额不能为空");
+                if(mEtMoney.getText().toString().trim().equals("")){
+                    Toast("提示:输入金额不能为空");
                 }else {
                     IntoMoney2Jqz();
                 }

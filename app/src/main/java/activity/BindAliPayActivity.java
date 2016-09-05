@@ -51,16 +51,20 @@ public class BindAliPayActivity extends BaseActivity {
             @Override
             public void Successfully(boolean IsSuccess, String data, String Msg) {
                 stopProgressDialog();
-                IsBindAccount bindAccount = GsonUtils.parseJSON(data, IsBindAccount.class);
+               if(IsSuccess){
+                   IsBindAccount bindAccount = GsonUtils.parseJSON(data, IsBindAccount.class);
 //                showTip(data.toString());
-                if(!bindAccount.getAccount().equals("")){
-                    mEtAccount.setText(bindAccount.getAccount());
-                    mEtName.setText(bindAccount.getName());
-                    mEtAccount.setEnabled(false);
-                    mEtName.setEnabled(false);
-                    mRtlComplite.setBackground(getResources().getDrawable(R.drawable.round_gray_bg));
-                    state=1;
-                }
+                   if(!bindAccount.getAccount().equals("")){
+                       mEtAccount.setText(bindAccount.getAccount());
+                       mEtName.setText(bindAccount.getName());
+                       mEtAccount.setEnabled(false);
+                       mEtName.setEnabled(false);
+                       mRtlComplite.setBackground(getResources().getDrawable(R.drawable.round_gray_bg));
+                       state=1;
+                   }
+               }else {
+                   Toast(data.toString());
+               }
             }
         });
     }
@@ -78,6 +82,7 @@ public class BindAliPayActivity extends BaseActivity {
             }
             //绑定到支付宝
             private void BindToAliPay() {
+                startProgressDialog("加载中...");
                 HashMap<String,String> map=new HashMap<String, String>();
                 map.put("userid", SharePre.getUserId(getApplicationContext()));
                 map.put("account", mEtAccount.getText().toString());
@@ -86,12 +91,17 @@ public class BindAliPayActivity extends BaseActivity {
                 OkHttpUtil.getInstance().Post(map, constance.URL.WX_ALIPAY_ACCOUNT, new OkHttpUtil.FinishListener() {
                     @Override
                     public void Successfully(boolean IsSuccess, String data, String Msg) {
-                        Result bindAccount = GsonUtils.parseJSON(data, Result.class);
-                        if(!bindAccount.getRun().equals("1")){
-                            showTip("绑定成功");
-                            setResult(1);
-                            finish();
-                        }
+                        stopProgressDialog();
+                       if(IsSuccess){
+                           Result bindAccount = GsonUtils.parseJSON(data, Result.class);
+                           if(!bindAccount.getRun().equals("1")){
+                               showTip("绑定成功");
+                               setResult(1);
+                               finish();
+                           }
+                       }else {
+                           Toast(data.toString());
+                       }
                     }
                 });
             }

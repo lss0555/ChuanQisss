@@ -37,11 +37,15 @@ public class ApprenticeListActivity extends BaseActivity implements View.OnClick
         OkHttpUtil.getInstance().Post(map, constance.URL.TUDI_LIST, new OkHttpUtil.FinishListener() {
             @Override
             public void Successfully(boolean IsSuccess, String data, String Msg) {
-                tudi tudi = GsonUtils.parseJSON(data, tudi.class);
-                mTudi.clear();
-                if(tudi.getSt()!=null){
-                    mTudi.addAll(tudi.getSt());
-                    adapter.notifyDataSetChanged();
+                if(IsSuccess){
+                    tudi tudi = GsonUtils.parseJSON(data, tudi.class);
+                    mTudi.clear();
+                    if(tudi.getSt()!=null){
+                        mTudi.addAll(tudi.getSt());
+                        adapter.notifyDataSetChanged();
+                    }
+                }else {
+                    Toast(data.toString());
                 }
             }
         });

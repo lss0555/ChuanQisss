@@ -34,6 +34,7 @@ import Constance.constance;
 import Interfaces.ConnectionChangeReceiver;
 import Utis.OkHttpUtil;
 import Utis.Utis;
+import Utis.SharePre;
 import Utis.StatusBarUtils;
 import Utis.GsonUtils;
 import Views.AlwaysMarqueeTextView;
@@ -62,6 +63,7 @@ import model.TxRecord.jqzcr;
 import model.TxRecord.JqzCrRecord;
 import model.TxRecord.TxRecord;
 import model.TxRecord.tx;
+import model.UserInfo;
 import model.UserMoney;
 /**
  * A simple {@link Fragment} subclass. update 2016.8.31
@@ -126,9 +128,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
         initview(layout);
         initViewPage();
         initdate();
+        initMoney();
         registBrocasts();
         return layout;
     }
+
+
 
     @Override
     public void onStart() {
@@ -230,6 +235,31 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
         });
         UserAccount();  //用户余额
         JqzAccount();  //聚钱庄余额
+    }
+    /**
+     * 用户金额，聚钱庄金额
+     */
+    private void initMoney() {
+        if (SharePre.getUserId(getActivity()).equals("")){
+            HashMap<String,String> map=new HashMap<>();
+            map.put("udid", Utis.getIMEI(getActivity()));
+            OkHttpUtil.getInstance().Post(map, constance.URL.USER_INFO, new OkHttpUtil.FinishListener() {
+                public UserInfo mUserInfo;
+
+                @Override
+                public void Successfully(boolean IsSuccess, String data, String Msg) {
+                    Log.i("个人资料",""+data.toString());
+                    if(IsSuccess){
+                        mUserInfo= GsonUtils.parseJSON(data, UserInfo.class);
+                        SharePre.saveUserId(getActivity(),mUserInfo.getId());
+                        getAccountInfo();
+                    } else {
+                        Toast(data.toString());
+                    }
+                }
+            });
+        } else { getAccountInfo();
+        }
     }
     public  void getAccountInfo(){
         UserAccount();  //用户余额
