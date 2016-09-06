@@ -64,7 +64,6 @@ public class BaseFragment extends Fragment {
 		// set a custom tint color for all system bars
 		tintManager.setStatusBarTintColor(getResources().getColor(ColorId));
 	}
-
 	/**
 	 */
 	public boolean isBackground() {
@@ -151,17 +150,14 @@ public class BaseFragment extends Fragment {
 				progressDialog.setMessage(msg);
 			}
 		}
-
 		progressDialog.show();
 	}
-
 	public void stopProgressDialog(){
 		if (progressDialog != null){
 			progressDialog.dismiss();
 			progressDialog = null;
 		}
 	}
-
 	/**
 	 * ����һ�����ض������趨һ����ʱʱ�䣬���ʱ�䵽��û�б��رգ����Զ��رղ���ʾ������ʾ
 	 * @param title ����
@@ -216,7 +212,6 @@ public class BaseFragment extends Fragment {
 				.setNegativeButton("ȡ��", cancle)
 				.show();
 	}
-
 	/**
 	 * У���¼�˺�,�˺Ų���Ϊ�գ�6��11λ,���԰�����������ĸ�������ִ�Сд�������������ַ�
 	 * @return �Ƿ�ͨ��У��

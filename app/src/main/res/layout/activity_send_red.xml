@@ -201,6 +201,7 @@
         android:background="@color/gray"
         android:layout_height="0.2dp"></View>
     <RelativeLayout
+        android:id="@+id/rtl_wxpay"
         android:layout_width="match_parent"
         android:layout_height="45dp">
         <RadioButton
@@ -226,6 +227,7 @@
         android:background="@color/gray"
         android:layout_height="0.2dp"></View>
     <RelativeLayout
+        android:id="@+id/rtl_alipay"
         android:layout_width="match_parent"
         android:layout_height="45dp">
         <RadioButton

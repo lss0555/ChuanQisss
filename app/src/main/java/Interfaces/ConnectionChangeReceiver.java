@@ -5,7 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
 import android.widget.Toast;
+
+import Utis.Utis;
 
 public class ConnectionChangeReceiver extends BroadcastReceiver {
     private NetStateListner listner;
@@ -15,16 +18,21 @@ public class ConnectionChangeReceiver extends BroadcastReceiver {
         ConnectivityManager connectivityManager=(ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo mobNetInfo=connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
         NetworkInfo wifiNetInfo=connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+//        if (Intent.ACTION_TIME_TICK.equals(intent.getAction())) {
+//            Log.i("广播获取手机系统时间",""+Utis.getTime());
+//        }
+
         if (!mobNetInfo.isConnected() && !wifiNetInfo.isConnected()) {
             if(listner!=null){
                listner.NetState(false);
             }
-//            Toast.makeText(context,"网络不可用",Toast.LENGTH_SHORT).show();
+
             //改变背景或者 处理网络的全局变量
         }else {
             if(listner!=null){
                 listner.NetState(true);
             }
+//            Toast.makeText(context,"广播获取手机系统时间"+""+Utis.getTime(),Toast.LENGTH_SHORT).show();
 //            Toast.makeText(context,"网络可以用了",Toast.LENGTH_SHORT).show();
             //改变背景或者 处理网络的全局变量
         }

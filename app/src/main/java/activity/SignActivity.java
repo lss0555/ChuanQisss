@@ -122,7 +122,7 @@ public class SignActivity extends BaseActivity implements View.OnClickListener{
                Result result = GsonUtils.parseJSON(data, Result.class);
                stopProgressDialog();
 //               showTip(data.toString());
-               Log.i("签到信息",""+data.toString());
+               Log.e("签到信息",""+data.toString());
                if(IsSuccess){
                    if(result.getRun().equals("1")){
                        List<String> list = new ArrayList<String>();

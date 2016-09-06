@@ -68,6 +68,7 @@
                     android:layout_height="wrap_content" />
             </RelativeLayout>
             <RelativeLayout
+                android:id="@+id/rtl_message_tip"
                 android:layout_width="match_parent"
                 android:layout_weight="1"
                 android:layout_marginRight="2.5dp"
@@ -92,12 +93,10 @@
                         android:layout_width="wrap_content"
                         android:textColor="@color/dark_gray"
                         android:textSize="14sp"
-                        android:text="未读消息"
                         android:layout_height="wrap_content" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_toRightOf="@+id/tv_unread"
-                        android:text="5条"
                         android:textColor="@color/red"
                         android:layout_height="wrap_content" />
                 </RelativeLayout>
@@ -204,6 +203,7 @@
             android:layout_marginLeft="10dp"
             android:layout_height="110dp">
             <RelativeLayout
+                android:id="@+id/rtl_opinion"
                 android:layout_width="match_parent"
                 android:layout_weight="1"
                 android:layout_marginRight="5dp"

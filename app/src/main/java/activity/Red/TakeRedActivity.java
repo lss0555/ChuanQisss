@@ -1,7 +1,9 @@
 package activity.Red;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
@@ -45,18 +47,22 @@ public class TakeRedActivity extends BaseActivity {
     private final int RED_TOP_1=1;
     private final int RED_TOP_2=2;
     private final int RED_TOP_3=3;
+    private SwipeRefreshLayout mReFreshLayout;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_take_red);
         initview();
-        initRedTime();
-        initRedDateing();
+        initdate();
         initevent();
     }
-
-
-
+    /**
+     * 初始化数据
+     */
+    private void initdate() {
+        initRedTime();
+        initRedDateing();
+    }
     private void initview() {
         roundProgressBar = (RoundProgressBar) findViewById(R.id.roundProgressBar);
         roundProgressBar.setProgress(75);
@@ -85,13 +91,18 @@ public class TakeRedActivity extends BaseActivity {
                 OkHttpUtil.getInstance().Post(map, constance.URL.TAKE_RED, new OkHttpUtil.FinishListener() {
                     @Override
                     public void Successfully(boolean IsSuccess, String data, String Msg) {
+//                        Toast(data.toString());
                         RedMoney redMoney = GsonUtils.parseJSON(data, RedMoney.class);
                         if (redMoney.getRun().equals("0")) {
-                            showTip("请先发红包");
+                            Toast("请先发红包");
                         }else  if(redMoney.getRun().equals("1")){
                             Intent intent=new Intent(getApplicationContext(), ShowRedPriceActivity.class);
                             intent.putExtra("money",redMoney.getMoney());
                             startActivity(intent);
+                        }else  if(redMoney.getRun().equals("2")){
+                            Toast("在该时段，您已经抢过了");
+                        }else  if(redMoney.getRun().equals("3")){
+                            Toast("未开放，请在每个整点的前3分钟再来抢红包");
                         }
                     }
                 });
@@ -198,7 +209,7 @@ public class TakeRedActivity extends BaseActivity {
                 }else if(mTimes.get(i).getState().equals("")){
 
                 }else {
-                    showTip("抱歉，时间还没开始");
+                    Toast("时间还没开始，请稍等");
                 }
             }
         });

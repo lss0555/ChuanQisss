@@ -1,14 +1,17 @@
 package Fragments;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,6 +42,7 @@ import activity.AboutUsActivity;
 import activity.BindAliPayActivity;
 import activity.BindWxAccountActivity;
 import activity.BindPhoneActivity;
+import activity.Red.LookRedRecordActivity;
 import activity.UserInfoActivity;
 import model.UserInfo;
 import model.Yzm;
@@ -58,6 +62,8 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
     private TextView mTvBindPhoneState;
     private String UserCity;
     private boolean IsBindPhone=false;
+    private ProgressBar mProgress;
+
     public MineFragment() {
     }
     @Override
@@ -175,6 +181,9 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
         layout.findViewById(R.id.rtl_about_ours).setOnClickListener(this);
         layout.findViewById(R.id.rtl_wx).setOnClickListener(this);
         layout.findViewById(R.id.rtl_update).setOnClickListener(this);
+        layout.findViewById(R.id.rtl_message_tip).setOnClickListener(this);
+        layout.findViewById(R.id.rtl_detail_get).setOnClickListener(this);
+        layout.findViewById(R.id.rtl_opinion).setOnClickListener(this);
     }
     @Override
     public void onClick(View view) {
@@ -186,8 +195,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
                 break;
             case R.id.rtl_bind_phone:
                 if(yzm.getRun().equals("1")){
-                    Toast.makeText(getActivity(),"提示:您已绑定过手机号码",Toast.LENGTH_SHORT).show();
-//                    showTip("提示:您已绑定过");
+                    Toast.makeText(getActivity(),"您已绑定过手机号码",Toast.LENGTH_SHORT).show();
                 }else {
                     Intent intent_phone=new Intent(getActivity(), BindPhoneActivity.class);
                     startActivity(intent_phone);
@@ -206,12 +214,55 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
                 startActivity(intent_ours);
                 break;
             case R.id.rtl_update://检查更新
-//                getAppPackages();
-//                String s = SHA1();
-//                Toast.makeText(getActivity(),"SHA1:"+s.toString(),Toast.LENGTH_SHORT).show();
-//                Log.e("sha1",""+s.toString());
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("软件版本更新");
+                builder.setMessage("更新信息");
+                builder.setPositiveButton("下载", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        showDownloadDialog();
+                    }
+                });
+                builder.setNegativeButton("以后再说", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                AlertDialog noticeDialog= builder.create();
+                noticeDialog.show();
+                break;
+            case R.id.rtl_message_tip://消息提醒
+                Toast("待开发中...");
+                break;
+            case R.id.rtl_opinion://意见反馈
+                Toast("待开发中...");
+                break;
+            case R.id.rtl_detail_get://明细收益
+                Intent intent_record=new Intent(getActivity(),LookRedRecordActivity.class);
+                startActivity(intent_record);
                 break;
         }
+    }
+    private void showDownloadDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("软件版本更新");
+        final LayoutInflater inflater = LayoutInflater.from(getActivity());
+        View v = inflater.inflate(R.layout.item_download_apk, null);
+        mProgress = (ProgressBar) v.findViewById(R.id.progress);
+        builder.setView(v);
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+//                interceptFlag = true;
+            }
+        });
+        AlertDialog downloadDialog = builder.create();
+        downloadDialog.show();
+
+//        downloadApk();
     }
     /**
      * 获取应用的信息

@@ -3,11 +3,13 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -80,7 +82,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
     private UserMoney mUserMoney;
     private  ArrayList<JxzAccount> mJxzAccount=new ArrayList<>();
     protected boolean isVisible;
-    final ArrayList<String> list = new ArrayList<String>(Arrays.asList("30分钟", "20分钟", "12秒钟", "2小时"));
+    final ArrayList<String> initUserTxRecord = new ArrayList<String>(Arrays.asList("用户100001", "用户100002", "用户100003", "用户100004"));
+//    final ArrayList<String> initUserId = new ArrayList<String>(Arrays.asList("30分钟", "20分钟", "12秒钟", "2小时"));
+//    final ArrayList<String> initTimes = new ArrayList<String>(Arrays.asList("30分钟", "20分钟", "12秒钟", "2小时"));
     private boolean IsTouch=true;
     private ViewPager page;
     private ViewPageIndicator viewPageIndicator;
@@ -112,7 +116,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
     private View mEmptyDate;
     private ConnectionChangeReceiver myReceiver;
     private TextView mTvUpLoad;
-
+    private SwipeRefreshLayout mReFreshLayout;
     public static HomeFragment getInstance(){
         if(instance==null){
             instance=new HomeFragment();
@@ -126,13 +130,42 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
                              Bundle savedInstanceState) {
         View layout=inflater.inflate(R.layout.fragment_home,null);
         initview(layout);
-        initViewPage();
         initdate();
-        initMoney();
+        initViewPage(); //轮播
         registBrocasts();
+        initReFreshDate();
         return layout;
     }
-
+    /**
+     * 刷新数据
+     */
+    private void initReFreshDate() {
+        //改变加载显示的颜色
+        mReFreshLayout.setColorSchemeColors(Color.RED,Color.RED);
+        mReFreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(2000);
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+//                                    initViewPage(); //轮播
+                                    initdate();
+                                    mReFreshLayout.setRefreshing(false);
+                                }
+                            });
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
+            }
+        });
+    }
 
 
     @Override
@@ -144,7 +177,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
             @Override
             public void NetState(boolean IsConnect) {
                 if(!IsConnect){
-                    mSvDate.setVisibility(View.GONE);
+                    mReFreshLayout.setVisibility(View.GONE);
                     Toast("网络连接已断开");
                 }
             }
@@ -175,8 +208,19 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
      * inidate
      */
     private void initdate() {
+        GongGaoRecord();//公告记录
+        UserTxRecord();//用户提现记录
+        JqzStoreRecord(); //聚钱庄存入记录
+        UserAccount();  //用户余额
+        JqzAccount();  //聚钱庄余额
+        UserMoney();//用户金额，聚钱庄金额
 
-        //公告
+    }
+
+    /**
+     * 公告记录
+     */
+    private void GongGaoRecord() {
         OkHttpUtil.getInstance().Get( constance.URL.GONGGAO, new OkHttpUtil.FinishListener() {
             @Override
             public void Successfully(boolean IsSuccess, String data, String Msg) {
@@ -189,10 +233,16 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
                 }
             }
         });
-        //用户提现记录
+    }
+
+    /**
+     * 用户提现记录
+     */
+    private void UserTxRecord() {
         OkHttpUtil.getInstance().Get(constance.URL.USER_TX, new OkHttpUtil.FinishListener() {
             @Override
             public void Successfully(boolean IsSuccess, String data, String Msg) {
+                Log.i("用户提现记录",""+data.toString());
                 if(IsSuccess){
                     tx mTx = GsonUtils.parseJSON(data, tx.class);
                     mTxRecord.clear();
@@ -209,14 +259,22 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
                             mState.add("支付宝提现"+mTxRecord.get(i).getPrice()+"元到账");
                         }
                     }
-                    initUserTx();
+                    Log.i("用户mUserId",""+mUserId.toString());
+                    setUserTx();
+                }else {
+                    Toast(data.toString());
                 }
             }
         });
-//        //聚钱庄存入记录
+    }
+    /**
+     * 聚钱庄存入记录
+     */
+    private void JqzStoreRecord() {
         OkHttpUtil.getInstance().Get(constance.URL.JQZ_CR, new OkHttpUtil.FinishListener() {
             @Override
             public void Successfully(boolean IsSuccess, String data, String Msg) {
+                Log.i("聚钱庄存入记录",""+data.toString());
                 if(IsSuccess){
                     jqzcr mJqzCr = GsonUtils.parseJSON(data, jqzcr.class);
                     mCrJqz.clear();
@@ -233,13 +291,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
                 }
             }
         });
-        UserAccount();  //用户余额
-        JqzAccount();  //聚钱庄余额
     }
     /**
      * 用户金额，聚钱庄金额
      */
-    private void initMoney() {
+    private void UserMoney() {
         if (SharePre.getUserId(getActivity()).equals("")){
             HashMap<String,String> map=new HashMap<>();
             map.put("udid", Utis.getIMEI(getActivity()));
@@ -272,7 +328,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
                 @Override
                 public void Successfully(boolean IsSuccess, String data, String Msg) {
                     if(IsSuccess){
-                        Log.i("数据",""+data.toString());
+//                        Log.i("数据",""+data.toString());
 //                  showTip(data.toString());
                         UserMoney userMoney = GsonUtils.parseJSON(data, UserMoney.class);
                         if(userMoney.getfTodayIncome()==null){
@@ -310,6 +366,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
         });
     }
 
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -323,7 +380,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
     /**
      * 事件
      */
-    private void initUserTx() {
+    private void setUserTx() {
         //显示用户提现信息
         mTvId.setCbInterface(new VerticalSwitchTextView.VerticalSwitchTextViewCbInterface() {
             @Override
@@ -375,6 +432,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
         mTvTime1.setTextContent(mJqzCrTime);
     }
     private void initview(View layout) {
+        mReFreshLayout = (SwipeRefreshLayout) layout.findViewById(R.id.swipeRefreshLayout);
         mLanner= (Lanner) layout.findViewById(R.id.lanner);
         mSvDate = (ScrollView) layout.findViewById(R.id.sv_date);
         mEmptyDate = layout.findViewById(R.id.no_date);
@@ -432,16 +490,18 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
     public void onClick(View view) {
         switch (view.getId()){
             case  R.id.tv_fast_task://快速任务
-                Intent intent_Task=new Intent(getActivity(), FaskTaskActivity.class);
-                getActivity().startActivity(intent_Task);
+//                Intent intent_Task=new Intent(getActivity(), FaskTaskActivity.class);
+//                getActivity().startActivity(intent_Task);
+                Toast("待开发中...");
                 break;
             case  R.id.tv_unit_task://联盟任务
                 Intent intent=new Intent(getActivity(), UnitTaskActivity.class);
                 getActivity().startActivity(intent);
                 break;
             case  R.id.tv_day_shop://每日夺宝
-                Intent intent_shop=new Intent(getActivity(), OneShopActivity.class);
-                getActivity().startActivity(intent_shop);
+//                Intent intent_shop=new Intent(getActivity(), OneShopActivity.class);
+//                getActivity().startActivity(intent_shop);
+                Toast("待开发中...");
                 break;
             case  R.id.tv_day_sign://每日签到
                 Intent intent_sign=new Intent(getActivity(), SignActivity.class);
@@ -469,8 +529,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
                 getActivity().startActivity(intent_jxz);
                 break;
             case  R.id.tv_open_box://开宝箱
-                Intent intent_openbox=new Intent(getActivity(), OpenBoxActivity.class);
-                getActivity().startActivity(intent_openbox);
+//                Intent intent_openbox=new Intent(getActivity(), OpenBoxActivity.class);
+//                getActivity().startActivity(intent_openbox);
+                Toast("待开发中...");
                 break;
             case  R.id.tv_help_center://帮助中心
                 Intent intent_help_center=new Intent(getActivity(), HelpCenterActivity.class);
@@ -486,7 +547,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
                 break;
             case  R.id.tv_upload://点击网络加载
                 if(Utis.isNetworkConnected(getActivity())){
-                   mSvDate.setVisibility(View.VISIBLE);
+                    mReFreshLayout.setVisibility(View.VISIBLE);
                     initdate();
                 }else {
                     Toast("当前无网络，请稍后再试");

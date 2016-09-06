@@ -13,6 +13,18 @@ public class TxRecord implements Serializable {
     private  String price;
     private  String txtime;
 
+    @Override
+    public String toString() {
+        return "TxRecord{" +
+                "id='" + id + '\'' +
+                ", userid='" + userid + '\'' +
+                ", accountstyle='" + accountstyle + '\'' +
+                ", txstate='" + txstate + '\'' +
+                ", price='" + price + '\'' +
+                ", txtime='" + txtime + '\'' +
+                '}';
+    }
+
     public String getId() {
         return id;
     }

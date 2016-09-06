@@ -1,15 +1,24 @@
 package activity;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.chuanqi.yz.R;
 
 import java.util.ArrayList;
@@ -40,6 +49,19 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     private GetFragment getFragment;
     private ShareFragment shareFragment;
     private MineFragment mineFragment;
+//    private ServiceConnection conn=new ServiceConnection() {
+//        private TimerService.MyBind binder;
+//        @Override
+//        public void onServiceConnected(ComponentName componentName, IBinder service) {
+//            binder = (TimerService.MyBind)service;
+//            Log.i("服务连接状态","Success"+ binder.getDate());
+//        }
+//        @Override
+//        public void onServiceDisconnected(ComponentName componentName) {
+//            Log.i("服务连接状态","Fails");
+//        }
+//    };
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +74,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     private void initState() {
 
     }
-
     public  static  MainActivity getInstance(){
         if(instance==null){
             instance=new MainActivity();
@@ -182,5 +203,33 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
         mTv.setCompoundDrawables(null, drawable, null, null);
         mTv.setTextColor(getResources().getColor(color));
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+//        Intent intent = new Intent(MainActivity.this, TimerService.class);
+//        bindService(intent, conn, Context.BIND_AUTO_CREATE);
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+//        unbindService(conn);
+    }
+    long waitTime = 2000;
+    long touchTime = 0;
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(event.getAction() == KeyEvent.ACTION_DOWN && KeyEvent.KEYCODE_BACK == keyCode) {
+            long currentTime = System.currentTimeMillis();
+            if((currentTime-touchTime)>=waitTime) {
+                Toast.makeText(this, "再按一次退出",Toast.LENGTH_SHORT).show();
+                touchTime = currentTime;
+            }else {
+                finish();
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

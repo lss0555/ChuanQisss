@@ -42,6 +42,8 @@ public class SendRedActivity extends BaseActivity {
     private RelativeLayout mRtlPay;
     private int Yue;
     private double YiZhuanYue;
+    private RelativeLayout mRtlWxPay;
+    private RelativeLayout mRtlAliPay;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -65,18 +67,22 @@ public class SendRedActivity extends BaseActivity {
      * 易赚红余额
      */
     private void YiZuanDate() {
+        startProgressDialog("请稍后...");
         HashMap<String,String> maps=new HashMap<>();
         maps.put("userid", SharePre.getUserId(getApplicationContext()));
         OkHttpUtil.getInstance().Post(maps, constance.URL.YIZUAN_RED, new OkHttpUtil.FinishListener() {
             @Override
             public void Successfully(boolean IsSuccess, String data, String Msg) {
-//                showTip(data.toString());
-                YiZhuanRed yiZhuanRed = GsonUtils.parseJSON(data, YiZhuanRed.class);
-//                YiZhuanYue=Double.parseDouble(yiZhuanRed.getYue());
-                if(yiZhuanRed.getYue()==null || yiZhuanRed.getYue().equals("null")|| yiZhuanRed.getYue().equals("")){
-                    mTvYiZuan.setText("余额:"+"0.0元");
+                stopProgressDialog();
+                if(IsSuccess){
+                    YiZhuanRed yiZhuanRed = GsonUtils.parseJSON(data, YiZhuanRed.class);
+                    if(yiZhuanRed.getYue()==null || yiZhuanRed.getYue().equals("null")|| yiZhuanRed.getYue().equals("")){
+                        mTvYiZuan.setText("余额:"+"0.0元");
+                    }else {
+                        mTvYiZuan.setText("余额:"+yiZhuanRed.getYue()+"元");
+                    }
                 }else {
-                    mTvYiZuan.setText("余额:"+yiZhuanRed.getYue()+"元");
+                    Toast(data.toString());
                 }
             }
         });
@@ -86,18 +92,23 @@ public class SendRedActivity extends BaseActivity {
      * 用户余额
      */
     private void YueDate() {
+        startProgressDialog("加载中...");
         HashMap<String,String> maps=new HashMap<>();
         maps.put("udid", Utis.getIMEI(getApplicationContext()));
         OkHttpUtil.getInstance().Post(maps, constance.URL.MONEY, new OkHttpUtil.FinishListener() {
             @Override
             public void Successfully(boolean IsSuccess, String data, String Msg) {
+                stopProgressDialog();
                 Log.i("数据",""+data.toString());
-                UserMoney userMoney = GsonUtils.parseJSON(data, UserMoney.class);
-//                Yue=Integer.parseInt(userMoney.getfNotPayIncome());
-                if(userMoney.getfNotPayIncome()==null || userMoney.getfNotPayIncome().equals("null")|| userMoney.getfNotPayIncome().equals("")){
-                    mTvYue.setText("余额:"+"0.0元");
+                if(IsSuccess){
+                    UserMoney userMoney = GsonUtils.parseJSON(data, UserMoney.class);
+                    if(userMoney.getfNotPayIncome()==null || userMoney.getfNotPayIncome().equals("null")|| userMoney.getfNotPayIncome().equals("")){
+                        mTvYue.setText("余额:"+"0.0元");
+                    }else {
+                        mTvYue.setText("余额:"+userMoney.getfNotPayIncome()+"元");
+                    }
                 }else {
-                    mTvYue.setText("余额:"+userMoney.getfNotPayIncome()+"元");
+                    Toast(data.toString());
                 }
             }
         });
@@ -113,6 +124,8 @@ public class SendRedActivity extends BaseActivity {
         mRbWxin = (RadioButton) findViewById(R.id.rb_wxin);
         mRbAlipay = (RadioButton) findViewById(R.id.rb_alipay);
         mRtlPay = (RelativeLayout) findViewById(R.id.rtl_pay);
+        mRtlWxPay = (RelativeLayout) findViewById(R.id.rtl_wxpay);
+        mRtlAliPay = (RelativeLayout) findViewById(R.id.rtl_alipay);
     }
 
 
@@ -167,6 +180,8 @@ public class SendRedActivity extends BaseActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     mRb_200.setChecked(false);
+                    mRtlAliPay.setVisibility(View.VISIBLE);
+                    mRtlWxPay.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -175,6 +190,8 @@ public class SendRedActivity extends BaseActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     mRb_100.setChecked(false);
+                    mRtlAliPay.setVisibility(View.GONE);
+                    mRtlWxPay.setVisibility(View.GONE);
                 }
             }
         });
@@ -214,10 +231,10 @@ public class SendRedActivity extends BaseActivity {
                                 PayYue2RedPool(100);
                                 break;
                             case WXIN_PAY://微信支付
-                                showTip("红包100   微信支付");
+                                Toast("红包100   微信支付");
                                 break;
                             case ALI_PAY://支付宝支付
-                                showTip("红包100   支付宝支付");
+                                Toast("红包100   支付宝支付");
                                 break;
                         }
                         break;
@@ -230,10 +247,10 @@ public class SendRedActivity extends BaseActivity {
                                 PayYue2RedPool(500);
                                 break;
                             case WXIN_PAY://微信支付
-                                showTip("红包200   微信支付");
+                                Toast("红包200   微信支付");
                                 break;
                             case ALI_PAY://支付宝支付
-                                showTip("红包200   支付宝支付");
+                                Toast("红包200   支付宝支付");
                                 break;
                         }
                         break;
@@ -253,16 +270,16 @@ public class SendRedActivity extends BaseActivity {
                     stopProgressDialog();
                     Result result = GsonUtils.parseJSON(data, Result.class);
                     if(result.getRun().equals("1")){
-                        showTip("恭喜您，支付成功");
+                        Toast("恭喜您，支付成功");
                         YueDate();
                     }else if(result.getRun().equals("2")){
-                        showTip("抱歉，您的余额不足");
+                        Toast("抱歉，您的余额不足");
                     }else if(result.getRun().equals("0")){
-                        showTip("抱歉，支付失败");
+                        Toast("抱歉，支付失败");
                     }else if(result.getRun().equals("3")){
-                        showTip("抱歉，您今天已经充值过");
+                        Toast("抱歉，您今天已经充值过");
                     }else if(result.getRun().equals("4")){
-                        showTip("提示:还有未抢完的红包，等抢完在发");
+                        Toast("提示:还有未抢完的红包，等抢完在发");
                     }
                 }
             });

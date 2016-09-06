@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Map;
 
+import Constance.constance;
 import Interfaces.ConnectionChangeReceiver;
 import Utis.SystemBarTintManager;
 import dialog.CustomProgressDialog;
@@ -63,7 +64,9 @@ public class BaseActivity extends FragmentActivity {
 	protected void onStart() {
 		super.onStart();
 //		StatusBarCompat.setStatusBarColor(this,R.color.red, true);
-		IntentFilter filter=new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+		IntentFilter filter=new IntentFilter();
+//		filter.addAction("ConnectivityManager.CONNECTIVITY_ACTION");
+		filter.addAction(Intent.ACTION_TIME_TICK);
 		myReceiver=new ConnectionChangeReceiver();
 		myReceiver.SetNetStateListner(new ConnectionChangeReceiver.NetStateListner() {
 			@Override

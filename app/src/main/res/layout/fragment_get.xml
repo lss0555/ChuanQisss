@@ -1,13 +1,35 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="Fragments.GetFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <WebView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/wv_shop" />
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:background="@color/red"
+       android:layout_height="50dp">
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textAppearance="?android:attr/textAppearanceMedium"
+          android:text="返利商城"
+          android:textSize="20sp"
+          android:textColor="@color/white"
+          android:id="@+id/textView"
+          android:layout_centerVertical="true"
+          android:layout_centerHorizontal="true" />
+   </RelativeLayout>
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textAppearance="?android:attr/textAppearanceMedium"
+          android:text="待开发中..."
+          android:textSize="20sp"
+          android:textColor="@color/black"
+          android:layout_centerVertical="true"
+          android:layout_centerHorizontal="true" />
+   </RelativeLayout>
 </LinearLayout>
