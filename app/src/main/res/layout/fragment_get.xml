@@ -26,9 +26,9 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:textAppearance="?android:attr/textAppearanceMedium"
-          android:text="待开发中..."
+          android:text="待开放中..."
           android:textSize="20sp"
-          android:textColor="@color/black"
+          android:textColor="@color/darks_gray"
           android:layout_centerVertical="true"
           android:layout_centerHorizontal="true" />
    </RelativeLayout>

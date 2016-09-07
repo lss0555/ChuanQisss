@@ -37,12 +37,15 @@ public class LookRedRecordActivity extends BaseActivity {
         OkHttpUtil.getInstance().Post(map, constance.URL.TAKE_TED_RECORD, new OkHttpUtil.FinishListener() {
             @Override
             public void Successfully(boolean IsSuccess, String data, String Msg) {
-//                showTip(data.toString());
-                record record = GsonUtils.parseJSON(data, record.class);
-                if(record.getRecord()!=null){
-                    mDate.clear();
-                    mDate.addAll(record.getRecord());
-                    adapter.notifyDataSetChanged();
+                if(IsSuccess){
+                    record record = GsonUtils.parseJSON(data, record.class);
+                    if(record.getRecord()!=null){
+                        mDate.clear();
+                        mDate.addAll(record.getRecord());
+                        adapter.notifyDataSetChanged();
+                    }
+                }else {
+                    Toast(data.toString());
                 }
             }
         });

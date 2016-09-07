@@ -1,20 +1,11 @@
 package activity;
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.Intent;
-import android.content.ServiceConnection;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,11 +17,8 @@ import Fragments.GetFragment;
 import Fragments.HomeFragment;
 import Fragments.MineFragment;
 import Fragments.ShareFragment;
-import Interfaces.ConnectionChangeReceiver;
-import Mob.Share.OnekeyShare;
-import Utis.StatusBarUtils;
 import Views.UnSlideViewPager;
-import cn.sharesdk.framework.ShareSDK;
+
 public class MainActivity extends BaseActivity implements View.OnClickListener{
     private  int mCurentPageIndex;//当前的页数
     private ArrayList<Fragment> mFragments;
@@ -208,13 +196,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     @Override
     protected void onStart() {
         super.onStart();
-//        Intent intent = new Intent(MainActivity.this, TimerService.class);
-//        bindService(intent, conn, Context.BIND_AUTO_CREATE);
-    }
-    @Override
-    public void onStop() {
-        super.onStop();
-//        unbindService(conn);
     }
     long waitTime = 2000;
     long touchTime = 0;

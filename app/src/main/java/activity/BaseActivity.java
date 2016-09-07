@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -25,11 +24,8 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Map;
 
-import Constance.constance;
-import Interfaces.ConnectionChangeReceiver;
-import Utis.SystemBarTintManager;
+import Interfaces.MyReceiver;
 import dialog.CustomProgressDialog;
-
 public class BaseActivity extends FragmentActivity {
 	/**
 	 * 获取当前网络类型
@@ -48,9 +44,8 @@ public class BaseActivity extends FragmentActivity {
 	private int loadingCount = 0; // loading��������ʱ�ж���
 	private Map<View, Runnable> touchListenerMap = new Hashtable<>();
 	private boolean containVisiableStartActivity = false;
-	private ConnectionChangeReceiver myReceiver;
+	private MyReceiver myReceiver;
 	private boolean IsConnectNet=true;
-	private SystemBarTintManager tintManager;
 
 	/**
 	 */
@@ -63,23 +58,6 @@ public class BaseActivity extends FragmentActivity {
 	@Override
 	protected void onStart() {
 		super.onStart();
-//		StatusBarCompat.setStatusBarColor(this,R.color.red, true);
-		IntentFilter filter=new IntentFilter();
-//		filter.addAction("ConnectivityManager.CONNECTIVITY_ACTION");
-		filter.addAction(Intent.ACTION_TIME_TICK);
-		myReceiver=new ConnectionChangeReceiver();
-		myReceiver.SetNetStateListner(new ConnectionChangeReceiver.NetStateListner() {
-			@Override
-			public void NetState(boolean IsConnect) {
-				if(IsConnect){
-					IsConnectNet=true;
-				}else {
-					IsConnectNet=false;
-				}
-//				Toast("连接网络状态:"+IsConnect);
-			}
-		});
-		registerReceiver(myReceiver, filter);
 	}
 	public  void IsNewConnect(boolean IsConnectNet){
 		Toast("连接网络网站"+IsConnectNet);
@@ -87,24 +65,11 @@ public class BaseActivity extends FragmentActivity {
 	public void onDestroy() {
 		background = true;
 		activityList.remove(this);
-		unregisterReceiver(myReceiver);
 		super.onDestroy();
 	}
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		activityList.add(this);
-//		StatusBarCompat.setStatusBarColor(this,R.color.red, true);
-		setSystemTintBar(R.color.yellow_dark);
-	}
-	protected void setSystemTintBar(int ColorId){
-		// create our manager instance after the content view is set
-		tintManager = new SystemBarTintManager(this);
-		// enable status bar tint
-		tintManager.setStatusBarTintEnabled(true);
-		// enable navigation bar tint
-		tintManager.setNavigationBarTintEnabled(true);
-		// set a custom tint color for all system bars
-		tintManager.setStatusBarTintColor(getResources().getColor(ColorId));
 	}
 	public void back(View view) {
 		finish();
@@ -161,10 +126,6 @@ public class BaseActivity extends FragmentActivity {
 		background = false;
 //		AndroidSystem.getInstance().clearNotification();
 		super.onResume();
-	}
-	public void onStop() {
-		background = true;
-		super.onStop();
 	}
 	public void Toast(String msg){
 		Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT).show();

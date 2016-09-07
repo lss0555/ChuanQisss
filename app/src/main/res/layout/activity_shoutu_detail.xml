@@ -28,6 +28,7 @@
       <TextView
           android:id="@+id/tv_receive"
           android:layout_width="wrap_content"
+          android:visibility="gone"
           android:text="收徒"
           android:textSize="17sp"
           android:textColor="@color/white"

@@ -63,6 +63,8 @@ public class constance {
         public static final String MONTH_SIGN = BASE_URL+"month_sign.php";
         /* 获取连续签到的天数*/
         public static final String DAY_SIGN = BASE_URL+"day_sign.php";
+        /* 分享获取奖励*/
+        public static final String SHARE_GET = BASE_URL+"sharerecord.php";
     }
     public static final class INTENT {
         public static final int INTO_JQZ_SUCCESS = 2132;

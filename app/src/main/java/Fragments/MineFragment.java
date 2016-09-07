@@ -1,10 +1,14 @@
 package Fragments;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -22,6 +26,13 @@ import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.chuanqi.yz.R;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
@@ -32,6 +43,7 @@ import java.util.List;
 import java.util.Locale;
 
 import Constance.constance;
+import Manager.UpdateManagers;
 import Utis.OkHttpUtil;
 import Utis.Utis;
 import Utis.UILUtils;
@@ -63,7 +75,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
     private String UserCity;
     private boolean IsBindPhone=false;
     private ProgressBar mProgress;
-
+    private TextView mTvState;
     public MineFragment() {
     }
     @Override
@@ -214,55 +226,21 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
                 startActivity(intent_ours);
                 break;
             case R.id.rtl_update://检查更新
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle("软件版本更新");
-                builder.setMessage("更新信息");
-                builder.setPositiveButton("下载", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        showDownloadDialog();
-                    }
-                });
-                builder.setNegativeButton("以后再说", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-                AlertDialog noticeDialog= builder.create();
-                noticeDialog.show();
+                UpdateManagers mUpdateManager = new UpdateManagers(getActivity());
+                mUpdateManager.setNotUpdateMessageShow(false);
+                mUpdateManager.checkUpdateInfo();
                 break;
             case R.id.rtl_message_tip://消息提醒
-                Toast("待开发中...");
+                Toast("待开放中...");
                 break;
             case R.id.rtl_opinion://意见反馈
-                Toast("待开发中...");
+                Toast("待开放中...");
                 break;
             case R.id.rtl_detail_get://明细收益
                 Intent intent_record=new Intent(getActivity(),LookRedRecordActivity.class);
                 startActivity(intent_record);
                 break;
         }
-    }
-    private void showDownloadDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("软件版本更新");
-        final LayoutInflater inflater = LayoutInflater.from(getActivity());
-        View v = inflater.inflate(R.layout.item_download_apk, null);
-        mProgress = (ProgressBar) v.findViewById(R.id.progress);
-        builder.setView(v);
-        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-//                interceptFlag = true;
-            }
-        });
-        AlertDialog downloadDialog = builder.create();
-        downloadDialog.show();
-
-//        downloadApk();
     }
     /**
      * 获取应用的信息
@@ -276,7 +254,6 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
             map.put("userid",SharePre.getUserId(getActivity())) ;
             map.put("applyid",allApps.get(i).packageName) ;
             map.put("applyname",allApps.get(i).applicationInfo.loadLabel(pm).toString()) ;
-
             Calendar c = Calendar.getInstance();
             c.setTimeInMillis(allApps.get(i).lastUpdateTime);
             SimpleDateFormat matter1=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -304,7 +281,6 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
             PackageInfo pak = (PackageInfo) paklist.get(i);
             //判断是否为非系统预装的应用程序
             if ((pak.applicationInfo.flags & pak.applicationInfo.FLAG_SYSTEM) <= 0) {
-                // customs applications
                 apps.add(pak);
             }
         }
@@ -312,10 +288,8 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
     }
     /**
      * 停止定位
-     *
      * @since 2.8.0
      * @author hongming.wang
-     *
      */
     private void stopLocation(){
         // 停止定位
@@ -345,31 +319,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
         super.onDestroy();
         destroyLocation();
     }
-    public  String SHA1() {
-        try {
-            PackageInfo info =getActivity().getPackageManager().getPackageInfo(
-                    "com.chuanqi.yz", PackageManager.GET_SIGNATURES);
-            byte[] cert = info.signatures[0].toByteArray();
-            MessageDigest md = MessageDigest.getInstance("SHA1");
-            byte[] publicKey = md.digest(cert);
-            StringBuffer hexString = new StringBuffer();
-            for (int i = 0; i < publicKey.length; i++) {
-                String appendString = Integer.toHexString(0xFF & publicKey[i])
-                        .toUpperCase(Locale.US);
-                if (appendString.length() == 1)
-                    hexString.append("0");
-                hexString.append(appendString);
-                hexString.append(":");
-            }
-            String result=hexString.toString();
-            return result.substring(0, result.length()-1);
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+
     /**
      * 获取用户的udid
      */

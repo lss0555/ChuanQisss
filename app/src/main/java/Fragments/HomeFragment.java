@@ -20,12 +20,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chuanqi.yz.R;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
-import com.google.gson.reflect.TypeToken;
-import com.nostra13.universalimageloader.utils.L;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,11 +27,10 @@ import java.util.HashMap;
 import java.util.List;
 
 import Constance.constance;
-import Interfaces.ConnectionChangeReceiver;
+import Interfaces.MyReceiver;
 import Utis.OkHttpUtil;
 import Utis.Utis;
 import Utis.SharePre;
-import Utis.StatusBarUtils;
 import Utis.GsonUtils;
 import Views.AlwaysMarqueeTextView;
 import Views.Banners.Lanner;
@@ -45,14 +38,11 @@ import Views.VerticalSwitchTextView;
 import Views.ViewPageIndicator;
 import activity.ApprenticeListActivity;
 import activity.BannerLinkActivity;
-import activity.FaskTaskActivity;
 import activity.HelpCenterActivity;
 import activity.HowToEarn.HowToEarnActivity;
 import activity.IntoMoneyJqzActivity;
 import activity.JXZActivity;
 import activity.NewerTaskActivity;
-import activity.OneShopActivity;
-import activity.OpenBoxActivity;
 import activity.SignActivity;
 import activity.Red.TakeRedActivity;
 import activity.UnitTaskActivity;
@@ -111,10 +101,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
     private VerticalSwitchTextView mTvState1;
     private double UserAccount;//聚钱庄余额
     public static  HomeFragment instance;
-    private ReceiveBroadCast receiveBroadCast;
     private ScrollView mSvDate;
     private View mEmptyDate;
-    private ConnectionChangeReceiver myReceiver;
+    private MyReceiver myReceiver;
     private TextView mTvUpLoad;
     private SwipeRefreshLayout mReFreshLayout;
     public static HomeFragment getInstance(){
@@ -132,7 +121,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
         initview(layout);
         initdate();
         initViewPage(); //轮播
-        registBrocasts();
         initReFreshDate();
         return layout;
     }
@@ -171,9 +159,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
     @Override
     public void onStart() {
         super.onStart();
-        IntentFilter filter=new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
-        myReceiver=new ConnectionChangeReceiver();
-        myReceiver.SetNetStateListner(new ConnectionChangeReceiver.NetStateListner() {
+        IntentFilter filter=new IntentFilter();
+        filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+        filter.addAction("update");
+        myReceiver=new MyReceiver();
+        myReceiver.SetNetStateListner(new MyReceiver.NetStateListner() {
             @Override
             public void NetState(boolean IsConnect) {
                 if(!IsConnect){
@@ -181,28 +171,18 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
                     Toast("网络连接已断开");
                 }
             }
+            @Override
+            public void UpdateUserMoney(boolean IsUpdate) {
+                getAccountInfo();  //更新用户金额信息
+            }
         });
         getActivity().registerReceiver(myReceiver, filter);
     }
+
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
+    public void onStop() {
+        super.onStop();
         getActivity().unregisterReceiver(myReceiver);
-    }
-    private void registBrocasts() {
-        receiveBroadCast = new ReceiveBroadCast();
-        IntentFilter filter = new IntentFilter();
-        filter.addAction("update");    //只有持有相同的action的接受者才能接收此广播
-        getActivity().registerReceiver(receiveBroadCast, filter);
-    }
-    public class ReceiveBroadCast extends BroadcastReceiver
-    {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if(intent.getBooleanExtra("update",false)){
-                getAccountInfo();
-            }
-        }
     }
     /**
      * inidate
@@ -492,7 +472,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
             case  R.id.tv_fast_task://快速任务
 //                Intent intent_Task=new Intent(getActivity(), FaskTaskActivity.class);
 //                getActivity().startActivity(intent_Task);
-                Toast("待开发中...");
+                Toast("待开放中...");
                 break;
             case  R.id.tv_unit_task://联盟任务
                 Intent intent=new Intent(getActivity(), UnitTaskActivity.class);
@@ -501,7 +481,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
             case  R.id.tv_day_shop://每日夺宝
 //                Intent intent_shop=new Intent(getActivity(), OneShopActivity.class);
 //                getActivity().startActivity(intent_shop);
-                Toast("待开发中...");
+                Toast("待开放中...");
                 break;
             case  R.id.tv_day_sign://每日签到
                 Intent intent_sign=new Intent(getActivity(), SignActivity.class);
@@ -531,7 +511,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
             case  R.id.tv_open_box://开宝箱
 //                Intent intent_openbox=new Intent(getActivity(), OpenBoxActivity.class);
 //                getActivity().startActivity(intent_openbox);
-                Toast("待开发中...");
+                Toast("待开放中...");
                 break;
             case  R.id.tv_help_center://帮助中心
                 Intent intent_help_center=new Intent(getActivity(), HelpCenterActivity.class);

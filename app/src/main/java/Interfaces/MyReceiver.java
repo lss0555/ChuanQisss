@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import Utis.Utis;
 
-public class ConnectionChangeReceiver extends BroadcastReceiver {
+public class MyReceiver extends BroadcastReceiver {
     private NetStateListner listner;
 
     @Override
@@ -30,6 +30,11 @@ public class ConnectionChangeReceiver extends BroadcastReceiver {
             //改变背景或者 处理网络的全局变量
         }else {
             if(listner!=null){
+                if(intent.getBooleanExtra("update",false)){
+                   listner.UpdateUserMoney(true);
+                }else {
+                    listner.UpdateUserMoney(false);
+                }
                 listner.NetState(true);
             }
 //            Toast.makeText(context,"广播获取手机系统时间"+""+Utis.getTime(),Toast.LENGTH_SHORT).show();
@@ -39,6 +44,7 @@ public class ConnectionChangeReceiver extends BroadcastReceiver {
     }
     public interface NetStateListner{
         public  void NetState(boolean IsConnect);
+        public  void UpdateUserMoney(boolean IsUpdate);
     }
     public void SetNetStateListner(NetStateListner listner){
         this.listner = listner;
