@@ -6,7 +6,10 @@
     tools:context="Fragments.GetFragment">
 
     <!-- TODO: Update blank fragment layout -->
-
+    <View
+        android:layout_width="match_parent"
+        android:background="@color/red"
+        android:layout_height="20dp"></View>
     <RelativeLayout
         android:layout_width="match_parent"
         android:background="@color/red"

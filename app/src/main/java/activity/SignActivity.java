@@ -119,26 +119,25 @@ public class SignActivity extends BaseActivity implements View.OnClickListener{
        OkHttpUtil.getInstance().Post(map, constance.URL.SIGN, new OkHttpUtil.FinishListener() {
            @Override
            public void Successfully(boolean IsSuccess, String data, String Msg) {
-               Result result = GsonUtils.parseJSON(data, Result.class);
-               stopProgressDialog();
-//               showTip(data.toString());
-               Log.e("签到信息",""+data.toString());
-               if(IsSuccess){
-                   if(result.getRun().equals("1")){
-                       List<String> list = new ArrayList<String>();
-                       list.add(Utis.getDate());
-                       mSc.addMarks(list,0);
-                       Intent intent = new Intent();
-                       intent.putExtra("update",true);
-                       intent.setAction("update");   //
-                       sendBroadcast(intent);
-                       Toast.makeText(getApplicationContext(),"签到成功",Toast.LENGTH_SHORT).show();
-                   }else if(result.getRun().equals("0")){
-                       Toast.makeText(getApplicationContext(),"您今天已经签到过",Toast.LENGTH_SHORT).show();
-                   }
-               } else {
-                   Toast(data.toString());
-               }
+//               Result result = GsonUtils.parseJSON(data, Result.class);
+//               stopProgressDialog();
+               Log.i("签到信息i",data.toString());
+//               if(IsSuccess){
+//                   if(result.getRun().equals("1")){
+//                       List<String> list = new ArrayList<String>();
+//                       list.add(Utis.getDate());
+//                       mSc.addMarks(list,0);
+//                       Intent intent = new Intent();
+//                       intent.putExtra("update",true);
+//                       intent.setAction("update");   //
+//                       sendBroadcast(intent);
+//                       Toast.makeText(getApplicationContext(),"签到成功",Toast.LENGTH_SHORT).show();
+//                   }else if(result.getRun().equals("0")){
+//                       Toast.makeText(getApplicationContext(),"您今天已经签到过",Toast.LENGTH_SHORT).show();
+//                   }
+//               } else {
+//                   Toast(data.toString());
+//               }
            }
        });
     }

@@ -1,6 +1,4 @@
 package Fragments;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
@@ -32,9 +30,8 @@ import Utis.OkHttpUtil;
 import Utis.Utis;
 import Utis.SharePre;
 import Utis.GsonUtils;
-import Views.AlwaysMarqueeTextView;
 import Views.Banners.Lanner;
-import Views.VerticalSwitchTextView;
+import Views.SwitcherView;
 import Views.ViewPageIndicator;
 import activity.ApprenticeListActivity;
 import activity.BannerLinkActivity;
@@ -61,10 +58,10 @@ import model.UserMoney;
  * A simple {@link Fragment} subclass. update 2016.8.31
  */
 public class HomeFragment extends BaseFragment implements View.OnClickListener{
-    private  List<TxRecord> mTxRecord=new ArrayList<>();
+    private  ArrayList<TxRecord> mTxRecord=new ArrayList<>();
     private  ArrayList<String > mUserId=new ArrayList<>();
-    private  List<String > mTimes=new ArrayList<>();
-    private List<String> mState=new ArrayList<>();
+    private  ArrayList<String > mTimes=new ArrayList<>();
+    private ArrayList<String> mState=new ArrayList<>();
     private  ArrayList<JqzCrRecord> mCrJqz=new ArrayList<>();
     private  ArrayList<String > mJqzCrUserId=new ArrayList<>();
     private  ArrayList<String > mJqzCrTime=new ArrayList<>();
@@ -73,32 +70,27 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
     private  ArrayList<JxzAccount> mJxzAccount=new ArrayList<>();
     protected boolean isVisible;
     final ArrayList<String> initUserTxRecord = new ArrayList<String>(Arrays.asList("用户100001", "用户100002", "用户100003", "用户100004"));
-//    final ArrayList<String> initUserId = new ArrayList<String>(Arrays.asList("30分钟", "20分钟", "12秒钟", "2小时"));
-//    final ArrayList<String> initTimes = new ArrayList<String>(Arrays.asList("30分钟", "20分钟", "12秒钟", "2小时"));
     private boolean IsTouch=true;
     private ViewPager page;
     private ViewPageIndicator viewPageIndicator;
-    private AlwaysMarqueeTextView mTtTip;
     private ImageView mImgMine;
     private TextView mTvZhuHe;
     private TextView mTvUnitTask;
     private TextView mTvFastTask;
     private TextView mTvDayShop;
-    private VerticalSwitchTextView mTvShow;
     private TextView mTvGongGao;
     private Lanner mLanner;
-//    private ArrayList<LannerBean> lannerBeans;
     private List<banners> lannerBeans=new ArrayList<>();
     private TextView mTvTodyIncome;
     private TextView mTvAllIncome;
     private TextView mTvJxzYue;
     private TextView mTvJxzAccrual;
-    private VerticalSwitchTextView mTvId;
-    private VerticalSwitchTextView mTvId1;
-    private VerticalSwitchTextView mTvTime;
-    private VerticalSwitchTextView mTvTime1;
-    private VerticalSwitchTextView mTvState;
-    private VerticalSwitchTextView mTvState1;
+    private SwitcherView mTvId;
+    private SwitcherView mTvId1;
+    private SwitcherView mTvTime;
+    private SwitcherView mTvTime1;
+    private SwitcherView mTvState;
+    private SwitcherView mTvState1;
     private double UserAccount;//聚钱庄余额
     public static  HomeFragment instance;
     private ScrollView mSvDate;
@@ -362,66 +354,35 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
      */
     private void setUserTx() {
         //显示用户提现信息
-        mTvId.setCbInterface(new VerticalSwitchTextView.VerticalSwitchTextViewCbInterface() {
-            @Override
-            public void showNext(int index) {}
-            @Override
-            public void onItemClick(int index) {}
-        });
-        mTvId.setTextContent(mUserId);
-        mTvTime.setCbInterface(new VerticalSwitchTextView.VerticalSwitchTextViewCbInterface() {
-            @Override
-            public void showNext(int index) {}
-            @Override
-            public void onItemClick(int index) {}
-        });
-        mTvTime.setTextContent(mTimes);
-
-        mTvState.setCbInterface(new VerticalSwitchTextView.VerticalSwitchTextViewCbInterface() {
-            @Override
-            public void showNext(int index) {}
-            @Override
-            public void onItemClick(int index) {}
-        });
-        mTvState.setTextContent(mState);
+        mTvId.setResource(mUserId);
+        mTvId.startRolling();
+        mTvTime.setResource(mTimes);
+        mTvTime.startRolling();
+        mTvState.setResource(mState);
+        mTvState.startRolling();
     }
     /**
      * 设置聚钱钱存入记录
      */
     public  void setJqzCrReord(){
-        mTvId1.setCbInterface(new VerticalSwitchTextView.VerticalSwitchTextViewCbInterface() {
-            @Override
-            public void showNext(int index) {}
-            @Override
-            public void onItemClick(int index) {}
-        });
-        mTvId1.setTextContent(mJqzCrUserId);
-        mTvState1.setCbInterface(new VerticalSwitchTextView.VerticalSwitchTextViewCbInterface() {
-            @Override
-            public void showNext(int index) {}
-            @Override
-            public void onItemClick(int index) {}
-        });
-        mTvState1.setTextContent(mJqzCrMoney);
-        mTvTime1.setCbInterface(new VerticalSwitchTextView.VerticalSwitchTextViewCbInterface() {
-            @Override
-            public void showNext(int index) {}
-            @Override
-            public void onItemClick(int index) {}
-        });
-        mTvTime1.setTextContent(mJqzCrTime);
+        mTvId1.setResource(mJqzCrUserId);
+        mTvId1.startRolling();
+        mTvState1.setResource(mJqzCrMoney);
+        mTvState1.startRolling();
+        mTvTime1.setResource(mJqzCrTime);
+        mTvTime1.startRolling();
     }
     private void initview(View layout) {
         mReFreshLayout = (SwipeRefreshLayout) layout.findViewById(R.id.swipeRefreshLayout);
         mLanner= (Lanner) layout.findViewById(R.id.lanner);
         mSvDate = (ScrollView) layout.findViewById(R.id.sv_date);
         mEmptyDate = layout.findViewById(R.id.no_date);
-        mTvId = (VerticalSwitchTextView) layout.findViewById(R.id.tv_id_l);
-        mTvId1 = (VerticalSwitchTextView) layout.findViewById(R.id.tv_id_2);
-        mTvTime = (VerticalSwitchTextView) layout.findViewById(R.id.tv_time_1);
-        mTvTime1 = (VerticalSwitchTextView) layout.findViewById(R.id.tv_time_2);
-        mTvState = (VerticalSwitchTextView) layout.findViewById(R.id.tv_state_1);
-        mTvState1 = (VerticalSwitchTextView) layout.findViewById(R.id.tv_state_2);
+        mTvId = (SwitcherView) layout.findViewById(R.id.tv_id_l);
+        mTvId1 = (SwitcherView) layout.findViewById(R.id.tv_id_2);
+        mTvTime = (SwitcherView) layout.findViewById(R.id.tv_time_1);
+        mTvTime1 = (SwitcherView) layout.findViewById(R.id.tv_time_2);
+        mTvState = (SwitcherView) layout.findViewById(R.id.tv_state_1);
+        mTvState1 = (SwitcherView) layout.findViewById(R.id.tv_state_2);
         mTvGongGao=  (TextView) layout.findViewById(R.id.tv_gonggao);
         mTvTodyIncome = (TextView) layout.findViewById(R.id.tv_today_income);
         mTvAllIncome = (TextView) layout.findViewById(R.id.tv_all_income);

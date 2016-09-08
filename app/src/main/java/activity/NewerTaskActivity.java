@@ -90,39 +90,44 @@ public class NewerTaskActivity extends BaseActivity implements View.OnClickListe
         }
     }
     public  void  Share(){
-        ShareSDK.initSDK(NewerTaskActivity.this);
+        ShareSDK.initSDK(getApplicationContext());
         OnekeyShare oks = new OnekeyShare();
         oks.disableSSOWhenAuthorize();//关闭sso授权
-        oks.setTitle("分享");  // titleUrl是标题的网络链接，仅在人人网和QQ空间使用
-        oks.setTitleUrl("http://sharesdk.cn");
-        oks.setText("我是分享文本");  // text是分享文本，所有平台都需要这个字段
+        oks.setTitle("易赚ATM");  // titleUrl是标题的网络链接，仅在人人网和QQ空间使用
+        oks.setTitleUrl("http://mp.weixin.qq.com/s?__biz=MzI2ODQxNjc4Nw==&tempkey=TJGSKFMEgZ9oa1B%2BE8CWcGnESBIWDOwXkCJapihf2V5JDYbplnYAMWkBsa5qv6gTNC%2FTeyXaivR37T79khNiUnW0RBpzakERlj5k1w9PeKdv%2FSIz5KTx2YpYCaUB647yfIunOV3kXs9%2FCukB%2B4r0Bw%3D%3D&#rd");
+        oks.setText("易赚ATM,快来加入一起来赚吧！");  // text是分享文本，所有平台都需要这个字段
         // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
-        //oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
-        oks.setUrl("http://sharesdk.cn"); // url仅在微信（包括好友和朋友圈）中使用
-        oks.setComment("我是测试评论文本");// comment是我对这条分享的评论，仅在人人网和QQ空间使用
+//        oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
+        oks.setImageUrl("http://bmob-cdn-4915.b0.upaiyun.com/2016/09/08/e52ab1af40b10546807df1d125c2bc70.jpg");
+        oks.setUrl("http://mp.weixin.qq.com/s?__biz=MzI2ODQxNjc4Nw==&tempkey=TJGSKFMEgZ9oa1B%2BE8CWcGnESBIWDOwXkCJapihf2V5JDYbplnYAMWkBsa5qv6gTNC%2FTeyXaivR37T79khNiUnW0RBpzakERlj5k1w9PeKdv%2FSIz5KTx2YpYCaUB647yfIunOV3kXs9%2FCukB%2B4r0Bw%3D%3D&#rd"); // url仅在微信（包括好友和朋友圈）中使用
+        oks.setComment("易赚有你才完美");// comment是我对这条分享的评论，仅在人人网和QQ空间使用
         oks.setSite(getString(R.string.app_name)); // site是分享此内容的网站名称，仅在QQ空间使用
-        oks.setSiteUrl("http://sharesdk.cn");   // siteUrl是分享此内容的网站地址，仅在QQ空间使用
+        oks.setSiteUrl("http://mp.weixin.qq.com/s?__biz=MzI2ODQxNjc4Nw==&tempkey=TJGSKFMEgZ9oa1B%2BE8CWcGnESBIWDOwXkCJapihf2V5JDYbplnYAMWkBsa5qv6gTNC%2FTeyXaivR37T79khNiUnW0RBpzakERlj5k1w9PeKdv%2FSIz5KTx2YpYCaUB647yfIunOV3kXs9%2FCukB%2B4r0Bw%3D%3D&#rd");   // siteUrl是分享此内容的网站地址，仅在QQ空间使用
         oks.setCallback(new PlatformActionListener() {
             @Override
             public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
+                Toast("分享成功");
+                platformType=platform.getName();
                 Message message=new Message();
                 message.what=1;
                 mHandler.sendMessage(message);
             }
             @Override
             public void onError(Platform platform, int i, Throwable throwable) {
+                Log.e("分享状态","onError");
                 Message message=new Message();
                 message.what=2;
                 mHandler.sendMessage(message);
             }
             @Override
             public void onCancel(Platform platform, int i) {
+                Toast("分享取消");
                 Message message=new Message();
                 message.what=3;
                 mHandler.sendMessage(message);
             }
         });
-        oks.show(NewerTaskActivity.this); // 启动分享GUI
+        oks.show(getApplicationContext()); // 启动分享GUI
     }
     private void getShareMoney() {
         HashMap<String,String> map=new HashMap<String, String>();
@@ -136,6 +141,10 @@ public class NewerTaskActivity extends BaseActivity implements View.OnClickListe
                     Result result = GsonUtils.parseJSON(data, Result.class);
                     if(result.getRun().equals("1")){
                         Toast("恭喜您获得0.3元");
+                        Intent intent = new Intent();
+                        intent.putExtra("update",true);
+                        intent.setAction("update");   //
+                        sendBroadcast(intent);
                     }
                 }else {
                     Toast(data.toString());

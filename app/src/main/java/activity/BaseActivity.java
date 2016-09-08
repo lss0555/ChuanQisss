@@ -7,11 +7,15 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -46,7 +50,9 @@ public class BaseActivity extends FragmentActivity {
 	private boolean containVisiableStartActivity = false;
 	private MyReceiver myReceiver;
 	private boolean IsConnectNet=true;
-
+	private FrameLayout group;
+	private View statusBarView;
+	private View content;
 	/**
 	 */
 	public static boolean isAllActivityBackground() {
@@ -70,6 +76,80 @@ public class BaseActivity extends FragmentActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		activityList.add(this);
+		group = new FrameLayout(getApplicationContext());
+		// 创建一个statusBarView 占位，填充状态栏的区域，以后设置状态栏背景效果其实是设置这个view的背景。
+		group.addView(statusBarView = createStatusBar());
+		super.setContentView(group, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+		// 设置activity的window布局从状态栏开始
+		setTranslucentStatus(true);
+		setStatusBarColorBg(R.color.red);
+	}
+	@Override
+	public void setContentView(View view, ViewGroup.LayoutParams params) {
+		content = view;
+		if (params == null) {
+			group.addView(view, 0);
+		} else {
+			group.addView(view, 0, params);
+		}
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+			if (statusBarView.getVisibility() == View.VISIBLE) {
+				view.setFitsSystemWindows(true);
+			} else {
+				view.setFitsSystemWindows(false);
+			}
+		}
+	}
+	/**
+	 * 设置状态栏的颜色
+	 *
+	 * @param color
+	 */
+	public void setStatusBarColorBg(int color) {
+		statusBarView.setBackgroundColor(color);
+	}
+	public void setTranslucentStatus(boolean isTranslucentStatus) {
+		if (isTranslucentStatus) {
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+				WindowManager.LayoutParams localLayoutParams = getWindow().getAttributes();
+				localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS | localLayoutParams.flags);
+			}
+			statusBarView.setVisibility(View.VISIBLE);
+		} else {
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+				WindowManager.LayoutParams localLayoutParams = getWindow().getAttributes();
+				localLayoutParams.flags = ((~WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS) & localLayoutParams.flags);
+			}
+			statusBarView.setVisibility(View.GONE);
+		}
+	}
+	/**
+	 * 创建状态栏填充的 statusBarView
+	 *
+	 * @return
+	 */
+	private View createStatusBar() {
+		int height = getStatusBarHeight();
+		View statusBarView = new View(this);
+		ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height);
+		statusBarView.setBackgroundResource(R.color.red);
+		statusBarView.setLayoutParams(lp);
+		return statusBarView;
+	}
+	/**
+	 * 获取状态的高度
+	 * @return
+	 */
+	public int getStatusBarHeight() {
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+			int result = 0;
+			int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+			if (resourceId > 0) {
+				result = getResources().getDimensionPixelSize(resourceId);
+			}
+			return result;
+		}
+		return 0;
 	}
 	public void back(View view) {
 		finish();

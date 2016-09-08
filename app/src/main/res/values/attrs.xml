@@ -32,5 +32,12 @@
             <enum name="STROKE" value="0"></enum>
             <enum name="FILL" value="1"></enum>
         </attr>
-    </declare-styleable>s
+    </declare-styleable>
+
+    <declare-styleable name="SwitcherView">
+        <attr name="switcherTextColor" format="reference|color"/>       //文字的颜色
+        <attr name="switcherTextSize" format="dimension"/>              //文字的大小
+        <attr name="switcherRollingTime" format="integer"/>             //文字滚动的时间间隔
+        <attr name="switcherDefaultText" format="string"/>              //默认展示的文字
+    </declare-styleable>
 </resources>

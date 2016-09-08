@@ -2,21 +2,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:vswitch="http://schemas.android.com/apk/res-auto"
+    xmlns:vmt="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
     tools:context="Fragments.GetFragment">
     <!-- TODO: Update blank fragment layout -->
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:background="@color/red"
-        android:layout_height="40dp">
+        android:layout_height="70dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="易赚"
             android:textSize="20sp"
+            android:paddingTop="20dp"
             android:textColor="@color/white"
             android:id="@+id/textView"
             android:layout_centerVertical="true"
@@ -399,25 +402,27 @@
                               android:gravity="center|left"
                               android:layout_height="match_parent"
                               >
-                              <Views.VerticalSwitchTextView
+                              <Views.SwitcherView
                                   android:id="@+id/tv_id_l"
                                   android:layout_width="wrap_content"
                                   android:layout_height="wrap_content"
                                   vswitch:idleDuaration="2000"
                                   android:layout_weight="0.7"
-                                  vswitch:switchDuaration="500"
-                                  vswitch:switchOrientation="up" />
+                                  app:switcherDefaultText="用户1000006"
+                                  app:switcherTextSize="14sp"
+                                  app:switcherRollingTime="3000"
+                                  app:switcherTextColor="@color/black" />
 
-                              <Views.VerticalSwitchTextView
+                              <Views.SwitcherView
                                   android:id="@+id/tv_time_1"
                                   android:layout_width="wrap_content"
                                   android:layout_height="wrap_content"
                                   android:gravity="left|center"
                                   android:layout_weight="1"
-                                  android:textColor="@color/red"
-                                  vswitch:idleDuaration="2000"
-                                  vswitch:switchDuaration="500"
-                                  vswitch:switchOrientation="up" />
+                                  app:switcherDefaultText="1分钟前"
+                                  app:switcherTextSize="14sp"
+                                  app:switcherRollingTime="3000"
+                                  app:switcherTextColor="@color/red" />
 
                           </LinearLayout>
                           <RelativeLayout
@@ -426,13 +431,18 @@
                               android:layout_marginLeft="15dp"
                               android:gravity="center|left"
                               android:layout_height="match_parent">
-                              <Views.VerticalSwitchTextView
+                              <Views.SwitcherView
                                   android:id="@+id/tv_state_1"
                                   android:layout_width="wrap_content"
                                   android:singleLine="true"
                                   android:layout_centerVertical="true"
                                   android:layout_marginRight="5dp"
-                                  android:layout_height="wrap_content" />
+                                  android:layout_height="wrap_content"
+                                  app:switcherDefaultText="微信提现1元到账"
+                                  app:switcherTextSize="14sp"
+                                  app:switcherRollingTime="3000"
+                                  app:switcherTextColor="@color/black"
+                                  />
                           </RelativeLayout>
                       </LinearLayout>
                         <LinearLayout
@@ -450,25 +460,27 @@
                                 android:gravity="center|left"
                                 android:layout_height="match_parent"
                                 >
-                                <Views.VerticalSwitchTextView
+                                <Views.SwitcherView
                                     android:id="@+id/tv_id_2"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     vswitch:idleDuaration="2000"
                                     android:layout_weight="0.7"
-                                    vswitch:switchDuaration="500"
-                                    vswitch:switchOrientation="up" />
+                                    app:switcherDefaultText="用户1000006"
+                                    app:switcherRollingTime="3000"
+                                    app:switcherTextSize="14sp"
+                                    app:switcherTextColor="@color/black"/>
 
-                                <Views.VerticalSwitchTextView
+                                <Views.SwitcherView
                                     android:id="@+id/tv_time_2"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="left|center"
                                     android:layout_weight="1"
-                                    android:textColor="@color/red"
-                                    vswitch:idleDuaration="2000"
-                                    vswitch:switchDuaration="500"
-                                    vswitch:switchOrientation="up" />
+                                    app:switcherDefaultText="1分钟前"
+                                    app:switcherTextSize="14sp"
+                                    app:switcherRollingTime="3000"
+                                    app:switcherTextColor="@color/red" />
 
                             </LinearLayout>
                             <RelativeLayout
@@ -477,12 +489,16 @@
                                 android:layout_marginLeft="15dp"
                                 android:gravity="center|left"
                                 android:layout_height="match_parent">
-                                <Views.VerticalSwitchTextView
+                                <Views.SwitcherView
                                     android:id="@+id/tv_state_2"
                                     android:layout_width="wrap_content"
                                     android:singleLine="true"
                                     android:layout_marginRight="5dp"
-                                    android:layout_height="wrap_content" />
+                                    android:layout_height="wrap_content"
+                                    app:switcherDefaultText="成功转入聚钱庄100元"
+                                    app:switcherTextSize="14sp"
+                                    app:switcherRollingTime="3000"
+                                    app:switcherTextColor="@color/black"/>
                             </RelativeLayout>
                         </LinearLayout>
 

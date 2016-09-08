@@ -92,17 +92,21 @@ public class TakeRedActivity extends BaseActivity {
                     @Override
                     public void Successfully(boolean IsSuccess, String data, String Msg) {
 //                        Toast(data.toString());
-                        RedMoney redMoney = GsonUtils.parseJSON(data, RedMoney.class);
-                        if (redMoney.getRun().equals("0")) {
-                            Toast("请先发红包");
-                        }else  if(redMoney.getRun().equals("1")){
-                            Intent intent=new Intent(getApplicationContext(), ShowRedPriceActivity.class);
-                            intent.putExtra("money",redMoney.getMoney());
-                            startActivity(intent);
-                        }else  if(redMoney.getRun().equals("2")){
-                            Toast("在该时段，您已经抢过了");
-                        }else  if(redMoney.getRun().equals("3")){
-                            Toast("未开放，请在每个整点的前3分钟再来抢红包");
+                        if(IsSuccess){
+                            RedMoney redMoney = GsonUtils.parseJSON(data, RedMoney.class);
+                            if (redMoney.getRun().equals("0")) {
+                                Toast("请先发红包");
+                            }else  if(redMoney.getRun().equals("1")){
+                                Intent intent=new Intent(getApplicationContext(), ShowRedPriceActivity.class);
+                                intent.putExtra("money",redMoney.getMoney());
+                                startActivity(intent);
+                            }else  if(redMoney.getRun().equals("2")){
+                                Toast("在该时段，您已经抢过了");
+                            }else  if(redMoney.getRun().equals("3")){
+                                Toast("未开放，请在每个整点的前3分钟再来抢红包");
+                            }
+                        }else {
+                            Toast(data.toString());
                         }
                     }
                 });
@@ -166,52 +170,56 @@ public class TakeRedActivity extends BaseActivity {
                     OkHttpUtil.getInstance().Post(map, constance.URL.TAKE_TED_LIST, new OkHttpUtil.FinishListener() {
                         @Override
                         public void Successfully(boolean IsSuccess, String data, String Msg) {
-                            RedList redList = GsonUtils.parseJSON(data, RedList.class);
-                            if(redList.getTimerecord()!=null){
-                                mDate.clear();
-                                mDate.addAll(redList.getTimerecord());
-                                switch (mDate.size()){
-                                    case RED_TOP_1:
-                                        mTvPrice1.setText("￥"+mDate.get(0).getJine());
-                                        mTvPrice2.setText("暂无");
-                                        mTvPrice3.setText("暂无");
-                                        mTvID1.setText("ID:"+mDate.get(0).getUserid());
-                                        mTvID2.setText("暂无");
-                                        mTvID3.setText("暂无");
-                                        break;
-                                    case RED_TOP_2:
-                                        mTvPrice1.setText("￥"+mDate.get(0).getJine());
-                                        mTvPrice2.setText("￥"+mDate.get(1).getJine());
-                                        mTvPrice3.setText("暂无");
-                                        mTvID1.setText("ID:"+mDate.get(0).getUserid());
-                                        mTvID2.setText("ID:"+mDate.get(1).getUserid());
-                                        mTvID3.setText("暂无");
-                                        break;
-                                    case RED_TOP_3:
-                                        mTvPrice1.setText("￥"+mDate.get(0).getJine());
-                                        mTvPrice2.setText("￥"+mDate.get(1).getJine());
-                                        mTvPrice3.setText("￥"+mDate.get(2).getJine());
-                                        mTvID1.setText("ID:"+mDate.get(0).getUserid());
-                                        mTvID2.setText("ID:"+mDate.get(1).getUserid());
-                                        mTvID3.setText("ID:"+mDate.get(2).getUserid());
-                                        break;
+                            if(IsSuccess){
+                                RedList redList = GsonUtils.parseJSON(data, RedList.class);
+                                if (redList.getTimerecord() != null) {
+                                    mDate.clear();
+                                    mDate.addAll(redList.getTimerecord());
+                                    switch (mDate.size()) {
+                                        case RED_TOP_1:
+                                            mTvPrice1.setText("￥" + mDate.get(0).getJine());
+                                            mTvPrice2.setText("暂无");
+                                            mTvPrice3.setText("暂无");
+                                            mTvID1.setText("ID:" + mDate.get(0).getUserid());
+                                            mTvID2.setText("暂无");
+                                            mTvID3.setText("暂无");
+                                            break;
+                                        case RED_TOP_2:
+                                            mTvPrice1.setText("￥" + mDate.get(0).getJine());
+                                            mTvPrice2.setText("￥" + mDate.get(1).getJine());
+                                            mTvPrice3.setText("暂无");
+                                            mTvID1.setText("ID:" + mDate.get(0).getUserid());
+                                            mTvID2.setText("ID:" + mDate.get(1).getUserid());
+                                            mTvID3.setText("暂无");
+                                            break;
+                                        case RED_TOP_3:
+                                            mTvPrice1.setText("￥" + mDate.get(0).getJine());
+                                            mTvPrice2.setText("￥" + mDate.get(1).getJine());
+                                            mTvPrice3.setText("￥" + mDate.get(2).getJine());
+                                            mTvID1.setText("ID:" + mDate.get(0).getUserid());
+                                            mTvID2.setText("ID:" + mDate.get(1).getUserid());
+                                            mTvID3.setText("ID:" + mDate.get(2).getUserid());
+                                            break;
+                                    }
+                                } else {
+                                    mTvPrice1.setText("暂无");
+                                    mTvPrice2.setText("暂无");
+                                    mTvPrice3.setText("暂无");
+                                    mTvID1.setText("暂无");
+                                    mTvID2.setText("暂无");
+                                    mTvID3.setText("暂无");
                                 }
-                            }else {
-                                mTvPrice1.setText("暂无");
-                                mTvPrice2.setText("暂无");
-                                mTvPrice3.setText("暂无");
-                                mTvID1.setText("暂无");
-                                mTvID2.setText("暂无");
-                                mTvID3.setText("暂无");
+                            } else {
+                                Toast(data.toString());
                             }
-                        }
+                       }
                     });
                 }else if(mTimes.get(i).getState().equals("")){
-
                 }else {
                     Toast("时间还没开始，请稍等");
                 }
             }
+
         });
     }
     /**
@@ -224,44 +232,46 @@ public class TakeRedActivity extends BaseActivity {
         OkHttpUtil.getInstance().Post(map, constance.URL.TAKE_TED_LIST, new OkHttpUtil.FinishListener() {
             @Override
             public void Successfully(boolean IsSuccess, String data, String Msg) {
-                RedList redList = GsonUtils.parseJSON(data, RedList.class);
+                if (IsSuccess) {
+                    RedList redList = GsonUtils.parseJSON(data, RedList.class);
 //                showTip(data.toString());
-                if(redList.getTimerecord()!=null){
-                    mDate.clear();
-                    mDate.addAll(redList.getTimerecord());
-                    switch (mDate.size()){
-                        case RED_TOP_1:
-                            mTvPrice1.setText("￥"+mDate.get(0).getJine());
-                            mTvPrice2.setText("暂无");
-                            mTvPrice3.setText("暂无");
-                            mTvID1.setText("ID:"+mDate.get(0).getUserid());
-                            mTvID2.setText("暂无");
-                            mTvID3.setText("暂无");
-                            break;
-                        case RED_TOP_2:
-                            mTvPrice1.setText("￥"+mDate.get(0).getJine());
-                            mTvPrice2.setText("￥"+mDate.get(1).getJine());
-                            mTvPrice3.setText("暂无");
-                            mTvID1.setText("ID:"+mDate.get(0).getUserid());
-                            mTvID2.setText("ID:"+mDate.get(1).getUserid());
-                            mTvID3.setText("暂无");
-                            break;
-                        case RED_TOP_3:
-                            mTvPrice1.setText("￥"+mDate.get(0).getJine());
-                            mTvPrice2.setText("￥"+mDate.get(1).getJine());
-                            mTvPrice3.setText("￥"+mDate.get(2).getJine());
-                            mTvID1.setText("ID:"+mDate.get(0).getUserid());
-                            mTvID2.setText("ID:"+mDate.get(1).getUserid());
-                            mTvID3.setText("ID:"+mDate.get(2).getUserid());
-                            break;
+                    if (redList.getTimerecord() != null) {
+                        mDate.clear();
+                        mDate.addAll(redList.getTimerecord());
+                        switch (mDate.size()) {
+                            case RED_TOP_1:
+                                mTvPrice1.setText("￥" + mDate.get(0).getJine());
+                                mTvPrice2.setText("暂无");
+                                mTvPrice3.setText("暂无");
+                                mTvID1.setText("ID:" + mDate.get(0).getUserid());
+                                mTvID2.setText("暂无");
+                                mTvID3.setText("暂无");
+                                break;
+                            case RED_TOP_2:
+                                mTvPrice1.setText("￥" + mDate.get(0).getJine());
+                                mTvPrice2.setText("￥" + mDate.get(1).getJine());
+                                mTvPrice3.setText("暂无");
+                                mTvID1.setText("ID:" + mDate.get(0).getUserid());
+                                mTvID2.setText("ID:" + mDate.get(1).getUserid());
+                                mTvID3.setText("暂无");
+                                break;
+                            case RED_TOP_3:
+                                mTvPrice1.setText("￥" + mDate.get(0).getJine());
+                                mTvPrice2.setText("￥" + mDate.get(1).getJine());
+                                mTvPrice3.setText("￥" + mDate.get(2).getJine());
+                                mTvID1.setText("ID:" + mDate.get(0).getUserid());
+                                mTvID2.setText("ID:" + mDate.get(1).getUserid());
+                                mTvID3.setText("ID:" + mDate.get(2).getUserid());
+                                break;
+                        }
+                    } else {
+                        mTvPrice1.setText("暂无");
+                        mTvPrice2.setText("暂无");
+                        mTvPrice3.setText("暂无");
+                        mTvID1.setText("暂无");
+                        mTvID2.setText("暂无");
+                        mTvID3.setText("暂无");
                     }
-                }else {
-                    mTvPrice1.setText("暂无");
-                    mTvPrice2.setText("暂无");
-                    mTvPrice3.setText("暂无");
-                    mTvID1.setText("暂无");
-                    mTvID2.setText("暂无");
-                    mTvID3.setText("暂无");
                 }
             }
         });

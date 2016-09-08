@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name   ="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.GET_TASKS" />
     <!--用于进行网络定位-->
@@ -111,13 +111,13 @@
             </intent-filter>
         </receiver>
         <!-- 配置微信回调的activity -->
+        <!-- 微信分享回调 -->
         <activity
-            android:name="wxapi.WXEntryActivity.WXEntryActivity"
-            android:exported="true"
+            android:name=".wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
             android:screenOrientation="portrait"
-            android:label="微信回调activity" >
-        </activity >
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <!-- 趣米sdk -->
         <activity
             android:name="com.newqm.pointwall.ShowActivity"
@@ -125,7 +125,6 @@
         <service android:name="com.newqm.pointwall.AppStartListenService"> </service>
         <!-- 万普 -->
         <!--<activity android:name="cn.waps.extend.AppWall" android:configChanges="keyboardHidden|orientation" />-->
-
         <!-- MOb一键分享 -->
         <activity
             android:name="com.mob.tools.MobUIShell"

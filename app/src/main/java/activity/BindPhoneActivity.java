@@ -56,11 +56,16 @@ public class BindPhoneActivity extends BaseActivity{
      * 发送验证码
      */
     private void initevent() {
+        if(mTvSend.getText().length()!=11){
+            mTvSend.setBackground(getResources().getDrawable(R.drawable.round_gray_bg));
+        }else {
+            mTvSend.setBackground(getResources().getDrawable(R.drawable.round_red_bg));
+        }
         mTvSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(mEtPhone.getText().toString().trim().equals("")){
-                    showTip("提示:请输入您的手机号码");
+                    Toast("请输入您的手机号码");
                 }else {
                     countdown = 60;
                     handler.postDelayed(runnable, 1000);
@@ -81,29 +86,33 @@ public class BindPhoneActivity extends BaseActivity{
         mRtlComplite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                 HashMap<String,String> map=new HashMap<String, String>();
-                 map.put("userid",SharePre.getUserId(getApplicationContext()));
-                 map.put("mobile",mEtPhone.getText().toString().trim());
-                 OkHttpUtil.getInstance().Post(map, constance.URL.BIND_PHONE, new OkHttpUtil.FinishListener() {
-                     @Override
-                     public void Successfully(boolean IsSuccess, String data, String Msg) {
-                         if(IsSuccess){
-                             Yzm yzm = GsonUtils.parseJSON(data, Yzm.class);
-                             if(yzm.getRun().equals("0")){
-                                 if(mEtYzm.getText().toString().trim().equals(mYzm.getRun())){
-                                     showTip("恭喜您，绑定成功");
-                                     finish();
-                                 }else {
-                                     showErrorTip("抱歉，您的验证码有误");
-                                 }
-                             }else {
-                                 showErrorTip("抱歉，该手机已绑定过");
-                             }
-                         }else {
-                             Toast(data.toString());
-                         }
-                     }
-                 });
+                if(mEtPhone.getText().toString().equals("") || mEtYzm.getText().toString().equals("")){
+                       Toast("请输入完整");
+                }else{
+                    HashMap<String,String> map=new HashMap<String, String>();
+                    map.put("userid",SharePre.getUserId(getApplicationContext()));
+                    map.put("mobile",mEtPhone.getText().toString().trim());
+                    OkHttpUtil.getInstance().Post(map, constance.URL.BIND_PHONE, new OkHttpUtil.FinishListener() {
+                        @Override
+                        public void Successfully(boolean IsSuccess, String data, String Msg) {
+                            if(IsSuccess){
+                                Yzm yzm = GsonUtils.parseJSON(data, Yzm.class);
+                                if(yzm.getRun().equals("0")){
+                                    if(mEtYzm.getText().toString().trim().equals(mYzm.getRun())){
+                                        Toast("恭喜您，绑定成功");
+                                        finish();
+                                    }else {
+                                        Toast("抱歉，您的验证码有误");
+                                    }
+                                }else {
+                                    Toast("抱歉，该手机已绑定过");
+                                }
+                            }else {
+                                Toast(data.toString());
+                            }
+                        }
+                    });
+                }
             }
         });
     }
