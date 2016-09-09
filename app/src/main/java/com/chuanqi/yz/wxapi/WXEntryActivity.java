@@ -1,5 +1,4 @@
 package com.chuanqi.yz.wxapi;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +13,6 @@ import cn.sharesdk.wechat.utils.WechatHandlerActivity;
  */
 /** 微信客户端回调activity示例 */
 public class WXEntryActivity extends WechatHandlerActivity {
-
 	/**
 	 * 处理微信发出的向第三方应用请求app message
 	 * <p>

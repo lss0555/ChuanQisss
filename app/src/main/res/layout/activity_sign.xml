@@ -215,17 +215,19 @@
         </LinearLayout>
             <RelativeLayout
                 android:id="@+id/rtl_sign"
-                android:layout_width="130dp"
+                android:layout_width="160dp"
                 android:background="@drawable/round_red_bg"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:layout_gravity="center"
                 android:layout_height="match_parent">
                 <TextView
+                    android:id="@+id/tv_sign_state"
                     android:layout_width="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="马上签到"
-                    android:textSize="18sp"
+                    android:text="今天未签到"
+                    android:textSize="17sp"
+                    android:padding="5dp"
                     android:textColor="@drawable/white2gray_seleclor"
                     android:layout_centerVertical="true"
                     android:layout_centerInParent="true"
