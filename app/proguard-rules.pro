@@ -231,3 +231,8 @@
   -keep class com.amap.api.location.**{*;}
   -keep class com.amap.api.fence.**{*;}
   -keep class com.autonavi.aps.amapapi.model.**{*;}
+
+  #点入平台
+  -libraryjars libs/dianru_sdk_v1.2.0.jar
+  -keep class com.yql.dr.** {*;}
+  -dontwarn com.yql.dr.**

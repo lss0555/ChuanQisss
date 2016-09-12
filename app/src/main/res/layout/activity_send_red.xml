@@ -233,6 +233,7 @@
     <RelativeLayout
         android:id="@+id/rtl_alipay"
         android:layout_width="match_parent"
+        android:visibility="gone"
         android:layout_height="45dp">
         <RadioButton
             android:id="@+id/rb_alipay"

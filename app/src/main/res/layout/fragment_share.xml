@@ -29,7 +29,7 @@
         android:layout_height="wrap_content">
         <TextView
             android:layout_width="wrap_content"
-            android:text="每天分享平台一次可立马获得1元的奖励且可以马上提现，在您分享的同时，您的好友通过您的链接下载易赚ATM完成任务您还可以得到相应的抽成哦！"
+            android:text="每天分享平台一次可立马获得0.3元的奖励且可以马上提现，在您分享的同时，您的好友通过您的链接下载易赚ATM完成任务您还可以得到相应的抽成哦！"
             android:textSize="16sp"
 
             android:layout_height="wrap_content" />

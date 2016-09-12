@@ -1,5 +1,6 @@
 package activity;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,28 +12,38 @@ import android.widget.Toast;
 import com.chuanqi.yz.R;
 import com.newqm.pointwall.QEarnNotifier;
 import com.newqm.pointwall.QSdkManager;
+import com.yql.dr.sdk.DRScoreInterface;
+import com.yql.dr.sdk.DRSdk;
+import com.yzhuanatm.DevInit;
+import com.yzhuanatm.GetOnlineParamsListener;
+
 import net.youmi.android.AdManager;
 import net.youmi.android.listener.Interface_ActivityListener;
 import net.youmi.android.offers.OffersManager;
 import net.youmi.android.offers.PointsManager;
 
+import Utis.SharePre;
 import cn.dow.android.DOW;
 import cn.dow.android.listener.DLoadListener;
 import cn.dow.android.listener.DataListener;
 import cn.waps.AppConnect;
 import cn.waps.UpdatePointsListener;
 
-public class UnitTaskActivity extends BaseActivity implements View.OnClickListener,UpdatePointsListener {
+public class UnitTaskActivity extends BaseActivity implements View.OnClickListener,UpdatePointsListener,DRScoreInterface ,GetOnlineParamsListener {
     private String TAG = UnitTaskActivity.class.toString();
     private RelativeLayout mRtlBack;
     private RelativeLayout mRtlYouMi;
     private RelativeLayout mRtlDianLe;
     private RelativeLayout mRtlDianLu;
     private RelativeLayout mRtlWanPu;
+    private UnitTaskActivity me;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //点乐sdk
+
         setContentView(R.layout.activity_unit_task);
+        me=this;
         initview();
         initPlatForm();
     }
@@ -52,12 +63,18 @@ public class UnitTaskActivity extends BaseActivity implements View.OnClickListen
         AppConnect.getInstance("ea334c1846508fdb85929c861aa327b0", "waps", this);
 //        // 设置微信平台的AppId，若不适用微信、朋友圈进行分析，则不需要设置
         AppConnect.getInstance(this).setWeixinAppId("wxc9302606e8330dbd", this);
+        //点入
+        DRSdk.initialize(this, true, ""); // 建议在应用启动调用，初始化sdk
+        DRSdk.setUserId(SharePre.getUserId(getApplicationContext())); // 设置用户id
+        //点乐
+        DevInit.initGoogleContext(this, "0d2d5326dcf0985530a1a413aac31f6b");
+        DevInit.setCurrentUserID(this,SharePre.getUserId(getApplicationContext()));
     }
-
     @Override
     public void onResume() {
         super.onResume();
         AppConnect.getInstance(this).getPoints(this);
+//        DevInit.getTotalMoney(this,me);
     }
 
     @Override
@@ -91,8 +108,14 @@ public class UnitTaskActivity extends BaseActivity implements View.OnClickListen
                     }
                 });
                 break;
-            case R.id.rtl_wanpu:
+            case R.id.rtl_wanpu:   //万普
                 AppConnect.getInstance(this).showOffers(this, "12345waps");;//万普
+                break;
+            case R.id.rtl_dianlu:  //点入
+                DRSdk.showOfferWall(UnitTaskActivity.this, DRSdk.DR_OFFER);
+                break;
+            case R.id.rtl_dianle: //点乐
+                DevInit.showOffers(this);
                 break;
         }
     }
@@ -105,10 +128,46 @@ public class UnitTaskActivity extends BaseActivity implements View.OnClickListen
      */
     @Override
     public void getUpdatePoints(String s, int i) {
-
     }
     @Override
     public void getUpdatePointsFailed(String s) {
+    }
+    /****************************************************/
+	/* 点入获取积分回调 */
+	/* score : 积分 */
+    /****************************************************/
+    @Override
+    public void scoreResultCallback(int score) {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this,
+                AlertDialog.THEME_HOLO_LIGHT);
+        dialog.setTitle("显示积分结果");
+        dialog.setMessage("" + score);
+        dialog.setPositiveButton("确定", null);
+        dialog.setCancelable(false);
+        dialog.show();
+    }
+    /****************************************************/
+	/* 点入消费积分回调 */
+	/* status : true 消费成功, false 消费失败 */
+    /****************************************************/
+    @Override
+    public void spendScoreCallback(boolean status) {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this,
+                AlertDialog.THEME_HOLO_LIGHT);
+        dialog.setTitle("消费积分结果");
+        dialog.setMessage(status ? "消费成功" : "余额不足");
+        dialog.setPositiveButton("确定", null);
+        dialog.show();
+    }
 
+    /**
+     * 点乐 总金额回调 获取自定义在线参数，返回自定义的参数值，无网或请求失败返回的是实时的值，无网或请求失败返回本地保存的值。
+     * @param s
+     */
+    private long amount = 0l, startTime = 0l;
+    @Override
+    public void onParamsReturn(String s) {
+        Log.w("result", ">>>>>>>><<<<<"
+                + (System.currentTimeMillis() - startTime) + ">>>>>>>><<<<<");
     }
 }

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:background="@color/gray"
+    android:background="@color/white"
     android:layout_height="match_parent">
     <View
         android:layout_width="match_parent"
@@ -45,8 +45,56 @@
                android:layout_width="wrap_content"
                android:textSize="17sp"
                android:textColor="@color/black"
-               android:text="放啥东西。。。。"
+               android:text="易赚ATM是传祺网络科技有限公司首发APP，是一款轻松赚外快，快速攒人脉的APP。"
                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:textSize="17sp"
+                android:textColor="@color/black"
+                android:text="功能有：任务赚佣金，聚钱庄理财，疯狂抢红包，一元夺宝，挖宝箱，返利商城，师徒任务。"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:textSize="17sp"
+                android:textColor="@color/black"
+                android:layout_marginTop="10dp"
+                android:text="1．任务赚佣金，分享收徒“坐享其成”。"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:textSize="17sp"
+                android:textColor="@color/black"
+                android:layout_marginTop="10dp"
+                android:text="2．完成任务挖宝箱，获取免费赚取苹果6PLUS的抽取机会。"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:textSize="17sp"
+                android:textColor="@color/black"
+                android:layout_marginTop="10dp"
+                android:text="3．高佣任务攒本金，投资聚钱庄省钱又生钱，任务多多，自然钱多多，给你更多零花钱。"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:textSize="17sp"
+                android:textColor="@color/black"
+                android:layout_marginTop="10dp"
+                android:text="4．一元夺奇宝，好货拿不停。"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:textSize="17sp"
+                android:textColor="@color/black"
+                android:layout_marginTop="10dp"
+                android:text="5．商城购物，返利得现金。"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:textSize="17sp"
+                android:textColor="@color/black"
+                android:layout_marginTop="10dp"
+                android:text="6．逆天运气王，运气王红包抢不停， 5天60次抢红包机会，最高能够得到高于成本115%的回报，小投资大收益，给你抢的乐趣，同时给你高额回报！"
+                android:layout_height="wrap_content" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

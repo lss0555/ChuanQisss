@@ -50,6 +50,11 @@ android {
     productFlavors.all {
         flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
     }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
 }
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
@@ -74,4 +79,6 @@ dependencies {
     compile files('libs/ShareSDK-QZone-2.7.4.jar')
     compile 'com.githang:status-bar-compat:0.3'
     compile files('libs/AMap_Location_V2.8.0_20160811.jar')
+    compile files('libs/libammsdk.jar')
+    compile files('libs/dianru_sdk_v1.2.1.jar')
 }

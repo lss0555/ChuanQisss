@@ -58,9 +58,9 @@
     <string name="why_un_withdraw3">3.聚钱庄里面的余额需要转到余额里面才能够提现。如果有其他什么问题跟我们联系。</string>
     <string name="un_update_phone">4.为什么手机号不能绑定，不能修改？</string>
     <string name="why_un_update_phone">每个手机号在易赚里面只能绑定一次，请确认您的手机号在易赚里面有没使用过。</string>
-
     <!-- 帮助中心 -->
     <string name="how_to_earn">1.为什么没有登录注册界面</string>
 
-    <!-- 红包池中心 -->
+    <!-- 点入积分墙 -->
+    <string name="app_key">00005D3E2800002E</string>
 </resources>

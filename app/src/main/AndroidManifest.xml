@@ -80,12 +80,15 @@
         <activity android:name="activity.KownPlatformActivity" />
         <activity android:name="activity.HowToEarn.ShopDetailActivity" />
         <activity android:name="activity.HowToEarn.RedDetailActivity" />
-
-        <!-- 多盟积分墙配置 -->
-        <activity
-            android:name="cn.dow.android.DActivity"
-            android:screenOrientation="portrait" />
         <service android:name="cn.dow.android.DService" />
+        <!-- 点入积分墙配置 -->
+        <meta-data
+            android:name="DR_APPKEY"
+            android:value="@string/app_key" />
+        <!-- 点乐积分墙配置 -->
+        <meta-data
+            android:name="com.dlnetwork.cid"
+            android:value="default" />
         <meta-data
             android:name="D_PPID"
             android:value="96ZJ2xZwzeDzPwTBK+" />
@@ -118,10 +121,11 @@
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <!-- 趣米sdk -->
+        <!-- 微信支付 -->
         <activity
-            android:name="com.newqm.pointwall.ShowActivity"
-            android:configChanges="keyboardHidden|orientation" />
+            android:name=".wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop"/>
         <service android:name="com.newqm.pointwall.AppStartListenService"> </service>
         <!-- 万普 -->
         <!--<activity android:name="cn.waps.extend.AppWall" android:configChanges="keyboardHidden|orientation" />-->
@@ -147,5 +151,41 @@
         </activity>
         <!-- 高德地图定位 -->
         <service android:name="com.amap.api.location.APSService"></service>
+        <!-- 微信支付 -->
+        <receiver
+            android:name=".wxapi.AppRegister">
+            <intent-filter>
+                <action android:name="com.tencent.mm.plugin.openapi.Intent.ACTION_REFRESH_WXAPP" />
+            </intent-filter>
+        </receiver>
+        <!-- 点入积分墙 -->
+        <receiver
+            android:name="com.yql.dr.pkg.LocalAppContrast"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+        <service
+            android:name="com.yql.dr.sdk.ProcessService"
+            android:enabled="true"
+            android:exported="false" />
+        <service
+            android:name="com.yql.dr.sdk.DRService"
+            android:enabled="true"
+            android:exported="false" />
+        <!-- 点入积分墙 -->
+        <activity
+            android:name="com.yql.dr.sdk.DRActivity"
+            android:enabled="true"
+            android:exported="false"
+            android:theme="@android:style/Theme.Light.NoTitleBar" />
+        <!-- 点乐积分墙 -->
+        <activity android:name="com.dlnetwork.DevNativeActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:configChanges="keyboardHidden|orientation"/>
+        <service android:name="com.dlnetwork.DevNativeService" />
     </application>
 </manifest>

@@ -113,7 +113,7 @@ public class BindWxAccountActivity extends BaseActivity {
                 if(mEtAccount.getText().toString().trim().equals("")||mEtName.getText().toString().trim().equals("")){
                         Toast("请填写完整");
                 }else if(state==1){
-                    showTip("提示:您已绑定过");
+                    Toast("您已绑定过");
                 }else {
                     BindToAliPay();
                 }

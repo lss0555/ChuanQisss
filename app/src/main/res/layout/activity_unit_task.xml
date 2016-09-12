@@ -44,7 +44,7 @@
                 android:layout_height="70dp">
                 <TextView
                     android:layout_width="wrap_content"
-                    android:text="生钱宝1号机"
+                    android:text="易赚ATM1"
                     android:layout_centerVertical="true"
                     android:textSize="17sp"
                     android:gravity="center"
@@ -72,7 +72,7 @@
                 android:layout_height="70dp">
                 <TextView
                     android:layout_width="wrap_content"
-                    android:text="生钱宝2号机"
+                    android:text="易赚ATM2"
                     android:layout_centerVertical="true"
                     android:textSize="17sp"
                     android:gravity="center"
@@ -100,7 +100,7 @@
                 android:layout_height="70dp">
                 <TextView
                     android:layout_width="wrap_content"
-                    android:text="生钱宝3号机"
+                    android:text="易赚ATM3"
                     android:layout_centerVertical="true"
                     android:textSize="17sp"
                     android:gravity="center"
@@ -128,7 +128,7 @@
                 android:layout_height="70dp">
                 <TextView
                     android:layout_width="wrap_content"
-                    android:text="生钱宝4号机"
+                    android:text="易赚ATM4"
                     android:layout_centerVertical="true"
                     android:textSize="17sp"
                     android:gravity="center"

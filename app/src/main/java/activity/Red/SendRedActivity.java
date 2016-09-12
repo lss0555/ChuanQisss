@@ -10,6 +10,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.chuanqi.yz.R;
 import com.google.gson.Gson;
+import com.tencent.mm.sdk.modelpay.PayReq;
+import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
 import java.util.HashMap;
 import Constance.constance;
@@ -21,6 +24,7 @@ import activity.BaseActivity;
 import model.Result;
 import model.UserMoney;
 import model.YiZhuanRed;
+import model.wxpays;
 
 public class SendRedActivity extends BaseActivity {
     private final  int RED_NOMRAL=1;
@@ -44,7 +48,9 @@ public class SendRedActivity extends BaseActivity {
     private double YiZhuanYue;
     private RelativeLayout mRtlWxPay;
     private RelativeLayout mRtlAliPay;
-
+    private PayReq req;
+    private wxpays mWxPayInfo;
+    final IWXAPI msgApi = WXAPIFactory.createWXAPI(this, null);
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +60,6 @@ public class SendRedActivity extends BaseActivity {
         initdate();
         initevent();
     }
-
     /**
      * 初始化数据
      */
@@ -62,7 +67,6 @@ public class SendRedActivity extends BaseActivity {
         YueDate();
         YiZuanDate();
     }
-
     /**
      * 易赚红余额
      */
@@ -231,7 +235,7 @@ public class SendRedActivity extends BaseActivity {
                                 PayYue2RedPool(100);
                                 break;
                             case WXIN_PAY://微信支付
-                                Toast("红包100   微信支付");
+                                WxPay(100);
                                 break;
                             case ALI_PAY://支付宝支付
                                 Toast("红包100   支付宝支付");
@@ -247,7 +251,7 @@ public class SendRedActivity extends BaseActivity {
                                 PayYue2RedPool(500);
                                 break;
                             case WXIN_PAY://微信支付
-                                Toast("红包200   微信支付");
+                                WxPay(200);
                                 break;
                             case ALI_PAY://支付宝支付
                                 Toast("红包200   支付宝支付");
@@ -297,24 +301,40 @@ public class SendRedActivity extends BaseActivity {
                 @Override
                 public void Successfully(boolean IsSuccess, String data, String Msg) {
                     stopProgressDialog();
-//                    showTip(data.toString());
-                    Result result = GsonUtils.parseJSON(data, Result.class);
-                    if(result.getRun().equals("1")){
-                        showTip("恭喜您，支付成功");
-                        YiZuanDate();
-                    }else if(result.getRun().equals("2")){
-                        showTip("抱歉，您的余额不足");
-                    }else if(result.getRun().equals("0")){
-                        showTip("抱歉，支付失败");
-                    }else if(result.getRun().equals("3")){
-                        showTip("抱歉，您今天已经充值过");
-                    }else if(result.getRun().equals("4")){
-                        showTip("提示:还有未抢完的红包，等抢完在发");
+                    if(IsSuccess){
+                        Result result = GsonUtils.parseJSON(data, Result.class);
+                        if(result.getRun().equals("1")){
+                            Toast("恭喜您，支付成功");
+                            YiZuanDate();
+                        }else if(result.getRun().equals("2")){
+                            Toast("抱歉，您的余额不足");
+                        }else if(result.getRun().equals("0")){
+                            Toast("抱歉，支付失败");
+                        }else if(result.getRun().equals("3")){
+                            Toast("抱歉，您今天已经充值过");
+                        }else if(result.getRun().equals("4")){
+                            Toast("提示:还有未抢完的红包，等抢完在发");
+                        }
+                    }else {
+                        Toast(data.toString());
                     }
                 }
             });
-//        }else {
-//            showTip("抱歉，您的余额不足");
-//        }
+    }
+    /**
+     * 微信支付
+     * @param price
+     */
+    public  void WxPay(int price){
+        msgApi.registerApp(mWxPayInfo.getAppid());
+        req = new PayReq();
+        req.appId = mWxPayInfo.getAppid();
+        req.nonceStr = mWxPayInfo.getNonceStr();
+        req.packageValue = mWxPayInfo.get_package();
+        req.partnerId = mWxPayInfo.getMchId();
+        req.prepayId = mWxPayInfo.getPrepayId();
+        req.timeStamp = String.valueOf(mWxPayInfo.getTimeStamp());
+        req.sign = mWxPayInfo.getSign();
+        msgApi.sendReq(req);
     }
 }

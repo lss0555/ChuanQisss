@@ -354,12 +354,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
      */
     private void setUserTx() {
         //显示用户提现信息
-        mTvId.setResource(mUserId);
-        mTvId.startRolling();
-        mTvTime.setResource(mTimes);
-        mTvTime.startRolling();
-        mTvState.setResource(mState);
-        mTvState.startRolling();
+                mTvId.setResource(mUserId);
+                mTvId.startRolling();
+                mTvTime.setResource(mTimes);
+                mTvTime.startRolling();
+                mTvState.setResource(mState);
+                mTvState.startRolling();
     }
     /**
      * 设置聚钱钱存入记录
