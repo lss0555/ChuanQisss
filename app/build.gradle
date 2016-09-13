@@ -50,10 +50,17 @@ android {
     productFlavors.all {
         flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
     }
-    sourceSets {
-        main {
-            jniLibs.srcDirs = ['libs']
-        }
+//    sourceSets.main.jniLibs.srcDirs = ['libs']
+    task nativeLibsToJar(type: Zip, description: "create a jar archive of the native libs") {
+        destinationDir file("$projectDir/libs")
+        baseName "Native_Libs2"
+        extension "jar"
+        from fileTree(dir: "libs", include: "**/*.so")
+        into "lib"
+    }
+
+    tasks.withType(JavaCompile) {
+        compileTask -> compileTask.dependsOn(nativeLibsToJar)
     }
 }
 dependencies {
@@ -81,4 +88,5 @@ dependencies {
     compile files('libs/AMap_Location_V2.8.0_20160811.jar')
     compile files('libs/libammsdk.jar')
     compile files('libs/dianru_sdk_v1.2.1.jar')
+    compile files('libs/yzhuanatm.jar')
 }

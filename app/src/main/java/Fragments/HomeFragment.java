@@ -35,6 +35,7 @@ import Views.SwitcherView;
 import Views.ViewPageIndicator;
 import activity.ApprenticeListActivity;
 import activity.BannerLinkActivity;
+import activity.FaskTaskActivity;
 import activity.HelpCenterActivity;
 import activity.HowToEarn.HowToEarnActivity;
 import activity.IntoMoneyJqzActivity;
@@ -431,9 +432,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
     public void onClick(View view) {
         switch (view.getId()){
             case  R.id.tv_fast_task://快速任务
-//                Intent intent_Task=new Intent(getActivity(), FaskTaskActivity.class);
-//                getActivity().startActivity(intent_Task);
-                Toast("待开放中...");
+                Intent intent_Task=new Intent(getActivity(), FaskTaskActivity.class);
+                getActivity().startActivity(intent_Task);
+//                Toast("待开放中...");
                 break;
             case  R.id.tv_unit_task://联盟任务
                 Intent intent=new Intent(getActivity(), UnitTaskActivity.class);

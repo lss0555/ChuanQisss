@@ -247,7 +247,7 @@
                             android:id="@+id/tv_fast_task"
                             android:layout_width="wrap_content"
                             android:textColor="@drawable/textcolor_seleclor"
-                            android:text="快速任务"
+                            android:text="经典任务"
                             android:textSize="12sp"
                             android:layout_weight="1"
                             android:gravity="center"

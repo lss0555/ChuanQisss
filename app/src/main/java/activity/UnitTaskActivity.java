@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.chuanqi.yz.R;
 import com.newqm.pointwall.QEarnNotifier;
 import com.newqm.pointwall.QSdkManager;
@@ -16,12 +15,10 @@ import com.yql.dr.sdk.DRScoreInterface;
 import com.yql.dr.sdk.DRSdk;
 import com.yzhuanatm.DevInit;
 import com.yzhuanatm.GetOnlineParamsListener;
-
 import net.youmi.android.AdManager;
 import net.youmi.android.listener.Interface_ActivityListener;
 import net.youmi.android.offers.OffersManager;
 import net.youmi.android.offers.PointsManager;
-
 import Utis.SharePre;
 import cn.dow.android.DOW;
 import cn.dow.android.listener.DLoadListener;
@@ -40,8 +37,6 @@ public class UnitTaskActivity extends BaseActivity implements View.OnClickListen
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //点乐sdk
-
         setContentView(R.layout.activity_unit_task);
         me=this;
         initview();
@@ -67,8 +62,8 @@ public class UnitTaskActivity extends BaseActivity implements View.OnClickListen
         DRSdk.initialize(this, true, ""); // 建议在应用启动调用，初始化sdk
         DRSdk.setUserId(SharePre.getUserId(getApplicationContext())); // 设置用户id
         //点乐
-        DevInit.initGoogleContext(this, "0d2d5326dcf0985530a1a413aac31f6b");
-        DevInit.setCurrentUserID(this,SharePre.getUserId(getApplicationContext()));
+        DevInit.initGoogleContext(UnitTaskActivity.this, "0d2d5326dcf0985530a1a413aac31f6b");
+        DevInit.setCurrentUserID(UnitTaskActivity.this,SharePre.getUserId(getApplicationContext()));
     }
     @Override
     public void onResume() {
@@ -159,7 +154,6 @@ public class UnitTaskActivity extends BaseActivity implements View.OnClickListen
         dialog.setPositiveButton("确定", null);
         dialog.show();
     }
-
     /**
      * 点乐 总金额回调 获取自定义在线参数，返回自定义的参数值，无网或请求失败返回的是实时的值，无网或请求失败返回本地保存的值。
      * @param s

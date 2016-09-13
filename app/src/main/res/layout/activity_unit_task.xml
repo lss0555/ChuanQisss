@@ -51,7 +51,7 @@
                     android:drawablePadding="10dp"
                     android:layout_marginLeft="10dp"
                     android:drawableLeft="@mipmap/youmi"
-                    android:textColor="@color/black"
+                    android:textColor="@drawable/black2gray_seleclor"
                     android:layout_height="wrap_content" />
 
                 <ImageView
@@ -79,7 +79,7 @@
                     android:drawablePadding="10dp"
                     android:layout_marginLeft="10dp"
                     android:drawableLeft="@mipmap/dianle"
-                    android:textColor="@color/black"
+                    android:textColor="@drawable/black2gray_seleclor"
                     android:layout_height="wrap_content" />
 
                 <ImageView
@@ -107,7 +107,7 @@
                     android:drawablePadding="10dp"
                     android:layout_marginLeft="10dp"
                     android:drawableLeft="@mipmap/dianlu"
-                    android:textColor="@color/black"
+                    android:textColor="@drawable/black2gray_seleclor"
                     android:layout_height="wrap_content" />
 
                 <ImageView
@@ -135,7 +135,7 @@
                     android:drawablePadding="10dp"
                     android:layout_marginLeft="10dp"
                     android:drawableLeft="@mipmap/wanpu"
-                    android:textColor="@color/black"
+                    android:textColor="@drawable/black2gray_seleclor"
                     android:layout_height="wrap_content" />
 
                 <ImageView

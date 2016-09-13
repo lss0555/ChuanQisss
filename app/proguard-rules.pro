@@ -160,8 +160,6 @@
 -keep class android.support.** { *; }
 -dontwarn org.jivesoftware.**
 -keep class org.jivesoftware.** { *; }
--dontwarn com.mob.**
--keep class com.mob.** { *; }
 -dontwarn com.google.**
 -keep class com.google.** { *; }
 -dontwarn com.android.**
@@ -192,8 +190,6 @@
 -keep class org.json.** { *; }
 -dontwarn com.tencent.**
 -keep class com.tencent.** { *; }
--dontwarn cn.sharesdk.**
--keep class cn.sharesdk.** { *; }
 
 #okhttp3
 -dontwarn com.squareup.okhttp3.**
@@ -204,7 +200,6 @@
 -keep class sun.security.** { *;}
 -dontwarn okio.**
 -dontwarn okhttp3.**
-
 ##gson
 #-keep class com.google.gson.** {*;}
 ##-keep class com.google.**{*;}
@@ -231,8 +226,23 @@
   -keep class com.amap.api.location.**{*;}
   -keep class com.amap.api.fence.**{*;}
   -keep class com.autonavi.aps.amapapi.model.**{*;}
+#点入
+# The support library contains references to newer platform versions.
+# Don't warn about those in case this app is linking against an older
+# platform version.  We know about them, and they are safe.
+-keep class com.yql.dr.** {*;}
+-dontwarn com.yql.dr.**
+#点乐
+-dontwarn com.yzhuanatm.**
+-keep class com.yzhuanatm.**{*;}
 
-  #点入平台
-  -libraryjars libs/dianru_sdk_v1.2.0.jar
-  -keep class com.yql.dr.** {*;}
-  -dontwarn com.yql.dr.**
+#mob一键分享
+-keep class com.mob.**{*;}
+-dontwarn com.mob.**
+-dontwarn cn.sharesdk.**
+-dontwarn **.R$*
+
+-keep class cn.sharesdk.**{*;}
+-keep class com.sina.**{*;}
+-keep class **.R$* {*;}
+-keep class **.R{*;}

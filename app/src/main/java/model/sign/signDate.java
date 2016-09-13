@@ -1,9 +1,11 @@
 package model.sign;
 
+import java.io.Serializable;
+
 /**
  * Created by zss on 2016/8/31.
  */
-public class signDate {
+public class signDate implements Serializable{
     private  String dtime;
 
     public String getDtime() {

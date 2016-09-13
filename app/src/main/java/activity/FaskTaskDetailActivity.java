@@ -34,6 +34,7 @@ public class FaskTaskDetailActivity extends BaseActivity {
     private TextView mTvState;
     private String file_path=getSDPath() +"/" + "易赚ATM";
     private RelativeLayout mRtlAccept;
+    private RelativeLayout mRtlComplite;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,6 +54,12 @@ public class FaskTaskDetailActivity extends BaseActivity {
                   new downloadversion().execute(mTaskDetail.getAppUrl());
               }
           });
+        mRtlComplite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast("你确定完成任务了吗？");
+            }
+        });
     }
 
     private void initview() {
@@ -63,7 +70,7 @@ public class FaskTaskDetailActivity extends BaseActivity {
         mTvStep = (TextView) findViewById(R.id.tv_step);
         mTvState = (TextView) findViewById(R.id.tv_state);
         mRtlAccept = (RelativeLayout) findViewById(R.id.rtl_accept);
-
+        mRtlComplite = (RelativeLayout) findViewById(R.id.rtl_complite);
     }
     private void getDate() {
         mTaskDetail= (faskTask) getIntent().getSerializableExtra("Task");
