@@ -95,6 +95,21 @@
                 android:layout_marginTop="10dp"
                 android:text="6．逆天运气王，运气王红包抢不停， 5天60次抢红包机会，最高能够得到高于成本115%的回报，小投资大收益，给你抢的乐趣，同时给你高额回报！"
                 android:layout_height="wrap_content" />
+            <RelativeLayout
+                android:id="@+id/rtl_complite"
+                android:layout_width="match_parent"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/round_gray_bg"
+                android:layout_height="40dp">
+                <TextView
+                    android:id="@+id/tv_tip"
+                    android:layout_width="wrap_content"
+                    android:text="确认了解"
+                    android:layout_centerInParent="true"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

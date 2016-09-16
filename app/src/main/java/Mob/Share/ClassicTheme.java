@@ -27,7 +27,6 @@ public class ClassicTheme extends OnekeyShareThemeImpl {
 		}
 		page.show(context, null);
 	}
-
 	/** 展示编辑界面*/
 	protected void showEditPage(Context context, Platform platform, ShareParams sp) {
 		EditPage page;
@@ -41,5 +40,4 @@ public class ClassicTheme extends OnekeyShareThemeImpl {
 		page.setShareParams(sp);
 		page.show(context, null);
 	}
-
 }

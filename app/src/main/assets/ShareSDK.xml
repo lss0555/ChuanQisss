@@ -79,7 +79,7 @@
 		Id="4"
 		SortId="4"
 		AppId="wx541c42bc54fac5cf"
-		AppSecret="73d9576952c95cdca5ace509624f392d"
+		AppSecret="759e5045b357e8ba66ea7047b6760af1"
 		BypassApproval="false"
 		Enable="true" />
 
@@ -87,7 +87,7 @@
 		Id="5"
 		SortId="5"
 		AppId="wx541c42bc54fac5cf"
-		AppSecret="73d9576952c95cdca5ace509624f392d"
+		AppSecret="759e5045b357e8ba66ea7047b6760af1"
 		BypassApproval="false"
 		Enable="true" />
 
@@ -95,7 +95,7 @@
 		Id="6"
 		SortId="6"
 		AppId="wx541c42bc54fac5cf"
-		AppSecret="73d9576952c95cdca5ace509624f392d"
+		AppSecret="759e5045b357e8ba66ea7047b6760af1"
 		Enable="true" />
 	<!-- ShareByAppClient标识是否使用微博客户端分享，默认是false -->
 	<QQ

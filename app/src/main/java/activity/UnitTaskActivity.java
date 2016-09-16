@@ -71,7 +71,6 @@ public class UnitTaskActivity extends BaseActivity implements View.OnClickListen
         AppConnect.getInstance(this).getPoints(this);
 //        DevInit.getTotalMoney(this,me);
     }
-
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -96,7 +95,7 @@ public class UnitTaskActivity extends BaseActivity implements View.OnClickListen
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.rtl_youmi://有米积分墙
-                OffersManager.getInstance(this).showOffersWall(new Interface_ActivityListener() {
+                OffersManager.getInstance(UnitTaskActivity.this).showOffersWall(new Interface_ActivityListener() {
                     @Override
                     public void onActivityDestroy(Context context) {
 //                        Toast.makeText(context, "退出有米积分墙", Toast.LENGTH_SHORT).show();

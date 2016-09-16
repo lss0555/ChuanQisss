@@ -65,6 +65,12 @@ public class constance {
         public static final String DAY_SIGN = BASE_URL+"day_sign.php";
         /* 分享获取奖励*/
         public static final String SHARE_GET = BASE_URL+"sharerecord.php";
+        /* 版本更新*/
+        public static final String VERSION_UPDATE = BASE_URL+"version.php";
+        /* 了解平台*/
+        public static final String KONWN_PLATFORM = BASE_URL+"ljpt.php";
+        /* 明细收益*/
+        public static final String ALL_PROFIT = BASE_URL+"incomerecord.php";
     }
     public static final class INTENT {
         public static final int INTO_JQZ_SUCCESS = 2132;

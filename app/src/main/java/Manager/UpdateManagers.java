@@ -41,9 +41,9 @@ public class UpdateManagers{
     private static final int DOWN_OVER = 2;
     private Context mContext;
     //提示语
-    private String updateMsg = "版本更新内容...";
+//    private String updateMsg = "版本更新内容...";
     //返回的安装包url
-    private String apkUrl = "http://bmob-cdn-4915.b0.upaiyun.com/2016/09/07/e7fc983d4049bd7c808197d358aa8fdd.apk";
+//    private String apkUrl = "http://bmob-cdn-4915.b0.upaiyun.com/2016/09/07/e7fc983d4049bd7c808197d358aa8fdd.apk";
     /* 进度条与通知ui刷新的handler和msg常量 */
     private ProgressBar mProgress;
     private TextView mProgressTv;
@@ -110,8 +110,13 @@ public class UpdateManagers{
         }
     };
     private Context context;
-    public UpdateManagers(Context context) {
+    private String updateMsg;
+    private String apkUrl;
+
+    public UpdateManagers(Context context,String updateMsg,String apkUrl) {
         this.context = context;
+        this.updateMsg = updateMsg;
+        this.apkUrl = apkUrl;
     }
     //外部接口让主Activity调用
     public void checkUpdateInfo(){
@@ -201,7 +206,6 @@ public class UpdateManagers{
     /**
      * 下载apk
      */
-
     private void downloadApk(){
         downLoadThread = new Thread(mdownApkRunnable);
         downLoadThread.start();

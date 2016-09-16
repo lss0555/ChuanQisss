@@ -46,17 +46,20 @@ import Constance.constance;
 import Manager.UpdateManagers;
 import Utis.OkHttpUtil;
 import Utis.Utis;
+import Utis.OkHttpUtil;
 import Utis.UILUtils;
 import Utis.GsonUtils;
 import Utis.SharePre;
 import Views.CircleImageView;
 import activity.AboutUsActivity;
+import activity.AllProfitActivity;
 import activity.BindAliPayActivity;
 import activity.BindWxAccountActivity;
 import activity.BindPhoneActivity;
 import activity.Red.LookRedRecordActivity;
 import activity.UserInfoActivity;
 import model.UserInfo;
+import model.Version;
 import model.Yzm;
 
 /**
@@ -226,9 +229,26 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
                 startActivity(intent_ours);
                 break;
             case R.id.rtl_update://检查更新
-                UpdateManagers mUpdateManager = new UpdateManagers(getActivity());
-                mUpdateManager.setNotUpdateMessageShow(false);
-                mUpdateManager.checkUpdateInfo();
+                 int version = Utis.getVersion(getActivity());
+                 startProgressDialog("加载中...");
+                 OkHttpUtil.getInstance().Post(null, constance.URL.VERSION_UPDATE, new OkHttpUtil.FinishListener() {
+                     @Override
+                     public void Successfully(boolean IsSuccess, String data, String Msg) {
+                         stopProgressDialog();
+                         if(IsSuccess){
+                             Version version1 = GsonUtils.parseJSON(data, Version.class);
+                             if(Integer.parseInt(version1.getBbh())>Utis.getVersion(getActivity())){
+                                 UpdateManagers mUpdateManager = new UpdateManagers(getActivity(),version1.getGxxx(),version1.getUrl());
+                                 mUpdateManager.setNotUpdateMessageShow(false);
+                                 mUpdateManager.checkUpdateInfo();
+                             }else {
+                                 Toast("当前已是最高版本！");
+                             }
+                         }else {
+                             Toast(data.toString());
+                         }
+                     }
+                 });
                 break;
             case R.id.rtl_message_tip://消息提醒
                 Toast("待开放中...");
@@ -237,7 +257,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
                 Toast("待开放中...");
                 break;
             case R.id.rtl_detail_get://明细收益
-                Intent intent_record=new Intent(getActivity(),LookRedRecordActivity.class);
+                Intent intent_record=new Intent(getActivity(), AllProfitActivity.class);
                 startActivity(intent_record);
                 break;
         }

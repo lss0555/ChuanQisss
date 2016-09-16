@@ -70,6 +70,7 @@
         <activity android:name="activity.Red.TakeRedRulesActivity" />
         <activity android:name="activity.GetApprenticeActivity" />
         <activity android:name="activity.JXZActivity" />
+        <activity android:name="activity.AllProfitActivity" />
         <activity android:name="activity.ShowBoxPriceActivity" android:theme="@style/loginDialog"/>
         <activity android:name="activity.OpenBoxActivity" />
         <activity android:name="activity.ShowRedPriceActivity" android:theme="@style/loginDialog"/>
