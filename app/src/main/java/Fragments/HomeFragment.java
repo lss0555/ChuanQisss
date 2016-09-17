@@ -4,6 +4,8 @@ import android.content.IntentFilter;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -99,6 +101,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
     private MyReceiver myReceiver;
     private TextView mTvUpLoad;
     private SwipeRefreshLayout mReFreshLayout;
+    private final int USER_TX_RECORD=1;
+    private final int JQZ_INTO_RECORD=2;
     public static HomeFragment getInstance(){
         if(instance==null){
             instance=new HomeFragment();
@@ -107,6 +111,38 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
     }
     public HomeFragment() {
     }
+    public Handler mHandler=new Handler()
+    {
+        public void handleMessage(Message msg)
+        {
+            switch(msg.what)
+            {
+                case USER_TX_RECORD:
+                    setUserTx();
+                    break;
+                case JQZ_INTO_RECORD:
+                    setJqzCrReord();
+                    break;
+                default:
+                    break;
+            }
+            super.handleMessage(msg);
+        }
+    };
+    private Runnable mRbUserRecord = new Runnable() {
+        public void run() {
+            Message message=new Message();
+            message.what=USER_TX_RECORD;
+            mHandler.sendMessage(message);
+        }
+    };
+    private Runnable mRbJqzIntoRecord = new Runnable() {
+        public void run() {
+            Message message=new Message();
+            message.what=JQZ_INTO_RECORD;
+            mHandler.sendMessage(message);
+        }
+    };
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -176,6 +212,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
     public void onStop() {
         super.onStop();
         getActivity().unregisterReceiver(myReceiver);
+        mHandler.removeCallbacks(mRbUserRecord);
+        mHandler.removeCallbacks(mRbJqzIntoRecord);
     }
     /**
      * inidate
@@ -233,7 +271,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
                         }
                     }
                     Log.i("用户mUserId",""+mUserId.toString());
-                    setUserTx();
+                    new Thread(mRbUserRecord).start();
                 }else {
                     Toast(data.toString());
                 }
@@ -260,7 +298,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
                         mJqzCrTime.add(Utis.getDistanceTime(Utis.getTime(),mCrJqz.get(i).getTdate())+"前");
                         mJqzCrMoney.add("成功转入聚钱庄"+mCrJqz.get(i).getMoney()+"元");
                     }
-                    setJqzCrReord();
+                    new Thread(mRbJqzIntoRecord).start();
                 }
             }
         });

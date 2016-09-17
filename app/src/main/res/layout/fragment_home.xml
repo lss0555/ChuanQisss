@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="易赚"
+            android:text="易钻"
             android:textSize="20sp"
             android:paddingTop="20dp"
             android:textColor="@color/white"

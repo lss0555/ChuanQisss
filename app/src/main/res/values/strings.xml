@@ -1,5 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
-    <string name="app_name">易赚ATM</string>
+    <string name="app_name">易钻ATM</string>
     <string name="action_settings">Settings</string>
     <string name="rules_1"> 1.您的好友只要在您发给的红包页面领取新手红包，下载积分墙后便成为您的粉丝；</string>
     <string name="rules_2"> 2.您的粉丝完成任务时，您最高可获得40%的(如您的一位粉丝完成10元奖金的任务，您最高可以获得4元现金）</string>
@@ -9,7 +9,7 @@
     <string name="sign_introduce1">1.每天签到时间为00:01到23:59</string>
     <string name="sign_introduce2">2.首日签到得0.1元,连续签到第15天得3元,连续签到30天奖励6元。</string>
     <string name="sign_introduce3">3.连续签到中断需要重头开始签到</string>
-    <string name="sign_introduce4">4.签到奖励金额自动存入易赚账户中。</string>
+    <string name="sign_introduce4">4.签到奖励金额自动存入易钻账户中。</string>
     <string name="about_ours">    积分墙作为一个全民赚钱平台，利用其独有的微信提现、一秒到账技术，仅上线第一个月，累计发放奖金就已经超过了120万元，数万用户成功在积分墙赚到了第一桶金。积分墙旨在给广大用户提供一个赚的多，提现快的兼职平台，点击提现后一秒钟就会把奖金发到您的微信钱包中。
 赚800以其简单的任务形式、超低的提现门槛和极快的提现速度受到了广大用户的一致好评，短短三个月的时间内就积累了将近30万名的忠实粉丝，积分墙用它的高品质与高收益赢得了广大用户的认可。
 积分墙的任务以朋友圈分享阅读，注册试用，关注公众号，小游戏等为主，动动手指将有趣的链接分享到朋友圈或微信群，只要有人点击你就有钱赚，每次点击都有0.1元入账，好友二次分享后的阅读也给你增加收入，数量超过十次还有额外奖励，轻轻松松就能赚几十元、上百元。每天躺着玩一会儿积分墙，你就会得到丰厚的零花钱！这将是一个千万用户共同打造的全民high玩赚钱平台。
@@ -49,7 +49,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <!-- 帮助中心 -->
     <string name="no_help_center">1.为什么没有登录注册界面</string>
-    <string name="why_no_help_center">下载易赚APP之后进入首页，系统就会自动分配给您一个ID,但您必须进入新手任务里面绑定手机号码</string>
+    <string name="why_no_help_center">下载易钻APP之后进入首页，系统就会自动分配给您一个ID,但您必须进入新手任务里面绑定手机号码</string>
     <string name="do_task">2.为什么要先做新手任务？</string>
     <string name="why_do_task">新手任务是为了让我们了解我们平台是一个真正的赚钱平台，同时我们必须绑定手机，微信，或者支付宝，这样一来方便您日后做其他任务或者提现</string>
     <string name="un_withdraw">3.为什么提现不了？</string>
@@ -57,7 +57,7 @@
     <string name="why_un_withdraw2">2.账户余额不足，无法提现</string>
     <string name="why_un_withdraw3">3.聚钱庄里面的余额需要转到余额里面才能够提现。如果有其他什么问题跟我们联系。</string>
     <string name="un_update_phone">4.为什么手机号不能绑定，不能修改？</string>
-    <string name="why_un_update_phone">每个手机号在易赚里面只能绑定一次，请确认您的手机号在易赚里面有没使用过。</string>
+    <string name="why_un_update_phone">每个手机号在易钻里面只能绑定一次，请确认您的手机号在易钻里面有没使用过。</string>
     <!-- 帮助中心 -->
     <string name="how_to_earn">1.为什么没有登录注册界面</string>
     <string name="app_key">00007B47250000D3</string>

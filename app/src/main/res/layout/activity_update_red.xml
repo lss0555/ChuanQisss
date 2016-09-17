@@ -73,7 +73,7 @@
             android:layout_height="wrap_content" />
         <TextView
             android:layout_width="wrap_content"
-            android:text="易赚ATM红包支付"
+            android:text="易钻ATM红包支付"
             android:layout_toRightOf="@+id/rb_yizuyan"
             android:layout_centerVertical="true"
             android:textColor="@color/black"
