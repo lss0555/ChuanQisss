@@ -34,6 +34,7 @@ import Utis.SharePre;
 import Utis.GsonUtils;
 import Views.Banners.Lanner;
 import Views.SwitcherView;
+import Views.VerticalSwitchTextView;
 import Views.ViewPageIndicator;
 import activity.ApprenticeListActivity;
 import activity.BannerLinkActivity;
@@ -119,9 +120,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
             {
                 case USER_TX_RECORD:
                     setUserTx();
+                    setJqzCrReord();
                     break;
                 case JQZ_INTO_RECORD:
-                    setJqzCrReord();
+
                     break;
                 default:
                     break;
@@ -190,7 +192,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
         super.onStart();
         IntentFilter filter=new IntentFilter();
         filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
-        filter.addAction("update");
+        filter.addAction(constance.INTENT.UPDATE_ADD_USER_MONEY);
         myReceiver=new MyReceiver();
         myReceiver.SetNetStateListner(new MyReceiver.NetStateListner() {
             @Override
@@ -215,6 +217,14 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
         mHandler.removeCallbacks(mRbUserRecord);
         mHandler.removeCallbacks(mRbJqzIntoRecord);
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mHandler.removeCallbacks(mRbUserRecord);
+        mHandler.removeCallbacks(mRbJqzIntoRecord);
+    }
+
     /**
      * inidate
      */
@@ -225,9 +235,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
         UserAccount();  //用户余额
         JqzAccount();  //聚钱庄余额
         UserMoney();//用户金额，聚钱庄金额
-
     }
-
     /**
      * 公告记录
      */
@@ -235,7 +243,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
         OkHttpUtil.getInstance().Get( constance.URL.GONGGAO, new OkHttpUtil.FinishListener() {
             @Override
             public void Successfully(boolean IsSuccess, String data, String Msg) {
-//                showTip(data.toString());
+                Log.e("Notice",""+data.toString());
                 if(IsSuccess){
                     Notice notice = GsonUtils.parseJSON(data, Notice.class);
                     mTvGongGao.setText(""+notice.getContent());
@@ -245,7 +253,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
             }
         });
     }
-
     /**
      * 用户提现记录
      */
@@ -271,7 +278,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
                         }
                     }
                     Log.i("用户mUserId",""+mUserId.toString());
-                    new Thread(mRbUserRecord).start();
+                    JqzStoreRecord();
+//                    new Thread(mRbUserRecord).start();
+//                    setUserTx();
                 }else {
                     Toast(data.toString());
                 }
@@ -298,7 +307,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
                         mJqzCrTime.add(Utis.getDistanceTime(Utis.getTime(),mCrJqz.get(i).getTdate())+"前");
                         mJqzCrMoney.add("成功转入聚钱庄"+mCrJqz.get(i).getMoney()+"元");
                     }
-                    new Thread(mRbJqzIntoRecord).start();
+                    new Thread(mRbUserRecord).start();
+//                    new Thread(mRbJqzIntoRecord).start();
                 }
             }
         });
@@ -339,7 +349,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
                 @Override
                 public void Successfully(boolean IsSuccess, String data, String Msg) {
                     if(IsSuccess){
-//                        Log.i("数据",""+data.toString());
+                        Log.i("数据",""+data.toString());
 //                  showTip(data.toString());
                         UserMoney userMoney = GsonUtils.parseJSON(data, UserMoney.class);
                         if(userMoney.getfTodayIncome()==null){
@@ -456,14 +466,14 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
                 }
             }
         });
-        mLanner.setOnLannerItemClickListener(new Lanner.OnLannerItemClickListener() {
-            @Override
-            public void click(View v, banners lb) {
-                Intent intent=new Intent(getActivity(), BannerLinkActivity.class);
-                intent.putExtra("link",lb.getLink());
-                startActivity(intent);
-            }
-        });
+//        mLanner.setOnLannerItemClickListener(new Lanner.OnLannerItemClickListener() {
+//            @Override
+//            public void click(View v, banners lb) {
+//                Intent intent=new Intent(getActivity(), BannerLinkActivity.class);
+//                intent.putExtra("link",lb.getLink());
+//                startActivity(intent);
+//            }
+//        });
     }
 
     @Override

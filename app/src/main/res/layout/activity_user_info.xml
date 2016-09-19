@@ -229,13 +229,14 @@
                android:layout_height="50dp">
                <TextView
                    android:layout_width="wrap_content"
-                   android:text="邀请人"
+                   android:text="我的邀请码"
                    android:layout_centerVertical="true"
                    android:layout_marginLeft="15dp"
                    android:textColor="@color/black"
                    android:textSize="18sp"
                    android:layout_height="wrap_content" />
                <TextView
+                   android:id="@+id/tv_yqm"
                    android:layout_width="wrap_content"
                    android:layout_centerVertical="true"
                    android:text="未填写"
@@ -253,6 +254,7 @@
                android:layout_height="0.2dp"></View>
            <RelativeLayout
                android:layout_width="match_parent"
+               android:visibility="gone"
                android:layout_height="50dp">
                <TextView
                    android:layout_width="wrap_content"

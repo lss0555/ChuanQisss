@@ -38,10 +38,13 @@ public class FaskTaskActivity extends  BaseActivity{
         OkHttpUtil.getInstance().Get(constance.URL.FAST_TASK, new OkHttpUtil.FinishListener() {
             @Override
             public void Successfully(boolean IsSuccess, String data, String Msg) {
+//                showTip(data.toString());
                 task task = GsonUtils.parseJSON(data, task.class);
                 mTask.clear();
-                mTask.addAll(task.getApplyarr());
-                mTaskAdapter.notifyDataSetChanged();
+                if(task.getApplyarr()!=null){
+                    mTask.addAll(task.getApplyarr());
+                    mTaskAdapter.notifyDataSetChanged();
+                }
             }
         });
     }

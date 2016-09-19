@@ -1,6 +1,7 @@
 package activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -133,7 +134,11 @@ public class BindWxAccountActivity extends BaseActivity {
                        if(IsSuccess){
                            Result bindAccount = GsonUtils.parseJSON(data, Result.class);
                            if(!bindAccount.getRun().equals("1")){
-                               showTip("绑定成功");
+                               Toast("恭喜您，绑定成功,获得0.5元");
+                               Intent intent = new Intent();
+                               intent.putExtra(constance.INTENT.UPDATE_ADD_USER_MONEY,true);
+                               intent.setAction(constance.INTENT.UPDATE_ADD_USER_MONEY);   //
+                               sendBroadcast(intent);   //发送广播
                                setResult(1);
                                finish();
                            }

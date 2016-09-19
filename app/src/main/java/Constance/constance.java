@@ -21,9 +21,8 @@ public class constance {
         /*   传应用信息*/
         public static final String APP_INFO = BASE_URL+"deviceinstallrecord.php";
         /*   快速任务*/
-        public static final String FAST_TASK = BASE_URL+"ApplyPlan.php";
+        public static final String FAST_TASK = BASE_URL+"android_applyPlan.php";
         /*   钱转入聚钱庄*/
-
         public static final String INTO_JQZACCOUNT = BASE_URL+"jqz_account.php";
         /*  徒弟列表*/
         public static final String TUDI_LIST = BASE_URL+"masterapprentice.php";
@@ -71,8 +70,11 @@ public class constance {
         public static final String KONWN_PLATFORM = BASE_URL+"ljpt.php";
         /* 明细收益*/
         public static final String ALL_PROFIT = BASE_URL+"incomerecord.php";
+        /* 红包1000元升级*/
+        public static final String SJ_RED = BASE_URL+"sj.php";
     }
     public static final class INTENT {
         public static final int INTO_JQZ_SUCCESS = 2132;
+        public static final String UPDATE_ADD_USER_MONEY = "update";
     }
 }

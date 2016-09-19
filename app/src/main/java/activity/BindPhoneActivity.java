@@ -1,6 +1,7 @@
 package activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -99,7 +100,11 @@ public class BindPhoneActivity extends BaseActivity{
                                 Yzm yzm = GsonUtils.parseJSON(data, Yzm.class);
                                 if(yzm.getRun().equals("0")){
                                     if(mEtYzm.getText().toString().trim().equals(mYzm.getRun())){
-                                        Toast("恭喜您，绑定成功");
+                                        Toast("恭喜您，绑定成功,获得0.5元");
+                                        Intent intent = new Intent();
+                                        intent.putExtra(constance.INTENT.UPDATE_ADD_USER_MONEY,true);
+                                        intent.setAction(constance.INTENT.UPDATE_ADD_USER_MONEY);   //
+                                        sendBroadcast(intent);   //发送广播
                                         finish();
                                     }else {
                                         Toast("抱歉，您的验证码有误");

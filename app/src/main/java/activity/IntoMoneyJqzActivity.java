@@ -106,8 +106,8 @@ public class IntoMoneyJqzActivity extends BaseActivity {
                                 Toast("恭新您，转入成功");
                                 setResult(constance.INTENT.INTO_JQZ_SUCCESS);
                                 Intent intent = new Intent();
-                                intent.putExtra("update",true);
-                                intent.setAction("update");   //
+                                intent.putExtra(constance.INTENT.UPDATE_ADD_USER_MONEY,true);
+                                intent.setAction(constance.INTENT.UPDATE_ADD_USER_MONEY);   //
                                 sendBroadcast(intent);   //发送广播
                                 finish();
                             }else if(result.getRun().equals("0")){

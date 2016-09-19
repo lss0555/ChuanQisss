@@ -19,6 +19,7 @@ import Utis.OkHttpUtil;
 import Utis.SharePre;
 import Utis.Utis;
 import activity.BaseActivity;
+import model.Result;
 import model.UserMoney;
 import model.YiZhuanRed;
 
@@ -48,6 +49,7 @@ public class UpdateRedActivity extends BaseActivity {
         mRbYiZuan = (RadioButton) findViewById(R.id.rb_yizuyan);
         mRbYue = (RadioButton) findViewById(R.id.rb_yue);
         mRtlPay = (RelativeLayout) findViewById(R.id.rtl_pay);
+        mRbYiZuan.setChecked(true);
     }
     /**
      * 余额与易赚红包的数据
@@ -118,11 +120,37 @@ public class UpdateRedActivity extends BaseActivity {
             public void onClick(View view) {
                 if(mRbYiZuan.isChecked()){
                     payType=YIZUANRED_PAY;
-                    showTip("易赚红包支付");
+                    UpdateType("1");
                 }else if(mRbYue.isChecked()){
                     payType=YUE_PAY;
-                    showTip("余额支付");
+                    UpdateType("2");
                 }
+            }
+        });
+    }
+    public  void  UpdateType(String type){
+        startProgressDialog("加载中...");
+        HashMap<String,String> map=new HashMap<>();
+        map.put("userid",SharePre.getUserId(getApplicationContext()));
+        map.put("style",""+type);
+        OkHttpUtil.getInstance().Post(map, constance.URL.SJ_RED, new OkHttpUtil.FinishListener() {
+            @Override
+            public void Successfully(boolean IsSuccess, String data, String Msg) {
+                stopProgressDialog();
+                 if(IsSuccess){
+                     Result result = GsonUtils.parseJSON(data, Result.class);
+                     if (result.getRun().equals("1")){
+                         Toast("恭喜您，升级成功");
+                         Intent intent = new Intent();
+                         intent.putExtra(constance.INTENT.UPDATE_ADD_USER_MONEY,true);
+                         intent.setAction(constance.INTENT.UPDATE_ADD_USER_MONEY);   //
+                         sendBroadcast(intent);//发送广播
+                     }else {
+                         Toast("对不起，升级失败");
+                     }
+                 }else {
+                     showTip(data.toString());
+                 }
             }
         });
     }

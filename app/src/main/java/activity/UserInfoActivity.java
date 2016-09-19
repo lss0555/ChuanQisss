@@ -25,6 +25,7 @@ public class UserInfoActivity extends BaseActivity {
     private TextView mTvPhone;
     private TextView mTvBirthday;
     private TextView mTvBindWxState;
+    private TextView mTvYqm;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,13 +62,14 @@ public class UserInfoActivity extends BaseActivity {
         mTvPhone = (TextView) findViewById(R.id.tv_phone);
         mTvBirthday = (TextView) findViewById(R.id.tv_birthday);
         mTvBindWxState = (TextView) findViewById(R.id.tv_bind_wx_state);
+        mTvYqm = (TextView) findViewById(R.id.tv_yqm);
     }
-
     private void getDate() {
         mUserInfo= (UserInfo) getIntent().getSerializableExtra("info");
         UILUtils.displayImage(mUserInfo.getHeadportrait(),mImgIcons);
         mTvNickName.setText(mUserInfo.getUname());
         mTvPhone.setText(mUserInfo.getTel()+"");
         mTvBirthday.setText(""+mUserInfo.getBirthday().substring(0,10));
+        mTvYqm.setText(""+SharePre.getUserId(getApplicationContext()));
     }
 }

@@ -18,6 +18,8 @@ import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
 import model.Result;
+import model.Yzm;
+
 /**
  * 新手任务
  */
@@ -76,8 +78,28 @@ public class NewerTaskActivity extends BaseActivity implements View.OnClickListe
                 startActivity(intent_Alipay);
                 break;
             case R.id.rtl_bind_phone://绑定手机
-                Intent intent_bind_phone=new Intent(getApplicationContext(),BindPhoneActivity.class);
-                startActivity(intent_bind_phone);
+                startProgressDialog("加载中...");
+                HashMap<String,String> map=new HashMap<>();
+                map.put("userid",SharePre.getUserId(getApplicationContext()));
+                OkHttpUtil.getInstance().Post(map, constance.URL.IS_BIND_PHONE,new OkHttpUtil.FinishListener() {
+                    @Override
+                    public void Successfully(boolean IsSuccess, String data, String Msg) {
+//                    showTip(data.toString()+"用户UserId"+SharePre.getUserId(getActivity()));
+                        stopProgressDialog();
+                        Log.w("绑定状态",""+data.toString()+"用户UserId"+SharePre.getUserId(getApplicationContext()));
+                        if(IsSuccess){
+                          Yzm  yzm = GsonUtils.parseJSON(data, Yzm.class);
+                            if(yzm.getRun().equals("1")){
+                                //已绑定
+                                Toast("您已绑定手机号");
+                            }else {
+                                //未绑定
+                                Intent intent_bind_phone=new Intent(getApplicationContext(),BindPhoneActivity.class);
+                                startActivity(intent_bind_phone);
+                            }
+                        }
+                    }
+                });
                 break;
             case R.id.rtl_share://分享
                 new Thread(new Runnable() {

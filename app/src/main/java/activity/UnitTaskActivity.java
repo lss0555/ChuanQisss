@@ -22,7 +22,6 @@ import net.youmi.android.offers.PointsManager;
 import Utis.SharePre;
 import cn.dow.android.DOW;
 import cn.dow.android.listener.DLoadListener;
-import cn.dow.android.listener.DataListener;
 import cn.waps.AppConnect;
 import cn.waps.UpdatePointsListener;
 
@@ -34,6 +33,8 @@ public class UnitTaskActivity extends BaseActivity implements View.OnClickListen
     private RelativeLayout mRtlDianLu;
     private RelativeLayout mRtlWanPu;
     private UnitTaskActivity me;
+    private RelativeLayout mRtlDuoMeng;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +47,29 @@ public class UnitTaskActivity extends BaseActivity implements View.OnClickListen
      * 初始化各平台的设置
      */
     private void initPlatForm() {
+        //userid不能写死，可以为空值多盟       d
+        DOW.getInstance(this).init(new DLoadListener() {
+            @Override
+            public void onSuccess() {
+                // TODO Auto-generated method stub
+                Log.e("多盟","成功");
+            }
+            @Override
+            public void onStart() {
+                // TODO Auto-generated method stub
+                Log.e("多盟","加载开始");
+            }
+            @Override
+            public void onLoading() {
+                // TODO Auto-generated method stub
+                Log.e("多盟","加载中");
+            }
+            @Override
+            public void onFail() {
+                // TODO Auto-generated method stub
+                Log.e("多盟","失败");
+            }
+        });
 //        /**
 //         * 有米  初始化接口，应用启动的时候调用，参数：appId, appSecret
 //         */
@@ -86,10 +110,12 @@ public class UnitTaskActivity extends BaseActivity implements View.OnClickListen
         mRtlDianLe =  (RelativeLayout) findViewById(R.id.rtl_dianle);
         mRtlDianLu = (RelativeLayout) findViewById(R.id.rtl_dianlu);
         mRtlWanPu = (RelativeLayout) findViewById(R.id.rtl_wanpu);
+        mRtlDuoMeng = (RelativeLayout) findViewById(R.id.rtl_duomeng);
         mRtlYouMi.setOnClickListener(this);
         mRtlDianLe.setOnClickListener(this);
         mRtlDianLu.setOnClickListener(this);
         mRtlWanPu.setOnClickListener(this);
+        mRtlDuoMeng.setOnClickListener(this);
     }
     @Override
     public void onClick(View view) {
@@ -110,6 +136,9 @@ public class UnitTaskActivity extends BaseActivity implements View.OnClickListen
                 break;
             case R.id.rtl_dianle: //点乐
                 DevInit.showOffers(this);
+                break;
+            case R.id.rtl_duomeng: //多盟
+                DOW.getInstance(UnitTaskActivity.this).show(this);
                 break;
         }
     }

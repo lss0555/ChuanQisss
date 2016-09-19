@@ -259,6 +259,7 @@
                         android:layout_height="67dp"
                         android:layout_centerVertical="true"
                         android:layout_centerHorizontal="true"
+                        android:visibility="gone"
                         android:layout_marginBottom="10dp"
                         android:layout_alignParentBottom="true"
                         android_custom:roundColor="@color/yellow_dark"

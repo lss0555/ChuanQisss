@@ -100,6 +100,7 @@ public class TakeRedActivity extends BaseActivity {
                                 Intent intent=new Intent(getApplicationContext(), ShowRedPriceActivity.class);
                                 intent.putExtra("money",redMoney.getMoney());
                                 startActivity(intent);
+                                initdate();//初始化数据
                             }else  if(redMoney.getRun().equals("2")){
                                 Toast("在该时段，您已经抢过了");
                             }else  if(redMoney.getRun().equals("3")){
