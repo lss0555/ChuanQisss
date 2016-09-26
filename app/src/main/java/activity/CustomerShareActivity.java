@@ -11,10 +11,7 @@ import android.webkit.WebViewClient;
 
 import com.chuanqi.yz.R;
 
-import Constance.constance;
-import Utis.SharePre;
-
-public class OneShopActivity extends BaseActivity {
+public class CustomerShareActivity extends BaseActivity {
     private WebView mWeb;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -30,7 +27,7 @@ public class OneShopActivity extends BaseActivity {
         WebViewClient wvClient = new WebViewClient();
         mWeb.setWebViewClient(wvClient);
         mWeb.setWebChromeClient(new MyWebChromeClient());
-        mWeb.loadUrl(constance.URL.ONE_SHOP);
+        mWeb.loadUrl("http://192.168.1.2/invite/invite.html");
     }
     class MyWebViewClient extends WebViewClient {
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -56,11 +53,11 @@ public class OneShopActivity extends BaseActivity {
         @Override
         public void onProgressChanged(WebView view, int newProgress) {
             super.onProgressChanged(view, newProgress);
-//            if(newProgress==100){
-//                stopProgressDialog();
-//            }else {
-//                startProgressDialog("努力加载中...");
-//            }
+            if(newProgress==100){
+                stopProgressDialog();
+            }else {
+                startProgressDialog("努力加载中...");
+            }
         }
     }
 }

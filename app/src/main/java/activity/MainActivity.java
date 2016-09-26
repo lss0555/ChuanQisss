@@ -1,4 +1,5 @@
 package activity;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,11 +14,19 @@ import android.widget.Toast;
 import com.chuanqi.yz.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
+import Constance.constance;
 import Fragments.GetFragment;
 import Fragments.HomeFragment;
 import Fragments.MineFragment;
 import Fragments.ShareFragment;
+import Utis.SharePre;
+import Utis.Utis;
+import Utis.GsonUtils;
+import Utis.OkHttpUtil;
 import Views.UnSlideViewPager;
+import model.Result;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener{
     private  int mCurentPageIndex;//当前的页数
@@ -54,11 +63,44 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initPrePageYaoQing();
         initview();
         initPage();
         initState();
     }
-
+    private void initPrePageYaoQing() {
+        if(!SharePre.getUserId(getApplicationContext()).equals("")){
+//            Intent intent=new Intent(MainActivity.this,YaoQingActivity.class);
+//            startActivity(intent);
+//            finish();
+            return;
+        }else {
+            IsRegistUser();
+        }
+    }
+    public void IsRegistUser(){
+        HashMap<String,String> map=new HashMap<>();
+        map.put("udid",""+ Utis.getIMEI(getApplicationContext()));
+        OkHttpUtil.getInstance().Post(map, constance.URL.IS_USER, new OkHttpUtil.FinishListener() {
+            @Override
+            public void Successfully(boolean IsSuccess, String data, String Msg) {
+//                showTip(data.toString());
+                if(IsSuccess){
+                    Result result = GsonUtils.parseJSON(data, Result.class);
+                    if(result.getRun().equals("0")){
+                        //还没注册
+                        Intent intent=new Intent(MainActivity.this,YaoQingActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }else if(result.getRun().equals("1")){
+                        //已经注册
+                    }
+                }else {
+                    Toast(data.toString());
+                }
+            }
+        });
+    }
     private void initState() {
 
     }

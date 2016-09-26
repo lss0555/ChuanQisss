@@ -51,6 +51,8 @@ public class SendRedActivity extends BaseActivity {
     private PayReq req;
     private wxpays mWxPayInfo;
     final IWXAPI msgApi = WXAPIFactory.createWXAPI(this, null);
+    private RelativeLayout mRtlUpdate;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -130,6 +132,7 @@ public class SendRedActivity extends BaseActivity {
         mRtlPay = (RelativeLayout) findViewById(R.id.rtl_pay);
         mRtlWxPay = (RelativeLayout) findViewById(R.id.rtl_wxpay);
         mRtlAliPay = (RelativeLayout) findViewById(R.id.rtl_alipay);
+        mRtlUpdate = (RelativeLayout) findViewById(R.id.rtl_update);
     }
 
 
@@ -138,6 +141,7 @@ public class SendRedActivity extends BaseActivity {
      */
     private void initRadioButton() {
         mRb_100.setChecked(true);
+        mRtlUpdate.setVisibility(View.GONE);
         mRbYiZuan.setChecked(true);
         mRbYiZuan.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -186,6 +190,8 @@ public class SendRedActivity extends BaseActivity {
                     mRb_200.setChecked(false);
                     mRtlAliPay.setVisibility(View.VISIBLE);
                     mRtlWxPay.setVisibility(View.VISIBLE);
+                    mRtlAliPay.setVisibility(View.GONE);
+                    mRtlUpdate.setVisibility(View.GONE);
                 }
             }
         });
@@ -196,12 +202,13 @@ public class SendRedActivity extends BaseActivity {
                     mRb_100.setChecked(false);
                     mRtlAliPay.setVisibility(View.GONE);
                     mRtlWxPay.setVisibility(View.GONE);
+                    mRtlUpdate.setVisibility(View.VISIBLE);
                 }
             }
         });
     }
     private void initevent() {
-        findViewById(R.id.rtl_update).setOnClickListener(new View.OnClickListener() {
+        mRtlUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(getApplicationContext(),UpdateRedActivity.class);
@@ -213,8 +220,10 @@ public class SendRedActivity extends BaseActivity {
             public void onClick(View view) {
                 if(mRb_100.isChecked()){
                     redType=RED_NOMRAL;
+//                    mRbAlipay.setVisibility(View.GONE);
                 }else {
                     redType=RED_SUPER;
+//                    mRtlUpdate.setVisibility(View.VISIBLE);
                 }
                 if(mRbYiZuan.isChecked()){
                     payType=YIZUANRED_PAY;
@@ -235,7 +244,17 @@ public class SendRedActivity extends BaseActivity {
                                 PayYue2RedPool(100);
                                 break;
                             case WXIN_PAY://微信支付
-                                WxPay(100);
+                                WxPay("200");
+//                                msgApi.registerApp("wx541c42bc54fac5cf");
+//                                req = new PayReq();
+//                                req.appId = "wx541c42bc54fac5cf";
+//                                req.nonceStr = "gLhTDMV6nizf73xOUhGJnEluAqn49i8V";
+//                                req.packageValue = "Sign=WXPay";
+//                                req.partnerId = "1390772902";
+//                                req.prepayId = "wx20160925153034ba0fa16cf40717411342";
+//                                req.timeStamp = "1474788635";
+//                                req.sign ="F670CBC7F6B29134A4ADEBE12DFAA7B2";
+//                                msgApi.sendReq(req);
                                 break;
                             case ALI_PAY://支付宝支付
                                 Toast("红包100   支付宝支付");
@@ -251,7 +270,7 @@ public class SendRedActivity extends BaseActivity {
                                 PayYue2RedPool(500);
                                 break;
                             case WXIN_PAY://微信支付
-                                WxPay(200);
+                                WxPay("0.01");
                                 break;
                             case ALI_PAY://支付宝支付
                                 Toast("红包200   支付宝支付");
@@ -325,16 +344,36 @@ public class SendRedActivity extends BaseActivity {
      * 微信支付
      * @param price
      */
-    public  void WxPay(int price){
-        msgApi.registerApp(mWxPayInfo.getAppid());
-        req = new PayReq();
-        req.appId = mWxPayInfo.getAppid();
-        req.nonceStr = mWxPayInfo.getNonceStr();
-        req.packageValue = mWxPayInfo.get_package();
-        req.partnerId = mWxPayInfo.getMchId();
-        req.prepayId = mWxPayInfo.getPrepayId();
-        req.timeStamp = String.valueOf(mWxPayInfo.getTimeStamp());
-        req.sign = mWxPayInfo.getSign();
-        msgApi.sendReq(req);
+    public  void WxPay(String price){
+        startProgressDialog("支付请求中...");
+        HashMap<String,String> map=new HashMap<>();
+        map.put("totalfee",price);
+        map.put("userid",""+SharePre.getUserId(getApplicationContext()));
+        OkHttpUtil.getInstance().Post(map, constance.URL.WX_PAY, new OkHttpUtil.FinishListener() {
+            @Override
+            public void Successfully(boolean IsSuccess, String data, String Msg) {
+                   stopProgressDialog();
+//                showTip(data.toString());
+                if(IsSuccess){
+                    wxpays wxpays = GsonUtils.parseJSON(data, wxpays.class);
+                    if(wxpays.getRun().equals("")){
+
+                    }
+                    Log.i("微信支付",""+data.toString());
+                    msgApi.registerApp("wx541c42bc54fac5cf");
+                    req = new PayReq();
+                    req.appId = "wx541c42bc54fac5cf";
+                    req.nonceStr = wxpays.getNoncestr();
+                    req.packageValue = wxpays.getPackage_();
+                    req.partnerId = wxpays.getPartnerid();
+                    req.prepayId = wxpays.getPrepayid();
+                    req.timeStamp = wxpays.getTimestamp();
+                    req.sign =wxpays.getSign();
+                    msgApi.sendReq(req);
+                }else {
+                    Toast(data.toString());
+                }
+            }
+        });
     }
 }

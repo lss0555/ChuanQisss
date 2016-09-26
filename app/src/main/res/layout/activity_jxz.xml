@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="聚贤庄"
+            android:text="聚钱庄"
             android:textSize="18sp"
             android:textColor="@color/white"
             android:id="@+id/textView"
@@ -40,6 +40,7 @@
             android:layout_width="wrap_content"
             android:text="收益明细"
             android:layout_centerVertical="true"
+            android:visibility="gone"
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
             android:textColor="@color/white"
@@ -48,6 +49,7 @@
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
+        android:visibility="gone"
         android:layout_height="50dp">
         <TextView
             android:id="@+id/tv_ye"
@@ -60,7 +62,6 @@
             android:layout_height="wrap_content" />
         <TextView
             android:layout_width="wrap_content"
-            android:text="100.00元"
             android:textColor="@color/red"
             android:textSize="15sp"
             android:layout_centerVertical="true"
@@ -78,7 +79,7 @@
         <TextView
             android:id="@+id/tv_jxzye"
             android:layout_width="wrap_content"
-            android:text="聚贤庄余额:"
+            android:text="聚钱庄余额:"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:layout_centerVertical="true"
@@ -86,33 +87,46 @@
             android:layout_height="wrap_content" />
         <TextView
             android:layout_width="wrap_content"
-            android:text="100.00元"
             android:textColor="@color/red"
             android:textSize="15sp"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/tv_jxzye"
             android:layout_marginLeft="10dp"
             android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/tv_takeout"
-            android:layout_width="wrap_content"
-            android:text="取出"
-            android:layout_centerVertical="true"
-            android:textColor="@color/blue"
+        <RelativeLayout
+            android:id="@+id/rtl_take_in"
+            android:layout_width="80dp"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
-            android:textSize="16sp"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:text="存入"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/tv_takeout"
-            android:textSize="16sp"
-            android:textColor="@color/blue"
             android:layout_marginRight="10dp"
-            android:layout_height="wrap_content" />
+            android:background="@drawable/round_red_bg"
+            android:layout_height="25dp">
+            <TextView
+                android:id="@+id/tv_takeout"
+                android:layout_width="wrap_content"
+                android:text="取出"
+                android:layout_centerVertical="true"
+                android:textColor="@drawable/white2gray_seleclor"
+                android:layout_centerInParent="true"
+                android:textSize="16sp"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_toLeftOf="@+id/rtl_take_in"
+            android:layout_width="80dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/round_red_bg"
+            android:layout_height="25dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="存入"
+                android:layout_centerVertical="true"
+                android:textColor="@drawable/white2gray_seleclor"
+                android:layout_centerInParent="true"
+                android:textSize="16sp"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
     </RelativeLayout>
     <View
         android:layout_width="match_parent"
@@ -120,11 +134,12 @@
         android:layout_height="0.2dp"></View>
     <RelativeLayout
         android:layout_width="match_parent"
+        android:visibility="gone"
         android:layout_height="50dp">
         <TextView
             android:id="@+id/tv_jxztz"
             android:layout_width="wrap_content"
-            android:text="聚贤庄投资:"
+            android:text="聚钱庄投资:"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:layout_centerVertical="true"
@@ -132,7 +147,6 @@
             android:layout_height="wrap_content" />
         <TextView
             android:layout_width="wrap_content"
-            android:text="100.00元"
             android:textColor="@color/red"
             android:textSize="15sp"
             android:layout_centerVertical="true"
@@ -143,7 +157,6 @@
         <TextView
             android:id="@+id/tv_tz_num"
             android:layout_width="wrap_content"
-            android:text="100.00元"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:textColor="@color/red"
@@ -182,7 +195,7 @@
             android:text="立即购买"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
-            android:textColor="@color/red"
+            android:textColor="@drawable/red2gray_seleclor"
             android:layout_marginRight="10dp"
             android:textSize="16sp"
             android:layout_height="wrap_content" />
@@ -232,7 +245,7 @@
             android:text="立即购买"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
-            android:textColor="@color/red"
+            android:textColor="@drawable/red2gray_seleclor"
             android:layout_marginRight="10dp"
             android:textSize="16sp"
             android:layout_height="wrap_content" />

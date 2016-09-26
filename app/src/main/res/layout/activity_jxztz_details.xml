@@ -48,9 +48,10 @@
                 android:layout_height="40dp">
                 <TextView
                     android:layout_width="wrap_content"
-                    android:text="易赚的钱，投资易赚，不拿钱也能赚钱"
+                    android:text="易钻的钱，投资易钻，不拿钱也能赚钱！"
                     android:layout_marginRight="15dp"
                     android:textSize="16sp"
+                    android:textColor="@color/black"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="15dp"
                     android:layout_height="wrap_content" />
@@ -73,7 +74,7 @@
                     android:layout_height="wrap_content" />
                 <TextView
                     android:layout_width="wrap_content"
-                    android:text="通过首页进去聚钱庄，将从平台(账户余额)的钱转入聚钱庄，在根据您选择的存入周期购买投资"
+                    android:text="通过首页进入聚钱庄，将从平台(账户余额)赚来的钱转入聚钱庄，再根据您选择的存入周期购买投资。"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginTop="5dp"
@@ -93,7 +94,7 @@
                     android:layout_height="wrap_content" />
                 <TextView
                     android:layout_width="wrap_content"
-                    android:text="投资时间一到，系统将会把本金和收益的钱自动转入聚钱庄余额里面，即使你可选择或者继续购买投资"
+                    android:text="投资时间一到，系统将会把本金和收益的钱自动转入聚钱庄余额里面，届时你可选择或者继续购买投资。"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginTop="5dp"
@@ -113,7 +114,7 @@
                     android:layout_height="wrap_content" />
                 <TextView
                     android:layout_width="wrap_content"
-                    android:text="不可以，易赚投资只针对平台所赚取的钱来帮您理财"
+                    android:text="不可以，易赚投资只针对平台所赚取的钱来帮您理财。"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginTop="5dp"

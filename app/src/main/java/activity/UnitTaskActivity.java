@@ -15,17 +15,22 @@ import com.yql.dr.sdk.DRScoreInterface;
 import com.yql.dr.sdk.DRSdk;
 import com.yzhuanatm.DevInit;
 import com.yzhuanatm.GetOnlineParamsListener;
+
 import net.youmi.android.AdManager;
 import net.youmi.android.listener.Interface_ActivityListener;
+import net.youmi.android.offers.EarnPointsOrderList;
 import net.youmi.android.offers.OffersManager;
+import net.youmi.android.offers.PointsChangeNotify;
+import net.youmi.android.offers.PointsEarnNotify;
 import net.youmi.android.offers.PointsManager;
+
 import Utis.SharePre;
 import cn.dow.android.DOW;
 import cn.dow.android.listener.DLoadListener;
 import cn.waps.AppConnect;
 import cn.waps.UpdatePointsListener;
 
-public class UnitTaskActivity extends BaseActivity implements View.OnClickListener,UpdatePointsListener,DRScoreInterface ,GetOnlineParamsListener {
+public class UnitTaskActivity extends BaseActivity implements View.OnClickListener,UpdatePointsListener,DRScoreInterface ,GetOnlineParamsListener , PointsChangeNotify, PointsEarnNotify {
     private String TAG = UnitTaskActivity.class.toString();
     private RelativeLayout mRtlBack;
     private RelativeLayout mRtlYouMi;
@@ -99,6 +104,8 @@ public class UnitTaskActivity extends BaseActivity implements View.OnClickListen
     public void onDestroy() {
         super.onDestroy();
         OffersManager.getInstance(getApplicationContext()).onAppExit();//有米广告退出回收
+        PointsManager.getInstance(this).unRegisterNotify(this);
+        PointsManager.getInstance(this).unRegisterPointsEarnNotify(this);
 //        // 进行积分订单赚取监听器注册，那这里必须得注销
         AppConnect.getInstance(this).close();//万普退出
     }
@@ -121,7 +128,7 @@ public class UnitTaskActivity extends BaseActivity implements View.OnClickListen
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.rtl_youmi://有米积分墙
-                OffersManager.getInstance(UnitTaskActivity.this).showOffersWall(new Interface_ActivityListener() {
+                OffersManager.getInstance(this).showOffersWall(new Interface_ActivityListener() {
                     @Override
                     public void onActivityDestroy(Context context) {
 //                        Toast.makeText(context, "退出有米积分墙", Toast.LENGTH_SHORT).show();
@@ -191,5 +198,18 @@ public class UnitTaskActivity extends BaseActivity implements View.OnClickListen
     public void onParamsReturn(String s) {
         Log.w("result", ">>>>>>>><<<<<"
                 + (System.currentTimeMillis() - startTime) + ">>>>>>>><<<<<");
+    }
+
+    /**
+     * 有米的回调接口
+     * @param v
+     */
+    @Override
+    public void onPointBalanceChange(float v) {
+
+    }
+    @Override
+    public void onPointEarn(Context context, EarnPointsOrderList earnPointsOrderList) {
+
     }
 }

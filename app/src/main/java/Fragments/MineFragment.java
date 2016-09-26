@@ -160,6 +160,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
      * 根据手机设备号指定一个用户ID
      */
     private void initUserInfo() {
+        if(!SharePre.getUserId(getActivity()).equals("")){
             HashMap<String,String> map=new HashMap<>();
             map.put("udid", Utis.getIMEI(getActivity()));
             OkHttpUtil.getInstance().Post(map, constance.URL.USER_INFO, new OkHttpUtil.FinishListener() {
@@ -178,6 +179,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
                     }
                 }
             });
+        }
     }
     /**
      * 初始化界面
@@ -265,25 +267,27 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
      * 获取应用的信息
      */
     private void getAppPackages() {
-        PackageManager pm = getActivity().getPackageManager();
-        List<PackageInfo> allApps = getAllApps(getActivity());
-        HashMap<String,String> map=new HashMap<>();
-        for (int i=0;i<allApps.size();i++){
-            map.put("udid",Utis.getIMEI(getActivity())) ;
-            map.put("userid",SharePre.getUserId(getActivity())) ;
-            map.put("applyid",allApps.get(i).packageName) ;
-            map.put("applyname",allApps.get(i).applicationInfo.loadLabel(pm).toString()) ;
-            Calendar c = Calendar.getInstance();
-            c.setTimeInMillis(allApps.get(i).lastUpdateTime);
-            SimpleDateFormat matter1=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            map.put("dInstallTime",matter1.format(c.getTime())+"") ;
-            OkHttpUtil.getInstance().Post(map, constance.URL.APP_INFO, new OkHttpUtil.FinishListener() {
-                @Override
-                public void Successfully(boolean IsSuccess, String data, String Msg) {
-                    Log.w("app信息：",""+data.toString());
+        if(!SharePre.getUserId(getActivity()).equals("")){
+            PackageManager pm = getActivity().getPackageManager();
+            List<PackageInfo> allApps = getAllApps(getActivity());
+            HashMap<String,String> map=new HashMap<>();
+            for (int i=0;i<allApps.size();i++){
+                map.put("udid",Utis.getIMEI(getActivity())) ;
+                map.put("userid",SharePre.getUserId(getActivity())) ;
+                map.put("applyid",allApps.get(i).packageName) ;
+                map.put("applyname",allApps.get(i).applicationInfo.loadLabel(pm).toString()) ;
+                Calendar c = Calendar.getInstance();
+                c.setTimeInMillis(allApps.get(i).lastUpdateTime);
+                SimpleDateFormat matter1=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                map.put("dInstallTime",matter1.format(c.getTime())+"") ;
+                OkHttpUtil.getInstance().Post(map, constance.URL.APP_INFO, new OkHttpUtil.FinishListener() {
+                    @Override
+                    public void Successfully(boolean IsSuccess, String data, String Msg) {
+                        Log.w("app信息：",""+data.toString());
 //					Toast.makeText(getApplicationContext(),data.toString(),Toast.LENGTH_SHORT).show();
-                }
-            });
+                    }
+                });
+            }
         }
     }
     /**

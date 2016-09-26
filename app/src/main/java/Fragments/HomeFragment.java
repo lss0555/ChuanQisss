@@ -34,16 +34,15 @@ import Utis.SharePre;
 import Utis.GsonUtils;
 import Views.Banners.Lanner;
 import Views.SwitcherView;
-import Views.VerticalSwitchTextView;
 import Views.ViewPageIndicator;
 import activity.ApprenticeListActivity;
-import activity.BannerLinkActivity;
 import activity.FaskTaskActivity;
 import activity.HelpCenterActivity;
 import activity.HowToEarn.HowToEarnActivity;
 import activity.IntoMoneyJqzActivity;
 import activity.JXZActivity;
 import activity.NewerTaskActivity;
+import activity.YaoQingSharesActivity;
 import activity.SignActivity;
 import activity.Red.TakeRedActivity;
 import activity.UnitTaskActivity;
@@ -366,6 +365,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
             });
     }
     private void JqzAccount() { //聚钱庄余额
+
         HashMap<String,String> maps1=new HashMap<>();
         maps1.put("udid", Utis.getIMEI(getActivity()));
         OkHttpUtil.getInstance().Post(maps1, constance.URL.JQZ_MONEY, new OkHttpUtil.FinishListener() {
@@ -439,7 +439,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
         mTvJxzAccrual = (TextView) layout.findViewById(R.id.tv_jxz_accrual);
         layout.findViewById(R.id.tv_unit_task).setOnClickListener(this);
         layout.findViewById(R.id.tv_fast_task).setOnClickListener(this);
-        layout.findViewById(R.id.tv_day_shop).setOnClickListener(this);
+        layout.findViewById(R.id.tv_yq).setOnClickListener(this);
         layout.findViewById(R.id.tv_day_sign).setOnClickListener(this);
         layout.findViewById(R.id.rtl_save_money).setOnClickListener(this);
         layout.findViewById(R.id.tv_newer_task).setOnClickListener(this);
@@ -450,6 +450,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
         layout.findViewById(R.id.tv_help_center).setOnClickListener(this);
         layout.findViewById(R.id.rtl_howto_earn).setOnClickListener(this);
         layout.findViewById(R.id.tv_master_center).setOnClickListener(this);
+        layout.findViewById(R.id.tv_jxz).setOnClickListener(this);
          mEmptyDate.findViewById(R.id.tv_upload).setOnClickListener(this);
     }
     private void initViewPage() {
@@ -488,19 +489,19 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
                 Intent intent=new Intent(getActivity(), UnitTaskActivity.class);
                 getActivity().startActivity(intent);
                 break;
-            case  R.id.tv_day_shop://每日夺宝
-//                Intent intent_shop=new Intent(getActivity(), OneShopActivity.class);
-//                getActivity().startActivity(intent_shop);
-                Toast("待开放中...");
+            case  R.id.tv_yq://邀请分享
+                Intent intent_shop=new Intent(getActivity(), YaoQingSharesActivity.class);
+                getActivity().startActivity(intent_shop);
                 break;
             case  R.id.tv_day_sign://每日签到
                 Intent intent_sign=new Intent(getActivity(), SignActivity.class);
                 getActivity().startActivity(intent_sign);
                 break;
             case  R.id.rtl_save_money://转入钱庄
-                Intent intent_store=new Intent(getActivity(), IntoMoneyJqzActivity.class);
-                intent_store.putExtra("money",UserAccount);
-                getActivity().startActivityForResult(intent_store,12);
+//                Intent intent_store=new Intent(getActivity(), IntoMoneyJqzActivity.class);
+//                intent_store.putExtra("money",UserAccount);
+//                getActivity().startActivityForResult(intent_store,12);
+                Toast("待开发中...");
                 break;
             case  R.id.tv_newer_task://新手任务
                 Intent intent_newerTask=new Intent(getActivity(), NewerTaskActivity.class);
@@ -512,11 +513,13 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
                 break;
             case  R.id.rtl_withdraw://提现
                 Intent intent_tx=new Intent(getActivity(), WithDrawActivity.class);
+                intent_tx.putExtra("money",UserAccount);
                 getActivity().startActivity(intent_tx);
                 break;
             case  R.id.tv_jxz://抢红包
-                Intent intent_jxz=new Intent(getActivity(), JXZActivity.class);
-                getActivity().startActivity(intent_jxz);
+//                Intent intent_jxz=new Intent(getActivity(), JXZActivity.class);
+//                getActivity().startActivity(intent_jxz);
+                Toast("待开放中...");
                 break;
             case  R.id.tv_open_box://开宝箱
 //                Intent intent_openbox=new Intent(getActivity(), OpenBoxActivity.class);

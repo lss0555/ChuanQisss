@@ -1,16 +1,20 @@
 package model;
 
+import java.io.Serializable;
+
 /**
  * Created by lss on 2016/9/12.
  */
-public class wxpays {
+public class wxpays implements Serializable{
     private String appid;
-    private String mchId;
-    private String nonceStr;
+    private String run;
+    private String noncestr;
+    private String package_;
+    private String partnerid;
+    private String prepayid;
+    private String timestamp;
     private String sign;
-    private String prepayId;
-    private Integer timeStamp;
-    private String _package;
+
     public String getAppid() {
         return appid;
     }
@@ -19,44 +23,44 @@ public class wxpays {
         this.appid = appid;
     }
 
-    public String getNonceStr() {
-        return nonceStr;
+    public String getNoncestr() {
+        return noncestr;
     }
 
-    public void setNonceStr(String nonceStr) {
-        this.nonceStr = nonceStr;
+    public void setNoncestr(String noncestr) {
+        this.noncestr = noncestr;
     }
 
-    public String get_package() {
-        return _package;
+    public String getPackage_() {
+        return package_;
     }
 
-    public void set_package(String _package) {
-        this._package = _package;
+    public void setPackage_(String package_) {
+        this.package_ = package_;
     }
 
-    public String getMchId() {
-        return mchId;
+    public String getPartnerid() {
+        return partnerid;
     }
 
-    public void setMchId(String mchId) {
-        this.mchId = mchId;
+    public void setPartnerid(String partnerid) {
+        this.partnerid = partnerid;
     }
 
-    public String getPrepayId() {
-        return prepayId;
+    public String getPrepayid() {
+        return prepayid;
     }
 
-    public void setPrepayId(String prepayId) {
-        this.prepayId = prepayId;
+    public void setPrepayid(String prepayid) {
+        this.prepayid = prepayid;
     }
 
-    public Integer getTimeStamp() {
-        return timeStamp;
+    public String getTimestamp() {
+        return timestamp;
     }
 
-    public void setTimeStamp(Integer timeStamp) {
-        this.timeStamp = timeStamp;
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
     }
 
     public String getSign() {
@@ -65,5 +69,13 @@ public class wxpays {
 
     public void setSign(String sign) {
         this.sign = sign;
+    }
+
+    public String getRun() {
+        return run;
+    }
+
+    public void setRun(String run) {
+        this.run = run;
     }
 }

@@ -22,6 +22,7 @@ import java.net.URL;
 import java.net.URLConnection;
 
 import Utis.UILUtils;
+import Utis.Utis;
 import model.FaskTask.faskTask;
 
 public class FaskTaskDetailActivity extends BaseActivity {
@@ -32,7 +33,7 @@ public class FaskTaskDetailActivity extends BaseActivity {
     private TextView mTvLeftTime;
     private TextView mTvStep;
     private TextView mTvState;
-    private String file_path=getSDPath() +"/" + "易赚ATM";
+    private String file_path=Utis.getSDPath() +"/" + "易赚ATM";
     private RelativeLayout mRtlAccept;
     private RelativeLayout mRtlComplite;
 
@@ -170,14 +171,5 @@ public class FaskTaskDetailActivity extends BaseActivity {
     public void Update_Notity(int progress) {
         mTvState.setText("已下载" + progress + "%");
     }
-    public String getSDPath(){
-        File sdDir = null;
-        boolean sdCardExist = Environment.getExternalStorageState()
-                .equals(android.os.Environment.MEDIA_MOUNTED);//判断sd卡是否存在
-        if(sdCardExist)
-        {
-            sdDir = Environment.getExternalStorageDirectory();//获取跟目录
-        }
-        return sdDir.toString();
-    }
+
 }

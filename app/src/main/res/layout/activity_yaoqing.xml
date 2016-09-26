@@ -18,6 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <EditText
+            android:id="@+id/et_yqm"
             android:hint="请输入邀请码"
             android:background="@mipmap/qy_input"
             android:gravity="center"
@@ -33,13 +34,13 @@
         android:layout_marginTop="10dp"
         android:layout_height="wrap_content">
         <TextView
-            android:text="输入邀请码进入界面可获赠1元红包"
+            android:text="输入邀请码进入界面可获赠0.3元红包"
             android:layout_gravity="center"
             android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
-            android:text="没有邀请码，直接进入界面可获赠0.5元红包"
+            android:text="没有邀请码，无奖励直接进入界面"
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
             android:textColor="@color/white"
@@ -54,6 +55,13 @@
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
         android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="确定"
+            android:textColor="@drawable/black2gray_seleclor"
+            android:layout_centerInParent="true"
+            android:textSize="17sp"
+            android:layout_height="wrap_content" />
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/rtl_no"
@@ -63,5 +71,12 @@
         android:layout_marginTop="10dp"
         android:layout_marginRight="50dp"
         android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="没有邀请码，直接进入"
+            android:textColor="@drawable/white2gray_seleclor"
+            android:layout_centerInParent="true"
+            android:textSize="17sp"
+            android:layout_height="wrap_content" />
     </RelativeLayout>
  </LinearLayout>

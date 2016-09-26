@@ -91,7 +91,7 @@ public class KownPlatformActivity extends BaseActivity {
     private void initview() {
         mTvTip = (TextView) findViewById(R.id.tv_tip);
         mRtlComplite = (RelativeLayout) findViewById(R.id.rtl_complite);
-        countdown = 30;
+        countdown = 10;
         mRtlComplite.setClickable(false);
         handler.postDelayed(runnable, 1000);
     }

@@ -246,3 +246,9 @@
 -keep class com.sina.**{*;}
 -keep class **.R$* {*;}
 -keep class **.R{*;}
+ # youmi sdk
+ -dontwarn net.youmi.android.**
+ -keep class net.youmi.android.** {
+ *;
+ }
+ -keep class com.tencent.** { *;}

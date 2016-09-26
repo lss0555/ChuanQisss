@@ -48,7 +48,7 @@
                 android:layout_height="50dp">
                 <TextView
                     android:layout_width="wrap_content"
-                    android:text="易赚的分享收徒系统让你轻松赚外快"
+                    android:text="易钻的分享收徒系统让你轻松赚提成！"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     android:layout_centerVertical="true"
@@ -69,9 +69,10 @@
                     android:layout_height="wrap_content" />
                 <TextView
                     android:layout_width="wrap_content"
-                    android:text="通过每天分享的链接，或者下载自己的专属二维码分享到微信，QQ等交友软件里面，让他们通过你的链接或者二维码下载APP并注册成功，您便多了一位帮您赚钱的徒弟"
+                    android:text="通过每天分享的链接，或者下载自己的专属二维码分享到微信，QQ等交友软件里面，让他们通过你的链接或者二维码下载APP并注册成功，您便多了一位帮您赚钱的徒弟了。"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
+                    android:textColor="@color/light_black"
                     android:layout_marginTop="5dp"
                     android:layout_height="wrap_content" />
             </LinearLayout>
@@ -89,7 +90,7 @@
                     android:layout_height="wrap_content" />
                 <TextView
                     android:layout_width="wrap_content"
-                    android:text="徒弟每做完一个任务师傅便可得到相应的金钱的5%的奖励，每位徒弟帮师傅赚的抽成封顶20元。"
+                    android:text="徒弟每做完一个任务师傅便可得到相应金钱的5%的奖励，每位徒弟帮师傅赚的抽成封顶20元。"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginTop="5dp"
@@ -116,35 +117,35 @@
                     android:layout_height="wrap_content" />
                 <TextView
                     android:layout_width="wrap_content"
-                    android:text="徒弟在易赚赚满5元，师傅奖励1元；"
+                    android:text="徒弟在易赚赚满5元，师傅奖励1元。"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginTop="5dp"
                     android:layout_height="wrap_content" />
                 <TextView
                     android:layout_width="wrap_content"
-                    android:text="徒弟在易赚赚满10元，师傅奖励2元；"
+                    android:text="徒弟在易赚赚满10元，师傅奖励2元。"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginTop="5dp"
                     android:layout_height="wrap_content" />
                 <TextView
                     android:layout_width="wrap_content"
-                    android:text="徒弟在易赚赚满30元，师傅奖励5元；"
+                    android:text="徒弟在易赚赚满30元，师傅奖励5元。"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginTop="5dp"
                     android:layout_height="wrap_content" />
                 <TextView
                     android:layout_width="wrap_content"
-                    android:text="徒弟在易赚赚满60元，师傅奖励10元；"
+                    android:text="徒弟在易赚赚满60元，师傅奖励10元。"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginTop="5dp"
                     android:layout_height="wrap_content" />
                 <TextView
                     android:layout_width="wrap_content"
-                    android:text="徒弟在易赚赚满100元，师傅奖励20元；"
+                    android:text="徒弟在易赚赚满100元，师傅奖励20元。"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginTop="5dp"

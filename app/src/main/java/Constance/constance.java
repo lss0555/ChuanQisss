@@ -5,7 +5,7 @@ package Constance;
 public class constance {
     public static final class URL {
         /*   URL基类*/
-        public static final String BASE_URL = "http://120.26.225.109/yz/Interface/";
+        public static final String BASE_URL = "http://i.qingyiyou.cn/yz/Interface/";
         /*   一元元购*/
         public static final String ONE_SHOP = "http://www.yeytao.com/";
         /*   金额*/
@@ -72,6 +72,20 @@ public class constance {
         public static final String ALL_PROFIT = BASE_URL+"incomerecord.php";
         /* 红包1000元升级*/
         public static final String SJ_RED = BASE_URL+"sj.php";
+        /* 余额微信提现*/
+        public static final String WX_WITHDRAW ="http://i.qingyiyou.cn/yz/wxpay/zhwxtx.php";
+        /* 红包微信提现*/
+        public static final String RED_WITHDRAW ="http://i.qingyiyou.cn/yz/wxpay/hbwxtx.php";
+        /* 判断用户是否是用户*/
+        public static final String IS_USER =BASE_URL+"iszhuce.php";
+        /* 判断Userid是否存在*/
+        public static final String USERID_ISEXIST =BASE_URL+"yqm.php";
+        /* 判断邀请码是否正确*/
+        public static final String YQM_IS_ZQ =BASE_URL+"jl_masterapprentice.php";
+        /* 微信支付*/
+        public static final String WX_PAY ="http://i.qingyiyou.cn/yz/Interface/api_wxpay.php";
+        /* 微信支付成功*/
+        public static final String WX_PAY_SUCCESS ="";
     }
     public static final class INTENT {
         public static final int INTO_JQZ_SUCCESS = 2132;

@@ -13,6 +13,8 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 
+import com.chuanqi.yz.R;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
@@ -268,16 +270,16 @@ public class Utis {
         return fileName;
     }
 
-    /**
-     * 获取内存卡根目录
-     *
-     * @return
-     */
-    private static String getSDPath() {
-        File sdDir = null;
-        sdDir = Environment.getExternalStorageDirectory();// 获取根目录
-        return sdDir.toString();
-    }
+//    /**
+//     * 获取内存卡根目录
+//     *
+//     * @return
+//     */
+//    private static String getSDPath() {
+//        File sdDir = null;
+//        sdDir = Environment.getExternalStorageDirectory();// 获取根目录
+//        return sdDir.toString();
+//    }
 
     /**
      * 数据大小描述
@@ -429,4 +431,38 @@ public class Utis {
                      return 0;
                  }
          }
+    /**
+     * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
+     */
+    public static int dip2px(Context context, float dpValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
+    }
+
+    /**
+     * 根据手机的分辨率从 px(像素) 的单位 转成为 dp
+     */
+    public static int px2dip(Context context, float pxValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (pxValue / scale + 0.5f);
+    }
+    public static String getSDPath(){
+        File sdDir = null;
+        boolean sdCardExist = Environment.getExternalStorageState()
+                .equals(android.os.Environment.MEDIA_MOUNTED);//判断sd卡是否存在
+        if(sdCardExist)
+        {
+            sdDir = Environment.getExternalStorageDirectory();//获取跟目录
+        }
+        return sdDir.toString();
+    }
+    /**
+     * 返回app文件夹，在内存卡的一级目录下，以该应用名称建立的文件夹
+     */
+    public static String getAppFolder() {
+        String path = Environment.getExternalStorageDirectory() + "/" +"易钻ATM" + "/";
+        File f = new File(path);
+        if(!f.exists()) f.mkdir();
+        return path;
+    }
 }

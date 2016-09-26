@@ -48,8 +48,9 @@
                 android:layout_height="40dp">
                 <TextView
                     android:layout_width="wrap_content"
-                    android:text="买东西也有钱赚，那买不是买，能赚一分就一分"
+                    android:text="买东西也有钱赚，哪买不是买，能赚一分就一分!"
                     android:layout_marginRight="15dp"
+                    android:textColor="@color/black"
                     android:textSize="16sp"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="15dp"
@@ -73,7 +74,7 @@
                     android:layout_height="wrap_content" />
                 <TextView
                     android:layout_width="wrap_content"
-                    android:text="一.购物返现规则"
+                    android:text="一.购物返现流程"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:textSize="16sp"
@@ -91,7 +92,7 @@
                     android:textColor="@color/black"
                     android:layout_marginTop="20dp"
                     android:layout_marginLeft="15dp"
-                    android:text="1.在返现商城中挑选心仪的商品"
+                    android:text="1.在返现商城中挑选心仪的商品。"
                     android:layout_height="wrap_content" />
                 <TextView
                     android:layout_width="wrap_content"
@@ -99,7 +100,7 @@
                     android:textColor="@color/black"
                     android:layout_marginTop="5dp"
                     android:layout_marginLeft="15dp"
-                    android:text="2.登录淘宝账号购买该商品"
+                    android:text="2.登录淘宝账号购买该商品。"
                     android:layout_height="wrap_content" />
                 <TextView
                     android:layout_width="wrap_content"
@@ -107,7 +108,7 @@
                     android:textColor="@color/black"
                     android:layout_marginTop="5dp"
                     android:layout_marginLeft="15dp"
-                    android:text="3.打开该商品的订单详情，并查看预计收益"
+                    android:text="3.打开该商品的订单详情，并查看预计收益。"
                     android:layout_height="wrap_content" />
                 <TextView
                     android:layout_width="wrap_content"
@@ -115,7 +116,7 @@
                     android:textColor="@color/black"
                     android:layout_marginTop="5dp"
                     android:layout_marginLeft="15dp"
-                    android:text="4.确认收货后到返现(返现会直接到易赚的账户余额中)"
+                    android:text="4.确认收货后到返现(返现会直接到易钻的账户余额中)。"
                     android:layout_height="wrap_content" />
             </LinearLayout>
             <LinearLayout
@@ -141,7 +142,7 @@
                     android:textColor="@color/black"
                     android:layout_marginTop="20dp"
                     android:layout_marginLeft="15dp"
-                    android:text="三.通过返现商城购买任意一款商品都会收到高额的返现，付款成功后即可看到预计返现收益，确认收货后21天内收益到账！"
+                    android:text="三.通过返现商城购买任意一款商品都会收到高额的返现，提交订单编号，付款成功后即可看到预计返现收益，确认收货后21天内收益到账。"
                     android:layout_height="wrap_content" />
             </LinearLayout>
 

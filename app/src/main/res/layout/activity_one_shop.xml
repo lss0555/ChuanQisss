@@ -4,10 +4,6 @@
     android:background="@color/white"
     android:orientation="vertical"
     android:layout_height="match_parent">
-    <View
-        android:layout_width="match_parent"
-        android:background="@color/red"
-        android:layout_height="20dp"></View>
     <WebView
     android:layout_width="match_parent"
     android:layout_height="match_parent"

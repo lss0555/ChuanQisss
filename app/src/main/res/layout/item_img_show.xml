@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    >
+    <!-- 图片展示，提供图片拖拉和缩放 -->
+    <RelativeLayout
+        android:layout_width="25dp"
+        android:layout_height="25dp">
+        <Views.CircleImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:visibility="visible"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:id="@+id/img1" />
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:id="@+id/fl_img"
+            android:layout_centerInParent="true"
+            android:layout_height="wrap_content">
+
+            <Views.CircleImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
+                android:id="@+id/img" />
+            <Views.CircleImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
+                />
+        </FrameLayout>
+    </RelativeLayout>
+</RelativeLayout>

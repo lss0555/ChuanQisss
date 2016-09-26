@@ -41,7 +41,7 @@
             android:textColor="@color/red"
             android:textSize="20sp"
             android:layout_marginTop="10dp"
-            android:text="关注易赚ATM公众号"
+            android:text="关注“易钻ATM”公众号"
             android:layout_gravity="center"
             android:layout_height="wrap_content" />
         <TextView

@@ -51,9 +51,9 @@ public class OkHttpUtil {
                                 dataFinishListener.Successfully(false,"连接超时，加载失败",null);
                             }
                         } else if (e instanceof IOException) {
-                            dataFinishListener.Successfully(false,"网络异常，请检查网络",null);
+                            dataFinishListener.Successfully(false,"服务器异常，请请稍后...",null);
                         } else {
-                            dataFinishListener.Successfully(false,"加载失败",null);
+                            dataFinishListener.Successfully(false,"加载失败...",null);
                         }
                     }
                     @Override

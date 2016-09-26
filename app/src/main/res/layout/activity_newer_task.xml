@@ -286,7 +286,7 @@
                         android:layout_width="wrap_content"
                         android:textSize="15sp"
                         android:layout_weight="1"
-                        android:text="立即获得1元奖励"
+                        android:text="立即获得0.3元奖励"
                         android:gravity="center"
                         android:textColor="@color/red"
                         android:layout_height="wrap_content" />
