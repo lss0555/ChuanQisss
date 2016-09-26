@@ -17,11 +17,10 @@ public class ShowOrderShareFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View layout=inflater.inflate(R.layout.fragment_show_order_share,null);
+        View layout=inflater.inflate(R.layout.item_opening,null);
         initview();
         return layout;
     }
     private void initview() {
-
     }
 }

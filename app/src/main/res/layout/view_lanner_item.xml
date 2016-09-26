@@ -7,8 +7,7 @@
         android:id="@+id/titleImageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@mipmap/banner_red"
-        android:scaleType="centerCrop" />
+        android:scaleType="fitXY" />
 
     <TextView
         android:id="@+id/titleTextView"

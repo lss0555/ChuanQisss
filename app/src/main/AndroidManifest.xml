@@ -29,7 +29,7 @@
             android:value="32f471453b276b873eecb6cb7a0b0b47">
         </meta-data>
         <activity
-            android:name="activity.MainActivity"
+            android:name="activity.WelcomeActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -71,6 +71,7 @@
         <activity android:name="activity.Red.TakeRedRulesActivity" />
         <activity android:name="activity.GetApprenticeActivity" />
         <activity android:name="activity.JXZActivity" />
+        <activity android:name="activity.MainActivity" />
         <activity android:name="activity.AllProfitActivity" />
         <activity android:name="activity.ShowBoxPriceActivity" android:theme="@style/loginDialog"/>
         <activity android:name="activity.OpenBoxActivity" />

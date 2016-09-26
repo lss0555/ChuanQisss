@@ -145,6 +145,8 @@ public class UpdateRedActivity extends BaseActivity {
                          intent.putExtra(constance.INTENT.UPDATE_ADD_USER_MONEY,true);
                          intent.setAction(constance.INTENT.UPDATE_ADD_USER_MONEY);   //
                          sendBroadcast(intent);//发送广播
+                         setResult(1);
+                         finish();
                      }else {
                          Toast("对不起，升级失败");
                      }

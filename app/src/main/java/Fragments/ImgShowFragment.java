@@ -47,6 +47,7 @@ import Dialogs.SelectPicPop;
 import Utis.SharePre;
 import Utis.UILUtils;
 import Utis.Utis;
+import Views.DrawTextImageView;
 import model.Photos;
 /**
  * A simple {@link Fragment} subclass.
@@ -55,7 +56,7 @@ import model.Photos;
 @SuppressLint("ValidFragment")
 public class ImgShowFragment extends BaseFragment {
 	private String savePath = Utis.getAppFolder();
-	private ImageView mImgShow;
+	private DrawTextImageView mImgShow;
 	private ImageView mImgShow1;
 	private ArrayList<Photos> mDate;
 	private int positon;
@@ -79,8 +80,12 @@ public class ImgShowFragment extends BaseFragment {
 
 	private void initview(View layout) {
 		mTvYqm = (TextView) layout.findViewById(R.id.tv_yqm);
-		mTvYqm.setText("我的邀请码:" + SharePre.getUserId(getActivity()));
-		mImgShow = (ImageView) layout.findViewById(R.id.img_show);
+//		mTvYqm.setText("我的邀请码:" + SharePre.getUserId(getActivity()));
+		mImgShow = (DrawTextImageView) layout.findViewById(R.id.img_show);
+		mImgShow.setDrawText("我的邀请码:" + SharePre.getUserId(getActivity()));
+		mImgShow.setDrawTextColorResourse(R.color.black);
+		mImgShow.setDrawTextSize(45.2f);
+		mImgShow.setDrawLocalXY(50,1000f);
 		mImgShow1 = (ImageView) layout.findViewById(R.id.img_show);
 //		drawText2Pic(mImgShow,"我的邀请码:"+SharePre.getUserId(getActivity()),mDate.get(positon).getImgUrl());
 		UILUtils.displayImageNoAnim(mDate.get(positon).getImgUrl(), mImgShow);

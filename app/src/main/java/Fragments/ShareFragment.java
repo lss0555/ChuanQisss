@@ -72,15 +72,14 @@ public class ShareFragment extends BaseFragment {
         ShareSDK.initSDK(getActivity());
         OnekeyShare oks = new OnekeyShare();
         oks.disableSSOWhenAuthorize();//关闭sso授权
-        oks.setTitle("易赚ATM");  // titleUrl是标题的网络链接，仅在人人网和QQ空间使用
-        oks.setTitleUrl("http://weibo.com/ttarticle/p/show?id=2309404017475523111097");
-        oks.setText("易赚ATM,快来加入一起来赚吧！");  // text是分享文本，所有平台都需要这个字段
-        // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
-        oks.setImageUrl("http://bmob-cdn-4915.b0.upaiyun.com/2016/09/08/e52ab1af40b10546807df1d125c2bc70.jpg");
-        oks.setUrl("http://weibo.com/ttarticle/p/show?id=2309404017475523111097"); // url仅在微信（包括好友和朋友圈）中使用
-        oks.setComment("易赚有你才完美");// comment是我对这条分享的评论，仅在人人网和QQ空间使用
+        oks.setTitle("易钻ATM");  // titleUrl是标题的网络链接，仅在人人网和QQ空间使用
+        oks.setTitleUrl("http://t.cn/RcnXbm1");
+        oks.setText("易钻ATM,快来加入一起来赚吧！");  // text是分享文本，所有平台都需要这个字段
+        oks.setImageUrl("http://t.cn/RcnXxyx");
+        oks.setUrl("http://t.cn/RcnXbm1"); // url仅在微信（包括好友和朋友圈）中使用
+        oks.setComment("易钻ATM有你才完美");// comment是我对这条分享的评论，仅在人人网和QQ空间使用
         oks.setSite(getString(R.string.app_name)); // site是分享此内容的网站名称，仅在QQ空间使用
-        oks.setSiteUrl("http://weibo.com/ttarticle/p/show?id=2309404017475523111097");   // siteUrl是分享此内容的网站地址，仅在QQ空间使用
+        oks.setSiteUrl("http://t.cn/RcnXbm1");   // siteUrl是分享此内容的网站地址，仅在QQ空间使用
         oks.setCallback(new PlatformActionListener() {
             @Override
             public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {

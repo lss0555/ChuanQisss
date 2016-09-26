@@ -84,8 +84,10 @@ public class constance {
         public static final String YQM_IS_ZQ =BASE_URL+"jl_masterapprentice.php";
         /* 微信支付*/
         public static final String WX_PAY ="http://i.qingyiyou.cn/yz/Interface/api_wxpay.php";
-        /* 微信支付成功*/
-        public static final String WX_PAY_SUCCESS ="";
+        /* 是否进行微信支付*/
+        public static final String IS_WX_PAY =BASE_URL+"ischongzhi.php";
+        /* 会员是否升级*/
+        public static final String IS_USER_UPDATE =BASE_URL+"userdj.php";
     }
     public static final class INTENT {
         public static final int INTO_JQZ_SUCCESS = 2132;

@@ -8,7 +8,7 @@
     android:orientation="vertical"
     >
     <!-- 图片展示，提供图片拖拉和缩放 -->
-    <ImageView
+    <Views.DrawTextImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitCenter"

@@ -7,7 +7,6 @@ import java.io.Serializable;
  */
 public class wxpays implements Serializable{
     private String appid;
-    private String run;
     private String noncestr;
     private String package_;
     private String partnerid;
@@ -71,11 +70,4 @@ public class wxpays implements Serializable{
         this.sign = sign;
     }
 
-    public String getRun() {
-        return run;
-    }
-
-    public void setRun(String run) {
-        this.run = run;
-    }
 }

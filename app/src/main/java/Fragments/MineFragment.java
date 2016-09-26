@@ -86,11 +86,35 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
         View layout=inflater.inflate(R.layout.fragment_mine,null);
         initview(layout);
         initLocation();
+//        initUserid();
         getUserUdidAndCity();
         initUserInfo();
 //        initBindAccound();
         return layout;
     }
+
+//    /**
+//     * 初始化userid
+//     */
+//    private void initUserid() {
+//       if(SharePre.getUserId(getActivity()).equals("")){
+//           HashMap<String,String> map=new HashMap<>();
+//           map.put("udid", Utis.getIMEI(getActivity()));
+//           OkHttpUtil.getInstance().Post(map, constance.URL.USER_INFO, new OkHttpUtil.FinishListener() {
+//               @Override
+//               public void Successfully(boolean IsSuccess, String data, String Msg) {
+////                    showTip("个人资料:"+data.toString());
+//                   Log.i("个人资料",""+data.toString());
+//                   if(IsSuccess){
+//                       SharePre.saveUserId(getActivity(),mUserInfo.getId());
+//                   } else {
+//                       Toast(data.toString());
+//                   }
+//               }
+//           });
+//       }
+//    }
+
     /**
      * 初始化定位
      */
@@ -137,6 +161,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
      * 初始化绑定信息
      */
     private Yzm yzm;
+    private String PhoneYzm="0";
     private void initBindAccound() {
         if(!SharePre.getUserId(getActivity()).equals("")){
             HashMap<String,String> map=new HashMap<>();
@@ -148,6 +173,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
                     Log.w("绑定状态",""+data.toString()+"用户UserId"+SharePre.getUserId(getActivity()));
                 if(IsSuccess){
                     yzm = GsonUtils.parseJSON(data, Yzm.class);
+                    PhoneYzm=yzm.getRun();
                     if(yzm.getRun().equals("1")){
                         mTvBindPhoneState.setText("已绑定");
                     }
@@ -160,7 +186,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
      * 根据手机设备号指定一个用户ID
      */
     private void initUserInfo() {
-        if(!SharePre.getUserId(getActivity()).equals("")){
+//        if(!SharePre.getUserId(getActivity()).equals("")){
             HashMap<String,String> map=new HashMap<>();
             map.put("udid", Utis.getIMEI(getActivity()));
             OkHttpUtil.getInstance().Post(map, constance.URL.USER_INFO, new OkHttpUtil.FinishListener() {
@@ -179,7 +205,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
                     }
                 }
             });
-        }
+//        }
     }
     /**
      * 初始化界面
@@ -210,7 +236,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
                 startActivity(intent);
                 break;
             case R.id.rtl_bind_phone:
-                if(yzm.getRun().equals("1")){
+                if(PhoneYzm.equals("1")){
                     Toast.makeText(getActivity(),"您已绑定过手机号码",Toast.LENGTH_SHORT).show();
                 }else {
                     Intent intent_phone=new Intent(getActivity(), BindPhoneActivity.class);

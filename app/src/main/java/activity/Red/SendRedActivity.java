@@ -69,6 +69,14 @@ public class SendRedActivity extends BaseActivity {
         YueDate();
         YiZuanDate();
     }
+
+    /**
+     * 判断是否是超级会员
+     */
+    private void initUserUpdate() {
+
+    }
+
     /**
      * 易赚红余额
      */
@@ -203,6 +211,27 @@ public class SendRedActivity extends BaseActivity {
                     mRtlAliPay.setVisibility(View.GONE);
                     mRtlWxPay.setVisibility(View.GONE);
                     mRtlUpdate.setVisibility(View.VISIBLE);
+                    HashMap<String,String> map=new HashMap<String, String>();
+                    OkHttpUtil.getInstance().Post(map, constance.URL.IS_USER_UPDATE, new OkHttpUtil.FinishListener() {
+                        @Override
+                        public void Successfully(boolean IsSuccess, String data, String Msg) {
+                            stopProgressDialog();
+                            if(IsSuccess){
+                                Result result = GsonUtils.parseJSON(data, Result.class);
+                                if(result.getRun().equals("1")){
+                                    //普通会员
+                                        mRtlUpdate.setVisibility(View.VISIBLE);
+                                }else if(result.getRun().equals("2")){
+                                    //已经是超级会员
+                                        mRtlUpdate.setVisibility(View.GONE);
+                                }
+                            }else {
+                                Toast(data.toString());
+                            }
+                        }
+                    });
+
+
                 }
             }
         });
@@ -244,17 +273,8 @@ public class SendRedActivity extends BaseActivity {
                                 PayYue2RedPool(100);
                                 break;
                             case WXIN_PAY://微信支付
-                                WxPay("200");
-//                                msgApi.registerApp("wx541c42bc54fac5cf");
-//                                req = new PayReq();
-//                                req.appId = "wx541c42bc54fac5cf";
-//                                req.nonceStr = "gLhTDMV6nizf73xOUhGJnEluAqn49i8V";
-//                                req.packageValue = "Sign=WXPay";
-//                                req.partnerId = "1390772902";
-//                                req.prepayId = "wx20160925153034ba0fa16cf40717411342";
-//                                req.timeStamp = "1474788635";
-//                                req.sign ="F670CBC7F6B29134A4ADEBE12DFAA7B2";
-//                                msgApi.sendReq(req);
+//                                WxPay("10000");
+                                IsComfirmWxPays("10000");
                                 break;
                             case ALI_PAY://支付宝支付
                                 Toast("红包100   支付宝支付");
@@ -262,20 +282,35 @@ public class SendRedActivity extends BaseActivity {
                         }
                         break;
                     case RED_SUPER://200红包
-                        switch (payType){
-                            case YIZUANRED_PAY://易赚红包支付
-                                PayYizhuanRed2RedPool(500);
-                                break;
-                            case YUE_PAY://余额支付
-                                PayYue2RedPool(500);
-                                break;
-                            case WXIN_PAY://微信支付
-                                WxPay("0.01");
-                                break;
-                            case ALI_PAY://支付宝支付
-                                Toast("红包200   支付宝支付");
-                                break;
-                        }
+                        startProgressDialog("加载中...");
+                        HashMap<String,String> map=new HashMap<String, String>();
+                        OkHttpUtil.getInstance().Post(map, constance.URL.IS_USER_UPDATE, new OkHttpUtil.FinishListener() {
+                            @Override
+                            public void Successfully(boolean IsSuccess, String data, String Msg) {
+                                stopProgressDialog();
+//                                Toast(data.toString());
+                                if(IsSuccess){
+                                    Result result = GsonUtils.parseJSON(data, Result.class);
+                                    if(result.getRun().equals("1")){
+                                        //普通会员
+//                                        mRtlUpdate.setVisibility(View.VISIBLE);
+                                    }else if(result.getRun().equals("2")){
+                                        //已经是超级会员
+//                                        mRtlUpdate.setVisibility(View.GONE);
+                                        switch (payType){
+                                            case YIZUANRED_PAY://易赚红包支付
+                                                PayYizhuanRed2RedPool(500);
+                                                break;
+                                            case YUE_PAY://余额支付
+                                                PayYue2RedPool(500);
+                                                break;
+                                        }
+                                    }
+                                }else {
+                                    Toast(data.toString());
+                                }
+                            }
+                        });
                         break;
                 }
             }
@@ -340,6 +375,27 @@ public class SendRedActivity extends BaseActivity {
                 }
             });
     }
+    public void IsComfirmWxPays(final String price){
+        startProgressDialog("加载中...");
+         HashMap<String,String> map=new HashMap<>();
+        map.put("userid",""+SharePre.getUserId(getApplicationContext()));
+        OkHttpUtil.getInstance().Post(map, constance.URL.IS_WX_PAY, new OkHttpUtil.FinishListener() {
+            @Override
+            public void Successfully(boolean IsSuccess, String data, String Msg) {
+                stopProgressDialog();
+                if(IsSuccess){
+                    Result result = GsonUtils.parseJSON(data, Result.class);
+                    if(result.getRun().equals("1")){
+                        WxPay(price);
+                    }else if(result.getRun().equals("0")){
+                        Toast("还有未抢完的红包，等抢完在发");
+                    }
+                }else {
+                    Toast(data.toString());
+                }
+            }
+        });
+    }
     /**
      * 微信支付
      * @param price
@@ -356,9 +412,6 @@ public class SendRedActivity extends BaseActivity {
 //                showTip(data.toString());
                 if(IsSuccess){
                     wxpays wxpays = GsonUtils.parseJSON(data, wxpays.class);
-                    if(wxpays.getRun().equals("")){
-
-                    }
                     Log.i("微信支付",""+data.toString());
                     msgApi.registerApp("wx541c42bc54fac5cf");
                     req = new PayReq();
@@ -370,7 +423,7 @@ public class SendRedActivity extends BaseActivity {
                     req.timeStamp = wxpays.getTimestamp();
                     req.sign =wxpays.getSign();
                     msgApi.sendReq(req);
-                }else {
+                }else{
                     Toast(data.toString());
                 }
             }

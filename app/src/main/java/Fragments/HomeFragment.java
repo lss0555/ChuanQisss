@@ -36,6 +36,7 @@ import Views.Banners.Lanner;
 import Views.SwitcherView;
 import Views.ViewPageIndicator;
 import activity.ApprenticeListActivity;
+import activity.BannerLinkActivity;
 import activity.FaskTaskActivity;
 import activity.HelpCenterActivity;
 import activity.HowToEarn.HowToEarnActivity;
@@ -467,27 +468,37 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
                 }
             }
         });
-//        mLanner.setOnLannerItemClickListener(new Lanner.OnLannerItemClickListener() {
-//            @Override
-//            public void click(View v, banners lb) {
-//                Intent intent=new Intent(getActivity(), BannerLinkActivity.class);
-//                intent.putExtra("link",lb.getLink());
-//                startActivity(intent);
-//            }
-//        });
+        mLanner.setOnLannerItemClickListener(new Lanner.OnLannerItemClickListener() {
+            @Override
+            public void click(View v, banners lb) {
+                Intent intent=new Intent(getActivity(), BannerLinkActivity.class);
+                intent.putExtra("link",lb.getLink());
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()){
             case  R.id.tv_fast_task://快速任务
-                Intent intent_Task=new Intent(getActivity(), FaskTaskActivity.class);
-                getActivity().startActivity(intent_Task);
+                if(Utis.HasSimCard(getActivity())){
+                    Intent intent_Task=new Intent(getActivity(), FaskTaskActivity.class);
+                    getActivity().startActivity(intent_Task);
+                }else {
+                    Toast("抱歉，您的SIM卡异常，请检查");
+                }
 //                Toast("待开放中...");
                 break;
             case  R.id.tv_unit_task://联盟任务
-                Intent intent=new Intent(getActivity(), UnitTaskActivity.class);
-                getActivity().startActivity(intent);
+                if(Utis.HasSimCard(getActivity())){
+                    Intent intent=new Intent(getActivity(), UnitTaskActivity.class);
+                    getActivity().startActivity(intent);
+                }else {
+                    Toast("抱歉，您的SIM卡异常，请检查");
+                }
+
+
                 break;
             case  R.id.tv_yq://邀请分享
                 Intent intent_shop=new Intent(getActivity(), YaoQingSharesActivity.class);
