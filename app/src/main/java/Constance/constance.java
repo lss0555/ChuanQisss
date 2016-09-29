@@ -78,7 +78,9 @@ public class constance {
         public static final String RED_WITHDRAW ="http://i.qingyiyou.cn/yz/wxpay/hbwxtx.php";
         /* 判断用户是否是用户*/
         public static final String IS_USER =BASE_URL+"iszhuce.php";
-        /* 判断Userid是否存在*/
+        /*
+        *
+        * */
         public static final String USERID_ISEXIST =BASE_URL+"yqm.php";
         /* 判断邀请码是否正确*/
         public static final String YQM_IS_ZQ =BASE_URL+"jl_masterapprentice.php";
@@ -88,6 +90,16 @@ public class constance {
         public static final String IS_WX_PAY =BASE_URL+"ischongzhi.php";
         /* 会员是否升级*/
         public static final String IS_USER_UPDATE =BASE_URL+"userdj.php";
+        /* sBandleID应用标识码*/
+        public static final String YINGYONG_BIAOSHI =BASE_URL+"wcapplytask.php";
+        /* sBandleID应用标识码*/
+        public static final String IS_DONE =BASE_URL+"isuserapp.php";
+        /* sBandleID应用标识码*/
+        public static final String SHAI_DAN =BASE_URL+"shaidan.php";
+        /* 用户总余额*/
+        public static final String USER_ALL_YUE =BASE_URL+"allsr.php";
+        /* 判断任务状态*/
+        public static final String IS_APPLYTASK =BASE_URL+"isapplytask.php";
     }
     public static final class INTENT {
         public static final int INTO_JQZ_SUCCESS = 2132;

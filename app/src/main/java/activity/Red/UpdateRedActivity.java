@@ -57,7 +57,7 @@ public class UpdateRedActivity extends BaseActivity {
     private void initdate() {
         startProgressDialog("玩命加载中...");
         HashMap<String,String> map=new HashMap<>();
-        map.put("userid", SharePre.getUserId(getApplicationContext()));
+        map.put("userid", SharePre.getUserId(UpdateRedActivity.this));
         OkHttpUtil.getInstance().Post(map, constance.URL.YIZUAN_RED, new OkHttpUtil.FinishListener() {
             @Override
             public void Successfully(boolean IsSuccess, String data, String Msg) {
@@ -131,7 +131,7 @@ public class UpdateRedActivity extends BaseActivity {
     public  void  UpdateType(String type){
         startProgressDialog("加载中...");
         HashMap<String,String> map=new HashMap<>();
-        map.put("userid",SharePre.getUserId(getApplicationContext()));
+        map.put("userid",SharePre.getUserId(UpdateRedActivity.this));
         map.put("style",""+type);
         OkHttpUtil.getInstance().Post(map, constance.URL.SJ_RED, new OkHttpUtil.FinishListener() {
             @Override
@@ -148,7 +148,7 @@ public class UpdateRedActivity extends BaseActivity {
                          setResult(1);
                          finish();
                      }else {
-                         Toast("对不起，升级失败");
+                         Toast("对不起，您的账户余额不足");
                      }
                  }else {
                      showTip(data.toString());

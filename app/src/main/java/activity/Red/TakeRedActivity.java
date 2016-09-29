@@ -87,7 +87,7 @@ public class TakeRedActivity extends BaseActivity {
             @Override
             public void onClick(View view) {//抢红包
                 HashMap<String,String> map=new HashMap<String, String>();
-                map.put("userid", SharePre.getUserId(getApplicationContext()));
+                map.put("userid", SharePre.getUserId(TakeRedActivity.this));
                 OkHttpUtil.getInstance().Post(map, constance.URL.TAKE_RED, new OkHttpUtil.FinishListener() {
                     @Override
                     public void Successfully(boolean IsSuccess, String data, String Msg) {

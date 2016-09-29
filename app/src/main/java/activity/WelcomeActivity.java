@@ -7,32 +7,83 @@ import android.widget.ListView;
 
 import com.chuanqi.yz.R;
 
+import java.util.HashMap;
+
+import Constance.constance;
+import Utis.SharePre;
+import Utis.Utis;
+import Utis.GsonUtils;
+import Utis.OkHttpUtil;
+import model.Result;
+
 public class WelcomeActivity extends BaseActivity {
     private ListView mList;
-
+    private boolean IsRegist=false;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+//        IsRegistUser();
         initview();
     }
-
     private void initview() {
-        new Handler().postDelayed(new Runnable()
-        {
-            //封装的run()方法，用在
-            @Override
-            public void run()
+        if(!SharePre.getUserId(WelcomeActivity.this).equals("") ){
+            new Handler().postDelayed(new Runnable()
             {
-                //页面跳转
-                //*********修改1**************修改1*****************修改1******************
-                Intent intent = new Intent(WelcomeActivity.this,MainActivity.class);//修改:(注："MainActivityWelcome"当前类名，"MainActivity"当前需要跳转的Activity第二个页面的类名)
-                //保存跳转信息
-                startActivity(intent);
-                //进入第二个界面前销毁当前的活动，"finish()"销毁活动
-                WelcomeActivity.this.finish();
+                @Override
+                public void run()
+                {
+                    Intent intent=new Intent(WelcomeActivity.this,MainActivity.class);
+                    startActivity(intent);
+                    WelcomeActivity.this.finish();
+                }
+                //这里的数字为延时时长
+            }, 1500);
+        }else {
+            IsRegistUser();
+        }
+    }
+
+    public void IsRegistUser(){
+        HashMap<String,String> map=new HashMap<>();
+        map.put("udid",""+ Utis.getIMEI(getApplicationContext()));
+       OkHttpUtil.getInstance().Post(map, constance.URL.IS_USER, new OkHttpUtil.FinishListener() {
+            @Override
+            public void Successfully(boolean IsSuccess, String data, String Msg) {
+//                showTip(data.toString());
+                if(IsSuccess){
+                    Result result = GsonUtils.parseJSON(data, Result.class);
+                    if(result.getRun().equals("0")){
+                        //还没注册
+                        new Handler().postDelayed(new Runnable()
+                        {
+                            @Override
+                            public void run()
+                            {
+                                Intent intent=new Intent(WelcomeActivity.this,YaoQingActivity.class);
+                                startActivity(intent);
+                                WelcomeActivity.this.finish();
+                            }
+                            //这里的数字为延时时长
+                        }, 1500);
+                    }else if(result.getRun().equals("1")){
+                        //已经注册
+                        new Handler().postDelayed(new Runnable()
+                        {
+                            @Override
+                            public void run()
+                            {
+                                Intent intent=new Intent(WelcomeActivity.this,MainActivity.class);
+                                startActivity(intent);
+                                WelcomeActivity.this.finish();
+                            }
+                            //这里的数字为延时时长
+                        }, 1500);
+                    }
+                }else {
+                    Toast(data.toString());
+                }
             }
-            //这里的数字为延时时长
-        }, 1000);
+        });
     }
 }

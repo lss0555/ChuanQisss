@@ -1,5 +1,6 @@
 package Utis;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
@@ -31,8 +32,13 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
+
+import Constance.constance;
 
 /**
  * 常用的一些数据转换、提取
@@ -484,5 +490,81 @@ public class Utis {
                 break;
         }
         return result;
+    }
+  public static boolean IsExistPackage(Context context,String page){
+      PackageManager pm = context.getPackageManager();
+      List<PackageInfo> allApps = getAllApps(context);
+      HashMap<String,String> map=new HashMap<>();
+      for (int i=0;i<allApps.size();i++){
+          if(allApps.get(i).packageName.equals(page)){
+                return  true;
+          }else {
+              return  false;
+          }
+      }
+      return  false;
+  }
+    /**
+     * 查询手机内非系统应用
+     * @param context
+     * @return
+     */
+    public static List<PackageInfo> getAllApps(Context context) {
+        List<PackageInfo> apps = new ArrayList<PackageInfo>();
+        PackageManager pManager = context.getPackageManager();
+        //获取手机内所有应用
+        List<PackageInfo> paklist = pManager.getInstalledPackages(0);
+        for (int i = 0; i < paklist.size(); i++) {
+            PackageInfo pak = (PackageInfo) paklist.get(i);
+            //判断是否为非系统预装的应用程序
+            if ((pak.applicationInfo.flags & pak.applicationInfo.FLAG_SYSTEM) <= 0) {
+                // customs applications
+                apps.add(pak);
+            }
+        }
+        return apps;
+    }
+    public static boolean IsRunning(Context context,String packagess){
+        ActivityManager am = (ActivityManager)context.getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningTaskInfo> list = am.getRunningTasks(200);
+        for (ActivityManager.RunningTaskInfo info : list) {
+            if (info.topActivity.getPackageName().equals(packagess) || info.baseActivity.getPackageName().equals(packagess)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean isBackground(Context context,String pakeage) {
+        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningAppProcessInfo> appProcesses = activityManager.getRunningAppProcesses();
+        for (ActivityManager.RunningAppProcessInfo appProcess : appProcesses) {
+            if (appProcess.processName.equals(pakeage)) {
+                if (appProcess.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_BACKGROUND) {
+                    Log.i("后台", appProcess.processName);
+                    return true;
+                }
+//	                else{
+//	                          Log.i("前台", appProcess.processName);
+//	                          return re;
+//	                }
+            }
+        }
+        return false;
+    }
+
+    public static  boolean isPkgInstalled(Context context,String pkgName) {
+        PackageInfo packageInfo = null;
+        try {
+            packageInfo = context.getPackageManager().getPackageInfo(pkgName, 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            packageInfo = null;
+            e.printStackTrace();
+        }
+        if (packageInfo == null) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }

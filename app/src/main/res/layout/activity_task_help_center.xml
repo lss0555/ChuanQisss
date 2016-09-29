@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+    <View
+        android:layout_width="match_parent"
+        android:background="@color/red"
+        android:layout_height="20dp"></View>
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:background="@color/red"
+      android:layout_height="50dp">
+      <TextView
+          android:layout_width="wrap_content"
+          android:text="帮助中心"
+          android:textColor="@color/white"
+          android:textSize="18sp"
+          android:layout_centerInParent="true"
+          android:layout_height="wrap_content" />
+      <RelativeLayout
+          android:id="@+id/rtl_back"
+          android:layout_width="60dp"
+          android:onClick="back"
+          android:layout_height="match_parent">
+          <ImageView
+              android:layout_width="wrap_content"
+              android:background="@mipmap/g_fanhui"
+              android:layout_centerInParent="true"
+              android:layout_height="wrap_content" />
+      </RelativeLayout>
+  </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="1.安装应用"
+            android:textColor="@color/black"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
+            android:textSize="18sp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="20dp"
+            android:text="必须首次安装，如果您的设备之前安装过任务应用，您将获取不到奖励；其次，有些任务要求用户安装之后打开运行即可，而有的任务则要求用户必须注册或者登录，用户需要严格按照要求完成才能获得奖励。"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="2.试玩应用"
+            android:textColor="@color/black"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
+            android:textSize="18sp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="20dp"
+            android:text="请确保打开任务应用时网络连接正常，如遇网络问题等原因导致未能立即获得奖励，请检查网络连接并尝试退出后重新打开，或者选择下载其他应用，隔日再试等。"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="3.获得奖励"
+            android:textColor="@color/black"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
+            android:textSize="18sp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="20dp"
+            android:text="正常情况下，用户完成任务之后，平台系统需要一定时间来反馈用户奖励，一般时间在3分钟以内，而有时因为广告主或者平台服务延时不能及时反馈奖励，请耐心等待。"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</LinearLayout>

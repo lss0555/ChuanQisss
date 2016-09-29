@@ -18,9 +18,7 @@ import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.chuanqi.yz.R;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -28,6 +26,7 @@ import java.util.List;
 
 import Constance.constance;
 import Interfaces.MyReceiver;
+import Manager.UpdateManagers;
 import Utis.OkHttpUtil;
 import Utis.Utis;
 import Utis.SharePre;
@@ -56,8 +55,11 @@ import model.TxRecord.jqzcr;
 import model.TxRecord.JqzCrRecord;
 import model.TxRecord.TxRecord;
 import model.TxRecord.tx;
+import model.UserAllYue;
 import model.UserInfo;
 import model.UserMoney;
+import model.Version;
+
 /**
  * A simple {@link Fragment} subclass. update 2016.8.31
  */
@@ -153,7 +155,32 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
         initdate();
         initViewPage(); //轮播
         initReFreshDate();
+        initUpdateVersion();
         return layout;
+    }
+    /**
+     * 版本更新
+     */
+    private void initUpdateVersion() {
+        int version = Utis.getVersion(getActivity());
+//        startProgressDialog("加载中...");
+        OkHttpUtil.getInstance().Post(null, constance.URL.VERSION_UPDATE, new OkHttpUtil.FinishListener() {
+            @Override
+            public void Successfully(boolean IsSuccess, String data, String Msg) {
+//                stopProgressDialog();
+                if(IsSuccess){
+                    Version version1 = GsonUtils.parseJSON(data, Version.class);
+                    if(Integer.parseInt(version1.getBbh())>Utis.getVersion(getActivity())){
+                        UpdateManagers mUpdateManager = new UpdateManagers(getActivity(),version1.getGxxx(),version1.getUrl());
+                        mUpdateManager.setNotUpdateMessageShow(false);
+                        mUpdateManager.checkUpdateInfo();
+                    }else {
+                    }
+                }else {
+                    Toast(data.toString());
+                }
+            }
+        });
     }
     /**
      * 刷新数据
@@ -322,7 +349,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
             map.put("udid", Utis.getIMEI(getActivity()));
             OkHttpUtil.getInstance().Post(map, constance.URL.USER_INFO, new OkHttpUtil.FinishListener() {
                 public UserInfo mUserInfo;
-
                 @Override
                 public void Successfully(boolean IsSuccess, String data, String Msg) {
                     Log.i("个人资料",""+data.toString());
@@ -341,7 +367,32 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
     public  void getAccountInfo(){
         UserAccount();  //用户余额
         JqzAccount();  //聚钱庄余额
+        UserAllYue();//用户总余额
     }
+
+    /**
+     * 用户总余额
+     */
+    private void UserAllYue() {
+        HashMap<String,String> map=new HashMap<>();
+        map.put("userid",""+SharePre.getUserId(getActivity()));
+        OkHttpUtil.getInstance().Post(map, constance.URL.USER_ALL_YUE, new OkHttpUtil.FinishListener() {
+            @Override
+            public void Successfully(boolean IsSuccess, String data, String Msg) {
+                if(IsSuccess){
+                    UserAllYue userAllYue = GsonUtils.parseJSON(data, UserAllYue.class);
+                    if(userAllYue.getAllsr()==null){
+                        mTvTodyIncome.setText("0.0元");
+                    }else {
+                        mTvTodyIncome.setText(""+userAllYue.getAllsr()+"元");
+                    }
+                }else {
+                    Toast(data.toString());
+                }
+            }
+        });
+    }
+
     private void UserAccount() {   //用户余额
             HashMap<String,String> maps=new HashMap<>();
             maps.put("udid", Utis.getIMEI(getActivity()));
@@ -355,11 +406,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
                         if(userMoney.getfTodayIncome()==null){
                             UserAccount=0.0;
                             mTvAllIncome.setText("0.0元");
-                            mTvTodyIncome.setText("0.0元");
+//                            mTvTodyIncome.setText("0.0元");
                         }else {
                             UserAccount=Double.parseDouble(userMoney.getfNotPayIncome());
                             mTvAllIncome.setText(userMoney.getfNotPayIncome()+"元");
-                            mTvTodyIncome.setText(""+userMoney.getfTodayIncome()+"元");
+//                            mTvTodyIncome.setText(""+userMoney.getfTodayIncome()+"元");
                         }
                     }
                 }
@@ -453,12 +504,19 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
         layout.findViewById(R.id.tv_master_center).setOnClickListener(this);
         layout.findViewById(R.id.tv_jxz).setOnClickListener(this);
          mEmptyDate.findViewById(R.id.tv_upload).setOnClickListener(this);
+        mTvId.setEnabled(false);
+        mTvId1.setEnabled(false);
+        mTvState.setEnabled(false);
+        mTvState1.setEnabled(false);
+        mTvTime.setEnabled(false);
+        mTvTime1.setEnabled(false);
     }
     private void initViewPage() {
         OkHttpUtil.getInstance().Get(constance.URL.BANNER, new OkHttpUtil.FinishListener() {
             @Override
             public void Successfully(boolean IsSuccess, String data, String Msg) {
                 if(IsSuccess){
+                    Log.i("轮播的数据",""+data.toString());
                     Banner banner = GsonUtils.parseJSON(data, Banner.class);
                     lannerBeans.clear();
                     lannerBeans.addAll(banner.getGgt());
@@ -471,9 +529,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
         mLanner.setOnLannerItemClickListener(new Lanner.OnLannerItemClickListener() {
             @Override
             public void click(View v, banners lb) {
-                Intent intent=new Intent(getActivity(), BannerLinkActivity.class);
-                intent.putExtra("link",lb.getLink());
-                startActivity(intent);
+                if(!lb.getLink().equals("")){
+                    Intent intent=new Intent(getActivity(), BannerLinkActivity.class);
+                    intent.putExtra("link",lb.getLink());
+                    startActivity(intent);
+                }
             }
         });
     }
@@ -486,6 +546,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
                     Intent intent_Task=new Intent(getActivity(), FaskTaskActivity.class);
                     getActivity().startActivity(intent_Task);
                 }else {
+//                    Intent intent_Task=new Intent(getActivity(), FaskTaskActivity.class);
+//                    getActivity().startActivity(intent_Task);
                     Toast("抱歉，您的SIM卡异常，请检查");
                 }
 //                Toast("待开放中...");
@@ -495,10 +557,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
                     Intent intent=new Intent(getActivity(), UnitTaskActivity.class);
                     getActivity().startActivity(intent);
                 }else {
+//                    Intent intent=new Intent(getActivity(), UnitTaskActivity.class);
+//                    getActivity().startActivity(intent);
                     Toast("抱歉，您的SIM卡异常，请检查");
                 }
-
-
                 break;
             case  R.id.tv_yq://邀请分享
                 Intent intent_shop=new Intent(getActivity(), YaoQingSharesActivity.class);
@@ -512,7 +574,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
 //                Intent intent_store=new Intent(getActivity(), IntoMoneyJqzActivity.class);
 //                intent_store.putExtra("money",UserAccount);
 //                getActivity().startActivityForResult(intent_store,12);
-                Toast("待开发中...");
+                Toast("待开放中...");
                 break;
             case  R.id.tv_newer_task://新手任务
                 Intent intent_newerTask=new Intent(getActivity(), NewerTaskActivity.class);

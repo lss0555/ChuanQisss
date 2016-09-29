@@ -145,11 +145,6 @@ public class BaseFragment extends Fragment {
 		}
 	}
 	/**
-	 * ����һ�����ض������趨һ����ʱʱ�䣬���ʱ�䵽��û�б��رգ����Զ��رղ���ʾ������ʾ
-	 * @param title ����
-	 * @param msg ��Ϣ
-	 * @param timeout ��ʱʱ�䣬��λ����
-	 * @param timeoutCallback ��ʱ�ص�����,����Ϊnull
 	 * @deprecated
 	 */
 	public void showLoading(String title, String msg, int timeout, final String timeoutMsg, final Runnable timeoutCallback) {
@@ -183,7 +178,6 @@ public class BaseFragment extends Fragment {
 				.setPositiveButton("ȷ��", null)
 				.show();
 	}
-
 	/**
 	 * ����һ���Ի�����ȷ����ȡ��������ť���õ��������Ӧ����
 	 * @param msg
@@ -199,7 +193,6 @@ public class BaseFragment extends Fragment {
 				.show();
 	}
 	/**
-	 * У���¼�˺�,�˺Ų���Ϊ�գ�6��11λ,���԰�����������ĸ�������ִ�Сд�������������ַ�
 	 * @return �Ƿ�ͨ��У��
 	 */
 	public boolean validateLoginAccount(TextView view) {
@@ -312,59 +305,4 @@ public class BaseFragment extends Fragment {
 		}
 		return true;
 	}
-//
-//	/**
-//	 * ���ظ�activity
-//	 * @see #show
-//	 */
-//	public void hide() {
-//		if( !(this instanceof MainActivity) )
-//			setVisible(false);
-//	}
-//
-//	/**
-//	 * ��ʾ��activity
-//	 * @see #hide()
-//	 */
-//	public void show() {
-//		setVisible(true);
-//	}
-//
-//	/**
-//	 * ����һ��activity�����ص�ǰactivity
-//	 * @see #nextTimeStartActivityContainVisiable
-//	 */
-//	public void startActivityForResult(Intent intent, int requestCode) {
-//		startActivityForResult(intent, requestCode, null);
-//	}
-//
-//	/**
-//	 * ����һ��activity�����ص�ǰactivity
-//	 * @see #nextTimeStartActivityContainVisiable
-//	 */
-//	public void startActivityForResult(Intent intent, int requestCode, @Nullable Bundle options) {
-//		if( !containVisiableStartActivity ) {
-//			hide();
-//		}
-//		containVisiableStartActivity = false;
-//		super.startActivityForResult(intent, requestCode, options);
-//	}
-//
-//	/**
-//	 * ����һ��activity�������ص�ǰactivity
-//	 */
-//	public void startActivityForResultNotHide(Intent intent, int requestCode) {
-//		super.startActivityForResult(intent, requestCode);
-//	}
-//	/**
-//	 * ��һ��ʹ��startActivityForResult���ֽ�����ʾ
-//	 */
-//	protected void nextTimeStartActivityContainVisiable() {
-//		this.containVisiableStartActivity = true;
-//	}
-//
-//	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//		super.onActivityResult(requestCode, resultCode, data);
-//		show();
-//	}
 }

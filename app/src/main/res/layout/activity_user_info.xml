@@ -35,6 +35,7 @@
            android:orientation="vertical"
            android:layout_height="wrap_content">
            <RelativeLayout
+               android:id="@+id/rtl_head"
                android:layout_width="match_parent"
                android:layout_height="80dp">
                <TextView
@@ -49,8 +50,8 @@
                    android:id="@+id/img_icons"
                    android:layout_width="65dp"
                    app:border_width="1dp"
-                   android:src="@mipmap/ic_launcher"
                    app:border_color="@color/gray"
+                   android:background="@mipmap/tx"
                    android:layout_alignParentRight="true"
                    android:layout_centerVertical="true"
                    android:layout_marginRight="10dp"
@@ -76,7 +77,6 @@
                    android:id="@+id/tv_bind_wx_state"
                    android:layout_width="wrap_content"
                    android:layout_centerVertical="true"
-                   android:text="已绑定"
                    android:layout_alignParentRight="true"
                    android:layout_marginRight="15dp"
                    android:layout_height="wrap_content"
@@ -101,7 +101,6 @@
                    android:id="@+id/tv_phone"
                    android:layout_width="wrap_content"
                    android:layout_centerVertical="true"
-                   android:text="13526452111"
                    android:drawableRight="@mipmap/w_tiaozhuan1"
                    android:layout_alignParentRight="true"
                    android:gravity="center"
@@ -129,7 +128,6 @@
                    android:id="@+id/tv_username"
                    android:layout_width="wrap_content"
                    android:layout_centerVertical="true"
-                   android:text="cai阿姨"
                    android:drawableRight="@mipmap/w_tiaozhuan1"
                    android:layout_alignParentRight="true"
                    android:gravity="center"
@@ -171,6 +169,7 @@
                android:layout_height="0.2dp"></View>
            <RelativeLayout
                android:layout_width="match_parent"
+               android:visibility="gone"
                android:layout_height="50dp">
                <TextView
                    android:layout_width="wrap_content"
@@ -209,9 +208,9 @@
                    android:textSize="18sp"
                    android:layout_height="wrap_content" />
                <TextView
+                   android:id="@+id/tv_address"
                    android:layout_width="wrap_content"
                    android:layout_centerVertical="true"
-                   android:text="福建省-泉州"
                    android:drawableRight="@mipmap/w_tiaozhuan1"
                    android:layout_alignParentRight="true"
                    android:gravity="center"

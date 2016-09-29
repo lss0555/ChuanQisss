@@ -62,7 +62,7 @@ public class KownPlatformActivity extends BaseActivity {
             public void onClick(View view) {
                 startProgressDialog("加载中...");
                 HashMap<String,String> map=new HashMap<String, String>();
-                map.put("userid", SharePre.getUserId(getApplicationContext()));
+                map.put("userid", SharePre.getUserId(KownPlatformActivity.this));
                 OkHttpUtil.getInstance().Post(map, constance.URL.KONWN_PLATFORM, new OkHttpUtil.FinishListener() {
                     @Override
                     public void Successfully(boolean IsSuccess, String data, String Msg) {

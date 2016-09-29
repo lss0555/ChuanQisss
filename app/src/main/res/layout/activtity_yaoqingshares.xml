@@ -21,13 +21,17 @@
             android:id="@+id/textView"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true" />
-        <ImageView
+        <RelativeLayout
+            android:id="@+id/rtl_back"
+            android:layout_width="60dp"
             android:onClick="back"
-            android:layout_width="wrap_content"
-            android:background="@mipmap/g_fanhui"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:background="@mipmap/g_fanhui"
+                android:layout_centerInParent="true"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
     </RelativeLayout>
    <LinearLayout
        android:layout_width="match_parent"

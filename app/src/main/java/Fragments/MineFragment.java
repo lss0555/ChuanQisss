@@ -1,10 +1,13 @@
 package Fragments;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -42,6 +45,7 @@ import java.util.List;
 import java.util.Locale;
 
 import Constance.constance;
+import Interfaces.MyReceiver;
 import Manager.UpdateManagers;
 import Utis.OkHttpUtil;
 import Utis.Utis;
@@ -78,6 +82,9 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
     private boolean IsBindPhone=false;
     private ProgressBar mProgress;
     private TextView mTvState;
+    private MyBrocast myBrocast;
+    private MyReceiver myReceiver;
+
     public MineFragment() {
     }
     @Override
@@ -86,14 +93,84 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
         View layout=inflater.inflate(R.layout.fragment_mine,null);
         initview(layout);
         initLocation();
-//        initUserid();
         getUserUdidAndCity();
         initUserInfo();
-//        initBindAccound();
+//        initUpdateVersion();
         return layout;
     }
 
-//    /**
+    /**
+     * 版本更新
+     */
+    private void initUpdateVersion() {
+        int version = Utis.getVersion(getActivity());
+        startProgressDialog("加载中...");
+        OkHttpUtil.getInstance().Post(null, constance.URL.VERSION_UPDATE, new OkHttpUtil.FinishListener() {
+            @Override
+            public void Successfully(boolean IsSuccess, String data, String Msg) {
+                stopProgressDialog();
+                if(IsSuccess){
+                    Version version1 = GsonUtils.parseJSON(data, Version.class);
+                    if(Integer.parseInt(version1.getBbh())>Utis.getVersion(getActivity())){
+                        UpdateManagers mUpdateManager = new UpdateManagers(getActivity(),version1.getGxxx(),version1.getUrl());
+                        mUpdateManager.setNotUpdateMessageShow(false);
+                        mUpdateManager.checkUpdateInfo();
+                    }else {
+//                        Toast("当前已是最高版本！");
+                    }
+                }else {
+                    Toast(data.toString());
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        IntentFilter filter=new IntentFilter();
+        filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+        filter.addAction(constance.INTENT.UPDATE_ADD_USER_MONEY);
+        myReceiver=new MyReceiver();
+        myReceiver.SetNetStateListner(new MyReceiver.NetStateListner() {
+            @Override
+            public void NetState(boolean IsConnect) {
+                if(!IsConnect){
+                    Toast("网络连接已断开");
+                }
+            }
+            @Override
+            public void UpdateUserMoney(boolean IsUpdate) {
+                initBindAccound();
+            }
+        });
+        getActivity().registerReceiver(myReceiver, filter);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        getActivity().unregisterReceiver(myReceiver);
+    }
+
+    /**
+     * 绑定状态
+     */
+    private void initUserBindPhoneState() {
+        myBrocast = new MyBrocast();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("PhoneState");
+        getActivity().registerReceiver(myBrocast, intentFilter);
+    }
+    public class MyBrocast extends BroadcastReceiver{
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if(intent.getBooleanExtra("IsPhoneState",false)){
+                initBindAccound();
+            }
+        }
+    }
+    //    /**
 //     * 初始化userid
 //     */
 //    private void initUserid() {
@@ -232,13 +309,20 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
         switch (view.getId()){
             case R.id.rtl_person_info:
                 Intent intent=new Intent(getActivity(), UserInfoActivity.class);
-                intent.putExtra("info",mUserInfo);
+//                intent.putExtra("info",mUserInfo);
+                if(!mUserInfo.getHeadportrait().equals("")){
+                    intent.putExtra("Head",mUserInfo.getHeadportrait());
+                }
+                intent.putExtra("Tel",mUserInfo.getTel());
+                intent.putExtra("NickName",mUserInfo.getUname());
+                intent.putExtra("Address",""+SharePre.getCity(getActivity()));
                 startActivity(intent);
                 break;
             case R.id.rtl_bind_phone:
+//                Toast("手机绑定状态"+PhoneYzm);
                 if(PhoneYzm.equals("1")){
                     Toast.makeText(getActivity(),"您已绑定过手机号码",Toast.LENGTH_SHORT).show();
-                }else {
+                }else if(PhoneYzm.equals("0")){
                     Intent intent_phone=new Intent(getActivity(), BindPhoneActivity.class);
                     startActivity(intent_phone);
                 }

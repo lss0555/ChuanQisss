@@ -21,12 +21,14 @@ import Fragments.GetFragment;
 import Fragments.HomeFragment;
 import Fragments.MineFragment;
 import Fragments.ShareFragment;
+import Manager.UpdateManagers;
 import Utis.SharePre;
 import Utis.Utis;
 import Utis.GsonUtils;
 import Utis.OkHttpUtil;
 import Views.UnSlideViewPager;
 import model.Result;
+import model.Version;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener{
     private  int mCurentPageIndex;//当前的页数
@@ -46,37 +48,40 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     private GetFragment getFragment;
     private ShareFragment shareFragment;
     private MineFragment mineFragment;
-//    private ServiceConnection conn=new ServiceConnection() {
-//        private TimerService.MyBind binder;
-//        @Override
-//        public void onServiceConnected(ComponentName componentName, IBinder service) {
-//            binder = (TimerService.MyBind)service;
-//            Log.i("服务连接状态","Success"+ binder.getDate());
-//        }
-//        @Override
-//        public void onServiceDisconnected(ComponentName componentName) {
-//            Log.i("服务连接状态","Fails");
-//        }
-//    };
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initPrePageYaoQing();
         initview();
         initPage();
         initState();
+//        initUpdateVersion();
     }
-    private void initPrePageYaoQing() {
-        if(!SharePre.getUserId(getApplicationContext()).equals("")){
-//            Intent intent=new Intent(MainActivity.this,YaoQingActivity.class);
-//            startActivity(intent);
-//            finish();
-            return;
-        }else {
-            IsRegistUser();
-        }
+
+    /**
+     * 版本更新
+     */
+    private void initUpdateVersion() {
+        int version = Utis.getVersion(getApplicationContext());
+        startProgressDialog("加载中...");
+        OkHttpUtil.getInstance().Post(null, constance.URL.VERSION_UPDATE, new OkHttpUtil.FinishListener() {
+            @Override
+            public void Successfully(boolean IsSuccess, String data, String Msg) {
+                stopProgressDialog();
+                if(IsSuccess){
+                    Version version1 = GsonUtils.parseJSON(data, Version.class);
+                    if(Integer.parseInt(version1.getBbh())>Utis.getVersion(getApplicationContext())){
+                        UpdateManagers mUpdateManager = new UpdateManagers(getApplicationContext(),version1.getGxxx(),version1.getUrl());
+                        mUpdateManager.setNotUpdateMessageShow(true);
+                        mUpdateManager.checkUpdateInfo();
+                    }else {
+//                        Toast("当前已是最高版本！");
+                    }
+                }else {
+                    Toast(data.toString());
+                }
+            }
+        });
     }
     public void IsRegistUser(){
         HashMap<String,String> map=new HashMap<>();
@@ -110,7 +115,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         }
         return  instance;
     }
+    public  void exitAll(){
+        finish();
+    }
     /**
+     *
      * 初始化UI
      */
     private void initview() {

@@ -77,15 +77,14 @@ public class ImgShowFragment extends BaseFragment {
 		initview(layout);
 		return layout;
 	}
-
 	private void initview(View layout) {
 		mTvYqm = (TextView) layout.findViewById(R.id.tv_yqm);
 //		mTvYqm.setText("我的邀请码:" + SharePre.getUserId(getActivity()));
 		mImgShow = (DrawTextImageView) layout.findViewById(R.id.img_show);
-		mImgShow.setDrawText("我的邀请码:" + SharePre.getUserId(getActivity()));
+		mImgShow.setDrawText("邀请码:" + SharePre.getUserId(getActivity()));
 		mImgShow.setDrawTextColorResourse(R.color.black);
 		mImgShow.setDrawTextSize(45.2f);
-		mImgShow.setDrawLocalXY(50,1000f);
+		mImgShow.setDrawLocalXY(100,960f);
 		mImgShow1 = (ImageView) layout.findViewById(R.id.img_show);
 //		drawText2Pic(mImgShow,"我的邀请码:"+SharePre.getUserId(getActivity()),mDate.get(positon).getImgUrl());
 		UILUtils.displayImageNoAnim(mDate.get(positon).getImgUrl(), mImgShow);
@@ -99,7 +98,7 @@ public class ImgShowFragment extends BaseFragment {
 					public void onSelect(String Type) {
 						switch (Type) {
 							case "Save":
-								Bitmap bitmap = ((BitmapDrawable) mImgShow.getDrawable()).getBitmap();
+//								Bitmap bitmap = ((BitmapDrawable) mImgShow.getDrawable()).getBitmap();
 								mImgShow.setDrawingCacheEnabled(true);
 								Bitmap drawingCache = mImgShow.getDrawingCache();
 								saveImgs(drawingCache);
@@ -112,7 +111,6 @@ public class ImgShowFragment extends BaseFragment {
 			}
 		});
 	}
-
 	/**
 	 * 保存图片
 	 *
@@ -135,7 +133,8 @@ public class ImgShowFragment extends BaseFragment {
 			bigImg.compress(Bitmap.CompressFormat.PNG, 100, fos);
 			fos.flush();
 			fos.close();
-			Toast.makeText(getActivity(), "图片已保存到本地文件夹" + savePath, Toast.LENGTH_LONG).show();
+//			Toast.makeText(getActivity(), "图片已保存到本地文件夹" + savePath, Toast.LENGTH_LONG).show();
+			Toast.makeText(getActivity(), "保存成功", Toast.LENGTH_LONG).show();
 			MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), bigImg, "title", "description");
 			Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
 			Uri uri = Uri.fromFile(file);
@@ -160,33 +159,33 @@ public class ImgShowFragment extends BaseFragment {
 //		Bitmap photo = BitmapFactory.decodeResource(this.getResources(),
 //				R.mipmap.sunqun);                             发
 //		Bitmap photo = getBitmap(mDate.get(positon).getImgUrl());
-		UILUtils.displayImageNoAnim(mDate.get(positon).getImgUrl(),mImgShow1);
-		Bitmap photo = ((BitmapDrawable) mImgShow1.getDrawable()).getBitmap();
-//		Bitmap photo = getbitmap(imgurl);
-		int width = photo.getWidth();
-		int hight = photo.getHeight();
-		System.out.println("宽" + width + "高" + hight);
-		Bitmap icon = Bitmap
-				.createBitmap(width, hight, Bitmap.Config.ARGB_4444); // 建立一个空的BItMap
-
-		Canvas canvas = new Canvas(icon);// 初始化画布绘制的图像到icon上
-		Paint photoPaint = new Paint(); // 建立画笔
-		photoPaint.setDither(true); // 获取跟清晰的图像采样
-		photoPaint.setFilterBitmap(true);// 过滤一些
-
-		Rect src = new Rect(0, 0, photo.getWidth(), photo.getHeight());// 创建一个指定的新矩形的坐标
-		Rect dst = new Rect(0, 0, width, hight);// 创建一个指定的新矩形的坐标
-		canvas.drawBitmap(photo, src, dst, photoPaint);// 将photo 缩放或则扩大到
-		// dst使用的填充区photoPaint
-		Paint textPaint = new Paint(Paint.ANTI_ALIAS_FLAG
-				| Paint.DEV_KERN_TEXT_FLAG);// 设置画笔
-		textPaint.setTextSize(55);// 字体大小
-		textPaint.setTypeface(Typeface.DEFAULT_BOLD);// 采用默认的宽度
-		textPaint.setColor(Color.BLACK);// 采用的颜色
-		canvas.drawText(str, 50, 1100, textPaint);// 绘制上去字，开始未知x,y采用那只笔绘制
-		canvas.save(Canvas.ALL_SAVE_FLAG);
-		canvas.restore();
-		imageView.setImageBitmap(icon);
+//		UILUtils.displayImageNoAnim(mDate.get(positon).getImgUrl(),mImgShow1);
+//		Bitmap photo = ((BitmapDrawable) mImgShow1.getDrawable()).getBitmap();
+////		Bitmap photo = getbitmap(imgurl);
+//		int width = photo.getWidth();
+//		int hight = photo.getHeight();
+//		System.out.println("宽" + width + "高" + hight);
+//		Bitmap icon = Bitmap
+//				.createBitmap(width, hight, Bitmap.Config.ARGB_4444); // 建立一个空的BItMap
+//
+//		Canvas canvas = new Canvas(icon);// 初始化画布绘制的图像到icon上
+//		Paint photoPaint = new Paint(); // 建立画笔
+//		photoPaint.setDither(true); // 获取跟清晰的图像采样
+//		photoPaint.setFilterBitmap(true);// 过滤一些
+//
+//		Rect src = new Rect(0, 0, photo.getWidth(), photo.getHeight());// 创建一个指定的新矩形的坐标
+//		Rect dst = new Rect(0, 0, width, hight);// 创建一个指定的新矩形的坐标
+//		canvas.drawBitmap(photo, src, dst, photoPaint);// 将photo 缩放或则扩大到
+//		// dst使用的填充区photoPaint
+//		Paint textPaint = new Paint(Paint.ANTI_ALIAS_FLAG
+//				| Paint.DEV_KERN_TEXT_FLAG);// 设置画笔
+//		textPaint.setTextSize(55);// 字体大小
+//		textPaint.setTypeface(Typeface.DEFAULT_BOLD);// 采用默认的宽度
+//		textPaint.setColor(Color.BLACK);// 采用的颜色
+//		canvas.drawText(str, 50, 1100, textPaint);// 绘制上去字，开始未知x,y采用那只笔绘制
+//		canvas.save(Canvas.ALL_SAVE_FLAG);
+//		canvas.restore();
+//		imageView.setImageBitmap(icon);
 //        saveMyBitmap(icon,"test");
 	}
 }

@@ -4,6 +4,29 @@
     android:background="@color/white"
     android:orientation="vertical"
     android:layout_height="match_parent">
+    <View
+        android:layout_width="match_parent"
+        android:background="@color/red"
+        android:layout_height="20dp"></View>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@color/red"
+        android:layout_height="50dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="收徒大赛"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:layout_centerInParent="true"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:onClick="back"
+            android:layout_width="wrap_content"
+            android:background="@mipmap/g_fanhui"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
     <WebView
     android:layout_width="match_parent"
     android:layout_height="match_parent"

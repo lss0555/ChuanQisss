@@ -9,7 +9,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name   ="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.GET_TASKS" />
+        <uses-permission android:name="android.permission.GET_TASKS" />
     <!--用于进行网络定位-->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
     <!--用于访问GPS定位-->
@@ -62,8 +62,9 @@
         <activity android:name="activity.FaskTaskActivity" />
         <activity android:name="activity.YaoQingSharesActivity" />
         <activity android:name="activity.BindAliPayActivity" />
+        <activity android:name="activity.TaskHelpCenterActivity" />
         <activity android:name="activity.IntoMoneyJqzActivity" />
-        <activity android:name="activity.FaskTaskDetailActivity" />
+        <activity android:name="activity.FaskTaskDetailActivity"  android:theme="@style/loginDialog"/>
         <activity android:name="activity.CustomerShareActivity" />
         <activity android:name="activity.NewerTaskActivity" />
         <activity android:name="activity.Red.LookRedRecordActivity" />
@@ -71,7 +72,8 @@
         <activity android:name="activity.Red.TakeRedRulesActivity" />
         <activity android:name="activity.GetApprenticeActivity" />
         <activity android:name="activity.JXZActivity" />
-        <activity android:name="activity.MainActivity" />
+        <activity android:name="activity.MainActivity"
+            />
         <activity android:name="activity.AllProfitActivity" />
         <activity android:name="activity.ShowBoxPriceActivity" android:theme="@style/loginDialog"/>
         <activity android:name="activity.OpenBoxActivity" />

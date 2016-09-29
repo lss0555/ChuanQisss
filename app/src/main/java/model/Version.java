@@ -9,6 +9,7 @@ public class Version implements Serializable{
     private String    bbh;
     private String    gxxx;
     private String    url;
+    private String    ios_url;
 
     public String getBbh() {
         return bbh;
@@ -32,5 +33,13 @@ public class Version implements Serializable{
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getIos_url() {
+        return ios_url;
+    }
+
+    public void setIos_url(String ios_url) {
+        this.ios_url = ios_url;
     }
 }

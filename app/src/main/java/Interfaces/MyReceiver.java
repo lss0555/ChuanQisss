@@ -35,7 +35,14 @@ public class MyReceiver extends BroadcastReceiver {
                 }else {
                     listner.UpdateUserMoney(false);
                 }
+//                if(intent.getBooleanExtra("BindPhoneState",false)){
+//                    listner.UpdateBindPhoneState(true);
+//                } else {
+//                    listner.UpdateBindPhoneState(false);
+//                }
                 listner.NetState(true);
+
+
             }
 //            Toast.makeText(context,"广播获取手机系统时间"+""+Utis.getTime(),Toast.LENGTH_SHORT).show();
 //            Toast.makeText(context,"网络可以用了",Toast.LENGTH_SHORT).show();
@@ -45,6 +52,7 @@ public class MyReceiver extends BroadcastReceiver {
     public interface NetStateListner{
         public  void NetState(boolean IsConnect);
         public  void UpdateUserMoney(boolean IsUpdate);
+//        public  void UpdateBindPhoneState(boolean IsBindPhoneState);
     }
     public void SetNetStateListner(NetStateListner listner){
         this.listner = listner;

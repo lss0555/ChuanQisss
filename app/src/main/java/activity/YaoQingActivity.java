@@ -34,17 +34,7 @@ public class YaoQingActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_yaoqing);
         initview();
-//        initdate();
         initevent();
-    }
-    private void initdate() {
-        if(SharePre.getUserId(getApplicationContext())!=null){
-            Intent intent=new Intent(YaoQingActivity.this,MainActivity.class);
-            startActivity(intent);
-            finish();
-        }else {
-            IsRegistUser();
-        }
     }
     public void IsRegistUser(){
         HashMap<String,String> map=new HashMap<>();
@@ -86,13 +76,39 @@ public class YaoQingActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 new AlertDialog.Builder(YaoQingActivity.this).setTitle("提示")//设置对话框标题
-                        .setMessage("填写邀请码将获得0.3元奖金，确认不填写?")//设置显示的内容
+                        .setMessage("填写邀请码将获得0.5元奖金，确认不填写?")//设置显示的内容
                         .setPositiveButton("确定",new DialogInterface.OnClickListener() {//添加确定按钮
                             @Override
                             public void onClick(DialogInterface dialog, int which) {//确定按钮的响应事件
-                                Intent intent=new Intent(YaoQingActivity.this,MainActivity.class);
-                                startActivity(intent);
-                                finish();
+                                //传入udid
+                                HashMap<String,String> map=new HashMap<>();
+                                map.put("udid",Utis.getIMEI(getApplicationContext()));
+                                OkHttpUtil.getInstance().Post(map, constance.URL.USER_UDID, new OkHttpUtil.FinishListener() {
+                                    @Override
+                                    public void Successfully(boolean IsSuccess, String data, String Msg) {
+                                        if(IsSuccess){
+                                            SharePre.saveIsPostUdid(getApplicationContext(),true);
+                                            //获取userid
+                                            HashMap<String,String> map1=new HashMap<>();
+                                            map1.put("udid", Utis.getIMEI(getApplicationContext()));
+                                            OkHttpUtil.getInstance().Post(map1, constance.URL.USER_INFO, new OkHttpUtil.FinishListener() {
+                                                @Override
+                                                public void Successfully(boolean IsSuccess, String data, String Msg) {
+//                                        Toast("注册成功ID:"+SharePre.getUserId(getApplicationContext()));
+                                                    Log.i("首次进入个人资料",""+data.toString());
+                                                    stopProgressDialog();
+                                                    mUserInfo= GsonUtils.parseJSON(data, UserInfo.class);
+                                                    SharePre.saveUserId(YaoQingActivity.this,mUserInfo.getId());//保存userid
+                                                    Intent intent = new Intent(YaoQingActivity.this, MainActivity.class);
+                                                    startActivity(intent);
+                                                    finish();
+                                                }
+                                            });
+                                        }else {
+                                            Toast(data.toString());
+                                        }
+                                    }
+                                });
                             }
                         }).setNegativeButton("取消",new DialogInterface.OnClickListener() {//添加返回按钮
                     @Override
@@ -115,46 +131,60 @@ public class YaoQingActivity extends BaseActivity {
 //                showTip(data.toString());
                 if(IsSuccess){
                     Result result = GsonUtils.parseJSON(data, Result.class);
-                    if(result.getRun().equals("1")){
-                        //userid存在
-                        HashMap<String,String> map=new HashMap<>();
-                        map.put("udid", Utis.getIMEI(getApplicationContext()));
-                        OkHttpUtil.getInstance().Post(map, constance.URL.USER_INFO, new OkHttpUtil.FinishListener() {
+                    if(result.getRun().equals("1")){   //师傅id存在
+                        HashMap<String,String> map=new HashMap<>();  //userid进数据库
+                        map.put("udid",Utis.getIMEI(getApplicationContext()));
+                        map.put("region",SharePre.getCity(getApplicationContext())+"");
+                        OkHttpUtil.getInstance().Post(map, constance.URL.USER_UDID, new OkHttpUtil.FinishListener() {
                             @Override
                             public void Successfully(boolean IsSuccess, String data, String Msg) {
-                                Log.i("个人资料",""+data.toString());
                                 if(IsSuccess){
-                                    mUserInfo= GsonUtils.parseJSON(data, UserInfo.class);
-                                    SharePre.saveUserId(getApplicationContext(),mUserInfo.getId());//保存userid
-                                    HashMap<String,String> map=new HashMap<>();
-                                    map.put("MasterId",""+mEtYqm.getText().toString().trim());
-                                    map.put("ApprenticeId",""+SharePre.getUserId(getApplicationContext()));
-                                    OkHttpUtil.getInstance().Post(map, constance.URL.YQM_IS_ZQ, new OkHttpUtil.FinishListener() {
+                                    SharePre.saveIsPostUdid(getApplicationContext(),true);
+                                    HashMap<String,String> map1=new HashMap<>();
+                                    map1.put("udid", Utis.getIMEI(getApplicationContext()));
+                                    OkHttpUtil.getInstance().Post(map1, constance.URL.USER_INFO, new OkHttpUtil.FinishListener() {
                                         @Override
                                         public void Successfully(boolean IsSuccess, String data, String Msg) {
-                                            stopProgressDialog();
-                                            Log.i("判断邀请码是否正确",""+data.toString());
-//                                            showTip(data.toString());
+                                            Log.i("首次进入个人资料",""+data.toString());
+                                            Log.i("我的Udid",""+Utis.getIMEI(getApplicationContext()));
                                             if(IsSuccess){
-                                                Result result = GsonUtils.parseJSON(data, Result.class);
-                                                if(result.getRun().equals("1")){
-                                                    Toast("恭新您，获得0.3元");
-                                                    Intent intent=new Intent(YaoQingActivity.this,MainActivity.class);
-                                                    startActivity(intent);
-                                                    finish();
-                                                }else {
-                                                    Toast("建立失败");
-                                                }
+                                                mUserInfo= GsonUtils.parseJSON(data, UserInfo.class);
+                                                SharePre.saveUserId(YaoQingActivity.this,mUserInfo.getId());//保存userid
+                                                Log.i("首次进去用户Id",""+SharePre.getUserId(getApplication()));
+                                                HashMap<String,String> map=new HashMap<>();
+                                                map.put("MasterId",""+mEtYqm.getText().toString().trim());
+                                                map.put("ApprenticeId",""+SharePre.getUserId(YaoQingActivity.this));
+                                                OkHttpUtil.getInstance().Post(map, constance.URL.YQM_IS_ZQ, new OkHttpUtil.FinishListener() {
+                                                    @Override
+                                                    public void Successfully(boolean IsSuccess, String data, String Msg) {
+                                                        stopProgressDialog();
+                                                        Log.i("判断邀请码是否正确",""+data.toString());
+//                                            showTip(data.toString());
+                                                        if(IsSuccess){
+                                                            Result result = GsonUtils.parseJSON(data, Result.class);
+                                                            if(result.getRun().equals("1")){
+                                                                Toast("恭新您，获得0.5元");
+                                                                Intent intent=new Intent(YaoQingActivity.this,MainActivity.class);
+                                                                startActivity(intent);
+                                                                finish();
+                                                            }else if(result.getRun().equals("0")){
+                                                                Toast("抱歉，您已经有师傅了！");
+                                                            }
+                                                        }
+                                                    }
+                                                });
+
+                                            } else {
+                                                Toast(data.toString());
                                             }
                                         }
                                     });
 
-                                } else {
+                                }else {
                                     Toast(data.toString());
                                 }
                             }
                         });
-
                     }else if(result.getRun().equals("0")){
                         stopProgressDialog();
                         Toast("抱歉，您输入的邀请码不存在");

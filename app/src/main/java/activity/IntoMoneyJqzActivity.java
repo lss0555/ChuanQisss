@@ -94,7 +94,7 @@ public class IntoMoneyJqzActivity extends BaseActivity {
             private void IntoMoney2Jqz() {
                 startProgressDialog("请稍后");
                 HashMap<String,String> map=new HashMap<String, String>();
-                map.put("userid", SharePre.getUserId(getApplicationContext()));
+                map.put("userid", SharePre.getUserId(IntoMoneyJqzActivity.this));
                 map.put("jine",mEtMoney.getText().toString().trim());
                 OkHttpUtil.getInstance().Post(map, constance.URL.INTO_JQZACCOUNT, new OkHttpUtil.FinishListener() {
                     @Override

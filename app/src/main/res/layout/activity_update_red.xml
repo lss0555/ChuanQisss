@@ -82,7 +82,6 @@
         <TextView
             android:id="@+id/tv_yizuan"
             android:layout_width="wrap_content"
-            android:text="余额:100元"
             android:textColor="@color/black"
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
@@ -117,7 +116,6 @@
         <TextView
             android:id="@+id/tv_yue"
             android:layout_width="wrap_content"
-            android:text="余额:100元"
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
             android:textColor="@color/black"

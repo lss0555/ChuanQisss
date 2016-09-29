@@ -77,7 +77,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="10dp"
                 android:textColor="@color/black"
-                android:text="3.发红包金额两种分别是：普通会员 100元和SVIP会员 500元。"
+                android:text="3.发红包金额两种分别是：普通红包100元和超级红包500元。"
                 android:layout_height="wrap_content" />
             <TextView
                 android:layout_width="wrap_content"
@@ -86,7 +86,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="10dp"
                 android:textColor="@color/black"
-                android:text="4.用户需要升级为普通会员才可以发红包，升级为普通会员需先充值100元，充值完24小时之后才可以发红包至红包池方可进行抢红包游戏。"
+                android:text="4.用户抢红包前需要发100元到红包池中，首次发完后需等24小时之后才可以进行抢红包游戏，下次抢红包只需等到整点即可进行抢红包。"
                 android:layout_height="wrap_content" />
             <TextView
                 android:layout_width="wrap_content"
@@ -104,7 +104,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="10dp"
                 android:textColor="@color/black"
-                android:text="6.使用易钻红包最多有机会抢回120%的易钻红包。"
+                android:text="6.使用易钻红包最多有机会抢回115%的易钻红包。"
                 android:layout_height="wrap_content" />
             <TextView
                 android:layout_width="wrap_content"
@@ -122,7 +122,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="10dp"
                 android:textColor="@color/black"
-                android:text="8.每人每个整点时间只有一次抢红包的机会，错过则需等待下个整点。"
+                android:text="8.每人每个整点前五分钟只有一次抢红包的机会，错过则需等待下个整点。"
                 android:layout_height="wrap_content" />
             <TextView
                 android:layout_width="wrap_content"
@@ -131,7 +131,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="10dp"
                 android:textColor="@color/black"
-                android:text="9.每次发红包，有30天（360次）的抢红包机会，若所抢红包总和大于或等于120%时，则该用户没有继续抢红包的机会。需要重新发红包获取抢红包机会。"
+                android:text="9.每次发红包，有3天（36次）的抢红包机会，若所抢红包总和大于或等于115%时，则该用户没有继续抢红包的机会。需要重新发红包获取抢红包机会。"
                 android:layout_height="wrap_content" />
             <TextView
                 android:layout_width="wrap_content"
@@ -149,15 +149,16 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="10dp"
                 android:textColor="@color/black"
-                android:text="11.所发的易钻红包需要24小时之后才可以抢，用个人账户余额发红包后要到下个整点才可以开始抢。"
-                android:layout_height="wrap_content" /><TextView
+                android:text="11.普通会员一天只能发1次红包，SVIP会员一天可以发1次易钻红包和9次余额红包。"
+                android:layout_height="wrap_content" />
+            <TextView
                 android:layout_width="wrap_content"
                 android:textSize="16sp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="10dp"
                 android:textColor="@color/black"
-                android:text="12.普通会员一天只能发1次红包；SVIP会员一天可以发1次易钻红包和9次余额红包。"
+                android:text="12.最终解释权归本公司所有。"
                 android:layout_height="wrap_content" />
         </LinearLayout>
     </ScrollView>

@@ -53,7 +53,7 @@ public class SignActivity extends BaseActivity implements View.OnClickListener{
          */
         startProgressDialog("加载中...");
         HashMap<String,String> map=new HashMap<>();
-        map.put("userid", SharePre.getUserId(getApplicationContext()));
+        map.put("userid", SharePre.getUserId(SignActivity.this));
         OkHttpUtil.getInstance().Post(map, constance.URL.MONTH_SIGN, new OkHttpUtil.FinishListener() {
             @Override
             public void Successfully(boolean IsSuccess, String data, String Msg) {
@@ -86,7 +86,7 @@ public class SignActivity extends BaseActivity implements View.OnClickListener{
          */
         startProgressDialog("加载中...");
         HashMap<String,String> map1=new HashMap<>();
-        map1.put("userid",SharePre.getUserId(getApplicationContext()));
+        map1.put("userid",SharePre.getUserId(SignActivity.this));
         OkHttpUtil.getInstance().Post(map1, constance.URL.DAY_SIGN, new OkHttpUtil.FinishListener() {
             @Override
             public void Successfully(boolean IsSuccess, String data, String Msg) {
@@ -132,7 +132,7 @@ public class SignActivity extends BaseActivity implements View.OnClickListener{
     private void SignToday() {
         startProgressDialog("加载中...");
         HashMap<String,String> map=new HashMap<>();
-        map.put("userid",SharePre.getUserId(getApplicationContext()));
+        map.put("userid",SharePre.getUserId(SignActivity.this));
         map.put("dtime",""+Utis.getDate());
        OkHttpUtil.getInstance().Post(map, constance.URL.SIGN, new OkHttpUtil.FinishListener() {
            @Override

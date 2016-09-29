@@ -44,7 +44,7 @@ public class BindAliPayActivity extends BaseActivity {
     private void getDate() {
         startProgressDialog("加载中...");
         HashMap<String,String> map=new HashMap<String, String>();
-        map.put("userid", SharePre.getUserId(getApplicationContext()));
+        map.put("userid", SharePre.getUserId(BindAliPayActivity.this));
         map.put("account", mEtAccount.getText().toString());
         map.put("name", mEtName.getText().toString());
         map.put("accountstype", "2");
@@ -85,7 +85,7 @@ public class BindAliPayActivity extends BaseActivity {
             private void BindToAliPay() {
                 startProgressDialog("加载中...");
                 HashMap<String,String> map=new HashMap<String, String>();
-                map.put("userid", SharePre.getUserId(getApplicationContext()));
+                map.put("userid", SharePre.getUserId(BindAliPayActivity.this));
                 map.put("account", mEtAccount.getText().toString());
                 map.put("name", mEtName.getText().toString());
                 map.put("accountstype", "2");

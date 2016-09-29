@@ -25,6 +25,7 @@
                 android:id="@+id/img_icons"
                 android:layout_width="120dp"
                 app:border_width="1dp"
+                android:background="@mipmap/tx"
                 app:border_color="@color/gray"
                 android:layout_centerInParent="true"
                 android:layout_height="120dp"

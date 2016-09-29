@@ -35,8 +35,31 @@ public class AllProfitActivity extends BaseActivity {
         initdate();
     }
     private void initdate() {
+        startProgressDialog("疯狂加载中...");
         HashMap<String,String> map=new HashMap<>();
-        map.put("userid", SharePre.getUserId(getApplicationContext()));
+        map.put("userid", SharePre.getUserId(AllProfitActivity.this));
+        OkHttpUtil.getInstance().Post(map, constance.URL.ALL_PROFIT, new OkHttpUtil.FinishListener() {
+            @Override
+            public void Successfully(boolean IsSuccess, String data, String Msg) {
+//                showTip(data.toString());
+                stopProgressDialog();
+                Log.i("明细收益",""+data.toString());
+                if(IsSuccess){
+                    profit mProfit = GsonUtils.parseJSON(data, profit.class);
+                    if(mProfit.getIncomerecord()!=null){
+                        mDate.clear();
+                        mDate.addAll(mProfit.getIncomerecord());
+                        adapter.notifyDataSetChanged();
+                    }
+                }else {
+                    Toast(data.toString());
+                }
+            }
+        });
+    }
+    private void initdates() {
+        HashMap<String,String> map=new HashMap<>();
+        map.put("userid", SharePre.getUserId(AllProfitActivity.this));
         OkHttpUtil.getInstance().Post(map, constance.URL.ALL_PROFIT, new OkHttpUtil.FinishListener() {
             @Override
             public void Successfully(boolean IsSuccess, String data, String Msg) {
@@ -76,7 +99,7 @@ public class AllProfitActivity extends BaseActivity {
         protected String doInBackground(Void... params) {
             try {
                 Thread.sleep(2000);
-                initdate();
+                initdates();
             } catch (InterruptedException e) {
             }
             return "";

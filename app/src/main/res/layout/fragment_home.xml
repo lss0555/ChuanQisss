@@ -77,7 +77,7 @@
                         android:layout_height="25dp">
                     <TextView
                         android:layout_width="wrap_content"
-                        android:text="今日收入"
+                        android:text="总收入"
                         android:textSize="15sp"
                         android:layout_centerVertical="true"
                         android:textColor="@color/black"
@@ -306,7 +306,7 @@
                             android:layout_width="wrap_content"
                             android:textColor="@drawable/textcolor_seleclor"
                             android:textSize="12sp"
-                            android:text="邀   请"
+                            android:text="邀请赚钱"
                             android:layout_weight="1"
                             android:gravity="center"
                             android:drawableTop="@mipmap/s_duobao"

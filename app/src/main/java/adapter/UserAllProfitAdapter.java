@@ -52,7 +52,7 @@ public class UserAllProfitAdapter extends BaseAdapter{
 		   viewHold.TvPrice.setText("+"+mDate.get(position).getPrice()+"元");
 		   viewHold.TvTime.setText(""+mDate.get(position).getdTime());
 		   viewHold.TvName.setText(""+mDate.get(position).getApplyName());
-			UILUtils.displayImageNoAnim(mDate.get(position).getApplyIcon(),viewHold.ImgIcon);
+//			UILUtils.displayImageNoAnim(mDate.get(position).getApplyIcon(),viewHold.ImgIcon);
 		return convertView;
 	}
 	class ViewHold{

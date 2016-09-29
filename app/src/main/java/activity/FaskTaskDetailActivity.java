@@ -20,10 +20,16 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.HashMap;
 
+import Constance.constance;
 import Utis.UILUtils;
 import Utis.Utis;
+import Utis.GsonUtils;
+import Utis.OkHttpUtil;
+import Utis.SharePre;
 import model.FaskTask.faskTask;
+import model.Result;
 
 public class FaskTaskDetailActivity extends BaseActivity {
     private faskTask mTaskDetail;
@@ -52,17 +58,57 @@ public class FaskTaskDetailActivity extends BaseActivity {
           mRtlAccept.setOnClickListener(new View.OnClickListener() {
               @Override
               public void onClick(View view) {
-                  new downloadversion().execute(mTaskDetail.getAppUrl());
+                  boolean b = Utis.checkApkExist(getApplicationContext(), mTaskDetail.getsBandleID());
+                  if(!b){
+                      new downloadversion().execute(mTaskDetail.getAppUrl());
+                  }else {
+                      Toast("抱歉，您已接受此任务");
+                  }
               }
           });
         mRtlComplite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast("你确定完成任务了吗？");
+//                Toast("包名"+mTaskDetail.getsBandleID());
+                boolean b = Utis.checkApkExist(getApplicationContext(), mTaskDetail.getsBandleID());
+                if(b){
+//                    if(Utis.isBackground(getApplicationContext(),mTaskDetail.getsBandleID())){
+                        startProgressDialog("加载中...");
+                        HashMap<String,String> map=new HashMap<String, String>();
+                        map.put("sBandleID",""+mTaskDetail.getsBandleID());
+                        map.put("ApplyName",""+mTaskDetail.getAppname());
+                        map.put("userid",""+ SharePre.getUserId(FaskTaskDetailActivity.this));
+                        OkHttpUtil.getInstance().Post(map, constance.URL.YINGYONG_BIAOSHI, new OkHttpUtil.FinishListener() {
+                            @Override
+                            public void Successfully(boolean IsSuccess, String data, String Msg) {
+                                stopProgressDialog();
+                                if(IsSuccess){
+                                    Result result = GsonUtils.parseJSON(data, Result.class);
+                                    if(result.getRun().equals("1")){
+                                        Toast("恭喜您，获得"+mTaskDetail.getPrice()+"元奖励");
+                                        Intent intent = new Intent();
+                                        intent.putExtra(constance.INTENT.UPDATE_ADD_USER_MONEY,true);
+                                        intent.setAction(constance.INTENT.UPDATE_ADD_USER_MONEY);   //
+                                        sendBroadcast(intent);   //发送广播
+                                        setResult(1);
+                                        finish();
+                                    }else {
+                                        Toast("抱歉，任务不可重复做");
+                                    }
+                                }else {
+                                    Toast(data.toString());
+                                }
+                            }
+                        });
+//                    }else {
+//                        Toast("请打开此应用完成此任务");
+//                    }
+                }else {
+                    Toast("请先完成此任务");
+                }
             }
         });
     }
-
     private void initview() {
         mImgIcon = (ImageView) findViewById(R.id.img_icon);
         mTvName = (TextView) findViewById(R.id.tv_name);
@@ -77,7 +123,7 @@ public class FaskTaskDetailActivity extends BaseActivity {
         mTaskDetail= (faskTask) getIntent().getSerializableExtra("Task");
         UILUtils.displayImageNoAnim(mTaskDetail.getApplyIcon(),mImgIcon);
         mTvName.setText(mTaskDetail.getAppname());
-        mTvLeftNum.setText("还剩下"+mTaskDetail.getNowAmount()+"个任务");
+        mTvLeftNum.setText("剩余"+mTaskDetail.getNowAmount()+"份");
         mTvStep.setText(mTaskDetail.getStep()+"");
     }
     /**

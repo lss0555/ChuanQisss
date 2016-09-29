@@ -89,10 +89,10 @@ public class UnitTaskActivity extends BaseActivity implements View.OnClickListen
         AppConnect.getInstance(this).setWeixinAppId("wxc9302606e8330dbd", this);
         //点入
         DRSdk.initialize(this, true, ""); // 建议在应用启动调用，初始化sdk
-        DRSdk.setUserId(SharePre.getUserId(getApplicationContext())); // 设置用户id
+        DRSdk.setUserId(SharePre.getUserId(UnitTaskActivity.this)); // 设置用户id
         //点乐
         DevInit.initGoogleContext(UnitTaskActivity.this, "0d2d5326dcf0985530a1a413aac31f6b");
-        DevInit.setCurrentUserID(UnitTaskActivity.this,SharePre.getUserId(getApplicationContext()));
+        DevInit.setCurrentUserID(UnitTaskActivity.this,SharePre.getUserId(UnitTaskActivity.this));
     }
     @Override
     public void onResume() {

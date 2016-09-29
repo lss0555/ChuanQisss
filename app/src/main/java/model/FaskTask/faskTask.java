@@ -18,6 +18,7 @@ public class faskTask implements Serializable{
      private  String step;
      private  String appUrl;
      private  String applyIcon;
+     private  String sBandleID;
 
      public String getStartTime() {
           return startTime;
@@ -113,5 +114,13 @@ public class faskTask implements Serializable{
 
      public void setApplyIcon(String applyIcon) {
           this.applyIcon = applyIcon;
+     }
+
+     public String getsBandleID() {
+          return sBandleID;
+     }
+
+     public void setsBandleID(String sBandleID) {
+          this.sBandleID = sBandleID;
      }
 }

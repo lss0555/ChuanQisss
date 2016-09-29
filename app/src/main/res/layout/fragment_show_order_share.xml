@@ -53,10 +53,10 @@
                         android:background="@mipmap/bai"
                         android:layout_height="match_parent">
                         <TextView
+                            android:id="@+id/tv_all_task_num"
                             android:layout_width="wrap_content"
-                            android:text="100个"
                             android:layout_centerInParent="true"
-                            android:textSize="17sp"
+                            android:textSize="15sp"
                             android:textColor="@color/black"
                             android:layout_height="wrap_content" />
                     </RelativeLayout>
@@ -93,10 +93,10 @@
                         android:background="@mipmap/bai"
                         android:layout_height="match_parent">
                         <TextView
+                            android:id="@+id/tv_all_tudi_num"
                             android:layout_width="wrap_content"
-                            android:text="100个"
                             android:layout_centerInParent="true"
-                            android:textSize="17sp"
+                            android:textSize="15sp"
                             android:textColor="@color/black"
                             android:layout_height="wrap_content" />
                     </RelativeLayout>
@@ -133,10 +133,10 @@
                         android:background="@mipmap/bai"
                         android:layout_height="match_parent">
                         <TextView
+                            android:id="@+id/tv_tudi_get"
                             android:layout_width="wrap_content"
-                            android:text="100元"
                             android:layout_centerInParent="true"
-                            android:textSize="17sp"
+                            android:textSize="15sp"
                             android:textColor="@color/black"
                             android:layout_height="wrap_content" />
                     </RelativeLayout>
@@ -173,10 +173,10 @@
                         android:background="@mipmap/bai"
                         android:layout_height="match_parent">
                         <TextView
+                            android:id="@+id/tv_all_get"
                             android:layout_width="wrap_content"
-                            android:text="100元"
                             android:layout_centerInParent="true"
-                            android:textSize="17sp"
+                            android:textSize="15sp"
                             android:textColor="@color/black"
                             android:layout_height="wrap_content" />
                     </RelativeLayout>

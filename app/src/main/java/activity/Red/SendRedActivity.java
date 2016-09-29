@@ -83,7 +83,7 @@ public class SendRedActivity extends BaseActivity {
     private void YiZuanDate() {
         startProgressDialog("请稍后...");
         HashMap<String,String> maps=new HashMap<>();
-        maps.put("userid", SharePre.getUserId(getApplicationContext()));
+        maps.put("userid", SharePre.getUserId(SendRedActivity.this));
         OkHttpUtil.getInstance().Post(maps, constance.URL.YIZUAN_RED, new OkHttpUtil.FinishListener() {
             @Override
             public void Successfully(boolean IsSuccess, String data, String Msg) {
@@ -200,6 +200,7 @@ public class SendRedActivity extends BaseActivity {
                     mRtlWxPay.setVisibility(View.VISIBLE);
                     mRtlAliPay.setVisibility(View.GONE);
                     mRtlUpdate.setVisibility(View.GONE);
+                    mRtlPay.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -218,12 +219,14 @@ public class SendRedActivity extends BaseActivity {
                             stopProgressDialog();
                             if(IsSuccess){
                                 Result result = GsonUtils.parseJSON(data, Result.class);
-                                if(result.getRun().equals("1")){
+                                if(result.getRun().equals("2")){
                                     //普通会员
                                         mRtlUpdate.setVisibility(View.VISIBLE);
-                                }else if(result.getRun().equals("2")){
+                                        mRtlPay.setVisibility(View.GONE);
+                                }else if(result.getRun().equals("1")){
                                     //已经是超级会员
                                         mRtlUpdate.setVisibility(View.GONE);
+                                        mRtlPay.setVisibility(View.VISIBLE);
                                 }
                             }else {
                                 Toast(data.toString());
@@ -320,7 +323,7 @@ public class SendRedActivity extends BaseActivity {
 //        if(price<=Yue){
             startProgressDialog("正在支付中...");
             HashMap<String,String> map=new HashMap<>();
-            map.put("userid", SharePre.getUserId(getApplicationContext()));
+            map.put("userid", SharePre.getUserId(SendRedActivity.this));
             map.put("jine",""+price);
             OkHttpUtil.getInstance().Post(map, constance.URL.PAYYUE2REDPOOL, new OkHttpUtil.FinishListener() {
                 @Override
@@ -349,7 +352,7 @@ public class SendRedActivity extends BaseActivity {
 //        if(price<=YiZhuanYue){
             startProgressDialog("正在支付中...");
             HashMap<String,String> map=new HashMap<>();
-            map.put("userid", SharePre.getUserId(getApplicationContext()));
+            map.put("userid", SharePre.getUserId(SendRedActivity.this));
             map.put("jine",""+price);
             OkHttpUtil.getInstance().Post(map, constance.URL.PAY_YIZUANRED2REDPOOL, new OkHttpUtil.FinishListener() {
                 @Override
@@ -378,7 +381,7 @@ public class SendRedActivity extends BaseActivity {
     public void IsComfirmWxPays(final String price){
         startProgressDialog("加载中...");
          HashMap<String,String> map=new HashMap<>();
-        map.put("userid",""+SharePre.getUserId(getApplicationContext()));
+        map.put("userid",""+SharePre.getUserId(SendRedActivity.this));
         OkHttpUtil.getInstance().Post(map, constance.URL.IS_WX_PAY, new OkHttpUtil.FinishListener() {
             @Override
             public void Successfully(boolean IsSuccess, String data, String Msg) {
@@ -404,7 +407,7 @@ public class SendRedActivity extends BaseActivity {
         startProgressDialog("支付请求中...");
         HashMap<String,String> map=new HashMap<>();
         map.put("totalfee",price);
-        map.put("userid",""+SharePre.getUserId(getApplicationContext()));
+        map.put("userid",""+SharePre.getUserId(SendRedActivity.this));
         OkHttpUtil.getInstance().Post(map, constance.URL.WX_PAY, new OkHttpUtil.FinishListener() {
             @Override
             public void Successfully(boolean IsSuccess, String data, String Msg) {

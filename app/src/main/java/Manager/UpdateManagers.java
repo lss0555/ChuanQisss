@@ -32,6 +32,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chuanqi.yz.R;
+
+import activity.MainActivity;
 import okhttp3.Call;
 public class UpdateManagers{
     /* 下载包安装路径 */
@@ -134,12 +136,14 @@ public class UpdateManagers{
                             showDownloadDialog();
                         }
                     });
-                   builder.setNegativeButton("以后再说", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                     }
-                    });
+//                   builder.setNegativeButton("以后再说", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        MainActivity.getInstance().exitAll();
+//                        dialog.dismiss();
+//                     }
+//                    });
+        builder.setCancelable(false) ;
                     builder.create().show();
     }
 
@@ -149,13 +153,11 @@ public class UpdateManagers{
         try {
             info = mContext.getPackageManager().getPackageInfo(
                     mContext.getPackageName(), 0);
-
         } catch (Exception e) {
             e.printStackTrace();
         }
         return info;
     }
-
     private void showNoticeDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("软件版本更新");
@@ -170,6 +172,7 @@ public class UpdateManagers{
         builder.setNegativeButton("暂不更新", new OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                MainActivity.getInstance().exitAll();
                 dialog.dismiss();
             }
         });
@@ -185,13 +188,13 @@ public class UpdateManagers{
         mProgress = (ProgressBar)v.findViewById(R.id.progress);
         mProgressTv = (TextView)v.findViewById(R.id.progressTv);
         builder.setView(v);
-        builder.setNegativeButton("取消", new OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                interceptFlag = true;
-            }
-        });
+//        builder.setNegativeButton("取消", new OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                dialog.dismiss();
+//                interceptFlag = true;
+//            }
+//        });                    s
         builder.setCancelable(false);
         builder.create().show();
         downloadApk();

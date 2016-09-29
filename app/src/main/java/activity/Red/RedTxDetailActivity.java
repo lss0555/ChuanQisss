@@ -46,7 +46,7 @@ public class RedTxDetailActivity extends BaseActivity {
     private void initdate() {
         startProgressDialog("请稍后...");
         HashMap<String,String> maps=new HashMap<>();
-        maps.put("userid", SharePre.getUserId(getApplicationContext()));
+        maps.put("userid", SharePre.getUserId(RedTxDetailActivity.this));
         OkHttpUtil.getInstance().Post(maps, constance.URL.YIZUAN_RED, new OkHttpUtil.FinishListener() {
             @Override
             public void Successfully(boolean IsSuccess, String data, String Msg) {
@@ -141,7 +141,7 @@ public class RedTxDetailActivity extends BaseActivity {
     public  void  WxWithDraw(String price){
         startProgressDialog("疯狂加载中...");
         HashMap<String,String> maps1=new HashMap<>();
-        maps1.put("userid", SharePre.getUserId(getApplication()));
+        maps1.put("userid", SharePre.getUserId(RedTxDetailActivity.this));
         maps1.put("jine", price);
         OkHttpUtil.getInstance().Post(maps1, constance.URL.RED_WITHDRAW, new OkHttpUtil.FinishListener() {
             @Override

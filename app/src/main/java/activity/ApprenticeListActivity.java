@@ -33,7 +33,7 @@ public class ApprenticeListActivity extends BaseActivity implements View.OnClick
     }
     private void getDate() {
         HashMap<String,String> map=new HashMap<>();
-        map.put("userid", SharePre.getUserId(getApplicationContext()));
+        map.put("userid", SharePre.getUserId(ApprenticeListActivity.this));
         OkHttpUtil.getInstance().Post(map, constance.URL.TUDI_LIST, new OkHttpUtil.FinishListener() {
             @Override
             public void Successfully(boolean IsSuccess, String data, String Msg) {

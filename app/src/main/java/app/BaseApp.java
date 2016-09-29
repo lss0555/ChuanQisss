@@ -95,6 +95,7 @@ public class BaseApp extends Application {
 			map.put("applyname",allApps.get(i).applicationInfo.loadLabel(pm).toString()) ;
 			Calendar c = Calendar.getInstance();
 			c.setTimeInMillis(allApps.get(i).lastUpdateTime);
+//			c.setTimeInMillis(allApps.get(i).firstInstallTime);
 			SimpleDateFormat matter1=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			map.put("dInstallTime",matter1.format(c.getTime())+"") ;
 			OkHttpUtil.getInstance().Post(map, constance.URL.APP_INFO, new OkHttpUtil.FinishListener() {

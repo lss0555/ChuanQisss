@@ -1,14 +1,8 @@
 package activity;
-
-import android.app.Activity;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.TextView;
-
 import com.chuanqi.yz.R;
-
 import java.util.HashMap;
-
 import Constance.constance;
 import Utis.GsonUtils;
 import Utis.OkHttpUtil;
@@ -17,16 +11,15 @@ import Utis.UILUtils;
 import Views.CircleImageView;
 import model.IsBindAccount;
 import model.UserInfo;
-
 public class UserInfoActivity extends BaseActivity {
-    private UserInfo mUserInfo;
+//    private UserInfo mUserInfo;
     private CircleImageView mImgIcons;
     private TextView mTvNickName;
     private TextView mTvPhone;
     private TextView mTvBirthday;
     private TextView mTvBindWxState;
     private TextView mTvYqm;
-
+    private TextView mTvAddress;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +34,7 @@ public class UserInfoActivity extends BaseActivity {
     private void initState() {
         //初始化微信绑定状态
         HashMap<String,String> map=new HashMap<String, String>();
-        map.put("userid", SharePre.getUserId(getApplicationContext()));
+        map.put("userid", SharePre.getUserId(UserInfoActivity.this));
         map.put("accountstype", "1");
         OkHttpUtil.getInstance().Post(map, constance.URL.IS_BIND_WX_ALIPAY_ACCOUNT, new OkHttpUtil.FinishListener() {
             @Override
@@ -55,8 +48,8 @@ public class UserInfoActivity extends BaseActivity {
             }
         });
     }
-
     private void iniview() {
+        mTvAddress = (TextView) findViewById(R.id.tv_address);
         mImgIcons = (CircleImageView) findViewById(R.id.img_icons);
         mTvNickName = (TextView) findViewById(R.id.tv_username);
         mTvPhone = (TextView) findViewById(R.id.tv_phone);
@@ -65,11 +58,18 @@ public class UserInfoActivity extends BaseActivity {
         mTvYqm = (TextView) findViewById(R.id.tv_yqm);
     }
     private void getDate() {
-        mUserInfo= (UserInfo) getIntent().getSerializableExtra("info");
-        UILUtils.displayImage(mUserInfo.getHeadportrait(),mImgIcons);
-        mTvNickName.setText(mUserInfo.getUname());
-        mTvPhone.setText(mUserInfo.getTel()+"");
-        mTvBirthday.setText(""+mUserInfo.getBirthday().substring(0,10));
-        mTvYqm.setText(""+SharePre.getUserId(getApplicationContext()));
+//        mUserInfo= (UserInfo) getIntent().getSerializableExtra("info");
+        if(getIntent().getStringExtra("Head")==null || getIntent().getStringExtra("Head").equals("")){
+        }else {
+            UILUtils.displayImage(getIntent().getStringExtra("Head"),mImgIcons);
+        }
+        mTvNickName.setText(getIntent().getStringExtra("NickName"));
+        if(getIntent().getStringExtra("Tel")==null){
+            mTvPhone.setText("暂未绑定");
+        }else {
+            mTvPhone.setText(""+getIntent().getStringExtra("Tel"));
+        }
+        mTvYqm.setText(""+SharePre.getUserId(UserInfoActivity.this));
+        mTvAddress.setText(""+getIntent().getStringExtra("Address"));
     }
 }

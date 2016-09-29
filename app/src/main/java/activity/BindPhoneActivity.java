@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -57,11 +58,11 @@ public class BindPhoneActivity extends BaseActivity{
      * 发送验证码
      */
     private void initevent() {
-        if(mTvSend.getText().length()!=11){
-            mTvSend.setBackground(getResources().getDrawable(R.drawable.round_gray_bg));
-        }else {
-            mTvSend.setBackground(getResources().getDrawable(R.drawable.round_red_bg));
-        }
+//        if(mTvSend.getText().length()!=11){
+//            mTvSend.setBackground(getResources().getDrawable(R.drawable.round_gray_bg));
+//        }else {
+//            mTvSend.setBackground(getResources().getDrawable(R.drawable.round_red_bg));
+//        }
         mTvSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,7 +74,7 @@ public class BindPhoneActivity extends BaseActivity{
                     mTvSend.setClickable(false);
                     HashMap<String,String>   map=new HashMap<String, String>();
                     map.put("mobile",mEtPhone.getText().toString().trim());
-                    map.put("userid", SharePre.getUserId(getApplicationContext()));
+                    map.put("userid", SharePre.getUserId(BindPhoneActivity.this));
                     OkHttpUtil.getInstance().Post(map, constance.URL.GET_YZM, new OkHttpUtil.FinishListener() {
                         @Override
                         public void Successfully(boolean IsSuccess, String data, String Msg) {
@@ -91,14 +92,16 @@ public class BindPhoneActivity extends BaseActivity{
                        Toast("请输入完整");
                 }else{
                     HashMap<String,String> map=new HashMap<String, String>();
-                    map.put("userid",SharePre.getUserId(getApplicationContext()));
-                    map.put("mobile",mEtPhone.getText().toString().trim());
+                    map.put("userid",SharePre.getUserId(BindPhoneActivity.this));
+                    map.put("tel",mEtPhone.getText().toString().trim());
                     OkHttpUtil.getInstance().Post(map, constance.URL.BIND_PHONE, new OkHttpUtil.FinishListener() {
                         @Override
                         public void Successfully(boolean IsSuccess, String data, String Msg) {
                             if(IsSuccess){
+//                                Toast(data.toString());
+                                Log.i("验证码",""+data.toString());
                                 Yzm yzm = GsonUtils.parseJSON(data, Yzm.class);
-                                if(yzm.getRun().equals("0")){
+                                if(yzm.getRun().equals("1")){
                                     if(mEtYzm.getText().toString().trim().equals(mYzm.getRun())){
                                         Toast("恭喜您，绑定成功,获得0.5元");
                                         Intent intent = new Intent();
@@ -109,7 +112,7 @@ public class BindPhoneActivity extends BaseActivity{
                                     }else {
                                         Toast("抱歉，您的验证码有误");
                                     }
-                                }else {
+                                }else if(yzm.getRun().equals("0")){
                                     Toast("抱歉，该手机已绑定过");
                                 }
                             }else {

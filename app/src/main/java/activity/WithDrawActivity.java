@@ -127,7 +127,7 @@ public class WithDrawActivity extends BaseActivity {
     public  void  WxWithDraw(String price){
         startProgressDialog("疯狂加载中...");
         HashMap<String,String> maps1=new HashMap<>();
-        maps1.put("userid", SharePre.getUserId(getApplication()));
+        maps1.put("userid", SharePre.getUserId(WithDrawActivity.this));
         maps1.put("jine", price);
         OkHttpUtil.getInstance().Post(maps1, constance.URL.WX_WITHDRAW, new OkHttpUtil.FinishListener() {
             @Override

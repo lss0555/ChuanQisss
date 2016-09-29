@@ -46,7 +46,7 @@ public class BindWxAccountActivity extends BaseActivity {
     private void getDate() {
         startProgressDialog("加载中...");
         HashMap<String,String> map=new HashMap<String, String>();
-        map.put("userid", SharePre.getUserId(getApplicationContext()));
+        map.put("userid", SharePre.getUserId(BindWxAccountActivity.this));
 //        map.put("account", mEtAccount.getText().toString());
 //        map.put("name", mEtName.getText().toString());
         map.put("accountstype", "1");
@@ -123,7 +123,7 @@ public class BindWxAccountActivity extends BaseActivity {
             private void BindToAliPay() {
                 startProgressDialog("加载中...");
                 HashMap<String,String> map=new HashMap<String, String>();
-                map.put("userid", SharePre.getUserId(getApplicationContext()));
+                map.put("userid", SharePre.getUserId(BindWxAccountActivity.this));
                 map.put("account", mEtAccount.getText().toString());
                 map.put("name", mEtName.getText().toString());
                 map.put("accountstype", "1");

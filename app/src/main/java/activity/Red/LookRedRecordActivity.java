@@ -33,7 +33,7 @@ public class LookRedRecordActivity extends BaseActivity {
     }
     private void initdate() {
         HashMap<String,String> map=new HashMap<>();
-        map.put("userid", SharePre.getUserId(getApplicationContext()));
+        map.put("userid", SharePre.getUserId(LookRedRecordActivity.this));
         OkHttpUtil.getInstance().Post(map, constance.URL.TAKE_TED_RECORD, new OkHttpUtil.FinishListener() {
             @Override
             public void Successfully(boolean IsSuccess, String data, String Msg) {
