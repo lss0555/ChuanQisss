@@ -7,6 +7,7 @@ import java.io.Serializable;
  */
 public class UserInfo implements Serializable{
     private  String id;
+    private  String region;
     private  String uname;
     private  String Headportrait;
     private  String tel;
@@ -50,5 +51,13 @@ public class UserInfo implements Serializable{
 
     public void setBirthday(String birthday) {
         this.birthday = birthday;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
     }
 }

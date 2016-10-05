@@ -18,6 +18,7 @@ import Constance.constance;
 import Utis.GsonUtils;
 import Utis.OkHttpUtil;
 import Utis.SharePre;
+import Utis.Utis;
 import model.IsBindAccount;
 import model.Result;
 
@@ -75,6 +76,8 @@ public class BindAliPayActivity extends BaseActivity {
             public void onClick(View view) {
                 if(mEtAccount.getText().toString().trim().equals("")||mEtName.getText().toString().trim().equals("")){
                     Toast("请填写完整");
+                }else if(!Utis.checkNameChese(mEtName.getText().toString().trim())){
+                    Toast("抱歉，请输入正确的名字");
                 }else if(state==1){
                     Toast("您已绑定过");
                 }else {

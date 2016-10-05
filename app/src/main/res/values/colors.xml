@@ -20,4 +20,5 @@
     <color name="yellow_dark">#f3d71d</color>
     <color name="red_back">#ca1946</color>
     <color name="yq_bg">#fbebb5</color>
+    <color name="welcome_bg">#FF3300</color>
 </resources>

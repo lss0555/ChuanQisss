@@ -45,4 +45,10 @@
         <item name="android:windowEnterAnimation">@anim/window_enter</item>
         <item name="android:windowExitAnimation">@anim/window_exit</item>
     </style>
+    <style name="Widget.GifView" parent="@android:style/Widget"/>
+    <style name="WelcomeStyle" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/welcome_bg</item>
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
 </resources>

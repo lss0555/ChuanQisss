@@ -6,11 +6,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Toast;
 
 import com.chuanqi.yz.R;
 import Utis.GsonUtils;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import Constance.constance;
 import Utis.Utis;
@@ -21,6 +23,8 @@ import Utis.OkHttpUtil;
 import model.FaskTask.faskTask;
 import model.FaskTask.task;
 import model.Result;
+import model.TaskState;
+
 /**
  * Created by lss on 2016/7/25.
  */
@@ -28,14 +32,38 @@ public class FaskTaskActivity extends  BaseActivity{
     private XListView mListTask;
     private ArrayList<faskTask> mTask=new ArrayList<>();
     private TaskAdapter mTaskAdapter;
-
-    @Override
+    private String RunningTask="";
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task);
         initview();
+        initTaskState();
         initdate();
         initevent();
+    }
+
+    /**
+     * 判断任务的状态
+     */
+    private void initTaskState() {
+        startProgressDialog("加载中...");
+        HashMap<String,String> map=new HashMap<>();
+        map.put("userid",""+SharePre.getUserId(getApplicationContext()));
+        OkHttpUtil.getInstance().Post(map, constance.URL.IS_APPLYTASK, new OkHttpUtil.FinishListener() {
+            @Override
+            public void Successfully(boolean IsSuccess, String data, String Msg) {
+                stopProgressDialog();
+                if(IsSuccess){
+                    TaskState taskState = GsonUtils.parseJSON(data, TaskState.class);
+                    Log.i("任务状态==============",""+data.toString());
+                    if(!taskState.getApplyid().equals("")){
+                        RunningTask=taskState.getApplyid();
+                    }
+                }else {
+                    Toast.makeText(getApplicationContext(),""+data.toString(),Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     private void initevent() {
@@ -75,7 +103,6 @@ public class FaskTaskActivity extends  BaseActivity{
             }
         });
     }
-
     private void initdate() {
         startProgressDialog("努力加载中...");
         OkHttpUtil.getInstance().Get(constance.URL.FAST_TASK, new OkHttpUtil.FinishListener() {
@@ -85,9 +112,18 @@ public class FaskTaskActivity extends  BaseActivity{
 //                showTip(data.toString());
                 Log.i("快速任务列表",""+data.toString());
                 task task = GsonUtils.parseJSON(data, task.class);
+                List<faskTask> applyarr = task.getApplyarr();
                 mTask.clear();
                 if(task.getApplyarr()!=null){
-                    mTask.addAll(task.getApplyarr());
+                    if(!RunningTask.equals("")){
+                        for (int i=0;i<task.getApplyarr().size();i++){
+                            if(applyarr.get(i).getsBandleID().equals(RunningTask)){
+                                mTask.add(applyarr.get(i));
+                                applyarr.remove(i);
+                            }
+                        }
+                    }
+                    mTask.addAll(applyarr);
                     mTaskAdapter.notifyDataSetChanged();
                 }
             }

@@ -29,6 +29,7 @@ public class BannerLinkActivity extends BaseActivity {
         WebViewClient wvClient = new WebViewClient();
         mWeb.setWebViewClient(wvClient);
         mWeb.setWebChromeClient(new MyWebChromeClient());
+//        mWeb.loadUrl("http://i.qingyiyou.cn/yz/appmsg/shaidan.html?userid=1000817");
         mWeb.loadUrl(getIntent().getStringExtra("link"));
     }
     class MyWebViewClient extends WebViewClient {

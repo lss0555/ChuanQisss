@@ -154,7 +154,7 @@
                <TextView
                    android:layout_width="wrap_content"
                    android:layout_centerVertical="true"
-                   android:text="女"
+                   android:text="男"
                    android:drawableRight="@mipmap/w_tiaozhuan1"
                    android:layout_alignParentRight="true"
                    android:gravity="center"

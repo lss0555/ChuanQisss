@@ -5,7 +5,7 @@ package Constance;
 public class constance {
     public static final class URL {
         /*   URL基类*/
-        public static final String BASE_URL = "http://i.qingyiyou.cn/yz/Interface/";
+            public static final String BASE_URL = "http://i.qingyiyou.cn/yz/Interface/";
         /*   一元元购*/
         public static final String ONE_SHOP = "http://www.yeytao.com/";
         /*   金额*/
@@ -31,7 +31,7 @@ public class constance {
         /*  用户资料*/
         public static final String USER_INFO = BASE_URL+"personal.php";
         /*  广告轮播BANNER*/
-        public static final String BANNER = BASE_URL+"Advertisement.php";
+        public static final String BANNER = BASE_URL+"advertisement.php";
         /*  绑定微信支付宝*/
         public static final String WX_ALIPAY_ACCOUNT = BASE_URL+"useraccount.php";
         /*  判断是否有绑定微信以及支付宝*/
@@ -100,6 +100,12 @@ public class constance {
         public static final String USER_ALL_YUE =BASE_URL+"allsr.php";
         /* 判断任务状态*/
         public static final String IS_APPLYTASK =BASE_URL+"isapplytask.php";
+        /* 放弃任务*/
+        public static final String GIVE_UP_TASK =BASE_URL+"fqapply.php";
+        /* 消息任务列表*/
+        public static final String MESSAGE =BASE_URL+"fqapply.php";
+        /* 引导图*/
+        public static final String GUIDE =BASE_URL+"yd_advertisement.php";
     }
     public static final class INTENT {
         public static final int INTO_JQZ_SUCCESS = 2132;

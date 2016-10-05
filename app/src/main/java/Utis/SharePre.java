@@ -27,6 +27,21 @@ public class SharePre {
 //    }
 
     /**
+     * 缓存引导图
+     * @param context
+     * @param GuideImgUrl
+     */
+    public static void saveGuideImgUrl(Context context, String GuideImgUrl) {
+        SharedPreferences sp = context.getSharedPreferences("GuideImgUrl", Context.MODE_PRIVATE);
+        sp.edit().putString("GuideImgUrl", GuideImgUrl).commit();
+    }
+    /**
+     * 读取引导图
+     */
+    public static String getGuideImgUrl(Context context) {
+        SharedPreferences sp = context.getSharedPreferences("GuideImgUrl", Context.MODE_PRIVATE);
+        return  sp.getString("GuideImgUrl", "");
+    }/**
      * 缓存用户Id
      * @param context
      * @param UserId

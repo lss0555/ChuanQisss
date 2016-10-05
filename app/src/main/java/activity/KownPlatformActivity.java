@@ -76,6 +76,7 @@ public class KownPlatformActivity extends BaseActivity {
                                 intent.setAction("update");   //
                                 sendBroadcast(intent);   //发送广播
                                 Toast("恭喜您，获得0.3元奖励");
+                                finish();
                             }else {
                                 Toast("您已完成此任务");
                             }

@@ -546,8 +546,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
                     Intent intent_Task=new Intent(getActivity(), FaskTaskActivity.class);
                     getActivity().startActivity(intent_Task);
                 }else {
-//                    Intent intent_Task=new Intent(getActivity(), FaskTaskActivity.class);
-//                    getActivity().startActivity(intent_Task);
+                    Intent intent_Task=new Intent(getActivity(), FaskTaskActivity.class);
+                    getActivity().startActivity(intent_Task);
                     Toast("抱歉，您的SIM卡异常，请检查");
                 }
 //                Toast("待开放中...");
@@ -595,7 +595,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
                 Toast("待开放中...");
                 break;
             case  R.id.tv_open_box://开宝箱
-//                Intent intent_openbox=new Intent(getActivity(), OpenBoxActivity.class);
+//                Intent intent_openbox=new Intent(getActivity(), BannerLinkActivity.class);
 //                getActivity().startActivity(intent_openbox);
                 Toast("待开放中...");
                 break;

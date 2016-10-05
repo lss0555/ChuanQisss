@@ -1,5 +1,4 @@
 package activity;
-
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.net.Uri;
@@ -10,9 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.chuanqi.yz.R;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -21,7 +18,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.HashMap;
-
 import Constance.constance;
 import Utis.UILUtils;
 import Utis.Utis;
@@ -30,7 +26,6 @@ import Utis.OkHttpUtil;
 import Utis.SharePre;
 import model.FaskTask.faskTask;
 import model.Result;
-
 public class FaskTaskDetailActivity extends BaseActivity {
     private faskTask mTaskDetail;
     private ImageView mImgIcon;
@@ -42,15 +37,20 @@ public class FaskTaskDetailActivity extends BaseActivity {
     private String file_path=Utis.getSDPath() +"/" + "易赚ATM";
     private RelativeLayout mRtlAccept;
     private RelativeLayout mRtlComplite;
-
+    private RelativeLayout mRtlGiveUp;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fast_task_detail);
         initview();
         getDate();
+        initTaskState();
         initevent();
     }
+    private void initTaskState() {
+
+    }
+
     /**
      * 下载apk
      */
@@ -108,8 +108,36 @@ public class FaskTaskDetailActivity extends BaseActivity {
                 }
             }
         });
+        //放弃任务
+        mRtlGiveUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startProgressDialog("加载中...");
+                HashMap<String,String> map=new HashMap<String, String>();
+                map.put("userid",SharePre.getUserId(getApplicationContext()));
+                map.put("applyid",""+mTaskDetail.getsBandleID());
+                OkHttpUtil.getInstance().Post(map, constance.URL.GIVE_UP_TASK, new OkHttpUtil.FinishListener() {
+                    @Override
+                    public void Successfully(boolean IsSuccess, String data, String Msg) {
+                        stopProgressDialog();
+                        if(IsSuccess){
+                            Result result = GsonUtils.parseJSON(data, Result.class);
+                            if(result.getRun().equals("1")){
+                               Toast("恭喜您，任务已放弃");
+                               setResult(1);
+                                finish();
+                            }else {
+                                Toast("抱歉，任务放弃失败");
+                            }
+                        }else {
+                        }
+                    }
+                });
+            }
+        });
     }
     private void initview() {
+        mRtlGiveUp = (RelativeLayout) findViewById(R.id.rtl_give_up);
         mImgIcon = (ImageView) findViewById(R.id.img_icon);
         mTvName = (TextView) findViewById(R.id.tv_name);
         mTvLeftNum = (TextView) findViewById(R.id.tv_left_num);

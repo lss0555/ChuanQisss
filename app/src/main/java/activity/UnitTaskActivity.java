@@ -53,6 +53,7 @@ public class UnitTaskActivity extends BaseActivity implements View.OnClickListen
      */
     private void initPlatForm() {
         //userid不能写死，可以为空值多盟       d
+        DOW.getInstance(this).init(SharePre.getUserId(getApplicationContext()));
         DOW.getInstance(this).init(new DLoadListener() {
             @Override
             public void onSuccess() {
@@ -79,14 +80,15 @@ public class UnitTaskActivity extends BaseActivity implements View.OnClickListen
 //         * 有米  初始化接口，应用启动的时候调用，参数：appId, appSecret
 //         */
         AdManager.getInstance(this).init("89c4d15bcfe42455", "5929d7270930ad09");//有米积分墙初始化
-//        // 如果使用积分广告，请务必调用积分广告的初始化接口:
+        OffersManager.getInstance(this).setUsingServerCallBack(true);
+        OffersManager.getInstance(this).setCustomUserId(SharePre.getUserId(getApplicationContext()));
         OffersManager.getInstance(this).onAppLaunch();
 //        /**
 //         * 万普  初始化统计器，并通过代码设置APP_ID, APP_PID
 //         */
         AppConnect.getInstance("ea334c1846508fdb85929c861aa327b0", "waps", this);
 //        // 设置微信平台的AppId，若不适用微信、朋友圈进行分析，则不需要设置
-        AppConnect.getInstance(this).setWeixinAppId("wxc9302606e8330dbd", this);
+        AppConnect.getInstance(this).setWeixinAppId("wx541c42bc54fac5cf", this);
         //点入
         DRSdk.initialize(this, true, ""); // 建议在应用启动调用，初始化sdk
         DRSdk.setUserId(SharePre.getUserId(UnitTaskActivity.this)); // 设置用户id
@@ -136,7 +138,7 @@ public class UnitTaskActivity extends BaseActivity implements View.OnClickListen
                 });
                 break;
             case R.id.rtl_wanpu:   //万普
-                AppConnect.getInstance(this).showOffers(this, "12345waps");;//万普
+                AppConnect.getInstance(this).showOffers(this,SharePre.getUserId(getApplicationContext()));;//万普
                 break;
             case R.id.rtl_dianlu:  //点入
                 DRSdk.showOfferWall(UnitTaskActivity.this, DRSdk.DR_OFFER);

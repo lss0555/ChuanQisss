@@ -59,6 +59,7 @@ import activity.AllProfitActivity;
 import activity.BindAliPayActivity;
 import activity.BindWxAccountActivity;
 import activity.BindPhoneActivity;
+import activity.MessageListActivity;
 import activity.Red.LookRedRecordActivity;
 import activity.UserInfoActivity;
 import model.UserInfo;
@@ -315,7 +316,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
                 }
                 intent.putExtra("Tel",mUserInfo.getTel());
                 intent.putExtra("NickName",mUserInfo.getUname());
-                intent.putExtra("Address",""+SharePre.getCity(getActivity()));
+                intent.putExtra("Address",""+mUserInfo.getRegion());
                 startActivity(intent);
                 break;
             case R.id.rtl_bind_phone:
@@ -362,7 +363,9 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
                  });
                 break;
             case R.id.rtl_message_tip://消息提醒
-                Toast("待开放中...");
+//                Toast("待开放中...");
+                Intent intent_message=new Intent(getActivity(), MessageListActivity.class);
+                startActivity(intent_message);
                 break;
             case R.id.rtl_opinion://意见反馈
                 Toast("待开放中...");

@@ -11,6 +11,8 @@ import android.webkit.WebViewClient;
 
 import com.chuanqi.yz.R;
 
+import Utis.SharePre;
+
 public class CustomerShareActivity extends BaseActivity {
     private WebView mWeb;
     @Override
@@ -27,7 +29,7 @@ public class CustomerShareActivity extends BaseActivity {
         WebViewClient wvClient = new WebViewClient();
         mWeb.setWebViewClient(wvClient);
         mWeb.setWebChromeClient(new MyWebChromeClient());
-        mWeb.loadUrl("http://192.168.1.2/invite/invite.html");
+        mWeb.loadUrl("http://i.qingyiyou.cn/yz/appmsg/invite?userid="+ SharePre.getUserId(getApplicationContext()));
     }
     class MyWebViewClient extends WebViewClient {
         public boolean shouldOverrideUrlLoading(WebView view, String url) {

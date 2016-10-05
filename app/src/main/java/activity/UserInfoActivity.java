@@ -70,6 +70,11 @@ public class UserInfoActivity extends BaseActivity {
             mTvPhone.setText(""+getIntent().getStringExtra("Tel"));
         }
         mTvYqm.setText(""+SharePre.getUserId(UserInfoActivity.this));
-        mTvAddress.setText(""+getIntent().getStringExtra("Address"));
+        if(getIntent().getStringExtra("Address").equals("")){
+            mTvAddress.setText("暂无");
+        }else {
+            mTvAddress.setText(""+getIntent().getStringExtra("Address"));
+        }
+
     }
 }

@@ -4,9 +4,11 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.webkit.JsResult;
@@ -19,12 +21,18 @@ import android.widget.TextView;
 
 import com.chuanqi.yz.R;
 
+import java.util.HashMap;
+
 import Constance.constance;
 import Fragments.MineFragment;
 import Fragments.Share.CustomerShareFragment;
 import Fragments.Share.PhotosFragment;
 import Fragments.Share.ShowOrderShareFragment;
+import Mob.Share.OnekeyShare;
 import Utis.SharePre;
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.PlatformActionListener;
+import cn.sharesdk.framework.ShareSDK;
 
 public class YaoQingSharesActivity extends BaseActivity implements View.OnClickListener{
     private WebView mWeb;
@@ -39,6 +47,8 @@ public class YaoQingSharesActivity extends BaseActivity implements View.OnClickL
     private Fragment showOrderShareFragment;
     private Fragment fragment;
     private Fragment mCurrentFragment;
+    private TextView mTvShares;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +57,9 @@ public class YaoQingSharesActivity extends BaseActivity implements View.OnClickL
     }
 
     private void initview() {
+        mTvShares = (TextView) findViewById(R.id.tv_shares);
+        mTvShares.setOnClickListener(this);
+        mTvShares.setVisibility(View.INVISIBLE);
         mRtlPhoto = (RelativeLayout) findViewById(R.id.rtl_photo);
         mRtlCustomer = (RelativeLayout) findViewById(R.id.rtl_customer);
         mRtlShowOrder = (RelativeLayout) findViewById(R.id.rtl_show_order);
@@ -144,19 +157,59 @@ public class YaoQingSharesActivity extends BaseActivity implements View.OnClickL
                 mTvPhoto.setTextColor(getResources().getColor(R.color.red));
                 mTvCustomer.setTextColor(getResources().getColor(R.color.black));
                 mTvShowOrder.setTextColor(getResources().getColor(R.color.black));
+                mTvShares.setVisibility(View.GONE);
                 break;
             case R.id.rtl_customer:
                 showCustomerFragment();
                 mTvPhoto.setTextColor(getResources().getColor(R.color.black));
                 mTvCustomer.setTextColor(getResources().getColor(R.color.red));
                 mTvShowOrder.setTextColor(getResources().getColor(R.color.black));
+                mTvShares.setVisibility(View.GONE);
                 break;
             case R.id.rtl_show_order:
                 showShowOrderFragment();
                 mTvPhoto.setTextColor(getResources().getColor(R.color.black));
                 mTvCustomer.setTextColor(getResources().getColor(R.color.black));
                 mTvShowOrder.setTextColor(getResources().getColor(R.color.red));
+                mTvShares.setVisibility(View.VISIBLE);
+                break;
+            case R.id.tv_shares:
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Share();
+                    }
+                }).start();
                 break;
         }
+    }
+    public  void  Share(){
+        ShareSDK.initSDK(getApplicationContext());
+        OnekeyShare oks = new OnekeyShare();
+        oks.disableSSOWhenAuthorize();//关闭sso授权
+        oks.setTitle("易钻ATM");  // titleUrl是标题的网络链接，仅在人人网和QQ空间使用
+        oks.setTitleUrl("http://i.qingyiyou.cn/yz/appmsg/shaidan.html?userid="+SharePre.getUserId(getApplicationContext()));
+        oks.setText("易钻ATM,快来加入一起来赚吧！");  // text是分享文本，所有平台都需要这个字段
+        oks.setImageUrl("http://t.cn/RcnXxyx");
+        oks.setUrl("http://i.qingyiyou.cn/yz/appmsg/shaidan.html?userid="+SharePre.getUserId(getApplicationContext())); // url仅在微信（包括好友和朋友圈）中使用
+        oks.setComment("易钻ATM有你才完美");// comment是我对这条分享的评论，仅在人人网和QQ空间使用
+        oks.setSite(getString(R.string.app_name)); // site是分享此内容的网站名称，仅在QQ空间使用
+        oks.setSiteUrl("http://i.qingyiyou.cn/yz/appmsg/shaidan.html?userid="+SharePre.getUserId(getApplicationContext()));   // siteUrl是分享此内容的网站地址，仅在QQ空间使用
+        oks.setCallback(new PlatformActionListener() {
+            @Override
+            public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
+                Toast("分享成功");
+            }
+            @Override
+            public void onError(Platform platform, int i, Throwable throwable) {
+                Log.e("分享状态","onError");
+                Toast("分享错误");
+            }
+            @Override
+            public void onCancel(Platform platform, int i) {
+                Toast("分享取消");
+            }
+        });
+        oks.show(getApplicationContext()); // 启动分享GUI
     }
 }

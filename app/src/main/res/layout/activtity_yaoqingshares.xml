@@ -32,6 +32,16 @@
                 android:layout_centerInParent="true"
                 android:layout_height="wrap_content" />
         </RelativeLayout>
+        <TextView
+            android:id="@+id/tv_shares"
+            android:layout_width="wrap_content"
+            android:text="分享"
+            android:textColor="@drawable/white2gray_seleclor"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:layout_alignParentRight="true"
+            android:textSize="18sp"
+            android:layout_height="wrap_content" />
     </RelativeLayout>
    <LinearLayout
        android:layout_width="match_parent"

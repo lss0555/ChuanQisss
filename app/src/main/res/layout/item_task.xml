@@ -74,7 +74,6 @@
             <TextView
                 android:id="@+id/tv_price"
                 android:layout_width="match_parent"
-                android:text="+1元"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:layout_alignParentRight="true"

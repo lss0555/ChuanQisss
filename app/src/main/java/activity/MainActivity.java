@@ -1,10 +1,18 @@
 package activity;
+import android.app.Notification;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.drawable.Drawable;
+import android.media.RingtoneManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -12,7 +20,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chuanqi.yz.R;
+import com.tencent.android.tpush.XGCustomPushNotificationBuilder;
+import com.tencent.android.tpush.XGIOperateCallback;
+import com.tencent.android.tpush.XGPushClickedResult;
+import com.tencent.android.tpush.XGPushConfig;
+import com.tencent.android.tpush.XGPushManager;
+import com.tencent.android.tpush.service.XGPushService;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -27,10 +42,12 @@ import Utis.Utis;
 import Utis.GsonUtils;
 import Utis.OkHttpUtil;
 import Views.UnSlideViewPager;
+import XinGePush.NotificationService;
 import model.Result;
 import model.Version;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener{
+    private NotificationService notificationService;// 获取通知数据服务
     private  int mCurentPageIndex;//当前的页数
     private ArrayList<Fragment> mFragments;
     private RelativeLayout mRtlHome;
@@ -48,16 +65,99 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     private GetFragment getFragment;
     private ShareFragment shareFragment;
     private MineFragment mineFragment;
+    Message m = null;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        XGPushConfig.enableDebug(this, true);//信鸽调试推送
         setContentView(R.layout.activity_main);
         initview();
         initPage();
         initState();
-//        initUpdateVersion();
+        initXinGePush();
     }
-
+    /**
+     * 信鸽推送
+     */
+    private void initXinGePush() {
+        XGPushManager.registerPush(getApplicationContext(),
+                new XGIOperateCallback() {
+                    @Override
+                    public void onSuccess(Object data, int flag) {
+                        Log.i("信鸽推送状态=================",
+                                "+++ register push sucess. token:" + data);
+                        m.obj = "+++ register push sucess. token:" + data;
+                        m.sendToTarget();
+                    }
+                    @Override
+                    public void onFail(Object data, int errCode, String msg) {
+                        Log.i("信鸽推送状态================",
+                                "+++ register push fail. token:" + data
+                                        + ", errCode:" + errCode + ",msg:"
+                                        + msg);
+                        m.obj = "+++ register push fail. token:" + data
+                                + ", errCode:" + errCode + ",msg:" + msg;
+                        m.sendToTarget();
+                    }
+                });
+//        initCustomPushNotificationBuilder(getApplicationContext());
+    }
+    /**
+     * 设置通知自定义View，这样在下发通知时可以指定build_id。编号由开发者自己维护,build_id=0为默认设置
+     *
+     * @param context
+     */
+    @SuppressWarnings("unused")
+    private void initCustomPushNotificationBuilder(Context context) {
+        XGCustomPushNotificationBuilder build = new XGCustomPushNotificationBuilder();
+        build.setSound(
+                RingtoneManager.getActualDefaultRingtoneUri(
+                        getApplicationContext(), RingtoneManager.TYPE_ALARM)) // 设置声音
+                // setSound(
+                // Uri.parse("android.resource://" + getPackageName()
+                // + "/" + R.raw.wind)) 设定Raw下指定声音文件
+                .setDefaults(Notification.DEFAULT_VIBRATE) // 振动
+                .setFlags(Notification.FLAG_NO_CLEAR); // 是否可清除
+        // 设置自定义通知layout,通知背景等可以在layout里设置
+        build.setLayoutId(R.layout.notification);
+        // 设置自定义通知内容id
+        build.setLayoutTextId(R.id.content);
+        // 设置自定义通知标题id
+        build.setLayoutTitleId(R.id.title);
+        // 设置自定义通知图片id
+        build.setLayoutIconId(R.id.icon);
+        // 设置自定义通知图片资源
+        build.setLayoutIconDrawableId(R.mipmap.ic_empty);
+        // 设置状态栏的通知小图标
+        build.setIcon(R.mipmap.ic_empty);
+        // 设置时间id
+        build.setLayoutTimeId(R.id.time);
+        // 若不设定以上自定义layout，又想简单指定通知栏图片资源
+        // build.setNotificationLargeIcon(R.drawable.ic_action_search);
+        // 客户端保存build_id
+        // XGPushManager.setPushNotificationBuilder(this, build_id, build);
+    }
+    //信鸽推送
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        XGPushClickedResult click = XGPushManager.onActivityStarted(this);
+        Log.d("TPush", "onResumeXGPushClickedResult:" + click);
+        if (click != null) { // 判断是否来自信鸽的打开方式
+            Toast.makeText(this, "通知被点击:" + click.toString(),
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        XGPushManager.onActivityStoped(this);
+    }
     /**
      * 版本更新
      */

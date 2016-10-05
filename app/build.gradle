@@ -15,8 +15,8 @@ android {
         applicationId "com.chuanqi.yz"
         minSdkVersion 17
         targetSdkVersion 24
-        versionCode 1
-        versionName '1.0'
+        versionCode 2
+        versionName '1.1'
         signingConfig signingConfigs.config
     }
     buildTypes {
@@ -90,4 +90,7 @@ dependencies {
     compile 'com.android.support:support-v4:24.0.0'
     compile 'com.githang:status-bar-compat:0.3'
     compile files('libs/YoumiSdk_v6.1.0_2016-02-26.jar')
+    compile files('libs/jg_filter_sdk_1.1.jar')
+    compile files('libs/Xg_sdk_v2.46_20160602_1638.jar')
+    compile files('libs/wup-1.0.0.E-SNAPSHOT.jar')
 }

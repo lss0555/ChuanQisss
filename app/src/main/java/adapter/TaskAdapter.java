@@ -1,7 +1,6 @@
 package adapter;
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -11,9 +10,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
+import android.widget.Toast;
 import com.chuanqi.yz.R;
-
 import Constance.constance;
 import Utis.UILUtils;
 import Utis.Utis;
@@ -23,7 +21,7 @@ import Utis.OkHttpUtil;
 import activity.FaskTaskDetailActivity;
 import model.FaskTask.faskTask;
 import model.Result;
-
+import model.TaskState;
 public class TaskAdapter extends BaseAdapter{
 	private Context context;
 	private ArrayList<faskTask> mDate;
@@ -64,23 +62,44 @@ public class TaskAdapter extends BaseAdapter{
 		viewHold.TvLeftNum.setText("剩下"+mDate.get(position).getNowAmount()+"份");
 		viewHold.TvPrice.setText("￥"+mDate.get(position).getPrice());
 		UILUtils.displayImage(mDate.get(position).getApplyIcon(),viewHold.ImgIcon);
+		HashMap<String,String> map=new HashMap<>();
+		map.put("userid",""+SharePre.getUserId(context));
+		OkHttpUtil.getInstance().Post(map, constance.URL.IS_APPLYTASK, new OkHttpUtil.FinishListener() {
+			@Override
+			public void Successfully(boolean IsSuccess, String data, String Msg) {
+				if(IsSuccess){
+					TaskState taskState = GsonUtils.parseJSON(data, TaskState.class);
+					Log.i("任务状态==============",""+data.toString());
+					if(taskState.getApplyid().equals("")){
+					  if(mDate.get(position).getsBandleID().equals(taskState.getApplyid())){
+						  viewHold.TvPrice.setText("进行中");
+					  }else {
+						  viewHold.TvPrice.setText("￥"+mDate.get(position).getPrice());
+					  }
+					}
+				}else {
+					 Toast.makeText(context,""+data.toString(),Toast.LENGTH_SHORT).show();
+				}
+			}
+		});
+		//判断是否完成任务
 //		if(!Utis.checkApkExist(context, mDate.get(position).getsBandleID())){
-//			HashMap<String,String> map=new HashMap<String, String>();
-//			map.put("sBandleID",""+mDate.get(position).getsBandleID());
-//			map.put("userid",""+ SharePre.getUserId(context));
+//			HashMap<String,String> map1=new HashMap<String, String>();
+//			map1.put("sBandleID",""+mDate.get(position).getsBandleID());
+//			map1.put("userid",""+ SharePre.getUserId(context));
 //			Log.i("检查是否可做",""+mDate.get(position).getsBandleID()+ SharePre.getUserId(context));
-//			OkHttpUtil.getInstance().Post(map, constance.URL.IS_DONE, new OkHttpUtil.FinishListener() {
+//			OkHttpUtil.getInstance().Post(map1, constance.URL.IS_DONE, new OkHttpUtil.FinishListener() {
 //				@Override
 //				public void Successfully(boolean IsSuccess, String data, String Msg) {
-//					Log.i("检查是否可做返回结果",""+data.toString());
+//					Log.i("检查是否可做返回结果=============",""+data.toString());
 //					if(IsSuccess){
 //						Result result = GsonUtils.parseJSON(data, Result.class);
 //						if(result.getRun().equals("0")){
 //						   //可以做任务
-//							viewHold.ImgState.setVisibility(View.GONE);
+//							viewHold.TvPrice.setText("￥"+mDate.get(position).getPrice());
 //						}else if(result.getRun().equals("1")){
 //							//已错过此任务
-//							viewHold.ImgState.setVisibility(View.VISIBLE);
+//							viewHold.TvPrice.setText("已完成");
 //						}
 //					}else {
 //					}
@@ -88,8 +107,8 @@ public class TaskAdapter extends BaseAdapter{
 //			});
 //		}else {
 ////			Toast("抱歉，您已完成此任务");
-//			viewHold.ImgState.setVisibility(View.VISIBLE);
-//	}
+//			viewHold.TvPrice.setText("已完成");
+//		}
 		return convertView;
 	}
 	class ViewHold{
