@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chuanqi.yz.R;
@@ -46,6 +47,7 @@ public class RedTimeAdapter extends BaseAdapter{
 			viewHold = new ViewHold();
 			viewHold.TvTime= (TextView) convertView.findViewById(R.id.tv_time);
 			viewHold.TvState= (TextView) convertView.findViewById(R.id.tv_state);
+			viewHold.LlRedRunning= (LinearLayout) convertView.findViewById(R.id.ll_red_running);
 			convertView.setTag(viewHold);
 		}else {
 			viewHold= (ViewHold) convertView.getTag();
@@ -56,29 +58,35 @@ public class RedTimeAdapter extends BaseAdapter{
 		String ThisHours=Utis.getHours();
 			if(Integer.parseInt(time)<Integer.parseInt(ThisHours)){
 				viewHold.TvState.setText("已抢光");
+				viewHold.LlRedRunning.setBackground(context.getResources().getDrawable(R.mipmap.red_un_running));
 			}else if(Integer.parseInt(time)==Integer.parseInt(ThisHours)){
 				viewHold.TvState.setText("进行中");
+				viewHold.LlRedRunning.setBackground(context.getResources().getDrawable(R.mipmap.red_running));
 			}else {
+				viewHold.LlRedRunning.setBackground(context.getResources().getDrawable(R.mipmap.red_un_running));
 				viewHold.TvState.setText("即将开始");
 			}
 		if(position == pos){
 			convertView.setSelected(true);
 			viewHold.TvTime.setTextColor(Color.RED);
 			viewHold.TvState.setTextColor(Color.RED);
+			viewHold.LlRedRunning.setBackground(context.getResources().getDrawable(R.mipmap.red_running));
 		}else if(position==13){
+			viewHold.LlRedRunning.setBackground(context.getResources().getDrawable(R.mipmap.red_un_running));
 			viewHold.TvTime.setTextColor(Color.WHITE);
 			viewHold.TvState.setTextColor(Color.WHITE);
 		}else{
+			viewHold.LlRedRunning.setBackground(context.getResources().getDrawable(R.mipmap.red_un_running));
 			convertView.setSelected(false);
 			viewHold.TvTime.setTextColor(Color.BLACK);
 			viewHold.TvState.setTextColor(Color.BLACK);
 		}
-//		i
 		return convertView;
 	}
 	class ViewHold{
 		TextView TvTime;
 		TextView TvState;
+		LinearLayout LlRedRunning;
 	}
 	public  void  setRedState(int i){
 			pos=i;

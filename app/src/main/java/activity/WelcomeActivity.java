@@ -78,7 +78,6 @@ public class WelcomeActivity extends BaseActivity {
         initguide();
         initevent();
     }
-
     private void initguide() {
         if( !SharePre.getGuideImgUrl(getApplicationContext()).equals("")){
             mTvLoadGuideImg.setVisibility(View.GONE);

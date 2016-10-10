@@ -15,8 +15,8 @@ android {
         applicationId "com.chuanqi.yz"
         minSdkVersion 17
         targetSdkVersion 22
-        versionCode 3
-        versionName '1.2'
+        versionCode 4
+        versionName '1.21'
         signingConfig signingConfigs.config
     }
     buildTypes {

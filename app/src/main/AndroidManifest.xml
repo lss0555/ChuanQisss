@@ -68,7 +68,7 @@
         <activity android:name="activity.WithDrawActivity" />
         <activity android:name="activity.BannerLinkActivity" />
         <activity android:name="activity.DoneRecordActivity" />
-        <activity android:name="activity.WxRegistActivity" android:theme="@style/loginDialog"/>
+        <activity android:name="activity.WxRegistActivity" android:theme="@style/dialog_uncancle"/>
         <activity android:name="activity.MessageListActivity" />
         <activity android:name="activity.BindWxAccountActivity" />
         <activity android:name="activity.ApprenticeListActivity" />

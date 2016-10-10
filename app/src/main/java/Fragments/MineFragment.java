@@ -88,6 +88,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
     private MyReceiver myReceiver;
     private TextView mTvIsBindWx;
     private TextView mTvIdBindAlipay;
+    private RelativeLayout mRtlBindWx;
 
     public MineFragment() {
     }
@@ -339,7 +340,8 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
         layout.findViewById(R.id.rtl_bind_phone).setOnClickListener(this);
         layout.findViewById(R.id.rtl_alipay).setOnClickListener(this);
         layout.findViewById(R.id.rtl_about_ours).setOnClickListener(this);
-        layout.findViewById(R.id.rtl_wx).setOnClickListener(this);
+        mRtlBindWx = (RelativeLayout) layout.findViewById(R.id.rtl_wx);
+        mRtlBindWx.setOnClickListener(this);
         layout.findViewById(R.id.rtl_update).setOnClickListener(this);
         layout.findViewById(R.id.rtl_message_tip).setOnClickListener(this);
         layout.findViewById(R.id.rtl_detail_get).setOnClickListener(this);

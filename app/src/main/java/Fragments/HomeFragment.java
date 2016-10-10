@@ -113,6 +113,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
     private RelativeLayout mRtlBanner;
     private LinearLayout mLlLoadTxRecord;
     private LinearLayout mLlTxRecord;
+    private TextView mTvUserid;
 
     public static HomeFragment getInstance(){
         if(instance==null){
@@ -280,6 +281,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
                 if(IsSuccess){
                     mUserInfo= GsonUtils.parseJSON(data,UserInfo.class);
                     UILUtils.displayImage(mUserInfo.getHeadportrait(),mImgHead);
+                    mTvUserid.setText("Id:"+SharePre.getUserId(getActivity()));
                 }
             }
         });
@@ -494,6 +496,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
         mTvTime1.startRolling();
     }
     private void initview(View layout) {
+        mTvUserid = (TextView) layout.findViewById(R.id.tv_userid);
         mLlTxRecord = (LinearLayout) layout.findViewById(R.id.ll_tx_record);
         mLlLoadTxRecord = (LinearLayout) layout.findViewById(R.id.ll_load_tx_record);
         mRtlBanner = (RelativeLayout) layout.findViewById(R.id.rtl_banner);

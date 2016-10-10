@@ -68,7 +68,6 @@ public class NewerTaskActivity extends BaseActivity implements View.OnClickListe
         initview();
         initdate();
     }
-
     /**
      * 初始化数据
      */
@@ -105,7 +104,9 @@ public class NewerTaskActivity extends BaseActivity implements View.OnClickListe
         });
     }
 
-
+    /**
+     * 支付宝状态
+     */
     private void initBindAlipayState() {
         HashMap<String,String> map=new HashMap<String, String>();
         map.put("userid", SharePre.getUserId(getApplicationContext()));
@@ -134,6 +135,10 @@ public class NewerTaskActivity extends BaseActivity implements View.OnClickListe
             }
         });
     }
+
+    /**
+     * 绑定微信状态
+     */
     private void initBindPhoneState() {
         startProgressDialog("加载中...");
         HashMap<String,String> map=new HashMap<>();
@@ -141,8 +146,6 @@ public class NewerTaskActivity extends BaseActivity implements View.OnClickListe
         OkHttpUtil.getInstance().Post(map, constance.URL.IS_BIND_PHONE,new OkHttpUtil.FinishListener() {
             @Override
             public void Successfully(boolean IsSuccess, String data, String Msg) {
-//                    showTip(data.toString()+"用户UserId"+SharePre.getUserId(getActivity()));
-//                    Log.w("绑定状态",""+data.toString()+"用户UserId"+SharePre.getUserId(getActivity()));
                 stopProgressDialog();
                 if(IsSuccess){
                     yzm = GsonUtils.parseJSON(data, Yzm.class);

@@ -43,8 +43,10 @@ import Utis.GsonUtils;
 import Utis.OkHttpUtil;
 import Views.UnSlideViewPager;
 import XinGePush.NotificationService;
+import model.IsBindAccount;
 import model.Result;
 import model.Version;
+import model.Yzm;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener{
     private NotificationService notificationService;// 获取通知数据服务
@@ -65,6 +67,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     private GetFragment getFragment;
     private ShareFragment shareFragment;
     private MineFragment mineFragment;
+    private boolean IsBindWx=true;
     Message m = null;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -88,10 +91,29 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 if(IsSuccess){
                     Version version1 = GsonUtils.parseJSON(data, Version.class);
                     if(Integer.parseInt(version1.getBbh())>Utis.getVersion(MainActivity.this)){
+                        //新版本
                         UpdateManagers mUpdateManager = new UpdateManagers(MainActivity.this,version1.getGxxx(),version1.getUrl());
                         mUpdateManager.setNotUpdateMessageShow(false);
                         mUpdateManager.checkUpdateInfo();
                     }else {
+                      //不是新版本
+                        HashMap<String,String> map=new HashMap<String, String>();
+                        map.put("userid", SharePre.getUserId(MainActivity.this));
+                        map.put("accountstype", "1");
+                        OkHttpUtil.getInstance().Post(map, constance.URL.IS_BIND_WX_ALIPAY_ACCOUNT, new OkHttpUtil.FinishListener() {
+                            @Override
+                            public void Successfully(boolean IsSuccess, String data, String Msg) {
+                                if(IsSuccess){
+                                    IsBindAccount bindAccount = GsonUtils.parseJSON(data, IsBindAccount.class);
+                                    if(bindAccount.getAccount().equals("")){
+                                        Intent intent=new Intent(getApplicationContext(),WxRegistActivity.class);
+                                        startActivity(intent);
+                                    }
+                                }else {
+                                    Toast(data.toString());
+                                }
+                            }
+                        });
                     }
                 }else {
                     Toast(data.toString());

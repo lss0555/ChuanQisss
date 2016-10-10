@@ -1,5 +1,4 @@
 package activity.Red;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -7,12 +6,9 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
-
 import com.chuanqi.yz.R;
-
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import Constance.constance;
 import Utis.OkHttpUtil;
 import Utis.Utis;
@@ -28,7 +24,6 @@ import model.RedMoney;
 import model.RedTime;
 import model.RedTimeList.RedList;
 import model.RedTimeList.RedTimeList;
-
 public class TakeRedActivity extends BaseActivity {
     private  ArrayList<RedTimeList> mDate=new ArrayList<>();
     private ArrayList<RedTime> mTimes=new ArrayList<>();
@@ -66,7 +61,6 @@ public class TakeRedActivity extends BaseActivity {
     private void initview() {
         roundProgressBar = (RoundProgressBar) findViewById(R.id.roundProgressBar);
         roundProgressBar.setProgress(75);
-
         mTvPrice1 = (TextView) findViewById(R.id.tv_price1);
         mTvPrice2 = (TextView) findViewById(R.id.tv_price2);
         mTvPrice3 = (TextView) findViewById(R.id.tv_price3);
@@ -77,7 +71,7 @@ public class TakeRedActivity extends BaseActivity {
         mTvYaoQing = (TextView) findViewById(R.id.tv_yaoqing);
     }
     private void initevent() {
-        findViewById(R.id.tv_record).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.rtl_red_detail).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(getApplicationContext(), RedTxDetailActivity.class);

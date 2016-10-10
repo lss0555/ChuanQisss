@@ -6,6 +6,7 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -44,32 +45,17 @@ public class WxRegistActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wx_regist);
         initview();
-        initUserid();
         initevent();
     }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            return false;
+        }
+        return false;
+    }
     private void initUserid() {
-        HashMap<String,String> map=new HashMap<>();
-        map.put("udid",Utis.getIMEI(getApplicationContext()));
-        OkHttpUtil.getInstance().Post(map, constance.URL.USER_UDID, new OkHttpUtil.FinishListener() {
-            @Override
-            public void Successfully(boolean IsSuccess, String data, String Msg) {
-                if(IsSuccess){
-                    SharePre.saveIsPostUdid(getApplicationContext(),true);
-                    HashMap<String,String> map1=new HashMap<>();
-                    map1.put("udid", Utis.getIMEI(getApplicationContext()));
-                    OkHttpUtil.getInstance().Post(map1, constance.URL.USER_INFO, new OkHttpUtil.FinishListener() {
-                        @Override
-                        public void Successfully(boolean IsSuccess, String data, String Msg) {
-                            Log.i("首次进入个人资料",""+data.toString());
-                            UserInfo mUserInfo= GsonUtils.parseJSON(data, UserInfo.class);
-                            SharePre.saveUserId(WxRegistActivity.this,mUserInfo.getId());//保存userid
-                        }
-                    });
-                }else {
-                    Toast(data.toString());
-                }
-            }
-        });
+
     }
     private void initevent() {
         /**
@@ -100,10 +86,35 @@ public class WxRegistActivity extends BaseActivity {
                 mEtWxKey.setText(text+"");
             }
         });
+        /**
+         * 绑定微信
+         */
         mRtlBind.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               Regist();
+                HashMap<String,String> map=new HashMap<>();
+                map.put("udid",Utis.getIMEI(getApplicationContext()));
+                OkHttpUtil.getInstance().Post(map, constance.URL.USER_UDID, new OkHttpUtil.FinishListener() {
+                    @Override
+                    public void Successfully(boolean IsSuccess, String data, String Msg) {
+                        if(IsSuccess){
+                            SharePre.saveIsPostUdid(getApplicationContext(),true);
+                            HashMap<String,String> map1=new HashMap<>();
+                            map1.put("udid", Utis.getIMEI(getApplicationContext()));
+                            OkHttpUtil.getInstance().Post(map1, constance.URL.USER_INFO, new OkHttpUtil.FinishListener() {
+                                @Override
+                                public void Successfully(boolean IsSuccess, String data, String Msg) {
+                                    Log.i("首次进入个人资料",""+data.toString());
+                                    UserInfo mUserInfo= GsonUtils.parseJSON(data, UserInfo.class);
+                                    SharePre.saveUserId(WxRegistActivity.this,mUserInfo.getId());//保存userid
+                                    Regist();
+                                }
+                            });
+                        }else {
+                            Toast(data.toString());
+                        }
+                    }
+                });
             }
         });
         mRtlMethod.setOnClickListener(new View.OnClickListener() {
@@ -147,6 +158,10 @@ public class WxRegistActivity extends BaseActivity {
                         Result result = GsonUtils.parseJSON(data, Result.class);
                         if(result.getRun().equals("1")){
                             setResult(11);
+                            Intent intent = new Intent();
+                            intent.putExtra(constance.INTENT.UPDATE_ADD_USER_MONEY,true);
+                            intent.setAction(constance.INTENT.UPDATE_ADD_USER_MONEY);   //
+                            sendBroadcast(intent);   //发送广播
                             finish();
                         }else if (result.getRun().equals("2")){
                             Toast("抱歉，您的微信唯一码已被绑定过");
