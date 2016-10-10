@@ -7,6 +7,8 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+
 import com.chuanqi.yz.R;
 import java.util.HashMap;
 import Constance.constance;
@@ -17,6 +19,7 @@ import Utis.SharePre;
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
+import model.IsBindAccount;
 import model.Result;
 import model.Yzm;
 
@@ -47,27 +50,137 @@ public class NewerTaskActivity extends BaseActivity implements View.OnClickListe
             super.handleMessage(msg);
         }
     };
+    private Yzm yzm;
+    private RelativeLayout mRtlBindPhones;
+    private RelativeLayout mRtlBindAlipay;
+    private TextView mTvBindAdlipayState;
+    private TextView mTvBindPhoneState;
+    private RelativeLayout mRtlBindAlipay1;
+    private RelativeLayout mRtlBindPhone;
+    private RelativeLayout mRtlLjptState;
+    private RelativeLayout mRtlKnownPlatForm;
+    private TextView mTvLjpt;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_newer_task);
         initview();
+        initdate();
     }
 
+    /**
+     * 初始化数据
+     */
+    private void initdate() {
+        initBindPhoneState();
+        initBindAlipayState();
+        initLjptState();
+    }
+
+    /**
+     * 了解平台的状态
+     */
+    private void initLjptState() {
+         HashMap<String,String> map=new HashMap<>();
+        map.put("userid",""+SharePre.getUserId(getApplicationContext()));
+        OkHttpUtil.getInstance().Post(map, constance.URL.IS_LJPT, new OkHttpUtil.FinishListener() {
+            @Override
+            public void Successfully(boolean IsSuccess, String data, String Msg) {
+                if(IsSuccess){
+                    Result result = GsonUtils.parseJSON(data, Result.class);
+                    if(result.getRun().equals("1")){
+                       //未完成
+
+                    }else {
+                        //已完成
+                        mRtlLjptState.setBackground(getResources().getDrawable(R.drawable.round_gray_bg));
+                        mRtlKnownPlatForm.setEnabled(false);
+                        mTvLjpt.setText("已完成");
+                    }
+                }else {
+                    Toast(data.toString());
+                }
+            }
+        });
+    }
+
+
+    private void initBindAlipayState() {
+        HashMap<String,String> map=new HashMap<String, String>();
+        map.put("userid", SharePre.getUserId(getApplicationContext()));
+        map.put("accountstype", "2");
+        OkHttpUtil.getInstance().Post(map, constance.URL.IS_BIND_WX_ALIPAY_ACCOUNT, new OkHttpUtil.FinishListener() {
+            @Override
+            public void Successfully(boolean IsSuccess, String data, String Msg) {
+                stopProgressDialog();
+                if(IsSuccess){
+                    IsBindAccount bindAccount = GsonUtils.parseJSON(data, IsBindAccount.class);
+//                showTip(data.toString());
+                    if(!bindAccount.getAccount().equals("")){
+                        //有绑定
+                        mRtlBindAlipay.setBackground(getResources().getDrawable(R.drawable.round_gray_bg));
+                       mRtlBindAlipay.setEnabled(false);
+                        mTvBindAdlipayState.setText("已完成");
+                        mRtlBindAlipay1.setEnabled(false);
+                    }else {
+                        //未绑定
+                        mRtlBindAlipay.setBackground(getResources().getDrawable(R.drawable.round_red_bg));
+                        mRtlBindAlipay.setEnabled(true);
+                    }
+                }else {
+                    Toast(data.toString());
+                }
+            }
+        });
+    }
+    private void initBindPhoneState() {
+        startProgressDialog("加载中...");
+        HashMap<String,String> map=new HashMap<>();
+        map.put("userid", SharePre.getUserId(getApplicationContext())+"");
+        OkHttpUtil.getInstance().Post(map, constance.URL.IS_BIND_PHONE,new OkHttpUtil.FinishListener() {
+            @Override
+            public void Successfully(boolean IsSuccess, String data, String Msg) {
+//                    showTip(data.toString()+"用户UserId"+SharePre.getUserId(getActivity()));
+//                    Log.w("绑定状态",""+data.toString()+"用户UserId"+SharePre.getUserId(getActivity()));
+                stopProgressDialog();
+                if(IsSuccess){
+                    yzm = GsonUtils.parseJSON(data, Yzm.class);
+                    if(yzm.getRun().equals("1")){
+                        mRtlBindPhones.setBackground(getResources().getDrawable(R.drawable.round_gray_bg));
+                        mRtlBindPhones.setEnabled(false);
+                        mTvBindPhoneState.setText("已完成");
+                        mRtlBindPhone.setEnabled(false);
+                    }else {
+                        mRtlBindPhones.setBackground(getResources().getDrawable(R.drawable.round_red_bg));
+                        mRtlBindPhones.setEnabled(true);
+                    }
+                }
+            }
+        });
+    }
     private void initview() {
-        findViewById(R.id.rtl_known_platform).setOnClickListener(this);
-        findViewById(R.id.rtl_bind_wx).setOnClickListener(this);
-        findViewById(R.id.rtl_bind_alipay).setOnClickListener(this);
-        findViewById(R.id.rtl_bind_phone).setOnClickListener(this);
         findViewById(R.id.rtl_share).setOnClickListener(this);
+        mRtlKnownPlatForm = (RelativeLayout) findViewById(R.id.rtl_known_platform);
+        mRtlKnownPlatForm.setOnClickListener(this);
+        findViewById(R.id.rtl_bind_wx).setOnClickListener(this);
+        mRtlBindAlipay1 = (RelativeLayout) findViewById(R.id.rtl_bind_alipay);
+        mRtlBindAlipay1.setOnClickListener(this);
+        mRtlBindPhone = (RelativeLayout) findViewById(R.id.rtl_bind_phone);
+        mRtlBindPhone.setOnClickListener(this);
+        mRtlBindPhones = (RelativeLayout) findViewById(R.id.rtl_bindphones);
+        mRtlBindAlipay = (RelativeLayout) findViewById(R.id.rtl_bindalipays);
+        mTvBindAdlipayState = (TextView) findViewById(R.id.tv_bind_alipay_state);
+        mTvBindPhoneState = (TextView) findViewById(R.id.tv_bind_phone_state);
+        mRtlLjptState = (RelativeLayout) findViewById(R.id.rtl_ljpt_state);
+        mTvLjpt = (TextView) findViewById(R.id.tv_ljpt_state);
     }
-
     @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.rtl_known_platform://了解平台
                 Intent intent_kown_platform=new Intent(getApplicationContext(),KownPlatformActivity.class);
-                startActivity(intent_kown_platform);
+                startActivityForResult(intent_kown_platform,11);
                 break;
             case R.id.rtl_bind_wx://绑定微信
                 Intent intent_wx=new Intent(getApplicationContext(),BindWxAccountActivity.class);
@@ -171,5 +284,12 @@ public class NewerTaskActivity extends BaseActivity implements View.OnClickListe
                 }
             }
         });
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==1){
+            initLjptState();
+        }
     }
 }

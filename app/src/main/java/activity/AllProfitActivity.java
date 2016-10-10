@@ -3,6 +3,8 @@ package activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import com.chuanqi.yz.R;
 
@@ -26,6 +28,7 @@ public class AllProfitActivity extends BaseActivity {
     private ArrayList<allprofit> mDate=new ArrayList<>();
     private XListView mList;
     private UserAllProfitAdapter adapter;
+    private TextView mTvLoadDate;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -35,16 +38,15 @@ public class AllProfitActivity extends BaseActivity {
         initdate();
     }
     private void initdate() {
-        startProgressDialog("疯狂加载中...");
         HashMap<String,String> map=new HashMap<>();
         map.put("userid", SharePre.getUserId(AllProfitActivity.this));
         OkHttpUtil.getInstance().Post(map, constance.URL.ALL_PROFIT, new OkHttpUtil.FinishListener() {
             @Override
             public void Successfully(boolean IsSuccess, String data, String Msg) {
 //                showTip(data.toString());
-                stopProgressDialog();
                 Log.i("明细收益",""+data.toString());
                 if(IsSuccess){
+                    mTvLoadDate.setVisibility(View.GONE);
                     profit mProfit = GsonUtils.parseJSON(data, profit.class);
                     if(mProfit.getIncomerecord()!=null){
                         mDate.clear();
@@ -66,6 +68,7 @@ public class AllProfitActivity extends BaseActivity {
 //                showTip(data.toString());
                 Log.i("明细收益",""+data.toString());
                 if(IsSuccess){
+                    mTvLoadDate.setVisibility(View.GONE);
                     profit mProfit = GsonUtils.parseJSON(data, profit.class);
                     if(mProfit.getIncomerecord()!=null){
                         mDate.clear();
@@ -80,6 +83,7 @@ public class AllProfitActivity extends BaseActivity {
     }
 
     private void initview() {
+        mTvLoadDate = (TextView) findViewById(R.id.tv_load_date);
         mList = (XListView) findViewById(R.id.list);
         mList.setPullLoadEnable(false);
         adapter = new UserAllProfitAdapter(getApplicationContext(),mDate);

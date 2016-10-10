@@ -63,7 +63,9 @@ public class UserInfoActivity extends BaseActivity {
         }else {
             UILUtils.displayImage(getIntent().getStringExtra("Head"),mImgIcons);
         }
-        mTvNickName.setText(getIntent().getStringExtra("NickName"));
+        if(!getIntent().getStringExtra("NickName").equals("")){
+            mTvNickName.setText(getIntent().getStringExtra("NickName"));
+        }
         if(getIntent().getStringExtra("Tel")==null){
             mTvPhone.setText("暂未绑定");
         }else {
@@ -75,6 +77,5 @@ public class UserInfoActivity extends BaseActivity {
         }else {
             mTvAddress.setText(""+getIntent().getStringExtra("Address"));
         }
-
     }
 }

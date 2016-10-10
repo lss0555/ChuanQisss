@@ -14,16 +14,58 @@
         android:layout_width="match_parent"
         android:background="@color/red"
         android:layout_height="50dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="任务列表"
-            android:textSize="18sp"
-            android:textColor="@color/white"
-            android:id="@+id/textView"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true" />
+        <LinearLayout
+            android:layout_width="130dp"
+            android:orientation="horizontal"
+            android:background="@color/white"
+            android:layout_centerInParent="true"
+            android:layout_height="30dp">
+            <RelativeLayout
+                android:id="@+id/rtl_jd"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_margin="0.1dp"
+                android:layout_gravity="center"
+                android:background="@color/white"
+                android:layout_weight="1"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" >
+                <TextView
+                    android:id="@+id/tv_jd_state"
+                    android:layout_width="wrap_content"
+                    android:text="经典任务"
+                    android:textColor="@color/red"
+                    android:layout_centerInParent="true"
+                    android:textSize="13sp"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rtl_zs"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_margin="0.1dp"
+                android:textSize="18sp"
+                android:background="@color/red"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" >
+                <TextView
+                    android:id="@+id/tv_zs_state"
+                    android:layout_width="wrap_content"
+                    android:text="专属任务"
+                    android:layout_centerInParent="true"
+                    android:textSize="13sp"
+                    android:textColor="@color/white"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+        </LinearLayout>
+
+
+
         <TextView
             android:id="@+id/tv_help"
             android:layout_width="wrap_content"
@@ -45,14 +87,31 @@
                 android:layout_height="wrap_content" />
         </RelativeLayout>
     </RelativeLayout>
-    <FrameLayout
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <Views.XListView.XListView
-            android:id="@+id/list_task"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:layout_height="30dp">
+            <TextView
+                android:id="@+id/tv_phone_type"
+                android:layout_width="wrap_content"
+                android:text="手机型号:"
+                android:textSize="16sp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:background="@color/gray"
+            android:layout_height="0.1dp"></View>
+        <Views.UnSlideViewPager
+            android:id="@+id/vp_tabs"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-        </Views.XListView.XListView>
-
-    </FrameLayout>
+        </Views.UnSlideViewPager>
+    </LinearLayout>
 </LinearLayout>

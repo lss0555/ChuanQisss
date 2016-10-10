@@ -106,6 +106,10 @@ public class constance {
         public static final String MESSAGE =BASE_URL+"fqapply.php";
         /* 引导图*/
         public static final String GUIDE =BASE_URL+"yd_advertisement.php";
+        /* 师徒关系*/
+        public static final String REGIST =BASE_URL+"bingsf.php";
+        /* 是否了解平台*/
+        public static final String IS_LJPT =BASE_URL+"isljpt.php";
     }
     public static final class INTENT {
         public static final int INTO_JQZ_SUCCESS = 2132;

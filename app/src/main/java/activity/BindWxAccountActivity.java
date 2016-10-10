@@ -48,8 +48,6 @@ public class BindWxAccountActivity extends BaseActivity {
         startProgressDialog("加载中...");
         HashMap<String,String> map=new HashMap<String, String>();
         map.put("userid", SharePre.getUserId(BindWxAccountActivity.this));
-//        map.put("account", mEtAccount.getText().toString());
-//        map.put("name", mEtName.getText().toString());
         map.put("accountstype", "1");
         OkHttpUtil.getInstance().Post(map, constance.URL.IS_BIND_WX_ALIPAY_ACCOUNT, new OkHttpUtil.FinishListener() {
             @Override

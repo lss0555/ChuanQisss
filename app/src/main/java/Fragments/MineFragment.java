@@ -56,12 +56,14 @@ import Utis.SharePre;
 import Views.CircleImageView;
 import activity.AboutUsActivity;
 import activity.AllProfitActivity;
+import activity.ApprenticeListActivity;
 import activity.BindAliPayActivity;
 import activity.BindWxAccountActivity;
 import activity.BindPhoneActivity;
 import activity.MessageListActivity;
 import activity.Red.LookRedRecordActivity;
 import activity.UserInfoActivity;
+import model.IsBindAccount;
 import model.UserInfo;
 import model.Version;
 import model.Yzm;
@@ -77,7 +79,6 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
     private RelativeLayout mRtlPersonInfo;
     private CircleImageView mImgIcons;
     private TextView mTvId;
-    private TextView mTvIsBindWx;
     private TextView mTvBindPhoneState;
     private String UserCity;
     private boolean IsBindPhone=false;
@@ -85,6 +86,8 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
     private TextView mTvState;
     private MyBrocast myBrocast;
     private MyReceiver myReceiver;
+    private TextView mTvIsBindWx;
+    private TextView mTvIdBindAlipay;
 
     public MineFragment() {
     }
@@ -96,28 +99,64 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
         initLocation();
         getUserUdidAndCity();
         initUserInfo();
-//        initUpdateVersion();
+        initBindState();
         return layout;
     }
 
     /**
-     * 版本更新
+     * 初始化绑定
      */
-    private void initUpdateVersion() {
-        int version = Utis.getVersion(getActivity());
-        startProgressDialog("加载中...");
-        OkHttpUtil.getInstance().Post(null, constance.URL.VERSION_UPDATE, new OkHttpUtil.FinishListener() {
+    private void initBindState() {
+        BindWxState();
+        BindAliPayState();
+    }
+
+    /**
+     * 支付宝绑定状态
+     */
+    private void BindAliPayState() {
+        HashMap<String,String> map=new HashMap<String, String>();
+        map.put("userid", SharePre.getUserId(getActivity()));
+        map.put("accountstype", "2");
+        OkHttpUtil.getInstance().Post(map, constance.URL.IS_BIND_WX_ALIPAY_ACCOUNT, new OkHttpUtil.FinishListener() {
             @Override
             public void Successfully(boolean IsSuccess, String data, String Msg) {
                 stopProgressDialog();
                 if(IsSuccess){
-                    Version version1 = GsonUtils.parseJSON(data, Version.class);
-                    if(Integer.parseInt(version1.getBbh())>Utis.getVersion(getActivity())){
-                        UpdateManagers mUpdateManager = new UpdateManagers(getActivity(),version1.getGxxx(),version1.getUrl());
-                        mUpdateManager.setNotUpdateMessageShow(false);
-                        mUpdateManager.checkUpdateInfo();
+                    IsBindAccount bindAccount = GsonUtils.parseJSON(data, IsBindAccount.class);
+//                showTip(data.toString());
+                    if(!bindAccount.getAccount().equals("")){
+                        //有绑定
+                        mTvIdBindAlipay.setText("已绑定");
                     }else {
-//                        Toast("当前已是最高版本！");
+                        //未绑定
+                        mTvIdBindAlipay.setText("未绑定");
+                    }
+                }else {
+                    Toast(data.toString());
+                }
+            }
+        });
+    }
+
+    /**
+     * 微信绑定状态
+     */
+    private void BindWxState() {
+        HashMap<String,String> map=new HashMap<String, String>();
+        map.put("userid", SharePre.getUserId(getActivity()));
+        map.put("accountstype", "1");
+        OkHttpUtil.getInstance().Post(map, constance.URL.IS_BIND_WX_ALIPAY_ACCOUNT, new OkHttpUtil.FinishListener() {
+            @Override
+            public void Successfully(boolean IsSuccess, String data, String Msg) {
+                stopProgressDialog();
+                if(IsSuccess){
+                    IsBindAccount bindAccount = GsonUtils.parseJSON(data, IsBindAccount.class);
+                    if(!bindAccount.getAccount().equals("")){
+                       //有绑定
+                        mTvIsBindWx.setText("已绑定");
+                    } else {
+                        mTvIsBindWx.setText("未绑定");
                     }
                 }else {
                     Toast(data.toString());
@@ -142,6 +181,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
             }
             @Override
             public void UpdateUserMoney(boolean IsUpdate) {
+                initBindState();
                 initBindAccound();
             }
         });
@@ -153,7 +193,6 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
         super.onStop();
         getActivity().unregisterReceiver(myReceiver);
     }
-
     /**
      * 绑定状态
      */
@@ -168,6 +207,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
         public void onReceive(Context context, Intent intent) {
             if(intent.getBooleanExtra("IsPhoneState",false)){
                 initBindAccound();
+                initUserInfo();
             }
         }
     }
@@ -241,24 +281,24 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
     private Yzm yzm;
     private String PhoneYzm="0";
     private void initBindAccound() {
-        if(!SharePre.getUserId(getActivity()).equals("")){
             HashMap<String,String> map=new HashMap<>();
-            map.put("userid",SharePre.getUserId(getActivity()));
+            map.put("userid",SharePre.getUserId(getActivity())+"");
             OkHttpUtil.getInstance().Post(map, constance.URL.IS_BIND_PHONE,new OkHttpUtil.FinishListener() {
                 @Override
                 public void Successfully(boolean IsSuccess, String data, String Msg) {
 //                    showTip(data.toString()+"用户UserId"+SharePre.getUserId(getActivity()));
-                    Log.w("绑定状态",""+data.toString()+"用户UserId"+SharePre.getUserId(getActivity()));
+//                    Log.w("绑定状态",""+data.toString()+"用户UserId"+SharePre.getUserId(getActivity()));
                 if(IsSuccess){
                     yzm = GsonUtils.parseJSON(data, Yzm.class);
                     PhoneYzm=yzm.getRun();
                     if(yzm.getRun().equals("1")){
                         mTvBindPhoneState.setText("已绑定");
+                    }else {
+                        mTvBindPhoneState.setText("未绑定");
                     }
                 }
                 }
             });
-        }
     }
     /**
      * 根据手机设备号指定一个用户ID
@@ -291,11 +331,11 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
      */
     private void initview(View layout) {
         mTvBindPhoneState = (TextView) layout.findViewById(R.id.tv_bind_phone_state);
-        mTvIsBindWx = (TextView) layout.findViewById(R.id.tv_isbind);
         mTvId = (TextView) layout.findViewById(R.id.tv_id);
         mImgIcons = (CircleImageView) layout.findViewById(R.id.img_icons);
-        mRtlPersonInfo = (RelativeLayout) layout.findViewById(R.id.rtl_person_info);
-        mRtlPersonInfo.setOnClickListener(this);
+        mTvIsBindWx = (TextView) layout.findViewById(R.id.tv_isbind_wx);
+        mTvIdBindAlipay = (TextView) layout.findViewById(R.id.tv_isbind_alipay);
+        layout.findViewById(R.id.rtl_person_info).setOnClickListener(this);
         layout.findViewById(R.id.rtl_bind_phone).setOnClickListener(this);
         layout.findViewById(R.id.rtl_alipay).setOnClickListener(this);
         layout.findViewById(R.id.rtl_about_ours).setOnClickListener(this);
@@ -304,20 +344,23 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
         layout.findViewById(R.id.rtl_message_tip).setOnClickListener(this);
         layout.findViewById(R.id.rtl_detail_get).setOnClickListener(this);
         layout.findViewById(R.id.rtl_opinion).setOnClickListener(this);
+        layout.findViewById(R.id.rtl_shitu_center).setOnClickListener(this);
     }
     @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.rtl_person_info:
-                Intent intent=new Intent(getActivity(), UserInfoActivity.class);
 //                intent.putExtra("info",mUserInfo);
-                if(!mUserInfo.getHeadportrait().equals("")){
+                if(mUserInfo!=null){
+                    Intent intent=new Intent(getActivity(), UserInfoActivity.class);
                     intent.putExtra("Head",mUserInfo.getHeadportrait());
+                    intent.putExtra("Tel",mUserInfo.getTel());
+                    intent.putExtra("NickName",mUserInfo.getUname());
+                    intent.putExtra("Address",""+mUserInfo.getRegion());
+                    startActivity(intent);
+                }else {
+                    Toast("请求失败，请稍后重试");
                 }
-                intent.putExtra("Tel",mUserInfo.getTel());
-                intent.putExtra("NickName",mUserInfo.getUname());
-                intent.putExtra("Address",""+mUserInfo.getRegion());
-                startActivity(intent);
                 break;
             case R.id.rtl_bind_phone:
 //                Toast("手机绑定状态"+PhoneYzm);
@@ -373,6 +416,10 @@ public class MineFragment extends BaseFragment implements View.OnClickListener{
             case R.id.rtl_detail_get://明细收益
                 Intent intent_record=new Intent(getActivity(), AllProfitActivity.class);
                 startActivity(intent_record);
+                break;
+            case R.id.rtl_shitu_center://师徒中心
+                Intent intent_shitucenter=new Intent(getActivity(), ApprenticeListActivity.class);
+                startActivity(intent_shitucenter);
                 break;
         }
     }

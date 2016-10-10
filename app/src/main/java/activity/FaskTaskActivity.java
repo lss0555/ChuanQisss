@@ -1,14 +1,27 @@
 package activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chuanqi.yz.R;
+
+import Fragments.GetFragment;
+import Fragments.HomeFragment;
+import Fragments.JingDianTask.JingDianFragment;
+import Fragments.JingDianTask.ZhuanShuFragment;
+import Fragments.MineFragment;
+import Fragments.ShareFragment;
 import Utis.GsonUtils;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,6 +30,7 @@ import java.util.List;
 import Constance.constance;
 import Utis.Utis;
 import Utis.SharePre;
+import Views.UnSlideViewPager;
 import Views.XListView.XListView;
 import adapter.TaskAdapter;
 import Utis.OkHttpUtil;
@@ -33,172 +47,127 @@ public class FaskTaskActivity extends  BaseActivity{
     private ArrayList<faskTask> mTask=new ArrayList<>();
     private TaskAdapter mTaskAdapter;
     private String RunningTask="";
+    private TextView mTvPhoneType;
+    private TextView mTvJdState;
+    private TextView mTvZsState;
+    private Fragment  JingDianFragment;
+    private  int mCurentPageIndex;//当前的页数
+    private JingDianFragment jingDianFragment;
+    private ZhuanShuFragment zhuanShuFragment;
+    private Fragment  ZhuanShuFragment;
+    private RelativeLayout mRtlJd;
+    private RelativeLayout mRtlZs;
+    private UnSlideViewPager mVpTabs;
+    private ArrayList<Fragment> mFragments;
+    private FragmentPagerAdapter mAdapter;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task);
         initview();
-        initTaskState();
-        initdate();
+        initPage();
         initevent();
     }
-
     /**
-     * 判断任务的状态
+     * 初始化页面
      */
-    private void initTaskState() {
-        startProgressDialog("加载中...");
-        HashMap<String,String> map=new HashMap<>();
-        map.put("userid",""+SharePre.getUserId(getApplicationContext()));
-        OkHttpUtil.getInstance().Post(map, constance.URL.IS_APPLYTASK, new OkHttpUtil.FinishListener() {
+    private void initPage() {
+        mVpTabs.setOffscreenPageLimit(4);
+        mFragments=new ArrayList<Fragment>();
+        if(jingDianFragment==null){
+            mFragments.add(new JingDianFragment());
+        }else {
+            mFragments.add(jingDianFragment);
+        }
+        if(zhuanShuFragment==null){
+            mFragments.add(new ZhuanShuFragment());
+        }else {
+            mFragments.add(zhuanShuFragment);
+        }
+        mAdapter=new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
-            public void Successfully(boolean IsSuccess, String data, String Msg) {
-                stopProgressDialog();
-                if(IsSuccess){
-                    TaskState taskState = GsonUtils.parseJSON(data, TaskState.class);
-                    Log.i("任务状态==============",""+data.toString());
-                    if(!taskState.getApplyid().equals("")){
-                        RunningTask=taskState.getApplyid();
-                    }
-                }else {
-                    Toast.makeText(getApplicationContext(),""+data.toString(),Toast.LENGTH_SHORT).show();
-                }
+            public int getCount() {
+                return mFragments.size();
             }
-        });
-    }
+            @Override
+            public Fragment getItem(int arg0) {
+                return mFragments.get(arg0);
+            }
+        };
+        mVpTabs.setAdapter(mAdapter);
+        mVpTabs.setCurrentItem(0);
+        mVpTabs.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+            @Override
+            public void onPageSelected(int position) {
+                ResetTab();
+                switch (position) {
+                    case 0:
 
-    private void initevent() {
-        mListTask.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
-                startProgressDialog("加载中...");
-                boolean b = Utis.checkApkExist(getApplicationContext(), mTask.get(i-2).getsBandleID());
-                if(!b){
-                    HashMap<String,String> map=new HashMap<String, String>();
-                    map.put("sBandleID",""+mTask.get(i-2).getsBandleID());
-                    map.put("userid",""+ SharePre.getUserId(FaskTaskActivity.this));
-                    Log.i("检查是否可做",""+mTask.get(i-2).getsBandleID()+SharePre.getUserId(getApplicationContext()));
-                    OkHttpUtil.getInstance().Post(map, constance.URL.IS_DONE, new OkHttpUtil.FinishListener() {
-                        @Override
-                        public void Successfully(boolean IsSuccess, String data, String Msg) {
-                            Log.i("检查是否可做返回结果",""+data.toString());
-                            stopProgressDialog();
-                            if(IsSuccess){
-                                Result result = GsonUtils.parseJSON(data, Result.class);
-                                if(result.getRun().equals("0")){
-                                    Intent intent=new Intent(getApplicationContext(),FaskTaskDetailActivity.class);
-                                    intent.putExtra("Task",mTask.get(i-2));
-                                    startActivityForResult(intent,11);
-                                }else if(result.getRun().equals("1")){
-                                    Toast("您已做过此任务");
-                                }
-                            }else {
-                                Toast(data.toString());
-                            }
-                        }
-                    });
-                }else {
-                    stopProgressDialog();
-                   Toast("抱歉，您已完成此任务");
-                }
-            }
-        });
-    }
-    private void initdate() {
-        startProgressDialog("努力加载中...");
-        OkHttpUtil.getInstance().Get(constance.URL.FAST_TASK, new OkHttpUtil.FinishListener() {
-            @Override
-            public void Successfully(boolean IsSuccess, String data, String Msg) {
-                stopProgressDialog();
-//                showTip(data.toString());
-                Log.i("快速任务列表",""+data.toString());
-                task task = GsonUtils.parseJSON(data, task.class);
-                List<faskTask> applyarr = task.getApplyarr();
-                mTask.clear();
-                if(task.getApplyarr()!=null){
-                    if(!RunningTask.equals("")){
-                        for (int i=0;i<task.getApplyarr().size();i++){
-                            if(applyarr.get(i).getsBandleID().equals(RunningTask)){
-                                mTask.add(applyarr.get(i));
-                                applyarr.remove(i);
-                            }
-                        }
-                    }
-                    mTask.addAll(applyarr);
-                    mTaskAdapter.notifyDataSetChanged();
-                }
-            }
-        });
-    }
-    private void initdates() {
-        OkHttpUtil.getInstance().Get(constance.URL.FAST_TASK, new OkHttpUtil.FinishListener() {
-            @Override
-            public void Successfully(boolean IsSuccess, String data, String Msg) {
-//                showTip(data.toString());
-                Log.i("快速任务列表",""+data.toString());
-                task task = GsonUtils.parseJSON(data, task.class);
-                mTask.clear();
-                if(task.getApplyarr()!=null){
-                    mTask.addAll(task.getApplyarr());
-                    mTaskAdapter.notifyDataSetChanged();
-                }
-            }
-        });
-    }
+                        break;
+                    case 1:
 
+                        break;
+                }
+                mCurentPageIndex = position;
+            }
+
+            /**
+             * 重置状态
+             */
+            private void ResetTab() {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
+    }
     private void initview() {
-        mListTask = (XListView) findViewById(R.id.list_task);
-        mListTask.setIsShowFooter(false);
-        mListTask.setPullLoadEnable(false);
-        mTaskAdapter = new TaskAdapter(getApplicationContext(), mTask);
-        View headLayout=View.inflate(getApplicationContext(),R.layout.item_top_task,null);
-        View Top_items = headLayout.findViewById(R.id.ll_top_items);
-        mListTask.addHeaderView(headLayout);
-        mListTask.setAdapter(mTaskAdapter);
-        Top_items.setOnClickListener(new View.OnClickListener() {
+        mVpTabs = (UnSlideViewPager) findViewById(R.id.vp_tabs);
+        mTvJdState = (TextView) findViewById(R.id.tv_jd_state);
+        mTvZsState = (TextView) findViewById(R.id.tv_zs_state);
+        mRtlJd = (RelativeLayout) findViewById(R.id.rtl_jd);
+        mRtlZs = (RelativeLayout) findViewById(R.id.rtl_zs);
+    }
+    private void initevent() {
+        /**
+         * 经典
+         */
+        mRtlJd.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(getApplicationContext(),YaoQingSharesActivity.class);
-                startActivity(intent);
+            public void onClick(View v) {
+               mTvJdState.setTextColor(getResources().getColor(R.color.red));
+               mTvZsState.setTextColor(getResources().getColor(R.color.white));
+                mRtlJd.setBackground(getResources().getDrawable(R.color.white));
+                mRtlZs.setBackground(getResources().getDrawable(R.color.red));
+                mVpTabs.setCurrentItem(0);
             }
         });
-        mListTask.setXListViewListener(new XListView.IXListViewListener() {
+        /**
+         * 专属
+         */
+        mRtlZs.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onRefresh() {
-                new GetDataTask().execute();
-            }
-            @Override
-            public void onLoadMore() {
+            public void onClick(View v) {
+                mTvJdState.setTextColor(getResources().getColor(R.color.white));
+                mTvZsState.setTextColor(getResources().getColor(R.color.red));
+                mRtlJd.setBackground(getResources().getDrawable(R.color.red));
+                mRtlZs.setBackground(getResources().getDrawable(R.color.white));
+                mVpTabs.setCurrentItem(1);
             }
         });
+        /**
+         * 帮助
+         */
         findViewById(R.id.tv_help).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(FaskTaskActivity.this,TaskHelpCenterActivity.class);
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplicationContext(),TaskHelpCenterActivity.class);
                 startActivity(intent);
             }
         });
-    }
-    private class GetDataTask extends AsyncTask<Void, Void, String> {
-        protected String doInBackground(Void... params) {
-            try {
-                Thread.sleep(2000);
-                initdates();
-            } catch (InterruptedException e) {
-            }
-            return "";
-        }
-        protected void onPostExecute(String result) {
-            mListTask.stopRefresh();
-            mListTask.stopLoadMore();
-            mListTask.setRefreshTime(Utis.getTime());
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode==1){
-            initdate();
-        }
     }
 }

@@ -17,7 +17,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="250dp">
                 <ImageView
                     android:layout_width="match_parent"
                     android:background="@mipmap/fx_top"
@@ -28,6 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_weight="1"
                 android:orientation="vertical"
+                android:layout_marginTop="10dp"
                 android:layout_height="wrap_content">
                 <RelativeLayout
                     android:layout_width="wrap_content"
@@ -43,7 +44,7 @@
                             android:layout_width="wrap_content"
                             android:text="完成任务"
                             android:textColor="@color/white"
-                            android:textSize="17sp"
+                            android:textSize="16sp"
                             android:layout_centerInParent="true"
                             android:layout_height="wrap_content" />
                     </RelativeLayout>
@@ -83,7 +84,7 @@
                             android:layout_width="wrap_content"
                             android:text="收徒数量"
                             android:textColor="@color/white"
-                            android:textSize="17sp"
+                            android:textSize="16sp"
                             android:layout_centerInParent="true"
                             android:layout_height="wrap_content" />
                     </RelativeLayout>
@@ -123,7 +124,7 @@
                             android:layout_width="wrap_content"
                             android:text="徒弟收益"
                             android:textColor="@color/white"
-                            android:textSize="17sp"
+                            android:textSize="16sp"
                             android:layout_centerInParent="true"
                             android:layout_height="wrap_content" />
                     </RelativeLayout>
@@ -163,7 +164,7 @@
                             android:layout_width="wrap_content"
                             android:text="总收益"
                             android:textColor="@color/white"
-                            android:textSize="17sp"
+                            android:textSize="16sp"
                             android:layout_centerInParent="true"
                             android:layout_height="wrap_content" />
                     </RelativeLayout>

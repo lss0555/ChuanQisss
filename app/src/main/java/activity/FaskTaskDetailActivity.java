@@ -62,7 +62,8 @@ public class FaskTaskDetailActivity extends BaseActivity {
                   if(!b){
                       new downloadversion().execute(mTaskDetail.getAppUrl());
                   }else {
-                      Toast("抱歉，您已接受此任务");
+                      Utis.InstallSoft(getApplicationContext(),mTaskDetail.getsBandleID());
+//                      Toast("抱歉，您已接受此任务");
                   }
               }
           });
@@ -146,6 +147,12 @@ public class FaskTaskDetailActivity extends BaseActivity {
         mTvState = (TextView) findViewById(R.id.tv_state);
         mRtlAccept = (RelativeLayout) findViewById(R.id.rtl_accept);
         mRtlComplite = (RelativeLayout) findViewById(R.id.rtl_complite);
+        boolean b = Utis.checkApkExist(getApplicationContext(), mTaskDetail.getsBandleID());
+        if(b){ //存在
+            mTvState.setText("打开软件，完成任务");
+        }else {      //不存在
+            mTvState.setText("接受任务");
+        }
     }
     private void getDate() {
         mTaskDetail= (faskTask) getIntent().getSerializableExtra("Task");
@@ -229,7 +236,7 @@ public class FaskTaskDetailActivity extends BaseActivity {
             super.onPostExecute(result);
         }
         private void Install_APK() {
-            mTvState.setText("下载完成");
+            mTvState.setText("打开软件，完成任务");
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setDataAndType(Uri.fromFile(new File(file_path)),
                     "application/vnd.android.package-archive");

@@ -15,6 +15,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,15 +25,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-
 import Constance.constance;
 import Interfaces.MyReceiver;
 import Manager.UpdateManagers;
 import Utis.OkHttpUtil;
+import Utis.UILUtils;
 import Utis.Utis;
 import Utis.SharePre;
 import Utis.GsonUtils;
 import Views.Banners.Lanner;
+import Views.CircleImageView;
 import Views.SwitcherView;
 import Views.ViewPageIndicator;
 import activity.ApprenticeListActivity;
@@ -59,7 +62,6 @@ import model.UserAllYue;
 import model.UserInfo;
 import model.UserMoney;
 import model.Version;
-
 /**
  * A simple {@link Fragment} subclass. update 2016.8.31
  */
@@ -106,6 +108,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
     private SwipeRefreshLayout mReFreshLayout;
     private final int USER_TX_RECORD=1;
     private final int JQZ_INTO_RECORD=2;
+    private CircleImageView mImgHead;
+    private RelativeLayout mRtlLoadBanner;
+    private RelativeLayout mRtlBanner;
+    private LinearLayout mLlLoadTxRecord;
+    private LinearLayout mLlTxRecord;
+
     public static HomeFragment getInstance(){
         if(instance==null){
             instance=new HomeFragment();
@@ -155,7 +163,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
         initdate();
         initViewPage(); //轮播
         initReFreshDate();
-        initUpdateVersion();
         return layout;
     }
     /**
@@ -163,11 +170,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
      */
     private void initUpdateVersion() {
         int version = Utis.getVersion(getActivity());
-//        startProgressDialog("加载中...");
         OkHttpUtil.getInstance().Post(null, constance.URL.VERSION_UPDATE, new OkHttpUtil.FinishListener() {
             @Override
             public void Successfully(boolean IsSuccess, String data, String Msg) {
-//                stopProgressDialog();
                 if(IsSuccess){
                     Version version1 = GsonUtils.parseJSON(data, Version.class);
                     if(Integer.parseInt(version1.getBbh())>Utis.getVersion(getActivity())){
@@ -212,8 +217,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
             }
         });
     }
-
-
     @Override
     public void onStart() {
         super.onStart();
@@ -236,7 +239,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
         });
         getActivity().registerReceiver(myReceiver, filter);
     }
-
     @Override
     public void onStop() {
         super.onStop();
@@ -262,6 +264,25 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
         UserAccount();  //用户余额
         JqzAccount();  //聚钱庄余额
         UserMoney();//用户金额，聚钱庄金额
+        initUserDate();
+    }
+    /**
+     * 初始化用户信息
+     */
+    private void initUserDate() {
+        HashMap<String,String> map=new HashMap<>();
+        map.put("udid", Utis.getIMEI(getActivity()));
+        OkHttpUtil.getInstance().Post(map, constance.URL.USER_INFO, new OkHttpUtil.FinishListener() {
+            public UserInfo mUserInfo;
+            @Override
+            public void Successfully(boolean IsSuccess, String data, String Msg) {
+                Log.i("个人资料",""+data.toString());
+                if(IsSuccess){
+                    mUserInfo= GsonUtils.parseJSON(data,UserInfo.class);
+                    UILUtils.displayImage(mUserInfo.getHeadportrait(),mImgHead);
+                }
+            }
+        });
     }
     /**
      * 公告记录
@@ -335,6 +356,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
                         mJqzCrMoney.add("成功转入聚钱庄"+mCrJqz.get(i).getMoney()+"元");
                     }
                     new Thread(mRbUserRecord).start();
+                    mLlLoadTxRecord.setVisibility(View.GONE);
+                    mLlTxRecord.setVisibility(View.VISIBLE);
 //                    new Thread(mRbJqzIntoRecord).start();
                 }
             }
@@ -369,7 +392,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
         JqzAccount();  //聚钱庄余额
         UserAllYue();//用户总余额
     }
-
     /**
      * 用户总余额
      */
@@ -387,7 +409,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
                         mTvTodyIncome.setText(""+userAllYue.getAllsr()+"元");
                     }
                 }else {
-                    Toast(data.toString());
                 }
             }
         });
@@ -417,7 +438,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
             });
     }
     private void JqzAccount() { //聚钱庄余额
-
         HashMap<String,String> maps1=new HashMap<>();
         maps1.put("udid", Utis.getIMEI(getActivity()));
         OkHttpUtil.getInstance().Post(maps1, constance.URL.JQZ_MONEY, new OkHttpUtil.FinishListener() {
@@ -474,6 +494,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
         mTvTime1.startRolling();
     }
     private void initview(View layout) {
+        mLlTxRecord = (LinearLayout) layout.findViewById(R.id.ll_tx_record);
+        mLlLoadTxRecord = (LinearLayout) layout.findViewById(R.id.ll_load_tx_record);
+        mRtlBanner = (RelativeLayout) layout.findViewById(R.id.rtl_banner);
+        mRtlLoadBanner = (RelativeLayout) layout.findViewById(R.id.rtl_load_banner);
+        mImgHead = (CircleImageView) layout.findViewById(R.id.img_head);
         mReFreshLayout = (SwipeRefreshLayout) layout.findViewById(R.id.swipeRefreshLayout);
         mLanner= (Lanner) layout.findViewById(R.id.lanner);
         mSvDate = (ScrollView) layout.findViewById(R.id.sv_date);
@@ -516,6 +541,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
             @Override
             public void Successfully(boolean IsSuccess, String data, String Msg) {
                 if(IsSuccess){
+                    mRtlLoadBanner.setVisibility(View.GONE);
+                    mRtlBanner.setVisibility(View.VISIBLE);
                     Log.i("轮播的数据",""+data.toString());
                     Banner banner = GsonUtils.parseJSON(data, Banner.class);
                     lannerBeans.clear();
@@ -546,8 +573,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
                     Intent intent_Task=new Intent(getActivity(), FaskTaskActivity.class);
                     getActivity().startActivity(intent_Task);
                 }else {
-                    Intent intent_Task=new Intent(getActivity(), FaskTaskActivity.class);
-                    getActivity().startActivity(intent_Task);
+//                    Intent intent_Task=new Intent(getActivity(), FaskTaskActivity.class);
+//                    getActivity().startActivity(intent_Task);
                     Toast("抱歉，您的SIM卡异常，请检查");
                 }
 //                Toast("待开放中...");

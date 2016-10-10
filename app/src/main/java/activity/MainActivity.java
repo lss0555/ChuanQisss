@@ -75,6 +75,29 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         initPage();
         initState();
         initXinGePush();
+        initUpdateVersion();
+    }
+    /**
+     * 版本更新
+     */
+    private void initUpdateVersion() {
+        int version = Utis.getVersion(MainActivity.this);
+        OkHttpUtil.getInstance().Post(null, constance.URL.VERSION_UPDATE, new OkHttpUtil.FinishListener() {
+            @Override
+            public void Successfully(boolean IsSuccess, String data, String Msg) {
+                if(IsSuccess){
+                    Version version1 = GsonUtils.parseJSON(data, Version.class);
+                    if(Integer.parseInt(version1.getBbh())>Utis.getVersion(MainActivity.this)){
+                        UpdateManagers mUpdateManager = new UpdateManagers(MainActivity.this,version1.getGxxx(),version1.getUrl());
+                        mUpdateManager.setNotUpdateMessageShow(false);
+                        mUpdateManager.checkUpdateInfo();
+                    }else {
+                    }
+                }else {
+                    Toast(data.toString());
+                }
+            }
+        });
     }
     /**
      * 信鸽推送
@@ -157,54 +180,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     protected void onPause() {
         super.onPause();
         XGPushManager.onActivityStoped(this);
-    }
-    /**
-     * 版本更新
-     */
-    private void initUpdateVersion() {
-        int version = Utis.getVersion(getApplicationContext());
-        startProgressDialog("加载中...");
-        OkHttpUtil.getInstance().Post(null, constance.URL.VERSION_UPDATE, new OkHttpUtil.FinishListener() {
-            @Override
-            public void Successfully(boolean IsSuccess, String data, String Msg) {
-                stopProgressDialog();
-                if(IsSuccess){
-                    Version version1 = GsonUtils.parseJSON(data, Version.class);
-                    if(Integer.parseInt(version1.getBbh())>Utis.getVersion(getApplicationContext())){
-                        UpdateManagers mUpdateManager = new UpdateManagers(getApplicationContext(),version1.getGxxx(),version1.getUrl());
-                        mUpdateManager.setNotUpdateMessageShow(true);
-                        mUpdateManager.checkUpdateInfo();
-                    }else {
-//                        Toast("当前已是最高版本！");
-                    }
-                }else {
-                    Toast(data.toString());
-                }
-            }
-        });
-    }
-    public void IsRegistUser(){
-        HashMap<String,String> map=new HashMap<>();
-        map.put("udid",""+ Utis.getIMEI(getApplicationContext()));
-        OkHttpUtil.getInstance().Post(map, constance.URL.IS_USER, new OkHttpUtil.FinishListener() {
-            @Override
-            public void Successfully(boolean IsSuccess, String data, String Msg) {
-//                showTip(data.toString());
-                if(IsSuccess){
-                    Result result = GsonUtils.parseJSON(data, Result.class);
-                    if(result.getRun().equals("0")){
-                        //还没注册
-                        Intent intent=new Intent(MainActivity.this,YaoQingActivity.class);
-                        startActivity(intent);
-                        finish();
-                    }else if(result.getRun().equals("1")){
-                        //已经注册
-                    }
-                }else {
-                    Toast(data.toString());
-                }
-            }
-        });
     }
     private void initState() {
 
@@ -302,7 +277,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
             }
         });
     }
-
     /**
      * 重置Tab
      */

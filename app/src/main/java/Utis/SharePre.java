@@ -2,6 +2,7 @@ package Utis;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -41,7 +42,26 @@ public class SharePre {
     public static String getGuideImgUrl(Context context) {
         SharedPreferences sp = context.getSharedPreferences("GuideImgUrl", Context.MODE_PRIVATE);
         return  sp.getString("GuideImgUrl", "");
-    }/**
+    }
+
+//    /**
+//     * 缓存引导图
+//     * @param context
+//     * @param GuideBp
+//     */
+//    public static void saveGuideBp(Context context, Bitmap GuideBp) {
+//        SharedPreferences sp = context.getSharedPreferences("GuideBp", Context.MODE_PRIVATE);
+//        sp.edit().put("GuideImgUrl", GuideBp).commit();
+//    }
+//    /**
+//     * 读取引导图
+//     */
+//    public static String getGuideBp(Context context) {
+//        SharedPreferences sp = context.getSharedPreferences("GuideBp", Context.MODE_PRIVATE);
+//        return  sp.getString("GuideBp", "");
+//    }
+
+    /**
      * 缓存用户Id
      * @param context
      * @param UserId

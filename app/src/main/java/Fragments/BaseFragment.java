@@ -88,9 +88,6 @@ public class BaseFragment extends Fragment {
 	public void Toast(String msg){
 		Toast.makeText(getActivity(),msg,Toast.LENGTH_SHORT).show();
 	}
-
-
-
 	/**
 	 * ����һ�����ݵ���ʾ�������ǰһ����ʾδ��ʧǰ���ã���ֱ��ȡ��ǰһ����ʾ
 	 * @param msg

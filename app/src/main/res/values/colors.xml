@@ -3,7 +3,9 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="red">#eb4f38</color>
+    <color name="red">#E83828</color>
+    <color name="reds">#eb4f38</color>
+    <color name="orange">#E78F3C</color>
     <color name="dark_red">#f7000c</color>
     <color name="light_red">#ffb5b5</color>
     <color name="black">#000000</color>

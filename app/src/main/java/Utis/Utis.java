@@ -2,6 +2,7 @@ package Utis;
 
 import android.app.ActivityManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -20,6 +21,7 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -596,5 +598,28 @@ public class Utis {
             return true;
         }
         return false;
+    }
+    public static void InstallSoft(Context context,String packages){
+        Intent intent = new Intent();
+        PackageManager packageManager = context.getPackageManager();
+        intent = packageManager.getLaunchIntentForPackage(packages);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED | Intent.FLAG_ACTIVITY_CLEAR_TOP) ;
+        context.startActivity(intent);
+    }
+
+    /**
+     * 通过Url获取Bitmap
+     * @param url
+     * @return
+     */
+    public static Bitmap getBitmap(String url) {
+        try {
+            FileInputStream fis = new FileInputStream(url);
+            return BitmapFactory.decodeStream(fis);  ///把流转化为Bitmap图片
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

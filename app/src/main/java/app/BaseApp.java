@@ -4,6 +4,8 @@ import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.qm.pw.QApp;
+
 import android.app.Application;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -35,7 +37,7 @@ import Utis.Utis;
 import okhttp.OkHttpUtils;
 import okio.Buffer;
 
-public class BaseApp extends Application {
+public class BaseApp extends QApp {
 	public static Context applicationContext;
 	private String CER_12306 = "-----BEGIN CERTIFICATE-----\n" +
             "MIICmjCCAgOgAwIBAgIIbyZr5/jKH6QwDQYJKoZIhvcNAQEFBQAwRzELMAkGA1UEBhMCQ04xKTAn\n" +
@@ -55,6 +57,7 @@ public class BaseApp extends Application {
 
 	}
 	private static BaseApp instance;
+	private File baseFolder;
 	public synchronized static BaseApp getInstance() {
 		if( instance == null ) {
 			instance = new BaseApp();
@@ -64,11 +67,28 @@ public class BaseApp extends Application {
 	/**
 	 * 返回app文件夹，在内存卡的一级目录下，以该应用名称建立的文件夹
 	 */
-	public String getAppFolder() {
+	public  String getAppFolder() {
 		String path = Environment.getExternalStorageDirectory() + "/" + getString(R.string.app_name) + "/";
 		File f = new File(path);
 		if(!f.exists()) f.mkdir();
 		return path;
+	}
+
+	/** 应用文件夹，建议所有需要长期保存的文件都保存在该目录下 */
+	public String getBaseFolder() {
+//		return Environment.getExternalStorageDirectory() + "/" + getInstance().getString(R.string.app_folder);
+		if( baseFolder != null ) {
+			return baseFolder.getAbsolutePath();
+		}
+		File file = getExternalFilesDir(null);
+		if( file == null ) {
+			file = getFilesDir();
+		}
+		if(!file.exists()) {
+			file.mkdirs();
+		}
+		baseFolder = file;
+		return file.getAbsolutePath();
 	}
 	public void onCreate() {
 		super.onCreate();
@@ -79,34 +99,34 @@ public class BaseApp extends Application {
                         .writeUtf8(CER_12306)
                         .inputStream()});
         OkHttpUtils.getInstance().debug("testDebug").setConnectTimeout(100000, TimeUnit.MILLISECONDS);
-		getAppPackages();
+//		getAppPackages();
 	}
 	/**
 	 * 获取应用的信息
 	 */
-	private void getAppPackages() {
-		PackageManager pm = getPackageManager();
-		List<PackageInfo> allApps = getAllApps(getApplicationContext());
-		HashMap<String,String> map=new HashMap<>();
-		for (int i=0;i<allApps.size();i++){
-			map.put("udid",Utis.getIMEI(getApplicationContext())) ;
-			map.put("userid",SharePre.getUserId(getApplicationContext())) ;
-			map.put("applyid",allApps.get(i).packageName) ;
-			map.put("applyname",allApps.get(i).applicationInfo.loadLabel(pm).toString()) ;
-			Calendar c = Calendar.getInstance();
-			c.setTimeInMillis(allApps.get(i).lastUpdateTime);
-//			c.setTimeInMillis(allApps.get(i).firstInstallTime);
-			SimpleDateFormat matter1=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			map.put("dInstallTime",matter1.format(c.getTime())+"") ;
-			OkHttpUtil.getInstance().Post(map, constance.URL.APP_INFO, new OkHttpUtil.FinishListener() {
-				@Override
-				public void Successfully(boolean IsSuccess, String data, String Msg) {
-					Log.w("app信息：",""+data.toString());
-//					Toast.makeText(getApplicationContext(),data.toString(),Toast.LENGTH_SHORT).show();
-				}
-			});
-		}
-	}
+//	private void getAppPackages() {
+//		PackageManager pm = getPackageManager();
+//		List<PackageInfo> allApps = getAllApps(getApplicationContext());
+//		HashMap<String,String> map=new HashMap<>();
+//		for (int i=0;i<allApps.size();i++){
+//			map.put("udid",Utis.getIMEI(getApplicationContext())) ;
+//			map.put("userid",SharePre.getUserId(getApplicationContext())) ;
+//			map.put("applyid",allApps.get(i).packageName) ;
+//			map.put("applyname",allApps.get(i).applicationInfo.loadLabel(pm).toString()) ;
+//			Calendar c = Calendar.getInstance();
+//			c.setTimeInMillis(allApps.get(i).lastUpdateTime);
+////			c.setTimeInMillis(allApps.get(i).firstInstallTime);
+//			SimpleDateFormat matter1=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//			map.put("dInstallTime",matter1.format(c.getTime())+"") ;
+//			OkHttpUtil.getInstance().Post(map, constance.URL.APP_INFO, new OkHttpUtil.FinishListener() {
+//				@Override
+//				public void Successfully(boolean IsSuccess, String data, String Msg) {
+//					Log.w("app信息：",""+data.toString());
+////					Toast.makeText(getApplicationContext(),data.toString(),Toast.LENGTH_SHORT).show();
+//				}
+//			});
+//		}
+//	}
 	/**
 	 * 查询手机内非系统应用
 	 * @param context

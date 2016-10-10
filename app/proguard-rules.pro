@@ -257,3 +257,5 @@
  -keep public class * extends android.content.BroadcastReceiver
  -keep class com.tencent.android.tpush.**  {* ;}
  -keep class com.tencent.mid.**  {* ;}
+ #趣米
+ -keep class com.newqm.pointwall.** {*;}

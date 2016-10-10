@@ -39,5 +39,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         </Views.XListView.XListView>
+        <TextView
+            android:id="@+id/tv_load_date"
+            android:layout_width="wrap_content"
+            android:text="疯狂加载中..."
+            android:textSize="18sp"
+            android:layout_centerInParent="true"
+            android:layout_height="wrap_content" />
     </RelativeLayout>
 </LinearLayout>

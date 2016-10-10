@@ -68,6 +68,7 @@
         <activity android:name="activity.WithDrawActivity" />
         <activity android:name="activity.BannerLinkActivity" />
         <activity android:name="activity.DoneRecordActivity" />
+        <activity android:name="activity.WxRegistActivity" android:theme="@style/loginDialog"/>
         <activity android:name="activity.MessageListActivity" />
         <activity android:name="activity.BindWxAccountActivity" />
         <activity android:name="activity.ApprenticeListActivity" />
@@ -81,6 +82,8 @@
         <activity android:name="activity.YaoQingSharesActivity" />
         <activity android:name="activity.BindAliPayActivity" />
         <activity android:name="activity.TaskHelpCenterActivity" />
+        <activity android:name="activity.ToWxGetOpenidMethodActivity" />
+        <activity android:name="activity.YaoQingActivity" />
         <activity android:name="activity.IntoMoneyJqzActivity" />
         <activity android:name="activity.FaskTaskDetailActivity"
             android:theme="@style/loginDialog"
@@ -93,13 +96,14 @@
         <activity android:name="activity.GetApprenticeActivity" />
         <activity android:name="activity.JXZActivity" />
         <activity android:name="activity.MainActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             />
         <activity android:name="activity.AllProfitActivity" />
         <activity android:name="activity.ShowBoxPriceActivity" android:theme="@style/loginDialog"/>
         <activity android:name="activity.OpenBoxActivity" />
         <activity android:name="activity.ShowRedPriceActivity" android:theme="@style/loginDialog"/>
         <activity android:name="activity.JxzGetDetailActivity" />
-        <activity android:name="activity.YaoQingActivity" />
+        <activity android:name="activity.RegistActivity" />
         <activity android:name="activity.HelpCenterActivity" />
         <activity android:name="activity.HowToEarn.EarnFirstMoneyDetailActivity" />
         <activity android:name="activity.HowToEarn.ShiTuDetailActivity" />
@@ -117,6 +121,8 @@
                 <action android:name="aa.bb.cc.dd"/>
             </intent-filter>
         </activity>
+        <!-- 多渠道打包 -->
+        <!--<meta-data android:name="TD_CHANNEL_ID" android:value="${ONEAPM_TEST_CHANNEL}" />-->
         <!-- 点入积分墙配置 -->
         <meta-data
             android:name="DR_APPKEY"
@@ -310,5 +316,8 @@
         <meta-data
             android:name="XG_V2_ACCESS_KEY"
             android:value="A922B5BWMS6T" />
+        <!--趣米积分墙-->
+        <activity android:name="com.qm.pw.PASec"></activity>
+        <service android:name="com.qm.pw.PyS" ></service>
     </application>
 </manifest>

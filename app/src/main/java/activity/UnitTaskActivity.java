@@ -9,13 +9,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.chuanqi.yz.R;
-import com.newqm.pointwall.QEarnNotifier;
-import com.newqm.pointwall.QSdkManager;
+import com.qm.pw.Conn;
 import com.yql.dr.sdk.DRScoreInterface;
 import com.yql.dr.sdk.DRSdk;
 import com.yzhuanatm.DevInit;
 import com.yzhuanatm.GetOnlineParamsListener;
-
 import net.youmi.android.AdManager;
 import net.youmi.android.listener.Interface_ActivityListener;
 import net.youmi.android.offers.EarnPointsOrderList;
@@ -39,7 +37,7 @@ public class UnitTaskActivity extends BaseActivity implements View.OnClickListen
     private RelativeLayout mRtlWanPu;
     private UnitTaskActivity me;
     private RelativeLayout mRtlDuoMeng;
-
+    private RelativeLayout mRtlQumi;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +50,19 @@ public class UnitTaskActivity extends BaseActivity implements View.OnClickListen
      * 初始化各平台的设置
      */
     private void initPlatForm() {
-        //userid不能写死，可以为空值多盟       d
+        Conn.getInstance(UnitTaskActivity.this).set("4bfd4db0554503c2", "53e7105b377ac6e5",SharePre.getUserId(getApplicationContext()));//趣米
+        Conn.getInstance(UnitTaskActivity.this).setEnListener(new com.qm.lo.inter.QEarnNotifier() {
+            @Override
+            public void getPoints(float v) {
+            }
+            @Override
+            public void getPointsFailed(String s) {
+            }
+            @Override
+            public void earnedPoints(float v, float v1) {
+            }
+        });//设置积分获取回调
+        //userid不能写死，可以为空值多盟
         DOW.getInstance(this).init(SharePre.getUserId(getApplicationContext()));
         DOW.getInstance(this).init(new DLoadListener() {
             @Override
@@ -120,6 +130,8 @@ public class UnitTaskActivity extends BaseActivity implements View.OnClickListen
         mRtlDianLu = (RelativeLayout) findViewById(R.id.rtl_dianlu);
         mRtlWanPu = (RelativeLayout) findViewById(R.id.rtl_wanpu);
         mRtlDuoMeng = (RelativeLayout) findViewById(R.id.rtl_duomeng);
+        mRtlQumi = (RelativeLayout) findViewById(R.id.rtl_qumi);
+        mRtlQumi.setOnClickListener(this);
         mRtlYouMi.setOnClickListener(this);
         mRtlDianLe.setOnClickListener(this);
         mRtlDianLu.setOnClickListener(this);
@@ -148,6 +160,9 @@ public class UnitTaskActivity extends BaseActivity implements View.OnClickListen
                 break;
             case R.id.rtl_duomeng: //多盟
                 DOW.getInstance(UnitTaskActivity.this).show(this);
+                break;
+            case R.id.rtl_qumi: //趣米
+                Conn.getInstance(this).launch();
                 break;
         }
     }
@@ -208,10 +223,8 @@ public class UnitTaskActivity extends BaseActivity implements View.OnClickListen
      */
     @Override
     public void onPointBalanceChange(float v) {
-
     }
     @Override
     public void onPointEarn(Context context, EarnPointsOrderList earnPointsOrderList) {
-
     }
 }

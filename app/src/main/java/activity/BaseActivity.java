@@ -1,15 +1,20 @@
 package activity;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.view.Gravity;
 import android.view.View;
@@ -39,6 +44,7 @@ public class BaseActivity extends FragmentActivity {
 	public static final int NETTYPE_CMWAP = 12;
 	public static final int NETTYPE_CMNET = 13;
 	public final static int RESULT_CLOSE_ACTIVITY = -9999;
+	private static final int READ_PHONE_STATE = 0;
 	private static ArrayList<BaseActivity> activityList = new ArrayList<BaseActivity>();
 	private boolean background = false;
 	private Toast tip;
@@ -75,6 +81,7 @@ public class BaseActivity extends FragmentActivity {
 	}
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+//		CheckPession();
 		activityList.add(this);
 		group = new FrameLayout(getApplicationContext());
 		// 创建一个statusBarView 占位，填充状态栏的区域，以后设置状态栏背景效果其实是设置这个view的背景。
@@ -83,6 +90,49 @@ public class BaseActivity extends FragmentActivity {
 		// 设置activity的window布局从状态栏开始
 		setTranslucentStatus(true);
 		setStatusBarColorBg(R.color.red);
+	}
+
+	/**
+	 * 检查是否有系统权限
+	 */
+	public   boolean CheckPession() {
+		if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)
+				!= PackageManager.PERMISSION_GRANTED) {
+			// Camera permission has not been granted.
+			requestCameraPermission();
+			return  false;
+		}else {
+			return true;
+		}
+	}
+	/**
+	 * Requests the Camera permission.
+	 * If the permission has been denied previously, a SnackBar will prompt the user to grant the
+	 * permission, otherwise it is requested directly.
+	 */
+	private   void requestCameraPermission() {
+		if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+				Manifest.permission.READ_PHONE_STATE)) {
+		} else {
+			ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_PHONE_STATE},
+					READ_PHONE_STATE);
+		}
+	}
+	@Override
+	public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+										   @NonNull int[] grantResults) {
+		if (requestCode ==READ_PHONE_STATE) {
+			// Received permission result for camera permission.est.");
+			// Check if the only required permission has been granted
+			if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+				// Camera permission has been granted, preview can be displayed
+//				Snackbar.make(mLayout, R.string.permision_available_camera,
+//						Snackbar.LENGTH_SHORT).show();
+			} else {
+//				Snackbar.make(mLayout,"",
+//						Snackbar.LENGTH_SHORT).show();
+			}
+		}
 	}
 	@Override
 	public void setContentView(View view, ViewGroup.LayoutParams params) {

@@ -26,6 +26,7 @@ public class TaskAdapter extends BaseAdapter{
 	private Context context;
 	private ArrayList<faskTask> mDate;
 	private ViewHold viewHold;
+	private  int pos=-1;
 	public TaskAdapter(Context context, ArrayList<faskTask> mDate) {
 		this.context = context;
 		this.mDate = mDate;
@@ -62,26 +63,33 @@ public class TaskAdapter extends BaseAdapter{
 		viewHold.TvLeftNum.setText("剩下"+mDate.get(position).getNowAmount()+"份");
 		viewHold.TvPrice.setText("￥"+mDate.get(position).getPrice());
 		UILUtils.displayImage(mDate.get(position).getApplyIcon(),viewHold.ImgIcon);
-		HashMap<String,String> map=new HashMap<>();
-		map.put("userid",""+SharePre.getUserId(context));
-		OkHttpUtil.getInstance().Post(map, constance.URL.IS_APPLYTASK, new OkHttpUtil.FinishListener() {
-			@Override
-			public void Successfully(boolean IsSuccess, String data, String Msg) {
-				if(IsSuccess){
-					TaskState taskState = GsonUtils.parseJSON(data, TaskState.class);
-					Log.i("任务状态==============",""+data.toString());
-					if(taskState.getApplyid().equals("")){
-					  if(mDate.get(position).getsBandleID().equals(taskState.getApplyid())){
-						  viewHold.TvPrice.setText("进行中");
-					  }else {
-						  viewHold.TvPrice.setText("￥"+mDate.get(position).getPrice());
-					  }
-					}
-				}else {
-					 Toast.makeText(context,""+data.toString(),Toast.LENGTH_SHORT).show();
-				}
-			}
-		});
+		if(position==pos){
+			viewHold.TvPrice.setText("进行中");
+		}else {
+			viewHold.TvPrice.setText("￥"+mDate.get(position).getPrice());
+		}
+//		HashMap<String,String> map=new HashMap<>();
+//		map.put("userid",""+SharePre.getUserId(context));
+//		OkHttpUtil.getInstance().Post(map, constance.URL.IS_APPLYTASK, new OkHttpUtil.FinishListener() {
+//			@Override
+//			public void Successfully(boolean IsSuccess, String data, String Msg) {
+//				if(IsSuccess){
+//					TaskState taskState = GsonUtils.parseJSON(data, TaskState.class);
+//					Log.i("任务状态==============",""+data.toString());
+//					if(taskState.getApplyid().equals("")){
+//						viewHold.TvPrice.setText("￥"+mDate.get(position).getPrice());
+//					}else {
+//						if(mDate.get(position).getsBandleID().equals(taskState.getApplyid())){
+//							viewHold.TvPrice.setText("进行中");
+//						}else {
+//							viewHold.TvPrice.setText("￥"+mDate.get(position).getPrice());
+//						}
+//					}
+//				}else {
+//					 Toast.makeText(context,""+data.toString(),Toast.LENGTH_SHORT).show();
+//				}
+//			}
+//		});
 		//判断是否完成任务
 //		if(!Utis.checkApkExist(context, mDate.get(position).getsBandleID())){
 //			HashMap<String,String> map1=new HashMap<String, String>();
@@ -118,5 +126,8 @@ public class TaskAdapter extends BaseAdapter{
 		TextView TvLeftNum;
 		TextView TvPrice;
 		ImageView ImgIcon;
+	}
+	public  void  setTaskRunning(int i){
+		pos=i;
 	}
 }

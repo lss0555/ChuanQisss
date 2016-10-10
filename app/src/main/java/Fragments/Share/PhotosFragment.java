@@ -54,9 +54,7 @@ public class PhotosFragment extends BaseFragment {
         initevent();
         return layout;
     }
-
     private void initevent() {
-
         imgShowSelectAdapter = new ImgShowSelectAdapter(getActivity(), mDate);
         imgShowSelectAdapter.setSelectState(4);
         mListPhotos.setAdapter(imgShowSelectAdapter);
@@ -69,20 +67,19 @@ public class PhotosFragment extends BaseFragment {
             }
         });
     }
-
     /**
      * 初始化添加数据
      */
     private void initdate() {
-        mDate.add(new Photos("0","http://bmob-cdn-6460.b0.upaiyun.com/2016/09/22/a24acb764094e1dc8025767536da71e8.jpg"));
-        mDate.add(new Photos("1","http://bmob-cdn-6460.b0.upaiyun.com/2016/09/22/287713c14074bec980defed1473748fa.jpg"));
-        mDate.add(new Photos("2","http://bmob-cdn-6460.b0.upaiyun.com/2016/09/22/6613ebcc408079f680989f520145a271.jpg"));
-        mDate.add(new Photos("3","http://bmob-cdn-6460.b0.upaiyun.com/2016/09/22/d02f83f340b201a380d75eb142ec31af.jpg"));
-        mDate.add(new Photos("4","http://bmob-cdn-6460.b0.upaiyun.com/2016/09/22/ccce54a840d5f2c780bc7cd70936a39e.jpg"));
-        mDate.add(new Photos("5","http://bmob-cdn-6460.b0.upaiyun.com/2016/09/22/766f67dc409573b980f743ed5dcc52d7.jpg"));
-        mDate.add(new Photos("6","http://bmob-cdn-6460.b0.upaiyun.com/2016/09/22/39b7f12840ec7afa80e0574d09cdb073.jpg"));
-        mDate.add(new Photos("7","http://bmob-cdn-6460.b0.upaiyun.com/2016/09/22/7eb5d13840a0845d80af672496d9605b.jpg"));
-        mDate.add(new Photos("8","http://bmob-cdn-6460.b0.upaiyun.com/2016/09/22/b164d75a40a1d66f80f6a7d696351bde.jpg"));
+        mDate.add(new Photos("0","http://bmob-cdn-6460.b0.upaiyun.com/2016/10/09/699434b740a8dbd2803f8fd654fe7bbe.png"));
+        mDate.add(new Photos("1","http://bmob-cdn-6460.b0.upaiyun.com/2016/10/09/919a5b83403b6d9680296073c550d5cd.png"));
+        mDate.add(new Photos("2","http://bmob-cdn-6460.b0.upaiyun.com/2016/10/09/208b4b31407cc68480589643621cef6d.png"));
+        mDate.add(new Photos("3","http://bmob-cdn-6460.b0.upaiyun.com/2016/10/09/3bd83c5540447a658016ccd873da4474.png"));
+        mDate.add(new Photos("4","http://bmob-cdn-6460.b0.upaiyun.com/2016/10/09/e6eba8704051504a803881884556fa78.png"));
+        mDate.add(new Photos("5","http://bmob-cdn-6460.b0.upaiyun.com/2016/10/09/527db86c40621d22809e60cb494175b7.png"));
+        mDate.add(new Photos("6","http://bmob-cdn-6460.b0.upaiyun.com/2016/10/09/3cf28f8c406454a380949ecb9756fd64.png"));
+        mDate.add(new Photos("7","http://bmob-cdn-6460.b0.upaiyun.com/2016/10/09/1dc6e2b240091b1a80f48c0880b1732c.png"));
+        mDate.add(new Photos("8","http://bmob-cdn-6460.b0.upaiyun.com/2016/10/09/fb80cce34020ee51805f6fed65b36dcc.png"));
     }
     private void initview(View layout) {
         mListPhotos = (HorizontalListView) layout.findViewById(R.id.list_img);
@@ -113,7 +110,6 @@ public class PhotosFragment extends BaseFragment {
     /**
      * page adapter
      * @author Administrator
-     *
      */
     class BannerAdpter extends FragmentPagerAdapter {
 

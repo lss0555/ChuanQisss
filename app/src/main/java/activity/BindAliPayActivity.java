@@ -30,7 +30,6 @@ public class BindAliPayActivity extends BaseActivity {
     private EditText mEtName;
     private EditText mEtAccount;
     private RelativeLayout mRtlComplite;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +61,7 @@ public class BindAliPayActivity extends BaseActivity {
                        mEtAccount.setEnabled(false);
                        mEtName.setEnabled(false);
                        mRtlComplite.setBackground(getResources().getDrawable(R.drawable.round_gray_bg));
+                       mRtlComplite.setEnabled(false);
                        state=1;
                    }
                }else {
@@ -98,14 +98,16 @@ public class BindAliPayActivity extends BaseActivity {
                         stopProgressDialog();
                        if(IsSuccess){
                            Result bindAccount = GsonUtils.parseJSON(data, Result.class);
-                           if(!bindAccount.getRun().equals("1")){
+                           if(bindAccount.getRun().equals("1")){
                                Toast("恭喜您，绑定成功,获得0.5元");
                                Intent intent = new Intent();
                                intent.putExtra(constance.INTENT.UPDATE_ADD_USER_MONEY,true);
                                intent.setAction(constance.INTENT.UPDATE_ADD_USER_MONEY);   //
-                               sendBroadcast(intent);   //发送广播
+                               sendBroadcast(intent);  //发送广播
                                setResult(1);
                                finish();
+                           }else {
+                               Toast("抱歉，您的支付宝已绑定过");
                            }
                        }else {
                            Toast(data.toString());

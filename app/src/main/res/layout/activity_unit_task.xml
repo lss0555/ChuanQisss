@@ -178,6 +178,51 @@
                 android:layout_width="match_parent"
                 android:background="@color/gray"
                 android:layout_height="1dp"></View>
+            <RelativeLayout
+                android:id="@+id/rtl_qumi"
+                android:layout_width="match_parent"
+                android:layout_height="70dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="易钻ATM6"
+                    android:layout_centerVertical="true"
+                    android:textSize="17sp"
+                    android:gravity="center"
+                    android:drawablePadding="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:drawableLeft="@mipmap/qumi"
+                    android:textColor="@drawable/black2gray_seleclor"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:background="@mipmap/w_tiaozhuan1"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:background="@color/gray"
+                android:layout_height="1dp"></View>
+
         </LinearLayout>
     </ScrollView>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_gravity="bottom"
+        android:layout_weight="1"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="联盟任务为广告主的任务，做任务需要回调，偶尔出现到账时间延迟，这是少数情况，如有上述问题敬请耐心等待，谢谢！"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:gravity="bottom"
+            android:textSize="13sp"
+            android:layout_alignParentBottom="true"
+            android:textColor="@color/black"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
 </LinearLayout>

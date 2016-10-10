@@ -26,6 +26,7 @@ public class BindPhoneActivity extends BaseActivity{
     private EditText mEtPassword;
     private EditText mEtYzm;
     private EditText mEtPhone;
+    private  String yzms="";
     private int countdown;
     Handler handler = new Handler();
     Runnable runnable = new Runnable() {
@@ -68,7 +69,9 @@ public class BindPhoneActivity extends BaseActivity{
             public void onClick(View view) {
                 if(mEtPhone.getText().toString().trim().equals("")){
                     Toast("请输入您的手机号码");
-                }else {
+                }else if(mEtPhone.getText().toString().length()!=11){
+                    Toast("抱歉，您填入的格式有误");
+                } else{
                     countdown = 60;
                     handler.postDelayed(runnable, 1000);
                     mTvSend.setClickable(false);
@@ -79,7 +82,7 @@ public class BindPhoneActivity extends BaseActivity{
                         @Override
                         public void Successfully(boolean IsSuccess, String data, String Msg) {
                             mYzm= GsonUtils.parseJSON(data,Yzm.class);
-
+                            yzms=mYzm.getRun();
                         }
                     });
                 }
@@ -90,6 +93,10 @@ public class BindPhoneActivity extends BaseActivity{
             public void onClick(View view) {
                 if(mEtPhone.getText().toString().equals("") || mEtYzm.getText().toString().equals("")){
                        Toast("请输入完整");
+                }else if(yzms.equals("")||yzms==null){
+                    Toast("抱歉，您的验证码有误");
+                }else if(!yzms.equals(mEtYzm.getText().toString().trim())){
+                    Toast("抱歉，您的验证码有误");
                 }else{
                     HashMap<String,String> map=new HashMap<String, String>();
                     map.put("userid",SharePre.getUserId(BindPhoneActivity.this));

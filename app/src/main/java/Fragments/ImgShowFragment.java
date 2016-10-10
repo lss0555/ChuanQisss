@@ -41,12 +41,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chuanqi.yz.R;
+import com.google.zxing.WriterException;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import Dialogs.SelectPicPop;
 import Utis.SharePre;
 import Utis.UILUtils;
 import Utis.Utis;
+import Utis.MakeQRCodeUtil;
 import Views.DrawTextImageView;
 import model.Photos;
 /**
@@ -60,8 +62,10 @@ public class ImgShowFragment extends BaseFragment {
 	private ImageView mImgShow1;
 	private ArrayList<Photos> mDate;
 	private int positon;
-	private TextView mTvYqm;
+//	private TextView mTvYqm;
 	private Bitmap tvBitmap;
+	private ImageView mImgQrCode;
+	private Bitmap makeQRImage;
 
 	public ImgShowFragment() {
 	}
@@ -78,15 +82,15 @@ public class ImgShowFragment extends BaseFragment {
 		return layout;
 	}
 	private void initview(View layout) {
-		mTvYqm = (TextView) layout.findViewById(R.id.tv_yqm);
-//		mTvYqm.setText("我的邀请码:" + SharePre.getUserId(getActivity()));
+		mImgQrCode = (ImageView) layout.findViewById(R.id.img_qrcode);
 		mImgShow = (DrawTextImageView) layout.findViewById(R.id.img_show);
-		mImgShow.setDrawText("邀请码:" + SharePre.getUserId(getActivity()));
-		mImgShow.setDrawTextColorResourse(R.color.black);
-		mImgShow.setDrawTextSize(45.2f);
-		mImgShow.setDrawLocalXY(100,960f);
-		mImgShow1 = (ImageView) layout.findViewById(R.id.img_show);
-//		drawText2Pic(mImgShow,"我的邀请码:"+SharePre.getUserId(getActivity()),mDate.get(positon).getImgUrl());
+		try {
+			makeQRImage =MakeQRCodeUtil.makeQRImage("http://jk.qingyiyou.cn/wx/UniqueCode/invite.html?userid="+SharePre.getUserId(getActivity()), 300, 300);
+//			Bitmap makeQRImage=MakeQRCodeUtil.makeQRImage(drawingCache,"http://jk.qingyiyou.cn/wx/UniqueCode/invite.html?userid=100087", 200, 200);
+			mImgQrCode.setImageBitmap(makeQRImage);
+		} catch (WriterException e) {
+			e.printStackTrace();
+		}
 		UILUtils.displayImageNoAnim(mDate.get(positon).getImgUrl(), mImgShow);
 		mImgShow.setOnLongClickListener(new View.OnLongClickListener() {
 			@Override
@@ -101,7 +105,7 @@ public class ImgShowFragment extends BaseFragment {
 //								Bitmap bitmap = ((BitmapDrawable) mImgShow.getDrawable()).getBitmap();
 								mImgShow.setDrawingCacheEnabled(true);
 								Bitmap drawingCache = mImgShow.getDrawingCache();
-								saveImgs(drawingCache);
+								saveImgs(MakeQRCodeUtil.addBackground(makeQRImage,drawingCache));
 								mImgShow.setDrawingCacheEnabled(false);
 								break;
 						}

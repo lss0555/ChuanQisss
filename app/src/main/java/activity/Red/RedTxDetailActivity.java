@@ -113,12 +113,17 @@ public class RedTxDetailActivity extends BaseActivity {
         mRtlComplite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                Double UserAccount = new Double(mTvPrice.getText().toString().trim());
+//                Double WithDraw = new Double(mEtPrice.getText().toString().trim());
+//                int compare =  UserAccount.compareTo(WithDraw);
                 if(mRbWxin.isChecked()){
-                    if(mEtPrice.getText().toString().equals("")){
+                    if(mEtPrice.getText().toString().equals("") ||mEtPrice.getText().toString().trim()==null){
                         Toast("请输入提现金额");
                     }
                     else if((Integer.parseInt(mEtPrice.getText().toString().trim()))%100!=0){
                         Toast("请输入的金额为100的倍数");
+                    }else if(new Double(mTvPrice.getText().toString().trim()).compareTo(new Double(mEtPrice.getText().toString().trim()))<0){
+                        Toast("抱歉，您的余额不足");
                     }
                     else {
                         WxWithDraw(mEtPrice.getText().toString().trim());
