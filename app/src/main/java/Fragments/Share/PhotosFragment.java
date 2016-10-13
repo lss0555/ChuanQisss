@@ -42,7 +42,7 @@ public class PhotosFragment extends BaseFragment {
     private int NUM=10000;
     private HorizontalListView mListPhotos;
     private ImgShowSelectAdapter imgShowSelectAdapter;
-
+    int[] ShareSgImgs={R.mipmap.fxsg_1,R.mipmap.fxsg_2,R.mipmap.fxsg_3,R.mipmap.fxsg_4,R.mipmap.fxsg_5,R.mipmap.fxsg_6,R.mipmap.fxsg_7,R.mipmap.fxsg_8,R.mipmap.fxsg_9};
     public PhotosFragment() {
     }
     @Override
@@ -71,15 +71,15 @@ public class PhotosFragment extends BaseFragment {
      * 初始化添加数据
      */
     private void initdate() {
-        mDate.add(new Photos("0","http://bmob-cdn-6460.b0.upaiyun.com/2016/10/09/699434b740a8dbd2803f8fd654fe7bbe.png"));
-        mDate.add(new Photos("1","http://bmob-cdn-6460.b0.upaiyun.com/2016/10/09/919a5b83403b6d9680296073c550d5cd.png"));
-        mDate.add(new Photos("2","http://bmob-cdn-6460.b0.upaiyun.com/2016/10/09/208b4b31407cc68480589643621cef6d.png"));
-        mDate.add(new Photos("3","http://bmob-cdn-6460.b0.upaiyun.com/2016/10/09/3bd83c5540447a658016ccd873da4474.png"));
-        mDate.add(new Photos("4","http://bmob-cdn-6460.b0.upaiyun.com/2016/10/09/e6eba8704051504a803881884556fa78.png"));
-        mDate.add(new Photos("5","http://bmob-cdn-6460.b0.upaiyun.com/2016/10/09/527db86c40621d22809e60cb494175b7.png"));
-        mDate.add(new Photos("6","http://bmob-cdn-6460.b0.upaiyun.com/2016/10/09/3cf28f8c406454a380949ecb9756fd64.png"));
-        mDate.add(new Photos("7","http://bmob-cdn-6460.b0.upaiyun.com/2016/10/09/1dc6e2b240091b1a80f48c0880b1732c.png"));
-        mDate.add(new Photos("8","http://bmob-cdn-6460.b0.upaiyun.com/2016/10/09/fb80cce34020ee51805f6fed65b36dcc.png"));
+//        mDate.add(new Photos("0","http://bmob-cdn-6460.b0.upaiyun.com/2016/10/09/699434b740a8dbd2803f8fd654fe7bbe.png"));
+//        mDate.add(new Photos("1","http://bmob-cdn-6460.b0.upaiyun.com/2016/10/09/919a5b83403b6d9680296073c550d5cd.png"));
+//        mDate.add(new Photos("2","http://bmob-cdn-6460.b0.upaiyun.com/2016/10/09/208b4b31407cc68480589643621cef6d.png"));
+//        mDate.add(new Photos("3","http://bmob-cdn-6460.b0.upaiyun.com/2016/10/09/3bd83c5540447a658016ccd873da4474.png"));
+//        mDate.add(new Photos("4","http://bmob-cdn-6460.b0.upaiyun.com/2016/10/09/e6eba8704051504a803881884556fa78.png"));
+//        mDate.add(new Photos("5","http://bmob-cdn-6460.b0.upaiyun.com/2016/10/09/527db86c40621d22809e60cb494175b7.png"));
+//        mDate.add(new Photos("6","http://bmob-cdn-6460.b0.upaiyun.com/2016/10/09/3cf28f8c406454a380949ecb9756fd64.png"));
+//        mDate.add(new Photos("7","http://bmob-cdn-6460.b0.upaiyun.com/2016/10/09/1dc6e2b240091b1a80f48c0880b1732c.png"));
+//        mDate.add(new Photos("8","http://bmob-cdn-6460.b0.upaiyun.com/2016/10/09/fb80cce34020ee51805f6fed65b36dcc.png"));
     }
     private void initview(View layout) {
         mListPhotos = (HorizontalListView) layout.findViewById(R.id.list_img);
@@ -90,14 +90,13 @@ public class PhotosFragment extends BaseFragment {
         mVpPhoto.setAdapter(new BannerAdpter(fm));
         mVpPhoto.setPageTransformer(true, new ZoomOutPageTransformer());
         mVpPhoto.setCurrentItem(5000);
-
         mVpPhoto.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
             }
             @Override
             public void onPageSelected(int position) {
-                int pos=position%mDate.size();
+                int pos=position%ShareSgImgs.length;
                 imgShowSelectAdapter.setSelectState(pos);
                 imgShowSelectAdapter.notifyDataSetChanged();
             }
@@ -112,7 +111,6 @@ public class PhotosFragment extends BaseFragment {
      * @author Administrator
      */
     class BannerAdpter extends FragmentPagerAdapter {
-
         public BannerAdpter(FragmentManager fm) {
             super(fm);
         }
@@ -122,8 +120,8 @@ public class PhotosFragment extends BaseFragment {
         }
         @Override
         public Fragment getItem(int position) {
-            int pos=position%mDate.size();
-            return new ImgShowFragment(pos,mDate);
+            int pos=position%ShareSgImgs.length;
+            return new ImgShowFragment(pos,ShareSgImgs[pos%9]);
         }
     }
 }

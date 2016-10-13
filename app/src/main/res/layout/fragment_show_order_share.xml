@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/yq_bg"
     android:layout_height="match_parent"
     tools:context="Fragments.Share.ShowOrderShareFragment">
@@ -15,15 +16,49 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="250dp">
-                <ImageView
+                android:background="@color/red"
+                android:orientation="vertical"
+                android:layout_height="240dp">
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:background="@mipmap/fx_top"
-                    android:layout_height="wrap_content" />
-            </RelativeLayout>
+                    android:layout_height="90dp">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:background="@mipmap/yz_logo_white"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:background="@color/red"
+                    android:layout_height="110dp">
+                    <Views.CircleImageView
+                        android:id="@+id/img_icons"
+                        android:layout_width="120dp"
+                        app:border_width="1dp"
+                        app:border_color="@color/gray"
+                        android:src="@mipmap/ic_empty"
+                        android:layout_centerInParent="true"
+                        android:layout_height="120dp"
+                        />
 
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:background="@color/red"
+                    android:layout_height="40dp">
+                    <TextView
+                        android:id="@+id/tv_nickname"
+                        android:layout_width="wrap_content"
+                        android:text="加载中..."
+                        android:layout_centerInParent="true"
+                        android:textSize="18sp"
+                        android:textColor="@color/white"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_weight="1"
@@ -183,7 +218,27 @@
                     </RelativeLayout>
                 </RelativeLayout>
             </LinearLayout>
-
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="40dp">
+                <RelativeLayout
+                    android:id="@+id/rtl_share"
+                    android:layout_width="match_parent"
+                    android:layout_marginLeft="60dp"
+                    android:layout_marginRight="60dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/round_red_bg"
+                    android:layout_height="35dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="分享给好友"
+                    android:layout_centerInParent="true"
+                    android:textColor="@drawable/white2gray_seleclor"
+                    android:textSize="17sp"
+                    android:layout_height="wrap_content" />
+                </RelativeLayout>
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:orientation="vertical"
@@ -204,6 +259,7 @@
                     android:layout_gravity="center"
                     android:layout_height="wrap_content" />
             </LinearLayout>
+
         </LinearLayout>
     </FrameLayout>
 

@@ -258,4 +258,10 @@
  -keep class com.tencent.android.tpush.**  {* ;}
  -keep class com.tencent.mid.**  {* ;}
  #趣米
- -keep class com.newqm.pointwall.** {*;}
+ #-keep class com.newqm.pointwall.** {*;}
+ -keep class com.qm.pw.** {*;}
+ -keep class com.qm.lo.**{*;}
+  #多盟
+ -dontwarn cn.dow.**
+ -keep class cn. dow.** { *; }
+

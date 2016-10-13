@@ -154,62 +154,39 @@ public class YaoQingSharesActivity extends BaseActivity implements View.OnClickL
         switch (view.getId()){
             case R.id.rtl_photo:
                 showPhotoFragment();
+                mRtlPhoto.setBackground(getResources().getDrawable(R.color.white));
+                mRtlCustomer.setBackground(getResources().getDrawable(R.color.red));
+                mRtlShowOrder.setBackground(getResources().getDrawable(R.color.red));
                 mTvPhoto.setTextColor(getResources().getColor(R.color.red));
-                mTvCustomer.setTextColor(getResources().getColor(R.color.black));
-                mTvShowOrder.setTextColor(getResources().getColor(R.color.black));
+                mTvCustomer.setTextColor(getResources().getColor(R.color.white));
+                mTvShowOrder.setTextColor(getResources().getColor(R.color.white));
                 mTvShares.setVisibility(View.GONE);
                 break;
             case R.id.rtl_customer:
+                mRtlPhoto.setBackground(getResources().getDrawable(R.color.red));
+                mRtlCustomer.setBackground(getResources().getDrawable(R.color.white));
+                mRtlShowOrder.setBackground(getResources().getDrawable(R.color.red));
+
                 showCustomerFragment();
-                mTvPhoto.setTextColor(getResources().getColor(R.color.black));
+                mTvPhoto.setTextColor(getResources().getColor(R.color.white));
                 mTvCustomer.setTextColor(getResources().getColor(R.color.red));
-                mTvShowOrder.setTextColor(getResources().getColor(R.color.black));
+                mTvShowOrder.setTextColor(getResources().getColor(R.color.white));
                 mTvShares.setVisibility(View.GONE);
                 break;
             case R.id.rtl_show_order:
+                mRtlPhoto.setBackground(getResources().getDrawable(R.color.red));
+                mRtlCustomer.setBackground(getResources().getDrawable(R.color.red));
+                mRtlShowOrder.setBackground(getResources().getDrawable(R.color.white));
                 showShowOrderFragment();
-                mTvPhoto.setTextColor(getResources().getColor(R.color.black));
-                mTvCustomer.setTextColor(getResources().getColor(R.color.black));
+                mTvPhoto.setTextColor(getResources().getColor(R.color.white));
+                mTvCustomer.setTextColor(getResources().getColor(R.color.white));
                 mTvShowOrder.setTextColor(getResources().getColor(R.color.red));
-                mTvShares.setVisibility(View.VISIBLE);
+//                mTvShares.setVisibility(View.VISIBLE);
                 break;
             case R.id.tv_shares:
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Share();
-                    }
-                }).start();
+
                 break;
         }
     }
-    public  void  Share(){
-        ShareSDK.initSDK(getApplicationContext());
-        OnekeyShare oks = new OnekeyShare();
-        oks.disableSSOWhenAuthorize();//关闭sso授权
-        oks.setTitle("易钻ATM");  // titleUrl是标题的网络链接，仅在人人网和QQ空间使用
-        oks.setTitleUrl("http://jk.qingyiyou.cn/wx/UniqueCode/invite.html?userid="+SharePre.getUserId(getApplicationContext()));
-        oks.setText("易钻ATM,快来加入一起来赚吧！");  // text是分享文本，所有平台都需要这个字段
-        oks.setImageUrl("http://t.cn/RcnXxyx");
-        oks.setUrl("http://jk.qingyiyou.cn/wx/UniqueCode/invite.html?userid="+SharePre.getUserId(getApplicationContext())); // url仅在微信（包括好友和朋友圈）中使用
-        oks.setComment("易钻ATM有你才完美");// comment是我对这条分享的评论，仅在人人网和QQ空间使用
-        oks.setSite(getString(R.string.app_name)); // site是分享此内容的网站名称，仅在QQ空间使用
-        oks.setSiteUrl("http://jk.qingyiyou.cn/wx/UniqueCode/invite.html?userid="+SharePre.getUserId(getApplicationContext()));   // siteUrl是分享此内容的网站地址，仅在QQ空间使用
-        oks.setCallback(new PlatformActionListener() {
-            @Override
-            public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
-                Toast("分享成功");
-            }
-            @Override
-            public void onError(Platform platform, int i, Throwable throwable) {
-                Log.e("分享状态","onError");
-                Toast("分享错误");
-            }
-            @Override
-            public void onCancel(Platform platform, int i) {
-                Toast("分享取消");
-            }
-        });
-        oks.show(getApplicationContext()); // 启动分享GUI
-    }
+
 }

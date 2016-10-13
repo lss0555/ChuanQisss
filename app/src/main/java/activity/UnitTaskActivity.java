@@ -86,6 +86,7 @@ public class UnitTaskActivity extends BaseActivity implements View.OnClickListen
                 Log.e("多盟","失败");
             }
         });
+
 //        /**
 //         * 有米  初始化接口，应用启动的时候调用，参数：appId, appSecret
 //         */

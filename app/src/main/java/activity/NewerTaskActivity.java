@@ -14,6 +14,7 @@ import java.util.HashMap;
 import Constance.constance;
 import Mob.Share.OnekeyShare;
 import Utis.GsonUtils;
+import Utis.MD5Utis;
 import Utis.OkHttpUtil;
 import Utis.SharePre;
 import cn.sharesdk.framework.Platform;
@@ -76,7 +77,6 @@ public class NewerTaskActivity extends BaseActivity implements View.OnClickListe
         initBindAlipayState();
         initLjptState();
     }
-
     /**
      * 了解平台的状态
      */
@@ -162,6 +162,31 @@ public class NewerTaskActivity extends BaseActivity implements View.OnClickListe
             }
         });
     }
+
+    /**
+     * 绑定微信状态
+     */
+    private void initBindPhoneStates() {
+        HashMap<String,String> map=new HashMap<>();
+        map.put("userid", SharePre.getUserId(getApplicationContext())+"");
+        OkHttpUtil.getInstance().Post(map, constance.URL.IS_BIND_PHONE,new OkHttpUtil.FinishListener() {
+            @Override
+            public void Successfully(boolean IsSuccess, String data, String Msg) {
+                if(IsSuccess){
+                    yzm = GsonUtils.parseJSON(data, Yzm.class);
+                    if(yzm.getRun().equals("1")){
+                        mRtlBindPhones.setBackground(getResources().getDrawable(R.drawable.round_gray_bg));
+                        mRtlBindPhones.setEnabled(false);
+                        mTvBindPhoneState.setText("已完成");
+                        mRtlBindPhone.setEnabled(false);
+                    }else {
+                        mRtlBindPhones.setBackground(getResources().getDrawable(R.drawable.round_red_bg));
+                        mRtlBindPhones.setEnabled(true);
+                    }
+                }
+            }
+        });
+    }
     private void initview() {
         findViewById(R.id.rtl_share).setOnClickListener(this);
         mRtlKnownPlatForm = (RelativeLayout) findViewById(R.id.rtl_known_platform);
@@ -191,7 +216,7 @@ public class NewerTaskActivity extends BaseActivity implements View.OnClickListe
                 break;
             case R.id.rtl_bind_alipay://绑定支付宝
                 Intent intent_Alipay=new Intent(getApplicationContext(),BindAliPayActivity.class);
-                startActivity(intent_Alipay);
+                startActivityForResult(intent_Alipay,11);
                 break;
             case R.id.rtl_bind_phone://绑定手机
                 startProgressDialog("加载中...");
@@ -211,7 +236,7 @@ public class NewerTaskActivity extends BaseActivity implements View.OnClickListe
                             }else {
                                 //未绑定
                                 Intent intent_bind_phone=new Intent(getApplicationContext(),BindPhoneActivity.class);
-                                startActivity(intent_bind_phone);
+                                startActivityForResult(intent_bind_phone,21);
                             }
                         }
                     }
@@ -232,13 +257,13 @@ public class NewerTaskActivity extends BaseActivity implements View.OnClickListe
         OnekeyShare oks = new OnekeyShare();
         oks.disableSSOWhenAuthorize();//关闭sso授权
         oks.setTitle("易钻ATM");  // titleUrl是标题的网络链接，仅在人人网和QQ空间使用
-        oks.setTitleUrl("http://qingyiyou.cn/appmsg/ProductIntroduce.html");
+        oks.setTitleUrl("http://jk.qingyiyou.cn/wx/UniqueCode/invite.html?userid="+SharePre.getUserId(getApplicationContext()));
         oks.setText("易钻ATM,快来加入一起来赚吧！");  // text是分享文本，所有平台都需要这个字段
-        oks.setImageUrl("http://t.cn/RcnXxyx");
-        oks.setUrl("http://qingyiyou.cn/appmsg/ProductIntroduce.html"); // url仅在微信（包括好友和朋友圈）中使用
+        oks.setImageUrl("http://i.qingyiyou.cn/yz/Interface/banner/icons.png");
+        oks.setUrl("http://jk.qingyiyou.cn/wx/UniqueCode/invite.html?userid="+SharePre.getUserId(getApplicationContext())); // url仅在微信（包括好友和朋友圈）中使用
         oks.setComment("易钻ATM有你才完美");// comment是我对这条分享的评论，仅在人人网和QQ空间使用
         oks.setSite(getString(R.string.app_name)); // site是分享此内容的网站名称，仅在QQ空间使用
-        oks.setSiteUrl("http://qingyiyou.cn/appmsg/ProductIntroduce.html");   // siteUrl是分享此内容的网站地址，仅在QQ空间使用
+        oks.setSiteUrl("http://jk.qingyiyou.cn/wx/UniqueCode/invite.html?userid="+SharePre.getUserId(getApplicationContext()));   // siteUrl是分享此内容的网站地址，仅在QQ空间使用
         oks.setCallback(new PlatformActionListener() {
             @Override
             public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
@@ -269,6 +294,7 @@ public class NewerTaskActivity extends BaseActivity implements View.OnClickListe
         HashMap<String,String> map=new HashMap<String, String>();
         map.put("userid",""+ SharePre.getUserId(getApplicationContext()));
         map.put("rwstyle",""+platformType);
+        map.put("sign",""+ MD5Utis.MD5_Encode(platformType+"传祺chuanqi"));
         OkHttpUtil.getInstance().Post(map, constance.URL.SHARE_GET, new OkHttpUtil.FinishListener() {
             @Override
             public void Successfully(boolean IsSuccess, String data, String Msg) {
@@ -276,11 +302,13 @@ public class NewerTaskActivity extends BaseActivity implements View.OnClickListe
                 if(IsSuccess){
                     Result result = GsonUtils.parseJSON(data, Result.class);
                     if(result.getRun().equals("1")){
-                        Toast("恭喜您获得0.3元");
+                        Toast("恭喜您获得0.5元");
                         Intent intent = new Intent();
                         intent.putExtra("update",true);
                         intent.setAction("update");   //
                         sendBroadcast(intent);
+                    }else if(result.getRun().equals("2")){
+                        Toast("抱歉，非法操作");
                     }
                 }else {
                     Toast(data.toString());
@@ -293,6 +321,9 @@ public class NewerTaskActivity extends BaseActivity implements View.OnClickListe
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode==1){
             initLjptState();
+            initBindAlipayState();
+        }else if(resultCode==2){    //绑定手机
+            initBindPhoneStates();
         }
     }
 }

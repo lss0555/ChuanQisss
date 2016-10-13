@@ -26,11 +26,9 @@ import com.tencent.android.tpush.XGPushClickedResult;
 import com.tencent.android.tpush.XGPushConfig;
 import com.tencent.android.tpush.XGPushManager;
 import com.tencent.android.tpush.service.XGPushService;
-
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import Constance.constance;
 import Fragments.GetFragment;
 import Fragments.HomeFragment;
@@ -47,7 +45,6 @@ import model.IsBindAccount;
 import model.Result;
 import model.Version;
 import model.Yzm;
-
 public class MainActivity extends BaseActivity implements View.OnClickListener{
     private NotificationService notificationService;// 获取通知数据服务
     private  int mCurentPageIndex;//当前的页数

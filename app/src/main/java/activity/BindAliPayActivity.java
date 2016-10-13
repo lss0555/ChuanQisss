@@ -4,24 +4,23 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
-
 import com.chuanqi.yz.R;
-
 import java.util.HashMap;
-
 import Constance.constance;
 import Utis.GsonUtils;
 import Utis.OkHttpUtil;
 import Utis.SharePre;
 import Utis.Utis;
+import Utis.RegexValidateUtil;
+import Utis.MD5Utis;
 import model.IsBindAccount;
 import model.Result;
-
 /**
  * 绑定支付宝
  */
@@ -76,12 +75,14 @@ public class BindAliPayActivity extends BaseActivity {
             public void onClick(View view) {
                 if(mEtAccount.getText().toString().trim().equals("")||mEtName.getText().toString().trim().equals("")){
                     Toast("请填写完整");
-                }else if(!Utis.checkNameChese(mEtName.getText().toString().trim())){
+                }else if(!Utis.checkNameChese(mEtName.getText().toString().trim()) ||mEtName.getText().toString().length()>4 ||mEtName.getText().toString().length()<2 ){
                     Toast("抱歉，请输入正确的名字");
                 }else if(state==1){
                     Toast("您已绑定过");
-                }else {
+                }else if(RegexValidateUtil.checkEmail(mEtAccount.getText().toString().trim()) ||RegexValidateUtil.checkPhoneNumber(mEtAccount.getText().toString().trim())){
                     BindToAliPay();
+                }else {
+                    Toast("抱歉，您输入的用户名格式有误");
                 }
             }
             //绑定到支付宝
@@ -92,7 +93,8 @@ public class BindAliPayActivity extends BaseActivity {
                 map.put("account", mEtAccount.getText().toString());
                 map.put("name", mEtName.getText().toString());
                 map.put("accountstype", "2");
-                OkHttpUtil.getInstance().Post(map, constance.URL.WX_ALIPAY_ACCOUNT, new OkHttpUtil.FinishListener() {
+                map.put("sign",""+ MD5Utis.MD5_Encode(mEtName.getText().toString().trim()+"传祺chuanqi"));
+                OkHttpUtil.getInstance().Post(map,constance.URL.WX_ALIPAY_ACCOUNT, new OkHttpUtil.FinishListener() {
                     @Override
                     public void Successfully(boolean IsSuccess, String data, String Msg) {
                         stopProgressDialog();
@@ -106,10 +108,12 @@ public class BindAliPayActivity extends BaseActivity {
                                sendBroadcast(intent);  //发送广播
                                setResult(1);
                                finish();
+                           }else if(bindAccount.getRun().equals("2")){
+                               Toast("抱歉，非法操作");
                            }else {
-                               Toast("抱歉，您的支付宝已绑定过");
+                               Toast("抱歉，您已绑定过支付账户");
                            }
-                       }else {
+                       } else {
                            Toast(data.toString());
                        }
                     }

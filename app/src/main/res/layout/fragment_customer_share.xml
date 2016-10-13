@@ -5,11 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="Fragments.Share.CustomerShareFragment">
-
+     <RelativeLayout
+         android:layout_width="match_parent"
+         android:layout_height="90dp">
+         <ImageView
+             android:layout_width="wrap_content"
+             android:background="@mipmap/yz_logo"
+             android:layout_centerInParent="true"
+             android:layout_height="wrap_content" />
+     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_marginTop="40dp"
-        android:layout_height="300dp">
+        android:layout_marginTop="10dp"
+        android:layout_height="250dp">
         <ImageView
             android:layout_width="wrap_content"
             android:layout_centerInParent="true"

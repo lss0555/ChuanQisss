@@ -15,7 +15,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
@@ -30,8 +29,6 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.security.MessageDigest;
 import java.util.ArrayList;
-
-
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,7 +36,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.chuanqi.yz.R;
 import com.google.zxing.WriterException;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -62,19 +58,18 @@ public class ImgShowFragment extends BaseFragment {
 	private ImageView mImgShow1;
 	private ArrayList<Photos> mDate;
 	private int positon;
-//	private TextView mTvYqm;
+	private int imgId;
+	//	private TextView mTvYqm;
 	private Bitmap tvBitmap;
 	private ImageView mImgQrCode;
 	private Bitmap makeQRImage;
-
 	public ImgShowFragment() {
-	}
 
-	public ImgShowFragment(int positon, ArrayList<Photos> mDate) {
+	}
+	public ImgShowFragment(int positon, int ImgId) {
 		this.positon = positon;
-		this.mDate = mDate;
+		this.imgId = ImgId;
 	}
-
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View layout = inflater.inflate(R.layout.activity_img_show, null);
@@ -91,7 +86,8 @@ public class ImgShowFragment extends BaseFragment {
 		} catch (WriterException e) {
 			e.printStackTrace();
 		}
-		UILUtils.displayImageNoAnim(mDate.get(positon).getImgUrl(), mImgShow);
+		mImgShow.setImageResource(imgId);
+//		UILUtils.displayImageNoAnim(mDate.get(positon).getImgUrl(), mImgShow);
 		mImgShow.setOnLongClickListener(new View.OnLongClickListener() {
 			@Override
 			public boolean onLongClick(View view) {
@@ -152,44 +148,5 @@ public class ImgShowFragment extends BaseFragment {
 			Toast.makeText(getActivity(), "图片保存失败", Toast.LENGTH_SHORT).show();
 			e.printStackTrace();
 		}
-	}
-	/**
-	 * 在图片上面写字
-	 *
-	 * @param imageView
-	 * @param str
-	 */
-	private void drawText2Pic(ImageView imageView, String str, String imgurl) {
-//		Bitmap photo = BitmapFactory.decodeResource(this.getResources(),
-//				R.mipmap.sunqun);                             发
-//		Bitmap photo = getBitmap(mDate.get(positon).getImgUrl());
-//		UILUtils.displayImageNoAnim(mDate.get(positon).getImgUrl(),mImgShow1);
-//		Bitmap photo = ((BitmapDrawable) mImgShow1.getDrawable()).getBitmap();
-////		Bitmap photo = getbitmap(imgurl);
-//		int width = photo.getWidth();
-//		int hight = photo.getHeight();
-//		System.out.println("宽" + width + "高" + hight);
-//		Bitmap icon = Bitmap
-//				.createBitmap(width, hight, Bitmap.Config.ARGB_4444); // 建立一个空的BItMap
-//
-//		Canvas canvas = new Canvas(icon);// 初始化画布绘制的图像到icon上
-//		Paint photoPaint = new Paint(); // 建立画笔
-//		photoPaint.setDither(true); // 获取跟清晰的图像采样
-//		photoPaint.setFilterBitmap(true);// 过滤一些
-//
-//		Rect src = new Rect(0, 0, photo.getWidth(), photo.getHeight());// 创建一个指定的新矩形的坐标
-//		Rect dst = new Rect(0, 0, width, hight);// 创建一个指定的新矩形的坐标
-//		canvas.drawBitmap(photo, src, dst, photoPaint);// 将photo 缩放或则扩大到
-//		// dst使用的填充区photoPaint
-//		Paint textPaint = new Paint(Paint.ANTI_ALIAS_FLAG
-//				| Paint.DEV_KERN_TEXT_FLAG);// 设置画笔
-//		textPaint.setTextSize(55);// 字体大小
-//		textPaint.setTypeface(Typeface.DEFAULT_BOLD);// 采用默认的宽度
-//		textPaint.setColor(Color.BLACK);// 采用的颜色
-//		canvas.drawText(str, 50, 1100, textPaint);// 绘制上去字，开始未知x,y采用那只笔绘制
-//		canvas.save(Canvas.ALL_SAVE_FLAG);
-//		canvas.restore();
-//		imageView.setImageBitmap(icon);
-//        saveMyBitmap(icon,"test");
 	}
 }

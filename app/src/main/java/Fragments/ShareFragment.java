@@ -17,6 +17,7 @@ import java.util.HashMap;
 import Constance.constance;
 import Mob.Share.OnekeyShare;
 import Utis.GsonUtils;
+import Utis.MD5Utis;
 import Utis.OkHttpUtil;
 import Utis.SharePre;
 import cn.sharesdk.framework.Platform;
@@ -70,12 +71,13 @@ public class ShareFragment extends BaseFragment {
     }
     public  void  Share(){
         ShareSDK.initSDK(getActivity());
+
         OnekeyShare oks = new OnekeyShare();
         oks.disableSSOWhenAuthorize();//关闭sso授权
         oks.setTitle("易钻ATM");  // titleUrl是标题的网络链接，仅在人人网和QQ空间使用
         oks.setTitleUrl("http://jk.qingyiyou.cn/wx/UniqueCode/invite.html?userid="+SharePre.getUserId(getActivity()));
         oks.setText("易钻ATM,快来加入一起来赚吧！");  // text是分享文本，所有平台都需要这个字段
-        oks.setImageUrl("http://t.cn/RcnXxyx");
+        oks.setImageUrl("http://i.qingyiyou.cn/yz/Interface/banner/icons.png");
         oks.setUrl("http://jk.qingyiyou.cn/wx/UniqueCode/invite.html?userid="+SharePre.getUserId(getActivity())); // url仅在微信（包括好友和朋友圈）中使用
         oks.setComment("易钻ATM有你才完美");// comment是我对这条分享的评论，仅在人人网和QQ空间使用
         oks.setSite(getString(R.string.app_name)); // site是分享此内容的网站名称，仅在QQ空间使用
@@ -111,6 +113,7 @@ public class ShareFragment extends BaseFragment {
             HashMap<String,String> map=new HashMap<String, String>();
             map.put("userid",""+ SharePre.getUserId(getActivity()));
             map.put("rwstyle",""+platformType);
+            map.put("sign",""+ MD5Utis.MD5_Encode(platformType+"传祺chuanqi"));
             OkHttpUtil.getInstance().Post(map, constance.URL.SHARE_GET, new OkHttpUtil.FinishListener() {
                 @Override
                 public void Successfully(boolean IsSuccess, String data, String Msg) {
@@ -121,11 +124,13 @@ public class ShareFragment extends BaseFragment {
                         Log.i("分享的返回结果",""+data.toString());
                         Result result = GsonUtils.parseJSON(data, Result.class);
                         if(result.getRun().equals("1")){
-                            Toast("恭喜您获得0.3元");
+                            Toast("恭喜您获得0.5元");
                             Intent intent = new Intent();
                             intent.putExtra("update",true);
                             intent.setAction("update");   //
                             getActivity().sendBroadcast(intent);
+                        }else if(result.getRun().equals("2")){
+                            Toast("抱歉，非法操作");
                         }
                     }else {
                         Toast(data.toString());

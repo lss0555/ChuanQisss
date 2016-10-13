@@ -7,11 +7,9 @@ import java.io.Serializable;
  */
 public class Result  implements Serializable{
     private  String run;
-
     public String getRun() {
         return run;
     }
-
     public void setRun(String run) {
         this.run = run;
     }

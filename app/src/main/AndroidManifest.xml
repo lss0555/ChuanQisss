@@ -169,9 +169,10 @@
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"
             android:launchMode="singleTop"/>
-        <service android:name="com.newqm.pointwall.AppStartListenService"> </service>
+        <!-- 趣米 -->
+        <!--<service android:name="com.newqm.pointwall.AppStartListenService"> </service>-->
         <!-- 万普 -->
-        <!--<activity android:name="cn.waps.extend.AppWall" android:configChanges="keyboardHidden|orientation" />-->
+        <!--<activity android:name="AppOffers.AppWall" android:configChanges="keyboardHidden|orientation" />-->
         <!-- MOb一键分享 -->
         <activity
             android:name="com.mob.tools.MobUIShell"

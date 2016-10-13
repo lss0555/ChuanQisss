@@ -32,7 +32,7 @@ public class constance {
         public static final String USER_INFO = BASE_URL+"personal.php";
         /*  广告轮播BANNER*/
         public static final String BANNER = BASE_URL+"advertisement.php";
-        /*  绑定微信支付宝*/
+        /*  绑定微信和支付宝*/
         public static final String WX_ALIPAY_ACCOUNT = BASE_URL+"useraccount.php";
         /*  判断是否有绑定微信以及支付宝*/
         public static final String IS_BIND_WX_ALIPAY_ACCOUNT = BASE_URL+"isaccount.php";

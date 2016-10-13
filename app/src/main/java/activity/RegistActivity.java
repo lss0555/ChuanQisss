@@ -3,6 +3,7 @@ package activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
@@ -15,10 +16,14 @@ import com.chuanqi.yz.R;
 import java.util.HashMap;
 
 import Constance.constance;
+import Mob.Share.OnekeyShare;
 import Utis.GsonUtils;
 import Utis.OkHttpUtil;
 import Utis.SharePre;
 import Utis.Utis;
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.PlatformActionListener;
+import cn.sharesdk.framework.ShareSDK;
 import model.Result;
 import model.UserInfo;
 

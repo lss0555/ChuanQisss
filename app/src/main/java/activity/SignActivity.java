@@ -22,6 +22,7 @@ import Utis.SharePre;
 import Utis.OkHttpUtil;
 import Utis.GsonUtils;
 import Utis.Utis;
+import Utis.MD5Utis;
 import Views.SignCalendar;
 import model.Result;
 import model.sign.DaySign;
@@ -134,13 +135,16 @@ public class SignActivity extends BaseActivity implements View.OnClickListener{
         HashMap<String,String> map=new HashMap<>();
         map.put("userid",SharePre.getUserId(SignActivity.this));
         map.put("dtime",""+Utis.getDate());
-       OkHttpUtil.getInstance().Post(map, constance.URL.SIGN, new OkHttpUtil.FinishListener() {
+        map.put("sign",""+ MD5Utis.MD5_Encode(Utis.getDate()+"传祺chuanqi"));
+       OkHttpUtil.getInstance().Post(map,constance.URL.SIGN, new OkHttpUtil.FinishListener() {
            @Override
            public void Successfully(boolean IsSuccess, String data, String Msg) {
 //               Result result = GsonUtils.parseJSON(data, Result.class);
+//               Toast(data.toString());
                stopProgressDialog();
-               Log.i("签到信息i",data.toString());
-               if(IsSuccess){
+//               Log.i("签到信息i",data.toString());
+//               if(IsSuccess){
+//                   Result result=GsonUtils.parseJSON(data,Result.class);
 //                   if(result.getRun().equals("1")){
                        List<String> list = new ArrayList<String>();
                        list.add(Utis.getDate());
@@ -150,15 +154,18 @@ public class SignActivity extends BaseActivity implements View.OnClickListener{
                        intent.setAction("update");   //
                        sendBroadcast(intent);
                        mRtlSign.setBackground(getResources().getDrawable(R.drawable.round_light_red_bg));
-                       mTvSignState.setText("今日已签到");
-                       Toast.makeText(getApplicationContext(),"签到成功,获得0.1元",Toast.LENGTH_SHORT).show();
+                       mTvSignState.setText("今日已签到,获取0.1元");
+                       Toast.makeText(getApplicationContext(),"签到成功",Toast.LENGTH_SHORT).show();
                         finish();
-//                   }else if(result.getRun().equals("0")){
+//                   }else if(result.getRun().equals("2")){
+//                       Toast.makeText(getApplicationContext(),"抱歉，非法操作",Toast.LENGTH_SHORT).show();
+//                   } else if(result.getRun().equals("0")){
 //                       Toast.makeText(getApplicationContext(),"您今天已经签到过",Toast.LENGTH_SHORT).show();
 //                   }
-               } else {
-                   Toast(data.toString());
-               }
+//               }
+//           else {
+//                   Toast(data.toString());
+//               }
            }
        });
     }

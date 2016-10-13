@@ -19,6 +19,7 @@ import Utis.GsonUtils;
 import Utis.OkHttpUtil;
 import Utis.SharePre;
 import Utis.Utis;
+import Utis.MD5Utis;
 import model.IsBindAccount;
 import model.Result;
 
@@ -130,6 +131,7 @@ public class BindWxAccountActivity extends BaseActivity {
                 map.put("account", mEtAccount.getText().toString());
                 map.put("name", mEtName.getText().toString());
                 map.put("accountstype", "1");
+                map.put("sign",""+MD5Utis.MD5_Encode(mEtName.getText().toString().trim()+"传祺chuanqi"));
                 OkHttpUtil.getInstance().Post(map, constance.URL.WX_ALIPAY_ACCOUNT, new OkHttpUtil.FinishListener() {
                     @Override
                     public void Successfully(boolean IsSuccess, String data, String Msg) {

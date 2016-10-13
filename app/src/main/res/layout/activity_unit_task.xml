@@ -42,18 +42,40 @@
                 android:id="@+id/rtl_youmi"
                 android:layout_width="match_parent"
                 android:layout_height="70dp">
-                <TextView
+                <ImageView
+                    android:id="@+id/img_youmi"
                     android:layout_width="wrap_content"
-                    android:text="易钻ATM1"
                     android:layout_centerVertical="true"
                     android:textSize="17sp"
                     android:gravity="center"
                     android:drawablePadding="10dp"
                     android:layout_marginLeft="10dp"
-                    android:drawableLeft="@mipmap/youmi"
+                    android:background="@mipmap/youmi"
                     android:textColor="@drawable/black2gray_seleclor"
                     android:layout_height="wrap_content" />
-
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@+id/img_youmi"
+                    android:layout_marginLeft="10dp"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text="易钻ATM1"
+                        android:layout_weight="1"
+                        android:textSize="17sp"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text="100积分=1元"
+                        android:textColor="@color/darks_gray"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_centerVertical="true"
@@ -70,18 +92,40 @@
                 android:id="@+id/rtl_dianle"
                 android:layout_width="match_parent"
                 android:layout_height="70dp">
-                <TextView
+                <ImageView
+                    android:id="@+id/img_dianle"
                     android:layout_width="wrap_content"
-                    android:text="易钻ATM2"
                     android:layout_centerVertical="true"
                     android:textSize="17sp"
                     android:gravity="center"
                     android:drawablePadding="10dp"
                     android:layout_marginLeft="10dp"
-                    android:drawableLeft="@mipmap/dianle"
+                    android:background="@mipmap/dianle"
                     android:textColor="@drawable/black2gray_seleclor"
                     android:layout_height="wrap_content" />
-
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@+id/img_dianle"
+                    android:layout_marginLeft="10dp"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text="易钻ATM2"
+                        android:layout_weight="1"
+                        android:textSize="17sp"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text="100积分=1元"
+                        android:textColor="@color/darks_gray"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_centerVertical="true"
@@ -98,18 +142,40 @@
                 android:id="@+id/rtl_dianlu"
                 android:layout_width="match_parent"
                 android:layout_height="70dp">
-                <TextView
+                <ImageView
+                    android:id="@+id/img_dl"
                     android:layout_width="wrap_content"
-                    android:text="易钻ATM3"
                     android:layout_centerVertical="true"
                     android:textSize="17sp"
                     android:gravity="center"
                     android:drawablePadding="10dp"
                     android:layout_marginLeft="10dp"
-                    android:drawableLeft="@mipmap/dianlu"
+                    android:background="@mipmap/dianlu"
                     android:textColor="@drawable/black2gray_seleclor"
                     android:layout_height="wrap_content" />
-
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@+id/img_dl"
+                    android:layout_marginLeft="10dp"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text="易钻ATM3"
+                        android:layout_weight="1"
+                        android:textSize="17sp"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text="100积分=1元"
+                        android:textColor="@color/darks_gray"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_centerVertical="true"
@@ -126,18 +192,40 @@
                 android:id="@+id/rtl_wanpu"
                 android:layout_width="match_parent"
                 android:layout_height="70dp">
-                <TextView
+                <ImageView
+                    android:id="@+id/img_wp"
                     android:layout_width="wrap_content"
-                    android:text="易钻ATM4"
                     android:layout_centerVertical="true"
                     android:textSize="17sp"
                     android:gravity="center"
                     android:drawablePadding="10dp"
                     android:layout_marginLeft="10dp"
-                    android:drawableLeft="@mipmap/wanpu"
+                    android:background="@mipmap/wanpu"
                     android:textColor="@drawable/black2gray_seleclor"
                     android:layout_height="wrap_content" />
-
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@+id/img_wp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text="易钻ATM4"
+                        android:layout_weight="1"
+                        android:textSize="17sp"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text="100积分=1元"
+                        android:textColor="@color/darks_gray"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_centerVertical="true"
@@ -154,7 +242,8 @@
                 android:id="@+id/rtl_duomeng"
                 android:layout_width="match_parent"
                 android:layout_height="70dp">
-                <TextView
+                <ImageView
+                    android:id="@+id/img_dm"
                     android:layout_width="wrap_content"
                     android:text="易钻ATM5"
                     android:layout_centerVertical="true"
@@ -162,10 +251,32 @@
                     android:gravity="center"
                     android:drawablePadding="10dp"
                     android:layout_marginLeft="10dp"
-                    android:drawableLeft="@mipmap/duomeng"
+                    android:background="@mipmap/duomeng"
                     android:textColor="@drawable/black2gray_seleclor"
                     android:layout_height="wrap_content" />
-
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@+id/img_dm"
+                    android:layout_marginLeft="10dp"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text="易钻ATM5"
+                        android:layout_weight="1"
+                        android:textSize="17sp"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text="100积分=1元"
+                        android:textColor="@color/darks_gray"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_centerVertical="true"
@@ -182,18 +293,40 @@
                 android:id="@+id/rtl_qumi"
                 android:layout_width="match_parent"
                 android:layout_height="70dp">
-                <TextView
+                <ImageView
+                    android:id="@+id/img_qm"
                     android:layout_width="wrap_content"
-                    android:text="易钻ATM6"
                     android:layout_centerVertical="true"
                     android:textSize="17sp"
                     android:gravity="center"
                     android:drawablePadding="10dp"
                     android:layout_marginLeft="10dp"
-                    android:drawableLeft="@mipmap/qumi"
+                    android:background="@mipmap/qumi"
                     android:textColor="@drawable/black2gray_seleclor"
                     android:layout_height="wrap_content" />
-
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@+id/img_qm"
+                    android:layout_marginLeft="10dp"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text="易钻ATM6"
+                        android:layout_weight="1"
+                        android:textSize="17sp"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text="100积分=1元"
+                        android:textColor="@color/darks_gray"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_centerVertical="true"

@@ -13,10 +13,12 @@ android {
     buildToolsVersion '23.0.1'
     defaultConfig {
         applicationId "com.chuanqi.yz"
-        minSdkVersion 17
+        minSdkVersion 16
         targetSdkVersion 22
-        versionCode 4
-        versionName '1.21'
+        versionCode 6
+        versionName '1.23'
+        // dex突破65535限制
+        multiDexEnabled true
         signingConfig signingConfigs.config
     }
     buildTypes {
@@ -36,7 +38,7 @@ android {
     }
     productFlavors {
         wandoujia {
-            minSdkVersion 17
+            minSdkVersion 16
             applicationId 'com.chuanqi.yz'
             signingConfig signingConfigs.config
             targetSdkVersion 24
@@ -44,6 +46,7 @@ android {
             versionName '1.0'
         }
         baidu {}
+        tencent {}
         c360 {}
         uc {}
     }
@@ -58,7 +61,6 @@ android {
         from fileTree(dir: "libs", include: "**/*.so")
         into "lib"
     }
-
     tasks.withType(JavaCompile) {
         compileTask -> compileTask.dependsOn(nativeLibsToJar)
     }

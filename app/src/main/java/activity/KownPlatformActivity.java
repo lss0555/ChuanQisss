@@ -17,6 +17,8 @@ import Constance.constance;
 import Utis.GsonUtils;
 import Utis.OkHttpUtil;
 import Utis.SharePre;
+import Utis.Utis;
+import Utis.MD5Utis;
 import Views.SignCalendar;
 import model.Result;
 
@@ -62,6 +64,7 @@ public class KownPlatformActivity extends BaseActivity {
                 startProgressDialog("加载中...");
                 HashMap<String,String> map=new HashMap<String, String>();
                 map.put("userid", SharePre.getUserId(KownPlatformActivity.this));
+                map.put("sign", MD5Utis.MD5_Encode(SharePre.getUserId(getApplicationContext())+"传祺chuanqi"));
                 OkHttpUtil.getInstance().Post(map, constance.URL.KONWN_PLATFORM, new OkHttpUtil.FinishListener() {
                     @Override
                     public void Successfully(boolean IsSuccess, String data, String Msg) {
@@ -77,7 +80,9 @@ public class KownPlatformActivity extends BaseActivity {
                                 Toast("恭喜您，获得0.3元奖励");
                                 setResult(1);
                                 finish();
-                            }else {
+                            }else if(result.getRun().equals("2")){
+                                Toast("抱歉，非法操作");
+                            } else{
                                 Toast("您已完成此任务");
                             }
                         }else {

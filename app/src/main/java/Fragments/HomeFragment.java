@@ -281,7 +281,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
                 if(IsSuccess){
                     mUserInfo= GsonUtils.parseJSON(data,UserInfo.class);
                     UILUtils.displayImage(mUserInfo.getHeadportrait(),mImgHead);
-                    mTvUserid.setText("Id:"+SharePre.getUserId(getActivity()));
+                    mTvUserid.setText("ID:"+SharePre.getUserId(getActivity()));
                 }
             }
         });
@@ -587,8 +587,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
                     Intent intent=new Intent(getActivity(), UnitTaskActivity.class);
                     getActivity().startActivity(intent);
                 }else {
-//                    Intent intent=new Intent(getActivity(), UnitTaskActivity.class);
-//                    getActivity().startActivity(intent);
+                    Intent intent=new Intent(getActivity(), UnitTaskActivity.class);
+                    getActivity().startActivity(intent);
                     Toast("抱歉，您的SIM卡异常，请检查");
                 }
                 break;

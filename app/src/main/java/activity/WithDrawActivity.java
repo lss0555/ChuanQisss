@@ -113,7 +113,9 @@ public class WithDrawActivity extends BaseActivity {
                 if(mRbWxin.isChecked()){
                     if(mEtPrice.getText().toString().equals("")){
                         Toast("请输入提现金额");
-                    }else {
+                    }else if(Double.valueOf(mEtPrice.getText().toString().trim())<1){
+                        Toast("抱歉，请输入金额1元以上");
+                    }else{
                         WxWithDraw(mEtPrice.getText().toString().trim());
                     }
                 }else if(mRbAlipay.isChecked()){
