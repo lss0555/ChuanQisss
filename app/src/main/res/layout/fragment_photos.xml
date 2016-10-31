@@ -1,55 +1,135 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/white"
     android:layout_height="match_parent"
     tools:context="Fragments.Share.PhotosFragment">
 
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_marginTop="20dp"
-        android:layout_height="30dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:text="邀请奖励规则"
-            android:layout_centerInParent="true"
-            android:layout_height="wrap_content" />
-    </RelativeLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:clipChildren="false"
-        android:gravity="center"
-        android:orientation="vertical">
-        <android.support.v4.view.ViewPager
-            android:id="@+id/vp_photo"
-            android:layout_width="220dp"
-            android:layout_height="match_parent"
-            />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="230dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:layout_height="25dp">
-        <Views.HorizontalListView
-            android:id="@+id/list_img"
+        android:layout_height="match_parent">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_gravity="center"
-            android:layout_height="match_parent">
-        </Views.HorizontalListView>
-    </LinearLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_marginBottom="30dp"
-        android:layout_height="30dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:text="请长按图片保存，发给好友完成邀请"
-            android:layout_centerInParent="true"
-            android:layout_height="wrap_content" />
-    </RelativeLayout>
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:background="@color/red"
+                android:orientation="vertical"
+                android:layout_height="match_parent">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:background="@mipmap/yz_logo_white"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:background="@color/red"
+                    android:layout_height="100dp">
+
+                    <Views.CircleImageView
+                        android:id="@+id/img_icons"
+                        android:layout_width="100dp"
+                        app:border_width="1dp"
+                        app:border_color="@color/gray"
+                        android:src="@mipmap/ic_empty"
+                        android:layout_height="100dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true" />
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:background="@color/red"
+                    android:layout_height="40dp">
+                    <TextView
+                        android:id="@+id/tv_nickname"
+                        android:layout_width="wrap_content"
+                        android:text="加载中..."
+                        android:layout_centerInParent="true"
+                        android:textSize="18sp"
+                        android:textColor="@color/white"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="140dp">
+                <ImageView
+                    android:id="@+id/img_qrcode"
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="match_parent">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text="扫一扫开始赚钱"
+                        android:textColor="@color/red"
+                        android:textSize="25sp"
+                        android:layout_centerInParent="true"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginTop="4dp"
+                    android:layout_height="50dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:text="微信里:长按此图，识别图中二维码，安装下载"
+                        android:textColor="@color/black"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="微信外:保存到手机，微信发给好友再长按此图"
+                        android:textColor="@color/black"
+                        android:layout_gravity="center"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView2" />
+                </LinearLayout>
+            </LinearLayout>
+            <RelativeLayout
+                android:id="@+id/rtl_share"
+                android:layout_width="match_parent"
+                android:layout_marginBottom="30dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/round_red_bg"
+                android:layout_height="38dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="分享到朋友圈"
+                    android:textColor="@color/white"
+                    android:textSize="17sp"
+                    android:layout_centerInParent="true"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
 </LinearLayout>

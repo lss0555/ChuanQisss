@@ -213,20 +213,24 @@ public class SendRedActivity extends BaseActivity {
                     mRtlWxPay.setVisibility(View.GONE);
                     mRtlUpdate.setVisibility(View.VISIBLE);
                     HashMap<String,String> map=new HashMap<String, String>();
+                    map.put("userid",""+SharePre.getUserId(getApplicationContext()));
                     OkHttpUtil.getInstance().Post(map, constance.URL.IS_USER_UPDATE, new OkHttpUtil.FinishListener() {
                         @Override
                         public void Successfully(boolean IsSuccess, String data, String Msg) {
                             stopProgressDialog();
                             if(IsSuccess){
+                                Log.i("是否是会员====",""+data.toString());
                                 Result result = GsonUtils.parseJSON(data, Result.class);
-                                if(result.getRun().equals("2")){
+                                if(result.getRun().equals("1")){
                                     //普通会员
                                         mRtlUpdate.setVisibility(View.VISIBLE);
                                         mRtlPay.setVisibility(View.GONE);
-                                }else if(result.getRun().equals("1")){
+                                }else if(result.getRun().equals("2")){
                                     //已经是超级会员
                                         mRtlUpdate.setVisibility(View.GONE);
                                         mRtlPay.setVisibility(View.VISIBLE);
+                                }else if(result.getRun().equals("0")){
+
                                 }
                             }else {
                                 Toast(data.toString());
@@ -270,10 +274,10 @@ public class SendRedActivity extends BaseActivity {
                     case RED_NOMRAL://100红包
                         switch (payType){
                             case YIZUANRED_PAY://易赚支付
-                                PayYizhuanRed2RedPool(100);
+                                PayYizhuanRed2RedPool(10000);
                                 break;
                             case YUE_PAY://余额支付
-                                PayYue2RedPool(100);
+                                PayYue2RedPool(10000);
                                 break;
                             case WXIN_PAY://微信支付
 //                                WxPay("10000");
@@ -285,35 +289,76 @@ public class SendRedActivity extends BaseActivity {
                         }
                         break;
                     case RED_SUPER://200红包
-                        startProgressDialog("加载中...");
-                        HashMap<String,String> map=new HashMap<String, String>();
-                        OkHttpUtil.getInstance().Post(map, constance.URL.IS_USER_UPDATE, new OkHttpUtil.FinishListener() {
-                            @Override
-                            public void Successfully(boolean IsSuccess, String data, String Msg) {
-                                stopProgressDialog();
-//                                Toast(data.toString());
-                                if(IsSuccess){
-                                    Result result = GsonUtils.parseJSON(data, Result.class);
-                                    if(result.getRun().equals("1")){
-                                        //普通会员
+                        switch (payType){
+                            case YIZUANRED_PAY://易赚红包支付
+                                PayYizhuanRed2RedPool(50000);
+                                break;
+                            case YUE_PAY://余额支付
+                                PayYue2RedPool(50000);
+                                break;
+                        }
+
+
+//                        startProgressDialog("加载中...");
+//                        HashMap<String,String> map=new HashMap<String, String>();
+//                        map.put("userid",""+SharePre.getUserId(getApplicationContext()));
+//                        OkHttpUtil.getInstance().Post(map, constance.URL.IS_USER_UPDATE, new OkHttpUtil.FinishListener() {
+//                            @Override
+//                            public void Successfully(boolean IsSuccess, String data, String Msg) {
+//                                if(IsSuccess){
+//                                    Log.i("首页判断是否是超级会员头像",""+data.toString()) ;
+//                                    Result result = GsonUtils.parseJSON(data, Result.class);
+//                                    if(result.getRun().equals("1")){
 //                                        mRtlUpdate.setVisibility(View.VISIBLE);
-                                    }else if(result.getRun().equals("2")){
-                                        //已经是超级会员
+//                                        mRtlPay.setVisibility(View.GONE);
+//                                        //普通会员
+//                                    }else if(result.getRun().equals("2")){
+//                                        //已经是超级会员
 //                                        mRtlUpdate.setVisibility(View.GONE);
-                                        switch (payType){
-                                            case YIZUANRED_PAY://易赚红包支付
-                                                PayYizhuanRed2RedPool(500);
-                                                break;
-                                            case YUE_PAY://余额支付
-                                                PayYue2RedPool(500);
-                                                break;
-                                        }
-                                    }
-                                }else {
-                                    Toast(data.toString());
-                                }
-                            }
-                        });
+//                                        mRtlPay.setVisibility(View.VISIBLE);
+//                                        switch (payType){
+//                                            case YIZUANRED_PAY://易赚红包支付
+//                                                PayYizhuanRed2RedPool(500);
+//                                                break;
+//                                            case YUE_PAY://余额支付
+//                                                PayYue2RedPool(500);
+//                                                break;
+//                                        }
+//                                    }
+//                                }else {
+//                                    Toast(data.toString());
+//                                }
+//                            }
+//                        });
+//                        HashMap<String,String> map=new HashMap<String, String>();
+//                        map.put("userid",""+SharePre.getUserId(getApplicationContext()));
+//                        OkHttpUtil.getInstance().Post(map, constance.URL.IS_USER_UPDATE, new OkHttpUtil.FinishListener() {
+//                            @Override
+//                            public void Successfully(boolean IsSuccess, String data, String Msg) {
+//                                stopProgressDialog();
+////                                Toast(data.toString());
+//                                if(IsSuccess){
+//                                    Result result = GsonUtils.parseJSON(data, Result.class);
+//                                    if(result.getRun().equals("1")){
+//                                        //普通会员
+////                                        mRtlUpdate.setVisibility(View.VISIBLE);
+//                                    }else if(result.getRun().equals("2")){
+//                                        //已经是超级会员
+////                                        mRtlUpdate.setVisibility(View.GONE);
+//                                        switch (payType){
+//                                            case YIZUANRED_PAY://易赚红包支付
+//                                                PayYizhuanRed2RedPool(500);
+//                                                break;
+//                                            case YUE_PAY://余额支付
+//                                                PayYue2RedPool(500);
+//                                                break;
+//                                        }
+//                                    }
+//                                }else {
+//                                    Toast(data.toString());
+//                                }
+//                            }
+//                        });
                         break;
                 }
             }
@@ -329,6 +374,7 @@ public class SendRedActivity extends BaseActivity {
                 @Override
                 public void Successfully(boolean IsSuccess, String data, String Msg) {
                     stopProgressDialog();
+                    Log.i("余额支付======",""+data.toString());
                     Result result = GsonUtils.parseJSON(data, Result.class);
                     if(result.getRun().equals("1")){
                         Toast("恭喜您，支付成功");
@@ -359,6 +405,7 @@ public class SendRedActivity extends BaseActivity {
                 public void Successfully(boolean IsSuccess, String data, String Msg) {
                     stopProgressDialog();
                     if(IsSuccess){
+                        Log.i("易钻红包付款====",""+data.toString());
                         Result result = GsonUtils.parseJSON(data, Result.class);
                         if(result.getRun().equals("1")){
                             Toast("恭喜您，支付成功");
@@ -414,18 +461,27 @@ public class SendRedActivity extends BaseActivity {
                    stopProgressDialog();
 //                showTip(data.toString());
                 if(IsSuccess){
-                    wxpays wxpays = GsonUtils.parseJSON(data, wxpays.class);
-                    Log.i("微信支付",""+data.toString());
-                    msgApi.registerApp("wx541c42bc54fac5cf");
-                    req = new PayReq();
-                    req.appId = "wx541c42bc54fac5cf";
-                    req.nonceStr = wxpays.getNoncestr();
-                    req.packageValue = wxpays.getPackage_();
-                    req.partnerId = wxpays.getPartnerid();
-                    req.prepayId = wxpays.getPrepayid();
-                    req.timeStamp = wxpays.getTimestamp();
-                    req.sign =wxpays.getSign();
-                    msgApi.sendReq(req);
+                    if(data.contains("run")){
+                        Result result = GsonUtils.parseJSON(data, Result.class);
+                        if(result.getRun().equals("4")){
+                            Toast("您的红包还未抢完");
+                        }else if(result.getRun().equals("3")){
+                            Toast("您今天已经充值过");
+                        }
+                    }else {
+                        wxpays wxpays = GsonUtils.parseJSON(data, wxpays.class);
+                        Log.i("微信支付",""+data.toString());
+                        msgApi.registerApp("wx541c42bc54fac5cf");
+                        req = new PayReq();
+                        req.appId = "wx541c42bc54fac5cf";
+                        req.nonceStr = wxpays.getNoncestr();
+                        req.packageValue = wxpays.getPackage_();
+                        req.partnerId = wxpays.getPartnerid();
+                        req.prepayId = wxpays.getPrepayid();
+                        req.timeStamp = wxpays.getTimestamp();
+                        req.sign =wxpays.getSign();
+                        msgApi.sendReq(req);
+                    }
                 }else{
                     Toast(data.toString());
                 }

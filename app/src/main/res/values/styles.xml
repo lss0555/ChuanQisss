@@ -29,18 +29,18 @@
         <item name="android:windowNoTitle">true</item>
     </style>
     <style name="loginDialog" parent="android:style/Theme.Dialog">
-        <item name="android:windowNoTitle">true</item>
-        <!-- 设置title -->
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:windowFrame">@null</item>
-        <!-- 设置边框 -->
-        <item name="android:windowIsTranslucent">true</item>
-        <!-- 设置半透明 -->
-        <item name="android:windowFullscreen">true</item>
-        <!-- 设置全屏 -->
-        <!-- <item name="android:backgroundDimEnabled">false</item> -->  <!-- 设置背景全透明 -->
-        <item name="android:windowAnimationStyle">@style/loginDialogAnimation</item>
-    </style>
+    <item name="android:windowNoTitle">true</item>
+    <!-- 设置title -->
+    <item name="android:windowBackground">@android:color/transparent</item>
+    <item name="android:windowFrame">@null</item>
+    <!-- 设置边框 -->
+    <item name="android:windowIsTranslucent">true</item>
+    <!-- 设置半透明 -->
+    <item name="android:windowFullscreen">true</item>
+    <!-- 设置全屏 -->
+    <!-- <item name="android:backgroundDimEnabled">false</item> -->  <!-- 设置背景全透明 -->
+    <item name="android:windowAnimationStyle">@style/loginDialogAnimation</item>
+</style>
     <style name="dialog_uncancle" parent="android:style/Theme.Dialog">
         <item name="android:windowNoTitle">true</item>
         <!-- 设置title -->

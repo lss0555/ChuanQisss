@@ -38,6 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
+            android:visibility="gone"
             android:textColor="@color/red"
             android:textSize="20sp"
             android:layout_marginTop="10dp"
@@ -50,50 +51,95 @@
             android:layout_marginLeft="15dp"
             android:textColor="@color/red"
             android:textSize="20sp"
+            android:visibility="gone"
             android:layout_marginTop="3dp"
             android:text="点击我要绑定，可获得唯一码"
             android:layout_gravity="center"
             android:layout_height="wrap_content" />
-        <EditText
-            android:id="@+id/et_account"
-            android:layout_toRightOf="@+id/tv_line1"
-            android:layout_marginLeft="20dp"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:gravity="center"
-            android:padding="5dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="20dp"
-            android:layout_gravity="center"
-            android:background="@drawable/release_task_bg"
-            android:layout_height="match_parent" />
+            android:layout_height="60dp">
+           <TextView
+               android:id="@+id/tv_weiyima"
+               android:layout_width="wrap_content"
+               android:text="微信唯一码"
+               android:textColor="@color/black"
+               android:layout_centerVertical="true"
+               android:layout_marginLeft="10dp"
+               android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/et_account"
+                android:layout_toRightOf="@+id/tv_weiyima"
+                android:layout_marginLeft="20dp"
+                android:layout_width="match_parent"
+                android:singleLine="true"
+                android:gravity="center"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:textSize="13sp"
+                android:layout_centerVertical="true"
+                android:padding="5dp"
+                android:hint="唯一码"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_gravity="center"
+                android:background="@drawable/round_white_bg"
+                android:layout_height="match_parent" />
+        </RelativeLayout>
+
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
             android:textColor="@color/black"
+            android:visibility="gone"
             android:textSize="18sp"
             android:layout_marginTop="5dp"
             android:text="将公众号获得的唯一码复制至文本框"
             android:layout_gravity="center"
             android:layout_height="wrap_content" />
-        <EditText
-            android:id="@+id/et_name"
-            android:layout_toRightOf="@+id/tv_line1"
-            android:layout_marginLeft="20dp"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:gravity="center"
-            android:padding="5dp"
-            android:inputType="text"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="20dp"
-            android:layout_gravity="center"
-            android:background="@drawable/release_task_bg"
-            android:layout_height="match_parent" />
+            android:layout_height="60dp">
+            <TextView
+                android:id="@+id/tv_wx_name"
+                android:layout_width="wrap_content"
+                android:text="微信真实姓名"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/black"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/et_name"
+                android:layout_toRightOf="@+id/tv_wx_name"
+                android:layout_marginLeft="20dp"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:hint="真实姓名"
+                android:paddingLeft="5dp"
+                android:textSize="16sp"
+                android:paddingRight="5dp"
+                android:singleLine="true"
+                android:padding="5dp"
+                android:inputType="text"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="10dp"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:background="@drawable/round_white_bg"
+                android:layout_height="match_parent" />
+        </RelativeLayout>
+
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="10dp"
             android:layout_gravity="center"
+            android:visibility="gone"
             android:layout_height="wrap_content">
             <TextView
                 android:layout_width="wrap_content"
@@ -101,6 +147,7 @@
                 android:layout_marginLeft="15dp"
                 android:textColor="@color/black"
                 android:textSize="18sp"
+
                 android:text="请填写"
                 android:layout_gravity="center"
                 android:layout_height="wrap_content" />
@@ -139,9 +186,9 @@
         android:id="@+id/rtl_complite"
         android:layout_width="match_parent"
         android:background="@drawable/round_red_bg"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
         android:layout_height="40dp">
         <TextView
             android:layout_width="wrap_content"

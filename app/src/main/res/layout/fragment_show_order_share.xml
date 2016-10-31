@@ -20,16 +20,17 @@
                 android:layout_width="match_parent"
                 android:background="@color/red"
                 android:orientation="vertical"
-                android:layout_height="240dp">
+                android:layout_height="220dp">
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="90dp">
+                    android:layout_height="70dp">
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_centerInParent="true"
                         android:background="@mipmap/yz_logo_white"
                         android:layout_height="wrap_content" />
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:background="@color/red"
@@ -45,6 +46,7 @@
                         />
 
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:background="@color/red"
@@ -59,11 +61,11 @@
                         android:layout_height="wrap_content" />
                 </RelativeLayout>
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_weight="1"
                 android:orientation="vertical"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="7dp"
                 android:layout_height="wrap_content">
                 <RelativeLayout
                     android:layout_width="wrap_content"
@@ -101,8 +103,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_weight="1"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="7dp"
                 android:orientation="vertical"
                 android:layout_height="wrap_content">
                 <RelativeLayout
@@ -141,9 +142,8 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_weight="1"
                 android:orientation="vertical"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="7dp"
                 android:layout_height="wrap_content">
                 <RelativeLayout
                     android:layout_width="wrap_content"
@@ -181,8 +181,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_weight="1"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="7dp"
                 android:orientation="vertical"
                 android:layout_height="wrap_content">
                 <RelativeLayout
@@ -220,8 +219,8 @@
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_weight="1"
-                android:layout_height="40dp">
+                android:layout_marginTop="10dp"
+                android:layout_height="35dp">
                 <RelativeLayout
                     android:id="@+id/rtl_share"
                     android:layout_width="match_parent"
@@ -242,20 +241,19 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:orientation="vertical"
+                android:layout_marginTop="7dp"
                 android:layout_alignParentBottom="true"
-                android:layout_height="50dp">
+                android:layout_height="wrap_content">
                 <TextView
                     android:gravity="center"
                     android:layout_width="wrap_content"
                     android:text="微信搜索公众号-易钻ATM"
                     android:layout_gravity="center"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:text="与您的朋友一起赚外快"
                     android:gravity="center"
-                    android:layout_weight="1"
                     android:layout_gravity="center"
                     android:layout_height="wrap_content" />
             </LinearLayout>

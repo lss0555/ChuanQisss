@@ -1,5 +1,4 @@
 package activity;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -18,7 +17,7 @@ import com.chuanqi.yz.R;
 
 import Fragments.GetFragment;
 import Fragments.HomeFragment;
-import Fragments.JingDianTask.JingDianFragment;
+import Fragments.JingDianTask.JingDiansFragment;
 import Fragments.JingDianTask.ZhuanShuFragment;
 import Fragments.MineFragment;
 import Fragments.ShareFragment;
@@ -38,7 +37,6 @@ import model.FaskTask.faskTask;
 import model.FaskTask.task;
 import model.Result;
 import model.TaskState;
-
 /**
  * Created by lss on 2016/7/25.
  */
@@ -52,7 +50,7 @@ public class FaskTaskActivity extends  BaseActivity{
     private TextView mTvZsState;
     private Fragment  JingDianFragment;
     private  int mCurentPageIndex;//当前的页数
-    private JingDianFragment jingDianFragment;
+    private JingDiansFragment jingDianFragment;
     private ZhuanShuFragment zhuanShuFragment;
     private Fragment  ZhuanShuFragment;
     private RelativeLayout mRtlJd;
@@ -74,7 +72,7 @@ public class FaskTaskActivity extends  BaseActivity{
         mVpTabs.setOffscreenPageLimit(4);
         mFragments=new ArrayList<Fragment>();
         if(jingDianFragment==null){
-            mFragments.add(new JingDianFragment());
+            mFragments.add(new JingDiansFragment());
         }else {
             mFragments.add(jingDianFragment);
         }

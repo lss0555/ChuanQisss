@@ -26,7 +26,6 @@ import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
 import model.Result;
 import model.UserInfo;
-
 public class RegistActivity extends BaseActivity {
     private UserInfo mUserInfo;
     private ListView mList;

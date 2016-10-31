@@ -2,16 +2,18 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.chuanqi.yz">
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name   ="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
         <uses-permission android:name="android.permission.GET_TASKS" />
     <!--用于进行网络定位-->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
@@ -37,13 +39,11 @@
         android:name="app.BaseApp"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
-
         <!--<meta-data android:name="com.tencent.rdm.uuid"-->
             <!--android:value="3d2c7db2-43e7-4ef4-952d-c594ab03a2c6" />-->
-
         <!--高德地图-->
         <meta-data android:name="com.amap.api.v2.apikey"
-            android:value="32f471453b276b873eecb6cb7a0b0b47">
+            android:value="32aa7e26acbca1b5860f859b5989ef7a">
         </meta-data>
         <activity
             android:name="activity.WelcomeActivity"
@@ -68,7 +68,8 @@
         <activity android:name="activity.WithDrawActivity" />
         <activity android:name="activity.BannerLinkActivity" />
         <activity android:name="activity.DoneRecordActivity" />
-        <activity android:name="activity.WxRegistActivity" android:theme="@style/dialog_uncancle"/>
+        <activity android:name="activity.WxRegistActivity"
+            android:theme="@style/dialog_uncancle"/>
         <activity android:name="activity.MessageListActivity" />
         <activity android:name="activity.BindWxAccountActivity" />
         <activity android:name="activity.ApprenticeListActivity" />
@@ -86,7 +87,7 @@
         <activity android:name="activity.YaoQingActivity" />
         <activity android:name="activity.IntoMoneyJqzActivity" />
         <activity android:name="activity.FaskTaskDetailActivity"
-            android:theme="@style/loginDialog"
+            android:theme="@style/dialog_uncancle"
             />
         <activity android:name="activity.CustomerShareActivity" />
         <activity android:name="activity.NewerTaskActivity" />
@@ -102,8 +103,10 @@
         <activity android:name="activity.ShowBoxPriceActivity" android:theme="@style/loginDialog"/>
         <activity android:name="activity.OpenBoxActivity" />
         <activity android:name="activity.ShowRedPriceActivity" android:theme="@style/loginDialog"/>
+        <activity android:name="activity.OfferWallAdDetailActivity" android:theme="@style/loginDialog"/>
         <activity android:name="activity.JxzGetDetailActivity" />
         <activity android:name="activity.RegistActivity" />
+        <activity android:name="activity.FeedBackActivity" />
         <activity android:name="activity.HelpCenterActivity" />
         <activity android:name="activity.HowToEarn.EarnFirstMoneyDetailActivity" />
         <activity android:name="activity.HowToEarn.ShiTuDetailActivity" />
@@ -135,27 +138,51 @@
         <meta-data
             android:name="D_PPID"
             android:value="96ZJ0fxQzfhcfwTPVj" />
-        <!-- 有米积分墙配置 -->
-        <activity
-            android:name="net.youmi.android.AdBrowser"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
-            android:theme="@android:style/Theme.Light.NoTitleBar" >
-        </activity>
+
+
+        <!-- 添加有米积分墙源数据sdk必须的组件 -->
         <service
-            android:name="net.youmi.android.AdService"
+            android:name="tj.zl.op.EB"
             android:exported="false" >
-        </service>
+        </service >
         <service
-            android:name="net.youmi.android.ExpService"
+            android:name="tj.zl.op.ED"
             android:exported="false" >
-        </service>
-        <receiver
-            android:name="net.youmi.android.AdReceiver" >
-            <intent-filter>
+        </service >
+        <receiver android:name="tj.zl.op.EC" >
+            <intent-filter >
                 <action android:name="android.intent.action.PACKAGE_ADDED" />
                 <data android:scheme="package" />
-            </intent-filter>
-        </receiver>
+            </intent-filter >
+        </receiver >
+        <!--&lt;!&ndash; google play 服务配置 需要引用google play的库 &ndash;&gt;-->
+        <!--<meta-data-->
+            <!--android:name="com.google.android.gms.version"-->
+            <!--/>-->
+
+
+
+        <!-- 有米sdk积分墙配置 -->
+        <!--<activity-->
+            <!--android:name="net.youmi.android.AdBrowser"-->
+            <!--android:configChanges="keyboard|keyboardHidden|orientation|screenSize"-->
+            <!--android:theme="@android:style/Theme.Light.NoTitleBar" >-->
+        <!--</activity>-->
+        <!--<service-->
+            <!--android:name="net.youmi.android.AdService"-->
+            <!--android:exported="false" >-->
+        <!--</service>-->
+        <!--<service-->
+            <!--android:name="net.youmi.android.ExpService"-->
+            <!--android:exported="false" >-->
+        <!--</service>-->
+        <!--<receiver-->
+            <!--android:name="net.youmi.android.AdReceiver" >-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.PACKAGE_ADDED" />-->
+                <!--<data android:scheme="package" />-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
         <!-- 配置微信回调的activity -->
         <!-- 微信分享回调 -->
         <activity
@@ -320,5 +347,26 @@
         <!--趣米积分墙-->
         <activity android:name="com.qm.pw.PASec"></activity>
         <service android:name="com.qm.pw.PyS" ></service>
+        <!--趣赢积分墙-->
+        <!-- 显示注册 -->
+        <activity
+            android:name="com.android.main.sdk.InitActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <!-- 广播注册 -->
+        <receiver android:name="com.android.main.service.PackageReceiver" >
+            <intent-filter android:priority="1000" >
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+        <!-- 服务 -->
+        <service android:name="com.android.main.service.QyService" ></service>
+        <!-- 支付宝分享回调 -->
+        <activity
+            android:name=".apshare.ShareEntryActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"/>
     </application>
 </manifest>

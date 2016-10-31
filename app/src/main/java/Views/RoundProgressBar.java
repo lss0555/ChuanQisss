@@ -126,6 +126,8 @@ public class RoundProgressBar extends View {
 
         if(textIsDisplayable && percent != 0 && style == STROKE){
             canvas.drawText("剩余:"+percent + "%", centre - textWidth / 2, centre + textSize/2, paint); //画出进度百分比
+        }else if(percent == 0){
+            canvas.drawText("剩余:"+0 + "%", centre - textWidth / 2, centre + textSize/2, paint); //画出进度百分比
         }
         /**
          * 画圆弧 ，画圆环的进度

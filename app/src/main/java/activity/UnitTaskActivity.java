@@ -1,34 +1,22 @@
 package activity;
-
 import android.app.AlertDialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
+import com.android.main.qy.DataInit;
 import com.chuanqi.yz.R;
 import com.qm.pw.Conn;
 import com.yql.dr.sdk.DRScoreInterface;
 import com.yql.dr.sdk.DRSdk;
 import com.yzhuanatm.DevInit;
 import com.yzhuanatm.GetOnlineParamsListener;
-import net.youmi.android.AdManager;
-import net.youmi.android.listener.Interface_ActivityListener;
-import net.youmi.android.offers.EarnPointsOrderList;
-import net.youmi.android.offers.OffersManager;
-import net.youmi.android.offers.PointsChangeNotify;
-import net.youmi.android.offers.PointsEarnNotify;
-import net.youmi.android.offers.PointsManager;
-
 import Utis.SharePre;
 import cn.dow.android.DOW;
 import cn.dow.android.listener.DLoadListener;
 import cn.waps.AppConnect;
 import cn.waps.UpdatePointsListener;
-
-public class UnitTaskActivity extends BaseActivity implements View.OnClickListener,UpdatePointsListener,DRScoreInterface ,GetOnlineParamsListener , PointsChangeNotify, PointsEarnNotify {
+public class UnitTaskActivity extends BaseActivity implements View.OnClickListener,UpdatePointsListener,DRScoreInterface ,GetOnlineParamsListener  {
     private String TAG = UnitTaskActivity.class.toString();
     private RelativeLayout mRtlBack;
     private RelativeLayout mRtlYouMi;
@@ -38,6 +26,7 @@ public class UnitTaskActivity extends BaseActivity implements View.OnClickListen
     private UnitTaskActivity me;
     private RelativeLayout mRtlDuoMeng;
     private RelativeLayout mRtlQumi;
+    private RelativeLayout mRtlQy;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +39,7 @@ public class UnitTaskActivity extends BaseActivity implements View.OnClickListen
      * 初始化各平台的设置
      */
     private void initPlatForm() {
+        //趣米
         Conn.getInstance(UnitTaskActivity.this).set("4bfd4db0554503c2", "53e7105b377ac6e5",SharePre.getUserId(getApplicationContext()));//趣米
         Conn.getInstance(UnitTaskActivity.this).setEnListener(new com.qm.lo.inter.QEarnNotifier() {
             @Override
@@ -63,37 +53,30 @@ public class UnitTaskActivity extends BaseActivity implements View.OnClickListen
             }
         });//设置积分获取回调
         //userid不能写死，可以为空值多盟
-        DOW.getInstance(this).init(SharePre.getUserId(getApplicationContext()));
-        DOW.getInstance(this).init(new DLoadListener() {
-            @Override
-            public void onSuccess() {
-                // TODO Auto-generated method stub
-                Log.e("多盟","成功");
-            }
+        DOW.getInstance(this).init(SharePre.getUserId(UnitTaskActivity.this), new DLoadListener() {
             @Override
             public void onStart() {
-                // TODO Auto-generated method stub
                 Log.e("多盟","加载开始");
             }
             @Override
-            public void onLoading() {
-                // TODO Auto-generated method stub
-                Log.e("多盟","加载中");
+            public void onSuccess() {
+                Log.e("多盟","成功");
             }
             @Override
             public void onFail() {
-                // TODO Auto-generated method stub
                 Log.e("多盟","失败");
             }
+            @Override
+            public void onLoading() {
+            }
         });
-
-//        /**
-//         * 有米  初始化接口，应用启动的时候调用，参数：appId, appSecret
-//         */
-        AdManager.getInstance(this).init("89c4d15bcfe42455", "5929d7270930ad09");//有米积分墙初始化
-        OffersManager.getInstance(this).setUsingServerCallBack(true);
-        OffersManager.getInstance(this).setCustomUserId(SharePre.getUserId(getApplicationContext()));
-        OffersManager.getInstance(this).onAppLaunch();
+        /**
+         * 有米  初始化接口，应用启动的时候调用，参数：appId, appSecret
+         */
+//        AdManager.getInstance(this).init("89c4d15bcfe42455", "5929d7270930ad09");//有米积分墙初始化
+//        OffersManager.getInstance(this).setUsingServerCallBack(true);
+//        OffersManager.getInstance(this).setCustomUserId(SharePre.getUserId(getApplicationContext()));
+//        OffersManager.getInstance(this).onAppLaunch();
 //        /**
 //         * 万普  初始化统计器，并通过代码设置APP_ID, APP_PID
 //         */
@@ -110,16 +93,16 @@ public class UnitTaskActivity extends BaseActivity implements View.OnClickListen
     @Override
     public void onResume() {
         super.onResume();
-        AppConnect.getInstance(this).getPoints(this);
+//        AppConnect.getInstance(this).getPoints(this);
 //        DevInit.getTotalMoney(this,me);
     }
     @Override
     public void onDestroy() {
         super.onDestroy();
-        OffersManager.getInstance(getApplicationContext()).onAppExit();//有米广告退出回收
-        PointsManager.getInstance(this).unRegisterNotify(this);
-        PointsManager.getInstance(this).unRegisterPointsEarnNotify(this);
-//        // 进行积分订单赚取监听器注册，那这里必须得注销
+//        OffersManager.getInstance(getApplicationContext()).onAppExit();//有米广告退出回收
+//        PointsManager.getInstance(this).unRegisterNotify(this);
+//        PointsManager.getInstance(this).unRegisterPointsEarnNotify(this);
+////        // 进行积分订单赚取监听器注册，那这里必须得注销
         AppConnect.getInstance(this).close();//万普退出
     }
     /**
@@ -131,7 +114,9 @@ public class UnitTaskActivity extends BaseActivity implements View.OnClickListen
         mRtlDianLu = (RelativeLayout) findViewById(R.id.rtl_dianlu);
         mRtlWanPu = (RelativeLayout) findViewById(R.id.rtl_wanpu);
         mRtlDuoMeng = (RelativeLayout) findViewById(R.id.rtl_duomeng);
+        mRtlQy = (RelativeLayout) findViewById(R.id.rtl_quying);
         mRtlQumi = (RelativeLayout) findViewById(R.id.rtl_qumi);
+        mRtlQy.setOnClickListener(this);
         mRtlQumi.setOnClickListener(this);
         mRtlYouMi.setOnClickListener(this);
         mRtlDianLe.setOnClickListener(this);
@@ -143,12 +128,12 @@ public class UnitTaskActivity extends BaseActivity implements View.OnClickListen
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.rtl_youmi://有米积分墙
-                OffersManager.getInstance(this).showOffersWall(new Interface_ActivityListener() {
-                    @Override
-                    public void onActivityDestroy(Context context) {
-//                        Toast.makeText(context, "退出有米积分墙", Toast.LENGTH_SHORT).show();
-                    }
-                });
+//                OffersManager.getInstance(this).showOffersWall(new Interface_ActivityListener() {
+//                    @Override
+//                    public void onActivityDestroy(Context context) {
+////                        Toast.makeText(context, "退出有米积分墙", Toast.LENGTH_SHORT).show();
+//                    }
+//                });
                 break;
             case R.id.rtl_wanpu:   //万普
                 AppConnect.getInstance(this).showOffers(this,SharePre.getUserId(getApplicationContext()));;//万普
@@ -164,6 +149,9 @@ public class UnitTaskActivity extends BaseActivity implements View.OnClickListen
                 break;
             case R.id.rtl_qumi: //趣米
                 Conn.getInstance(this).launch();
+                break;
+            case R.id.rtl_quying: //趣赢
+                DataInit.showList(UnitTaskActivity.this, "a6d23b63bc51e97e", SharePre.getUserId(getApplicationContext()));
                 break;
         }
     }
@@ -222,10 +210,10 @@ public class UnitTaskActivity extends BaseActivity implements View.OnClickListen
      * 有米的回调接口
      * @param v
      */
-    @Override
-    public void onPointBalanceChange(float v) {
-    }
-    @Override
-    public void onPointEarn(Context context, EarnPointsOrderList earnPointsOrderList) {
-    }
+//    @Override
+//    public void onPointBalanceChange(float v) {
+//    }
+//    @Override
+//    public void onPointEarn(Context context, EarnPointsOrderList earnPointsOrderList) {
+//    }
 }

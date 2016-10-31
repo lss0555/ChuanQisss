@@ -39,29 +39,59 @@
         android:layout_width="match_parent"
         android:layout_marginTop="20dp"
         android:layout_height="wrap_content">
-        <TextView
+        <ImageView
             android:id="@+id/tv_text_qqun"
             android:layout_width="wrap_content"
             android:layout_centerVertical="true"
+            android:background="@mipmap/ic_empty"
             android:layout_centerInParent="true"
-            android:text="版本信息"
-            android:drawableTop="@mipmap/banbenxinxi"
-            android:textColor="@color/darks_gray"
-            android:gravity="center"
-            android:textSize="18sp"
-            android:layout_marginLeft="10dp"
             android:layout_height="wrap_content" />
     </RelativeLayout>
     <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="200dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_banben"
+            android:text="版本号："
+            android:textSize="17sp"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:layout_marginTop="5dp"
+            android:text="更新时间:2016-10-24"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <RelativeLayout
         android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="我们联系方式"
+            android:textColor="@color/red"
+            android:layout_centerInParent="true"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="250dp"
         android:orientation="vertical"
         android:layout_marginTop="20dp"
+        android:layout_gravity="center"
         android:layout_height="wrap_content">
        <TextView
            android:layout_width="wrap_content"
-           android:text="QQ客服：2881583625"
+           android:text="QQ客服：2881583619"
            android:textColor="@color/black"
-           android:layout_marginLeft="30dp"
            android:textSize="16sp"
            android:layout_height="wrap_content" />
         <TextView
@@ -69,25 +99,26 @@
            android:text="易钻邮箱：chuanqi@yzatm.com"
            android:textColor="@color/black"
             android:layout_marginTop="5dp"
-           android:layout_marginLeft="30dp"
            android:textSize="16sp"
            android:layout_height="wrap_content" />
         <TextView
            android:layout_width="wrap_content"
+            android:layout_marginTop="5dp"
            android:text="微信公众号：yzatm88"
            android:textColor="@color/black"
-            android:layout_marginTop="5dp"
-           android:layout_marginLeft="30dp"
            android:textSize="16sp"
            android:layout_height="wrap_content" />
     </LinearLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
          <ImageView
-             android:layout_width="wrap_content"
-             android:background="@mipmap/about_us_ewm"
+             android:id="@+id/img_qrcode"
+             android:layout_width="150dp"
+             android:layout_margin="10dp"
+             android:scaleType="fitXY"
              android:layout_centerInParent="true"
-             android:layout_height="wrap_content" />
+             android:layout_height="150dp" />
     </RelativeLayout>
 </LinearLayout>

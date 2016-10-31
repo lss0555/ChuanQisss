@@ -247,10 +247,15 @@
 -keep class **.R$* {*;}
 -keep class **.R{*;}
  # youmi sdk
- -dontwarn net.youmi.android.**
- -keep class net.youmi.android.** {
- *;
- }
+# -dontwarn net.youmi.android.**
+# -keep class net.youmi.android.** {
+# *;
+# }
+# youmi
+-dontwarn tj.zl.op.**
+-keep class tj.zl.op.** {
+		*;
+	}
  -keep class com.tencent.** { *;}
    # 信鸽推送
  -keep public class * extends android.app.Service
@@ -263,5 +268,5 @@
  -keep class com.qm.lo.**{*;}
   #多盟
  -dontwarn cn.dow.**
- -keep class cn. dow.** { *; }
+  -keep class cn.dow.**{*;}
 

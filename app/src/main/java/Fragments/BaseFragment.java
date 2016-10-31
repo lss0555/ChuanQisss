@@ -2,6 +2,7 @@ package Fragments;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.os.Handler;
@@ -84,6 +85,15 @@ public class BaseFragment extends Fragment {
 	public void onStop() {
 		background = true;
 		super.onStop();
+	}
+	public  void ShowDialogMessage(String msg){
+		new android.support.v7.app.AlertDialog.Builder(getActivity()).setTitle("提示").setMessage(msg).setNegativeButton(
+				"确定", new OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+					}
+				}).show();
 	}
 	public void Toast(String msg){
 		Toast.makeText(getActivity(),msg,Toast.LENGTH_SHORT).show();

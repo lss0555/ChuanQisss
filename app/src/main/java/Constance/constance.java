@@ -5,7 +5,7 @@ package Constance;
 public class constance {
     public static final class URL {
         /*   URL基类*/
-            public static final String BASE_URL = "http://i.qingyiyou.cn/yz/Interface/";
+        public static final String BASE_URL = "http://i.qingyiyou.cn/yz/Interface/";
         /*   一元元购*/
         public static final String ONE_SHOP = "http://www.yeytao.com/";
         /*   金额*/
@@ -37,7 +37,7 @@ public class constance {
         /*  判断是否有绑定微信以及支付宝*/
         public static final String IS_BIND_WX_ALIPAY_ACCOUNT = BASE_URL+"isaccount.php";
         /*  获取验证码*/
-        public static final String GET_YZM = BASE_URL+"duanxin/sms.php";
+        public static final String GET_YZM = "http://i.qingyiyou.cn/yz/duanxin/sms.php";
         /*  判断用户是否绑定过手机*/
         public static final String IS_BIND_PHONE = BASE_URL+"isBingtel.php";
         /*  提交绑定手机*/
@@ -79,7 +79,6 @@ public class constance {
         /* 判断用户是否是用户*/
         public static final String IS_USER =BASE_URL+"iszhuce.php";
         /*
-        *
         * */
         public static final String USERID_ISEXIST =BASE_URL+"yqm.php";
         /* 判断邀请码是否正确*/
@@ -110,9 +109,36 @@ public class constance {
         public static final String REGIST =BASE_URL+"bingsf.php";
         /* 是否了解平台*/
         public static final String IS_LJPT =BASE_URL+"isljpt.php";
+        /* 判断是否有分享过*/
+        public static final String IS_SHARE =BASE_URL+"issharerecord.php";
+        /* 意见反馈*/
+        public static final String FEED_BACK =BASE_URL+"feedback.php";
+        /* 收益详情*/
+        public static final String ALL_PROFIT_DETAIL =BASE_URL+"detail.php";
+        /* 富豪榜日榜*/
+        public static final String RICH_DAY =BASE_URL+"richlist.php";
+        /* 富豪榜周榜*/
+        public static final String RICH_WEEK =BASE_URL+"week_richlist.php";
+        /* 富豪榜总榜*/
+        public static final String RICH_ALL =BASE_URL+"all_richlist.php";
+        /* 抢红包进度条*/
+        public static final String RED_JDT =BASE_URL+"jdt.php";
+        /* 转出聚钱庄*/
+        public static final String OUT_JQZ =BASE_URL+"jqz_zcaccount.php";
+        /* 用户的状态*/
+        public static final String ACCOUNT_IS_NOVAL =BASE_URL+"isnormal.php";
+        /* 用户的设备信息*/
+        public static final String DEVICE =BASE_URL+"device.php";
+        /* 用户的账户*/
+        public static final String USER_ACCOUNT =BASE_URL+"syaccount.php";
     }
     public static final class INTENT {
         public static final int INTO_JQZ_SUCCESS = 2132;
         public static final String UPDATE_ADD_USER_MONEY = "update";
+    }
+    public static final class TYPE {
+        public static final String RICH_DAY = "sdf98";
+        public static final String RICH_WEEK = "sdfsdf34";
+        public static final String RICH_ALL = "sddfds34";
     }
 }

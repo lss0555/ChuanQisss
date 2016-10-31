@@ -39,10 +39,12 @@
                android:layout_width="match_parent"
                android:layout_height="80dp">
                <TextView
+                   android:id="@+id/tv_username"
                    android:layout_width="wrap_content"
-                   android:text="头像"
+                   android:text="易钻ATM"
                    android:layout_centerVertical="true"
-                   android:layout_marginLeft="15dp"
+                   android:layout_toRightOf="@+id/img_icons"
+                   android:layout_marginLeft="10dp"
                    android:textColor="@color/black"
                    android:textSize="18sp"
                    android:layout_height="wrap_content" />
@@ -51,7 +53,8 @@
                    android:layout_width="65dp"
                    app:border_width="1dp"
                    app:border_color="@color/gray"
-                   android:layout_alignParentRight="true"
+                   android:layout_alignParentLeft="true"
+                   android:layout_marginLeft="15dp"
                    android:src="@mipmap/ic_empty"
                    android:layout_centerVertical="true"
                    android:layout_marginRight="10dp"
@@ -67,33 +70,12 @@
                android:layout_height="50dp">
                <TextView
                    android:layout_width="wrap_content"
-                   android:text="微信号"
-                   android:layout_centerVertical="true"
-                   android:layout_marginLeft="15dp"
-                   android:textColor="@color/black"
-                   android:textSize="18sp"
-                   android:layout_height="wrap_content" />
-               <TextView
-                   android:id="@+id/tv_bind_wx_state"
-                   android:layout_width="wrap_content"
-                   android:layout_centerVertical="true"
-                   android:layout_alignParentRight="true"
-                   android:layout_marginRight="15dp"
-                   android:layout_height="wrap_content"
-                   />
-           </RelativeLayout>
-           <View
-               android:layout_width="match_parent"
-               android:background="@color/gray"
-               android:layout_height="0.2dp"></View>
-           <RelativeLayout
-               android:layout_width="match_parent"
-               android:layout_height="50dp">
-               <TextView
-                   android:layout_width="wrap_content"
                    android:text="手机号码"
                    android:layout_centerVertical="true"
                    android:layout_marginLeft="15dp"
+                   android:drawableLeft="@mipmap/x_shouji"
+                   android:drawablePadding="10dp"
+                   android:gravity="center"
                    android:textColor="@color/black"
                    android:textSize="18sp"
                    android:layout_height="wrap_content" />
@@ -117,20 +99,21 @@
                android:layout_height="50dp">
                <TextView
                    android:layout_width="wrap_content"
-                   android:text="昵称"
+                   android:text="微信号"
+                   android:drawableLeft="@mipmap/g_weixin"
+                   android:drawablePadding="12dp"
+                   android:gravity="center"
                    android:layout_centerVertical="true"
-                   android:layout_marginLeft="15dp"
+                   android:layout_marginLeft="19dp"
                    android:textColor="@color/black"
                    android:textSize="18sp"
                    android:layout_height="wrap_content" />
                <TextView
-                   android:id="@+id/tv_username"
+                   android:id="@+id/tv_bind_wx_state"
                    android:layout_width="wrap_content"
                    android:layout_centerVertical="true"
+                   android:text="加载中"
                    android:layout_alignParentRight="true"
-                   android:text="易钻ATM"
-                   android:gravity="center"
-                   android:drawablePadding="5dp"
                    android:layout_marginRight="15dp"
                    android:layout_height="wrap_content"
                    />
@@ -144,9 +127,46 @@
                android:layout_height="50dp">
                <TextView
                    android:layout_width="wrap_content"
+                   android:text="支付宝"
+                   android:layout_centerVertical="true"
+                   android:drawableLeft="@mipmap/x_zhifu"
+                   android:drawablePadding="10dp"
+                   android:gravity="center"
+                   android:layout_marginLeft="16dp"
+                   android:textColor="@color/black"
+                   android:textSize="18sp"
+                   android:layout_height="wrap_content" />
+               <TextView
+                   android:id="@id/tv_bind_alipay_state"
+                   android:layout_width="wrap_content"
+                   android:layout_centerVertical="true"
+                   android:text="加载中"
+                   android:layout_alignParentRight="true"
+                   android:gravity="center"
+                   android:drawablePadding="5dp"
+                   android:layout_marginRight="15dp"
+                   android:layout_height="wrap_content"
+                   />
+           </RelativeLayout>
+           <View
+               android:layout_width="match_parent"
+               android:background="@color/gray"
+               android:layout_height="0.2dp"></View>
+           <View
+               android:layout_width="match_parent"
+               android:background="@color/gray"
+               android:layout_height="0.2dp"></View>
+           <RelativeLayout
+               android:layout_width="match_parent"
+               android:layout_height="50dp">
+               <TextView
+                   android:layout_width="wrap_content"
                    android:text="性别"
                    android:layout_centerVertical="true"
-                   android:layout_marginLeft="15dp"
+                   android:drawableLeft="@mipmap/g_xingbie"
+                   android:drawablePadding="10dp"
+                   android:gravity="center"
+                   android:layout_marginLeft="16dp"
                    android:textColor="@color/black"
                    android:textSize="18sp"
                    android:layout_height="wrap_content" />
@@ -161,6 +181,7 @@
                    android:layout_height="wrap_content"
                    />
            </RelativeLayout>
+
            <View
                android:layout_width="match_parent"
                android:background="@color/gray"
@@ -196,6 +217,7 @@
                android:layout_height="0.2dp"></View>
            <RelativeLayout
                android:layout_width="match_parent"
+               android:visibility="gone"
                android:layout_height="50dp">
                <TextView
                    android:layout_width="wrap_content"

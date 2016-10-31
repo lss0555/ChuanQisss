@@ -45,7 +45,7 @@
                android:layout_width="wrap_content"
                android:textSize="17sp"
                android:textColor="@color/black"
-               android:text="易钻ATM是传祺网络科技有限公司开发的首款软件，是一款轻松赚钱、并快速积攒人脉的APP。每天都有巨多快速任务等你来赚！邀请好友赚钱，提成高达20元！加入即送2.6元现金！一元提现，实时到账！"
+               android:text="易钻ATM是传祺网络科技有限公司开发的首款软件，是一款轻松赚钱、并快速积攒人脉的APP。每天都有巨多快速任务等你来赚！邀请好友赚钱，提成高达20元！加入即送1.6元现金！两元提现，实时到账！"
                android:layout_height="wrap_content" />
             <TextView
                 android:layout_width="wrap_content"

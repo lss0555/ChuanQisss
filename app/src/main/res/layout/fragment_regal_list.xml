@@ -25,17 +25,27 @@
        </RelativeLayout>
        <LinearLayout
            android:layout_width="match_parent"
+           android:background="@drawable/round_white_bg"
+           android:layout_margin="0.3dp"
+           android:layout_marginLeft="10dp"
+           android:layout_marginRight="10dp"
            android:orientation="horizontal"
-           android:layout_height="50dp">
+           android:layout_height="35dp">
         <RelativeLayout
+            android:id="@+id/rtl_list_day"
             android:layout_width="match_parent"
+            android:layout_marginBottom="1dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginLeft="1dp"
+            android:background="@drawable/round_white_bg"
             android:layout_weight="1"
             android:layout_height="match_parent">
             <TextView
+                android:id="@+id/tv_day"
                 android:layout_width="wrap_content"
                 android:layout_centerInParent="true"
                 android:textSize="18sp"
-                android:textColor="@drawable/white2gray_seleclor"
+                android:textColor="@color/red"
                 android:drawableLeft="@mipmap/s_lijitixian"
                 android:gravity="center"
                 android:drawablePadding="10dp"
@@ -43,10 +53,15 @@
                 android:layout_height="wrap_content" />
         </RelativeLayout>
            <RelativeLayout
+               android:id="@+id/rtl_list_week"
                android:layout_width="match_parent"
+               android:layout_marginTop="1dp"
+               android:layout_marginBottom="1dp"
+               android:background="@color/red"
                android:layout_weight="1"
                android:layout_height="match_parent">
                <TextView
+                   android:id="@+id/tv_week"
                    android:layout_width="wrap_content"
                    android:text="周榜"
                    android:textSize="18sp"
@@ -58,19 +73,25 @@
                    android:layout_height="wrap_content" />
            </RelativeLayout>
            <RelativeLayout
+               android:id="@+id/rtl_list_all"
                android:layout_width="match_parent"
+               android:background="@drawable/round_half_red_bg"
+               android:layout_marginBottom="1dp"
+               android:layout_marginTop="1dp"
+               android:layout_marginRight="1dp"
                android:layout_weight="1"
                android:layout_height="match_parent">
                <TextView
+                   android:id="@+id/tv_all"
                    android:layout_width="wrap_content"
                    android:textSize="18sp"
                    android:textColor="@drawable/white2gray_seleclor"
                    android:drawableLeft="@mipmap/s_lijitixian"
                    android:gravity="center"
                    android:drawablePadding="10dp"
-                   android:text="月榜"
-                   android:layout_centerInParent="true"
-                   android:layout_height="wrap_content" />
+                   android:text="总榜"
+                   android:layout_height="wrap_content"
+                   android:layout_centerVertical="true" />
            </RelativeLayout>
        </LinearLayout>
        <LinearLayout
@@ -87,6 +108,7 @@
                   android:layout_gravity="center"
                   android:layout_height="90dp">
                   <Views.CircleImageView
+                      android:id="@+id/img_head2"
                       android:layout_width="55dp"
                       android:src="@mipmap/ic_empty"
                       android:layout_gravity="center"
@@ -99,6 +121,7 @@
                       android:layout_height="wrap_content" />
               </FrameLayout>
               <TextView
+                  android:id="@+id/tv_id2"
                   android:layout_width="wrap_content"
                   android:text="加载中"
                   android:textSize="14sp"
@@ -106,9 +129,12 @@
                   android:textColor="@color/white"
                   android:layout_height="wrap_content" />
               <TextView
+                  android:id="@+id/tv_get2"
                   android:layout_width="wrap_content"
                   android:text="加载中"
                   android:textSize="13sp"
+                  android:drawableLeft="@mipmap/g_shouyi"
+                  android:gravity="center"
                   android:layout_gravity="center"
                   android:textColor="@color/white"
                   android:layout_height="wrap_content" />
@@ -123,6 +149,7 @@
                    android:layout_gravity="center"
                    android:layout_height="90dp">
                    <Views.CircleImageView
+                       android:id="@+id/img_head1"
                        android:layout_width="55dp"
                        android:src="@mipmap/ic_empty"
                        android:layout_gravity="center"
@@ -135,6 +162,7 @@
                        android:layout_height="wrap_content" />
                </FrameLayout>
                <TextView
+                   android:id="@+id/tv_id1"
                    android:layout_width="wrap_content"
                    android:text="加载中"
                    android:layout_gravity="center"
@@ -142,8 +170,11 @@
                    android:textColor="@color/white"
                    android:layout_height="wrap_content" />
                <TextView
+                   android:id="@+id/tv_get1"
                    android:layout_width="wrap_content"
                    android:text="加载中"
+                   android:drawableLeft="@mipmap/g_shouyi"
+                   android:gravity="center"
                    android:textSize="13sp"
                    android:layout_gravity="center"
                    android:textColor="@color/white"
@@ -159,6 +190,7 @@
                    android:layout_gravity="center"
                    android:layout_height="90dp">
                    <Views.CircleImageView
+                       android:id="@+id/img_head3"
                        android:layout_width="55dp"
                        android:src="@mipmap/ic_empty"
                        android:layout_gravity="center"
@@ -171,6 +203,7 @@
                        android:layout_height="wrap_content" />
                </FrameLayout>
                <TextView
+                   android:id="@+id/tv_id3"
                    android:layout_width="wrap_content"
                    android:text="加载中"
                    android:layout_gravity="center"
@@ -178,8 +211,11 @@
                    android:textSize="14sp"
                    android:layout_height="wrap_content" />
                <TextView
+                   android:id="@+id/tv_get3"
                    android:layout_width="wrap_content"
                    android:text="加载中"
+                   android:drawableLeft="@mipmap/g_shouyi"
+                   android:gravity="center"
                    android:textSize="13sp"
                    android:layout_gravity="center"
                    android:textColor="@color/white"
@@ -190,10 +226,14 @@
    <RelativeLayout
        android:layout_width="match_parent"
        android:layout_height="match_parent">
-       <Views.XListView.XListView
+
+       <ListView
            android:id="@+id/list"
            android:layout_width="match_parent"
-           android:layout_height="match_parent">
-       </Views.XListView.XListView>
+           android:layout_height="match_parent"
+           android:layout_alignParentTop="true"
+           android:layout_alignParentLeft="true"
+           android:layout_alignParentStart="true">
+       </ListView>
    </RelativeLayout>
 </LinearLayout>

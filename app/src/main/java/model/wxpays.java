@@ -13,15 +13,12 @@ public class wxpays implements Serializable{
     private String prepayid;
     private String timestamp;
     private String sign;
-
     public String getAppid() {
         return appid;
     }
-
     public void setAppid(String appid) {
         this.appid = appid;
     }
-
     public String getNoncestr() {
         return noncestr;
     }

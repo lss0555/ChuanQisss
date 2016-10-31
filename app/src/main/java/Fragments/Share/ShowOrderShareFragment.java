@@ -76,6 +76,7 @@ public class ShowOrderShareFragment extends BaseFragment {
         oks.setComment("易钻ATM有你才完美");// comment是我对这条分享的评论，仅在人人网和QQ空间使用
         oks.setSite(getString(R.string.app_name)); // site是分享此内容的网站名称，仅在QQ空间使用
         oks.setSiteUrl("http://jk.qingyiyou.cn/wx/UniqueCode/invite.html?userid="+SharePre.getUserId(getActivity()));   // siteUrl是分享此内容的网站地址，仅在QQ空间使用
+        oks.setSiteUrl("http://jk.qingyiyou.cn/wx/UniqueCode/invite.html?userid="+SharePre.getUserId(getActivity()));   // siteUrl是分享此内容的网站地址，仅在QQ空间使用
         oks.setCallback(new PlatformActionListener() {
             @Override
             public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {

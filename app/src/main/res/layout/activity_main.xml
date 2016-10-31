@@ -13,10 +13,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/linearLayout1">
+
             <Views.UnSlideViewPager
                 android:id="@+id/vp_tabs"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true">
             </Views.UnSlideViewPager>
         </RelativeLayout>
         <LinearLayout
@@ -81,7 +85,7 @@
                         android:drawablePadding="2dp"
                         android:gravity="center"
                         android:drawableTop="@mipmap/ic_share"
-                        android:text="分享"
+                        android:text="富豪榜"
                         android:layout_height="wrap_content" />
                 </RelativeLayout>
                 <RelativeLayout

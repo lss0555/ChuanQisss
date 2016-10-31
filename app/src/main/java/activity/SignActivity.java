@@ -154,7 +154,7 @@ public class SignActivity extends BaseActivity implements View.OnClickListener{
                        intent.setAction("update");   //
                        sendBroadcast(intent);
                        mRtlSign.setBackground(getResources().getDrawable(R.drawable.round_light_red_bg));
-                       mTvSignState.setText("今日已签到,获取0.1元");
+                       mTvSignState.setText("今日已签到");
                        Toast.makeText(getApplicationContext(),"签到成功",Toast.LENGTH_SHORT).show();
                         finish();
 //                   }else if(result.getRun().equals("2")){

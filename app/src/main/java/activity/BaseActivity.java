@@ -1,9 +1,9 @@
 package activity;
 
 import android.Manifest;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -16,6 +16,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AlertDialog;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -290,7 +291,15 @@ public class BaseActivity extends FragmentActivity {
 		tipView.addView(tipIcon, 0);
 		tip.show();
 	}
-
+	public  void ShowDialogMessage(String msg){
+		new AlertDialog.Builder(this).setTitle("提示").setMessage(msg).setNegativeButton(
+				"确定", new OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+					}
+				}).show();
+	}
 	/**
 	 * @param msg
 	 */

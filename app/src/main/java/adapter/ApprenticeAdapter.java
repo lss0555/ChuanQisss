@@ -11,6 +11,8 @@ import com.chuanqi.yz.R;
 
 import java.util.ArrayList;
 
+import Utis.UILUtils;
+import Views.CircleImageView;
 import model.FaskTask.faskTask;
 import model.Master.tudiList;
 
@@ -34,7 +36,6 @@ public class ApprenticeAdapter extends BaseAdapter{
 	public long getItemId(int position) {
 		return 0;
 	}
-
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		if(convertView==null){
@@ -42,15 +43,18 @@ public class ApprenticeAdapter extends BaseAdapter{
 			viewHold = new ViewHold();
 			viewHold.TvUser= (TextView) convertView.findViewById(R.id.tv_user);
 			viewHold.TvPay= (TextView) convertView.findViewById(R.id.tv_pay);
+			viewHold.ImgHead= (CircleImageView) convertView.findViewById(R.id.img_head);
 			convertView.setTag(viewHold);
 		}else {
 			viewHold= (ViewHold) convertView.getTag();
 		}
 			viewHold.TvUser.setText(mDate.get(position).getApprenticeId());
 			viewHold.TvPay.setText("+"+mDate.get(position).getPay()+"元");
+		UILUtils.displayImageNoAnim(mDate.get(position).getHeadportrait(),viewHold.ImgHead);
 		return convertView;
 	}
 	class ViewHold{
+		CircleImageView ImgHead;
 		TextView TvUser;
 		TextView TvPay;
 	}

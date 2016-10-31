@@ -6,19 +6,47 @@ import java.io.Serializable;
  * Created by lss on 2016/8/12.
  */
 public class faskTask implements Serializable{
-     private  String startTime;
-     private  String Amount;
-     private  String NowAmount;
-     private  String appname;
-     private  String keyword;
-     private  String price;
-     private  String Prompt;
-     private  String Explain;
-     private  String type;
-     private  String step;
-     private  String appUrl;
-     private  String applyIcon;
-     private  String sBandleID;
+     private String applyid;
+     private String startTime;
+     private String Amount;
+     private String NowAmount;
+     private String appname;
+     private String keyword;
+     private String price;
+     private String Prompt;
+     private String sBandleID;
+     private String Explain;
+     private String type;
+     private String step;
+     private String appUrl;
+     private String applyIcon;
+     private String urlschemes;
+
+     public faskTask(String applyid, String startTime, String amount, String nowAmount, String appname, String keyword, String price, String prompt, String sBandleID, String explain, String type, String step, String appUrl, String applyIcon, String urlschemes) {
+          this.applyid = applyid;
+          this.startTime = startTime;
+          Amount = amount;
+          NowAmount = nowAmount;
+          this.appname = appname;
+          this.keyword = keyword;
+          this.price = price;
+          Prompt = prompt;
+          this.sBandleID = sBandleID;
+          Explain = explain;
+          this.type = type;
+          this.step = step;
+          this.appUrl = appUrl;
+          this.applyIcon = applyIcon;
+          this.urlschemes = urlschemes;
+     }
+
+     public String getApplyid() {
+          return applyid;
+     }
+
+     public void setApplyid(String applyid) {
+          this.applyid = applyid;
+     }
 
      public String getStartTime() {
           return startTime;
@@ -76,6 +104,14 @@ public class faskTask implements Serializable{
           Prompt = prompt;
      }
 
+     public String getsBandleID() {
+          return sBandleID;
+     }
+
+     public void setsBandleID(String sBandleID) {
+          this.sBandleID = sBandleID;
+     }
+
      public String getExplain() {
           return Explain;
      }
@@ -116,11 +152,32 @@ public class faskTask implements Serializable{
           this.applyIcon = applyIcon;
      }
 
-     public String getsBandleID() {
-          return sBandleID;
+     public String getUrlschemes() {
+          return urlschemes;
      }
 
-     public void setsBandleID(String sBandleID) {
-          this.sBandleID = sBandleID;
+     public void setUrlschemes(String urlschemes) {
+          this.urlschemes = urlschemes;
+     }
+
+     @Override
+     public String toString() {
+          return "faskTask{" +
+                  "applyid='" + applyid + '\'' +
+                  ", startTime='" + startTime + '\'' +
+                  ", Amount='" + Amount + '\'' +
+                  ", NowAmount='" + NowAmount + '\'' +
+                  ", appname='" + appname + '\'' +
+                  ", keyword='" + keyword + '\'' +
+                  ", price='" + price + '\'' +
+                  ", Prompt='" + Prompt + '\'' +
+                  ", sBandleID='" + sBandleID + '\'' +
+                  ", Explain='" + Explain + '\'' +
+                  ", type='" + type + '\'' +
+                  ", step='" + step + '\'' +
+                  ", appUrl='" + appUrl + '\'' +
+                  ", applyIcon='" + applyIcon + '\'' +
+                  ", urlschemes='" + urlschemes + '\'' +
+                  '}';
      }
 }

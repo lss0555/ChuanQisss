@@ -37,6 +37,7 @@ public class NewerTaskActivity extends BaseActivity implements View.OnClickListe
             {
                 case 1:
                     getShareMoney();
+                    initShareState();
                     Log.i("＝＝＝＝＝＝＝＝＝＝＝分享状态","Success");
                  break;
                 case 2:
@@ -61,6 +62,8 @@ public class NewerTaskActivity extends BaseActivity implements View.OnClickListe
     private RelativeLayout mRtlLjptState;
     private RelativeLayout mRtlKnownPlatForm;
     private TextView mTvLjpt;
+    private RelativeLayout mRtlShareState;
+    private TextView mTvShares;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -68,7 +71,32 @@ public class NewerTaskActivity extends BaseActivity implements View.OnClickListe
         setContentView(R.layout.activity_newer_task);
         initview();
         initdate();
+        initevent();
     }
+
+    private void initevent() {
+        findViewById(R.id.rtl_backs).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.putExtra(constance.INTENT.UPDATE_ADD_USER_MONEY,true);
+                intent.setAction(constance.INTENT.UPDATE_ADD_USER_MONEY);   //
+                sendBroadcast(intent);   //发送广播
+                finish();
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent();
+        intent.putExtra(constance.INTENT.UPDATE_ADD_USER_MONEY,true);
+        intent.setAction(constance.INTENT.UPDATE_ADD_USER_MONEY);   //
+        sendBroadcast(intent);   //发送广播
+        finish();
+    }
+
     /**
      * 初始化数据
      */
@@ -76,7 +104,35 @@ public class NewerTaskActivity extends BaseActivity implements View.OnClickListe
         initBindPhoneState();
         initBindAlipayState();
         initLjptState();
+        initShareState();
     }
+
+    /**
+     * 判断有无分享
+     */
+    private void initShareState() {
+        HashMap<String,String> map=new HashMap<>();
+        map.put("userid",""+SharePre.getUserId(getApplicationContext()));
+        OkHttpUtil.getInstance().Post(map, constance.URL.IS_SHARE, new OkHttpUtil.FinishListener() {
+            @Override
+            public void Successfully(boolean IsSuccess, String data, String Msg) {
+                if(IsSuccess){
+                    Result result = GsonUtils.parseJSON(data, Result.class);
+                    if(result.getRun().equals("0")){
+                       //未分享
+                    }else if(result.getRun().equals("1")){
+                        //已分享
+                        mRtlShareState.setBackground(getResources().getDrawable(R.drawable.round_gray_bg));
+                        mRtlShareState.setEnabled(false);
+                        mTvShares.setText("已完成");
+                    }
+                }else {
+                    Toast(data.toString());
+                }
+            }
+        });
+    }
+
     /**
      * 了解平台的状态
      */
@@ -188,6 +244,8 @@ public class NewerTaskActivity extends BaseActivity implements View.OnClickListe
         });
     }
     private void initview() {
+        mRtlShareState = (RelativeLayout) findViewById(R.id.rtl_share_state);
+        mTvShares = (TextView) findViewById(R.id.tv_shares);
         findViewById(R.id.rtl_share).setOnClickListener(this);
         mRtlKnownPlatForm = (RelativeLayout) findViewById(R.id.rtl_known_platform);
         mRtlKnownPlatForm.setOnClickListener(this);
@@ -272,6 +330,7 @@ public class NewerTaskActivity extends BaseActivity implements View.OnClickListe
                 Message message=new Message();
                 message.what=1;
                 mHandler.sendMessage(message);
+//                initShareState();
             }
             @Override
             public void onError(Platform platform, int i, Throwable throwable) {
@@ -294,7 +353,7 @@ public class NewerTaskActivity extends BaseActivity implements View.OnClickListe
         HashMap<String,String> map=new HashMap<String, String>();
         map.put("userid",""+ SharePre.getUserId(getApplicationContext()));
         map.put("rwstyle",""+platformType);
-        map.put("sign",""+ MD5Utis.MD5_Encode(platformType+"传祺chuanqi"));
+        map.put("sign",""+ MD5Utis.MD5_Encode(SharePre.getUserId(getApplicationContext())+"传祺chuanqi"));
         OkHttpUtil.getInstance().Post(map, constance.URL.SHARE_GET, new OkHttpUtil.FinishListener() {
             @Override
             public void Successfully(boolean IsSuccess, String data, String Msg) {
@@ -302,7 +361,7 @@ public class NewerTaskActivity extends BaseActivity implements View.OnClickListe
                 if(IsSuccess){
                     Result result = GsonUtils.parseJSON(data, Result.class);
                     if(result.getRun().equals("1")){
-                        Toast("恭喜您获得0.5元");
+                        Toast("恭喜您获得0.3元");
                         Intent intent = new Intent();
                         intent.putExtra("update",true);
                         intent.setAction("update");   //

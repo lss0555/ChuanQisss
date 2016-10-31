@@ -31,6 +31,107 @@
               android:layout_height="wrap_content" />
       </RelativeLayout>
   </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:background="@color/red"
+        android:orientation="horizontal"
+        android:layout_height="60dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_gravity="center"
+               android:text="余额"
+               android:textColor="@color/white"
+               android:layout_weight="1 "
+               android:textSize="15sp"
+               android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_account"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="加载中"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:layout_height="wrap_content"
+
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:text="任务收入"
+                android:textColor="@color/white"
+                android:layout_weight="1 "
+                android:textSize="15sp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_task_income"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="加载中"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:text="徒弟提成"
+                android:textColor="@color/white"
+                android:layout_weight="1 "
+                android:textSize="15sp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_tudi_get"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="加载中"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:text="已提现"
+                android:textColor="@color/white"
+                android:layout_weight="1 "
+                android:textSize="15sp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_get"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="加载中"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">

@@ -22,6 +22,7 @@ import Constance.constance;
 import Utis.UILUtils;
 import Utis.Utis;
 import Utis.GsonUtils;
+import Utis.MD5Utis;
 import Utis.OkHttpUtil;
 import Utis.SharePre;
 import model.FaskTask.faskTask;
@@ -50,7 +51,6 @@ public class FaskTaskDetailActivity extends BaseActivity {
     private void initTaskState() {
 
     }
-
     /**
      * 下载apk
      */
@@ -60,10 +60,10 @@ public class FaskTaskDetailActivity extends BaseActivity {
               public void onClick(View view) {
                   boolean b = Utis.checkApkExist(getApplicationContext(), mTaskDetail.getsBandleID());
                   if(!b){
-                      new downloadversion().execute(mTaskDetail.getAppUrl());
+                      SharePre.saveDownLoadTime(getApplicationContext(),Utis.getTime());
+                      new downloadversion().execute(mTaskDetail.getAppUrl());//下载
                   }else {
-                      Utis.InstallSoft(getApplicationContext(),mTaskDetail.getsBandleID());
-//                      Toast("抱歉，您已接受此任务");
+                      Utis.InstallSoft(getApplicationContext(),mTaskDetail.getsBandleID());//打开应用
                   }
               }
           });
@@ -73,12 +73,14 @@ public class FaskTaskDetailActivity extends BaseActivity {
 //                Toast("包名"+mTaskDetail.getsBandleID());
                 boolean b = Utis.checkApkExist(getApplicationContext(), mTaskDetail.getsBandleID());
                 if(b){
-//                    if(Utis.isBackground(getApplicationContext(),mTaskDetail.getsBandleID())){
+                    if(Utis.getTimeDistance(Utis.getTime(),SharePre.getDownLoadTime(getApplicationContext()))>=300){
                         startProgressDialog("加载中...");
                         HashMap<String,String> map=new HashMap<String, String>();
                         map.put("sBandleID",""+mTaskDetail.getsBandleID());
                         map.put("ApplyName",""+mTaskDetail.getAppname());
+                        map.put("jine",""+mTaskDetail.getPrice());
                         map.put("userid",""+ SharePre.getUserId(FaskTaskDetailActivity.this));
+                        map.put("sign",""+ MD5Utis.MD5_Encode(SharePre.getUserId(getApplicationContext())+"传祺chuanqi"));
                         OkHttpUtil.getInstance().Post(map, constance.URL.YINGYONG_BIAOSHI, new OkHttpUtil.FinishListener() {
                             @Override
                             public void Successfully(boolean IsSuccess, String data, String Msg) {
@@ -93,6 +95,8 @@ public class FaskTaskDetailActivity extends BaseActivity {
                                         sendBroadcast(intent);   //发送广播
                                         setResult(1);
                                         finish();
+                                    }else if(result.getRun().equals("2")){
+                                        Toast("抱歉，非法操作");
                                     }else {
                                         Toast("抱歉，任务不可重复做");
                                     }
@@ -101,9 +105,9 @@ public class FaskTaskDetailActivity extends BaseActivity {
                                 }
                             }
                         });
-//                    }else {
-//                        Toast("请打开此应用完成此任务");
-//                    }
+                    }else {
+                        Toast("请打开此应用继续体验");
+                    }
                 }else {
                     Toast("请先完成此任务");
                 }
@@ -138,6 +142,7 @@ public class FaskTaskDetailActivity extends BaseActivity {
         });
     }
     private void initview() {
+        mTaskDetail= (faskTask) getIntent().getSerializableExtra("Task");
         mRtlGiveUp = (RelativeLayout) findViewById(R.id.rtl_give_up);
         mImgIcon = (ImageView) findViewById(R.id.img_icon);
         mTvName = (TextView) findViewById(R.id.tv_name);

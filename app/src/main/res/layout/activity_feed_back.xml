@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <View
+        android:layout_width="match_parent"
+        android:background="@color/red"
+        android:layout_height="20dp"></View>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@color/red"
+        android:layout_height="50dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="意见反馈"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:layout_centerInParent="true"
+            android:layout_height="wrap_content" />
+        <RelativeLayout
+            android:id="@+id/rtl_back"
+            android:layout_width="60dp"
+            android:onClick="back"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:background="@mipmap/g_fanhui"
+                android:layout_centerInParent="true"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/round_white_bg"
+        android:layout_height="200dp">
+
+        <EditText
+            android:id="@+id/et_text"
+            android:layout_width="match_parent"
+            android:background="@null"
+            android:gravity="left|top"
+            android:hint="你好，我是产品经理，欢迎您反馈使用产品的感受和建议"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/round_white_bg"
+        android:layout_height="50dp">
+        <EditText
+            android:id="@+id/et_lxfs"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:background="@null"
+            android:layout_centerVertical="true"
+            android:hint="请填写您的QQ或者是电话等能联系到您的联系方式"
+            android:textSize="14sp"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rtl_tj"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/round_red_bg"
+        android:layout_height="40dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:textSize="17sp"
+            android:text="提交反馈"
+            android:layout_centerInParent="true"
+            android:textColor="@color/white"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_height="40dp">
+       <RelativeLayout
+           android:id="@+id/rtl_qq"
+           android:layout_width="match_parent"
+           android:layout_weight="1"
+           android:layout_marginRight="20dp"
+           android:layout_marginLeft="10dp"
+           android:background="@drawable/round_red_bg"
+           android:layout_height="match_parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="QQ客服"
+                android:textColor="@drawable/white2gray_seleclor"
+                android:gravity="center"
+                android:layout_centerInParent="true"
+                android:textSize="17sp"
+                android:drawablePadding="10dp"
+                android:drawableLeft="@mipmap/g_qq"
+                android:layout_height="wrap_content" />
+       </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rtl_contact"
+            android:layout_width="match_parent"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/round_red_bg"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="联系我们"
+                android:textColor="@drawable/white2gray_seleclor"
+                android:gravity="center"
+                android:layout_centerInParent="true"
+                android:textSize="17sp"
+                android:drawablePadding="10dp"
+                android:drawableLeft="@mipmap/g_yshouji"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

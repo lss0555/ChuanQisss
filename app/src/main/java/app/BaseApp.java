@@ -5,7 +5,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.qm.pw.QApp;
-
 import android.app.Application;
 import android.content.BroadcastReceiver;
 import android.content.Context;

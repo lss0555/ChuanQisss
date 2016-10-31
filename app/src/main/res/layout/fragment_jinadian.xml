@@ -1,13 +1,14 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<Views.RefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/sr_ad_list"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="Fragments.JingDianTask.JingDianFragment">
+    tools:context="Fragments.JingDianTask.JingDiansFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <Views.XListView.XListView
-        android:id="@+id/list_task"
+    <ListView
+        android:id="@+id/list_tassk"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    </Views.XListView.XListView>
-</RelativeLayout>
+    </ListView>
+</Views.RefreshLayout>

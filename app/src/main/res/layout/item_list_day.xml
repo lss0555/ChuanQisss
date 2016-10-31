@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp">
+        <TextView
+            android:id="@+id/tv_pos"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <RelativeLayout
+            android:id="@+id/rtl_head"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@+id/tv_pos"
+            android:layout_centerVertical="true"
+            android:layout_height="match_parent">
+            <Views.CircleImageView
+                android:id="@+id/img_head"
+                android:src="@mipmap/ic_empty"
+                android:layout_centerInParent="true"
+                android:layout_width="50dp"
+                android:layout_height="50dp" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tv_tudi_num"
+                android:layout_width="wrap_content"
+                android:text="徒弟:0名"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:textColor="@color/black"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_yes_income"
+                android:layout_width="wrap_content"
+                android:text="昨天收入:0.00"
+                android:textColor="@color/black"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_toRightOf="@+id/rtl_head"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_marginLeft="9dp"
+                android:textSize="17sp"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/black"
+                android:text="ID:10004"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="9dp"
+                android:id="@+id/tv_id" />
+            <RelativeLayout
+                android:id="@+id/rtl_type"
+                android:layout_width="70dp"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/round_red_bg"
+                android:layout_height="25dp">
+                <TextView
+                    android:id="@+id/tv_type"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_centerInParent="true"
+                    android:textSize="16sp"
+                    android:textColor="@color/white"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</LinearLayout>

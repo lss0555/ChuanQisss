@@ -17,6 +17,7 @@ import Constance.constance;
 import Utis.GsonUtils;
 import Utis.OkHttpUtil;
 import Utis.SharePre;
+import Utis.MD5Utis;
 import Utis.Utis;
 import activity.BaseActivity;
 import model.Result;
@@ -133,6 +134,7 @@ public class UpdateRedActivity extends BaseActivity {
         HashMap<String,String> map=new HashMap<>();
         map.put("userid",SharePre.getUserId(UpdateRedActivity.this));
         map.put("style",""+type);
+        map.put("sign",""+ MD5Utis.MD5_Encode(SharePre.getUserId(getApplicationContext())+type+"传祺chuanqi"));
         OkHttpUtil.getInstance().Post(map, constance.URL.SJ_RED, new OkHttpUtil.FinishListener() {
             @Override
             public void Successfully(boolean IsSuccess, String data, String Msg) {
@@ -147,7 +149,9 @@ public class UpdateRedActivity extends BaseActivity {
                          sendBroadcast(intent);//发送广播
                          setResult(1);
                          finish();
-                     }else {
+                     }else if(result.getRun().equals("2")){
+                         Toast("抱歉，非法操作");
+                     } else{
                          Toast("对不起，您的账户余额不足");
                      }
                  }else {

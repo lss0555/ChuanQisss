@@ -33,6 +33,7 @@ import Constance.constance;
 import Fragments.GetFragment;
 import Fragments.HomeFragment;
 import Fragments.MineFragment;
+import Fragments.RegalListFragment;
 import Fragments.ShareFragment;
 import Manager.UpdateManagers;
 import Utis.SharePre;
@@ -63,6 +64,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     private HomeFragment homeFragment;
     private GetFragment getFragment;
     private ShareFragment shareFragment;
+    private RegalListFragment regalListFragment;
     private MineFragment mineFragment;
     private boolean IsBindWx=true;
     Message m = null;
@@ -73,9 +75,21 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         setContentView(R.layout.activity_main);
         initview();
         initPage();
-        initState();
         initXinGePush();
         initUpdateVersion();
+        initAccountNoval();
+    }
+    /**
+     * 用户异常
+     */
+    private void initAccountNoval() {
+        if(SharePre.getAccountInnoval(getApplicationContext())){
+            ShowDialogMessage("您的账户异常");
+            mRtlGet.setEnabled(false);
+            mRtlShare.setEnabled(false);
+            mRtlHome.setEnabled(false);
+            mRtlMine.setEnabled(false);
+        }
     }
     /**
      * 版本更新
@@ -93,18 +107,20 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                         mUpdateManager.setNotUpdateMessageShow(false);
                         mUpdateManager.checkUpdateInfo();
                     }else {
-                      //不是新版本
+                        //不是新版本
                         HashMap<String,String> map=new HashMap<String, String>();
-                        map.put("userid", SharePre.getUserId(MainActivity.this));
+                        map.put("userid", SharePre.getUserId(getApplicationContext()));
                         map.put("accountstype", "1");
                         OkHttpUtil.getInstance().Post(map, constance.URL.IS_BIND_WX_ALIPAY_ACCOUNT, new OkHttpUtil.FinishListener() {
                             @Override
                             public void Successfully(boolean IsSuccess, String data, String Msg) {
                                 if(IsSuccess){
+                                    Log.i("不是新版本，判断有没绑定微信账号",""+data.toString());
                                     IsBindAccount bindAccount = GsonUtils.parseJSON(data, IsBindAccount.class);
-                                    if(bindAccount.getAccount().equals("")){
+                                    if(bindAccount.getAccount().equals("") ||bindAccount.getAccount()==null){
                                         Intent intent=new Intent(getApplicationContext(),WxRegistActivity.class);
-                                        startActivity(intent);
+                                        intent.putExtra("update",true);
+                                        startActivityForResult(intent,1);
                                     }
                                 }else {
                                     Toast(data.toString());
@@ -155,29 +171,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         build.setSound(
                 RingtoneManager.getActualDefaultRingtoneUri(
                         getApplicationContext(), RingtoneManager.TYPE_ALARM)) // 设置声音
-                // setSound(
-                // Uri.parse("android.resource://" + getPackageName()
-                // + "/" + R.raw.wind)) 设定Raw下指定声音文件
                 .setDefaults(Notification.DEFAULT_VIBRATE) // 振动
                 .setFlags(Notification.FLAG_NO_CLEAR); // 是否可清除
-        // 设置自定义通知layout,通知背景等可以在layout里设置
         build.setLayoutId(R.layout.notification);
-        // 设置自定义通知内容id
         build.setLayoutTextId(R.id.content);
-        // 设置自定义通知标题id
         build.setLayoutTitleId(R.id.title);
-        // 设置自定义通知图片id
         build.setLayoutIconId(R.id.icon);
-        // 设置自定义通知图片资源
         build.setLayoutIconDrawableId(R.mipmap.ic_empty);
-        // 设置状态栏的通知小图标
         build.setIcon(R.mipmap.ic_empty);
-        // 设置时间id
         build.setLayoutTimeId(R.id.time);
-        // 若不设定以上自定义layout，又想简单指定通知栏图片资源
-        // build.setNotificationLargeIcon(R.drawable.ic_action_search);
-        // 客户端保存build_id
-        // XGPushManager.setPushNotificationBuilder(this, build_id, build);
     }
     //信鸽推送
     @Override
@@ -199,9 +201,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     protected void onPause() {
         super.onPause();
         XGPushManager.onActivityStoped(this);
-    }
-    private void initState() {
-
     }
     public  static  MainActivity getInstance(){
         if(instance==null){
@@ -244,10 +243,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         }else {
             mFragments.add(getFragment);
         }
-        if(shareFragment==null){
-            mFragments.add(new ShareFragment());
+        if(regalListFragment==null){
+            mFragments.add(new RegalListFragment());
         }else {
-            mFragments.add(shareFragment);
+            mFragments.add(regalListFragment);
         }
         if(mineFragment==null){
             mFragments.add(new MineFragment());
@@ -356,5 +355,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

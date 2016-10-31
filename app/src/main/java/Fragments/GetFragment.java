@@ -10,11 +10,8 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-
 import com.chuanqi.yz.R;
-
 import Constance.constance;
-
 /**
  * A simple {@link Fragment} subclass.
  */

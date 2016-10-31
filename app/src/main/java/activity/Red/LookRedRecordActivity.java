@@ -6,6 +6,7 @@ import android.os.Bundle;
 import com.chuanqi.yz.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 import Constance.constance;
@@ -41,7 +42,9 @@ public class LookRedRecordActivity extends BaseActivity {
                     record record = GsonUtils.parseJSON(data, record.class);
                     if(record.getRecord()!=null){
                         mDate.clear();
-                        mDate.addAll(record.getRecord());
+                        ArrayList<recordList> record1 = record.getRecord();
+                        Collections.reverse(record1);
+                        mDate.addAll(record1);
                         adapter.notifyDataSetChanged();
                     }
                 }else {

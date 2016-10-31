@@ -12,6 +12,7 @@ import java.util.HashMap;
 import Constance.constance;
 import Utis.OkHttpUtil;
 import Utis.Utis;
+import Utis.MD5Utis;
 import Utis.OkHttpUtil;
 import Utis.SharePre;
 import Utis.GsonUtils;
@@ -20,6 +21,7 @@ import Views.RoundProgressBar;
 import activity.BaseActivity;
 import activity.ShowRedPriceActivity;
 import adapter.RedTimeAdapter;
+import model.RedJdt;
 import model.RedMoney;
 import model.RedTime;
 import model.RedTimeList.RedList;
@@ -57,10 +59,26 @@ public class TakeRedActivity extends BaseActivity {
     private void initdate() {
         initRedTime();
         initRedDateing();
+        initRedProgress();
     }
+
+    private void initRedProgress() {
+        OkHttpUtil.getInstance().Post(null, constance.URL.RED_JDT, new OkHttpUtil.FinishListener() {
+            @Override
+            public void Successfully(boolean IsSuccess, String data, String Msg) {
+                if(IsSuccess){
+                    RedJdt redJdt = GsonUtils.parseJSON(data, RedJdt.class);
+                    int surplus = redJdt.getSurplus();
+                    roundProgressBar.setProgress(100-surplus);
+                }else {
+                    Toast(data.toString());
+                }
+            }
+        });
+    }
+
     private void initview() {
         roundProgressBar = (RoundProgressBar) findViewById(R.id.roundProgressBar);
-        roundProgressBar.setProgress(75);
         mTvPrice1 = (TextView) findViewById(R.id.tv_price1);
         mTvPrice2 = (TextView) findViewById(R.id.tv_price2);
         mTvPrice3 = (TextView) findViewById(R.id.tv_price3);
@@ -82,6 +100,7 @@ public class TakeRedActivity extends BaseActivity {
             public void onClick(View view) {//抢红包
                 HashMap<String,String> map=new HashMap<String, String>();
                 map.put("userid", SharePre.getUserId(TakeRedActivity.this));
+                map.put("sign",""+ MD5Utis.MD5_Encode(SharePre.getUserId(getApplicationContext())+"传祺chuanqi"));
                 OkHttpUtil.getInstance().Post(map, constance.URL.TAKE_RED, new OkHttpUtil.FinishListener() {
                     @Override
                     public void Successfully(boolean IsSuccess, String data, String Msg) {
@@ -99,6 +118,8 @@ public class TakeRedActivity extends BaseActivity {
                                 Toast("在该时段，您已经抢过了");
                             }else  if(redMoney.getRun().equals("3")){
                                 Toast("未开放，请在每个整点的前3分钟再来抢红包");
+                            }else  if(redMoney.getRun().equals("4")){
+                                Toast("抱歉，非法操作");
                             }
                         }else {
                             Toast(data.toString());
@@ -156,6 +177,14 @@ public class TakeRedActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if(Integer.parseInt(mTimes.get(i).getTime().substring(0,2))<=Integer.parseInt(Utis.getHours()) && !mTimes.get(i).getState().equals("")){
+                    if(Integer.parseInt(mTimes.get(i).getTime().substring(0,2))<Integer.parseInt(Utis.getHours())){
+                       //之前的进度0
+                        roundProgressBar.setProgress(0);
+                    }else {
+                        initRedProgress();
+                    }
+
+
                     redTimeAdapter.setRedState(i);
                     redTimeAdapter.notifyDataSetChanged();
                     String time=mTimes.get(i).getTime().substring(0,2);
@@ -212,6 +241,7 @@ public class TakeRedActivity extends BaseActivity {
                 }else if(mTimes.get(i).getState().equals("")){
                 }else {
                     Toast("时间还没开始，请稍等");
+                    roundProgressBar.setProgress(100);
                 }
             }
 

@@ -20,6 +20,8 @@ public class UserInfoActivity extends BaseActivity {
     private TextView mTvBindWxState;
     private TextView mTvYqm;
     private TextView mTvAddress;
+    private TextView mTvBindAlipayState;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +49,28 @@ public class UserInfoActivity extends BaseActivity {
                 }
             }
         });
+        HashMap<String,String> map1=new HashMap<String, String>();
+        map1.put("userid", SharePre.getUserId(getApplicationContext()));
+        map1.put("accountstype", "2");
+        OkHttpUtil.getInstance().Post(map1, constance.URL.IS_BIND_WX_ALIPAY_ACCOUNT, new OkHttpUtil.FinishListener() {
+            @Override
+            public void Successfully(boolean IsSuccess, String data, String Msg) {
+                stopProgressDialog();
+                if(IsSuccess){
+                    IsBindAccount bindAccount = GsonUtils.parseJSON(data, IsBindAccount.class);
+//                showTip(data.toString());
+                    if(!bindAccount.getAccount().equals("")){
+                        //有绑定
+                        mTvBindAlipayState.setText("已绑定");
+                    }else {
+                        //未绑定
+                        mTvBindAlipayState.setText("未绑定");
+                    }
+                }else {
+                    Toast(data.toString());
+                }
+            }
+        });
     }
     private void iniview() {
         mTvAddress = (TextView) findViewById(R.id.tv_address);
@@ -56,6 +80,7 @@ public class UserInfoActivity extends BaseActivity {
         mTvBirthday = (TextView) findViewById(R.id.tv_birthday);
         mTvBindWxState = (TextView) findViewById(R.id.tv_bind_wx_state);
         mTvYqm = (TextView) findViewById(R.id.tv_yqm);
+        mTvBindAlipayState = (TextView) findViewById(R.id.tv_bind_alipay_state);
     }
     private void getDate() {
 //        mUserInfo= (UserInfo) getIntent().getSerializableExtra("info");

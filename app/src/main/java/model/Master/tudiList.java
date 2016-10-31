@@ -7,6 +7,7 @@ import java.io.Serializable;
  */
 public class tudiList implements Serializable {
     private  String ApprenticeId;
+    private  String Headportrait;
     private  String Pay;
 
     public String getApprenticeId() {
@@ -23,5 +24,13 @@ public class tudiList implements Serializable {
 
     public void setPay(String pay) {
         Pay = pay;
+    }
+
+    public String getHeadportrait() {
+        return Headportrait;
+    }
+
+    public void setHeadportrait(String headportrait) {
+        Headportrait = headportrait;
     }
 }

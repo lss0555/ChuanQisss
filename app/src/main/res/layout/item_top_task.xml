@@ -1,14 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:id="@+id/ll_item"
-    android:orientation="horizontal"
-    android:layout_height="100dp">
+    android:orientation="vertical"
+    android:layout_height="180dp">
+    <RelativeLayout
+        android:id="@+id/rtl_title_jd"
+        android:layout_width="match_parent"
+        android:background="@color/light_gray"
+        android:layout_height="40dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="师徒任务"
+            android:textColor="@color/red"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:textSize="18sp"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
     <LinearLayout
         android:id="@+id/ll_top_items"
         android:layout_width="match_parent"
         android:orientation="horizontal"
-        android:layout_height="match_parent">
+        android:layout_height="100dp">
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_weight="1"
@@ -87,12 +101,18 @@
                 android:layout_height="match_parent" />
         </RelativeLayout>
     </LinearLayout>
-     <ImageView
-         android:id="@+id/img_state"
-         android:layout_width="wrap_content"
-         android:background="@mipmap/states"
-         android:layout_gravity="right|center"
-         android:visibility="gone"
-         android:layout_marginRight="40dp"
-         android:layout_height="wrap_content" />
-</FrameLayout>
+    <RelativeLayout
+        android:id="@+id/rtl_title_rm"
+        android:layout_width="match_parent"
+        android:background="@color/light_gray"
+        android:layout_height="40dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="热门任务"
+            android:layout_centerVertical="true"
+            android:textColor="@color/red"
+            android:layout_marginLeft="15dp"
+            android:textSize="18sp"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+</LinearLayout>

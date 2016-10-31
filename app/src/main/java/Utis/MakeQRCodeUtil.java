@@ -79,7 +79,7 @@ return bitmap;
 }
 // 图片绘制在二维码中央，合成二维码图片
 // logo大小为二维码整体大小的1/2
-float scaleFactor = QR_WIDTH * 1.0f / 2 / logoWidth;
+float scaleFactor = QR_WIDTH * 1.0f / 3 / logoWidth;
 try {
 Canvas canvas = new Canvas(bitmap);
 canvas.drawBitmap(bitmap, 0, 0, null);

@@ -1,6 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/red"
     android:orientation="vertical"
     android:layout_height="match_parent"
     tools:context="Fragments.GetFragment">
@@ -36,10 +37,31 @@
                 android:layout_height="wrap_content" />
         </RelativeLayout>
     </RelativeLayout>
-    <LinearLayout
-        android:orientation="vertical"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="match_parent"
+                android:background="@mipmap/wx_method_1"
+                android:layout_height="wrap_content"
+                />
+            <ImageView
+                android:layout_width="match_parent"
+                android:background="@mipmap/wx_method_2"
+                android:layout_height="wrap_content"
+                /><ImageView
+                android:layout_width="match_parent"
+                android:background="@mipmap/wx_method_3"
+                android:layout_height="wrap_content"
+                /><ImageView
+                android:layout_width="match_parent"
+                android:background="@mipmap/wx_method_4"
+                android:layout_height="wrap_content"
+                />
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

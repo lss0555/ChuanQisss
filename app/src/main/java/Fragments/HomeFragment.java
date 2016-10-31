@@ -45,23 +45,29 @@ import activity.HowToEarn.HowToEarnActivity;
 import activity.IntoMoneyJqzActivity;
 import activity.JXZActivity;
 import activity.NewerTaskActivity;
+import activity.ToWxGetOpenidMethodActivity;
 import activity.YaoQingSharesActivity;
 import activity.SignActivity;
 import activity.Red.TakeRedActivity;
 import activity.UnitTaskActivity;
 import activity.WithDrawActivity;
+import app.AndroidSystem;
 import model.Banner.Banner;
 import model.Banner.banners;
+import model.IsBindAccount;
 import model.Notice;
 import model.JxzAccount;
+import model.Result;
 import model.TxRecord.jqzcr;
 import model.TxRecord.JqzCrRecord;
 import model.TxRecord.TxRecord;
 import model.TxRecord.tx;
+import model.UserAccounts;
 import model.UserAllYue;
 import model.UserInfo;
 import model.UserMoney;
 import model.Version;
+import model.Yzm;
 /**
  * A simple {@link Fragment} subclass. update 2016.8.31
  */
@@ -114,7 +120,23 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
     private LinearLayout mLlLoadTxRecord;
     private LinearLayout mLlTxRecord;
     private TextView mTvUserid;
-
+    private ImageView mImgSuperUserIcon;
+    private boolean IsBindPhone=false;
+    private boolean IsBindAliPay=false;
+    private boolean IsLjpt=false;
+    private boolean IsShare=false;
+    private TextView mTvYq;
+    private TextView mTvDaySign;
+    private RelativeLayout mRtlSaveMoney;
+    private TextView mTvNewerTask;
+    private RelativeLayout mRtlWithDraw;
+    private TextView mTvJqz;
+    private TextView mTvOpenBox;
+    private TextView mTvHelpCenter;
+    private RelativeLayout mRtlHowToEarn;
+    private TextView mTvMastCenter;
+    private TextView mTvUpload;
+    private TextView mTvTakeRed;
     public static HomeFragment getInstance(){
         if(instance==null){
             instance=new HomeFragment();
@@ -134,7 +156,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
                     setJqzCrReord();
                     break;
                 case JQZ_INTO_RECORD:
-
                     break;
                 default:
                     break;
@@ -164,23 +185,105 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
         initdate();
         initViewPage(); //轮播
         initReFreshDate();
+        initNewTaskState();
+        initAccountNoval();
         return layout;
     }
     /**
-     * 版本更新
+     * 账户异常
      */
-    private void initUpdateVersion() {
-        int version = Utis.getVersion(getActivity());
-        OkHttpUtil.getInstance().Post(null, constance.URL.VERSION_UPDATE, new OkHttpUtil.FinishListener() {
+    private void initAccountNoval() {
+        if(SharePre.getAccountInnoval(getActivity())){
+            mRtlWithDraw.setEnabled(false);
+            mRtlSaveMoney.setEnabled(false);
+            mTvNewerTask.setEnabled(false);
+            mTvFastTask.setEnabled(false);
+            mTvUnitTask.setEnabled(false);
+            mTvDaySign.setEnabled(false);
+            mTvYq.setEnabled(false);
+            mTvTakeRed.setEnabled(false);
+            mTvOpenBox.setEnabled(false);
+            mTvJqz.setEnabled(false);
+        }
+    }
+
+    /**
+     * 初始化新手任务的状态
+     */
+    private void initNewTaskState() {
+        initBindAlipayState();
+        initLjptState();
+        initShareState();
+        initUserDate();
+    }
+    /**
+     * 判断有无分享
+     */
+    private void initShareState() {
+        HashMap<String,String> map=new HashMap<>();
+        map.put("userid",""+SharePre.getUserId(getActivity()));
+        OkHttpUtil.getInstance().Post(map, constance.URL.IS_SHARE, new OkHttpUtil.FinishListener() {
             @Override
             public void Successfully(boolean IsSuccess, String data, String Msg) {
                 if(IsSuccess){
-                    Version version1 = GsonUtils.parseJSON(data, Version.class);
-                    if(Integer.parseInt(version1.getBbh())>Utis.getVersion(getActivity())){
-                        UpdateManagers mUpdateManager = new UpdateManagers(getActivity(),version1.getGxxx(),version1.getUrl());
-                        mUpdateManager.setNotUpdateMessageShow(false);
-                        mUpdateManager.checkUpdateInfo();
+                    Result result = GsonUtils.parseJSON(data, Result.class);
+                    if(result.getRun().equals("0")){
+                        //未分享
+                        IsShare=false;
+                    }else if(result.getRun().equals("1")){
+                        //已分享
+                        IsShare=true;
+                    }
+                }else {
+                    Toast(data.toString());
+                }
+            }
+        });
+    }
+    /**
+     * 了解平台的状态
+     */
+    private void initLjptState() {
+        HashMap<String,String> map=new HashMap<>();
+        map.put("userid",""+SharePre.getUserId(getActivity()));
+        OkHttpUtil.getInstance().Post(map, constance.URL.IS_LJPT, new OkHttpUtil.FinishListener() {
+            @Override
+            public void Successfully(boolean IsSuccess, String data, String Msg) {
+                if(IsSuccess){
+                    Result result = GsonUtils.parseJSON(data, Result.class);
+                    if(result.getRun().equals("1")){
+                        //未完成
+                       IsLjpt=false;
                     }else {
+                        //已完成
+                        IsLjpt=true;
+                    }
+                }else {
+                    Toast(data.toString());
+                }
+            }
+        });
+    }
+    /**
+     * 支付宝状态
+     */
+    private void initBindAlipayState() {
+        HashMap<String,String> map=new HashMap<String, String>();
+        map.put("userid", SharePre.getUserId(getActivity()));
+        map.put("accountstype", "2");
+        OkHttpUtil.getInstance().Post(map, constance.URL.IS_BIND_WX_ALIPAY_ACCOUNT, new OkHttpUtil.FinishListener() {
+            @Override
+            public void Successfully(boolean IsSuccess, String data, String Msg) {
+                stopProgressDialog();
+                if(IsSuccess){
+                    IsBindAccount bindAccount = GsonUtils.parseJSON(data, IsBindAccount.class);
+//                showTip(data.toString());
+                    if(!bindAccount.getAccount().equals("")){
+                        //有绑定
+                        IsBindAliPay=true;
+                    }else {
+                        //未绑定
+                        IsBindAliPay=false;
                     }
                 }else {
                     Toast(data.toString());
@@ -236,6 +339,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
             @Override
             public void UpdateUserMoney(boolean IsUpdate) {
                 getAccountInfo();  //更新用户金额信息
+                initNewTaskState();
             }
         });
         getActivity().registerReceiver(myReceiver, filter);
@@ -247,14 +351,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
         mHandler.removeCallbacks(mRbUserRecord);
         mHandler.removeCallbacks(mRbJqzIntoRecord);
     }
-
     @Override
     public void onPause() {
         super.onPause();
         mHandler.removeCallbacks(mRbUserRecord);
         mHandler.removeCallbacks(mRbJqzIntoRecord);
     }
-
     /**
      * inidate
      */
@@ -262,19 +364,41 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
         GongGaoRecord();//公告记录
         UserTxRecord();//用户提现记录
         JqzStoreRecord(); //聚钱庄存入记录
-        UserAccount();  //用户余额
-        JqzAccount();  //聚钱庄余额
-        UserMoney();//用户金额，聚钱庄金额
-        initUserDate();
+        getAccountInfo();//用户金额，聚钱庄金额 用户状态
+    }
+    /**
+     * 判断是否是皇冠用户
+     */
+    private void initSuperUser() {
+        HashMap<String,String> map=new HashMap<String, String>();
+        map.put("userid",""+SharePre.getUserId(getActivity()));
+        OkHttpUtil.getInstance().Post(map, constance.URL.IS_USER_UPDATE, new OkHttpUtil.FinishListener() {
+            @Override
+            public void Successfully(boolean IsSuccess, String data, String Msg) {
+                if(IsSuccess){
+                    Log.i("首页判断是否是超级会员头像",""+data.toString()) ;
+                    Result result = GsonUtils.parseJSON(data, Result.class);
+                    if(result.getRun().equals("1")){
+                        mImgSuperUserIcon.setVisibility(View.GONE);
+                        //普通会员
+                    }else if(result.getRun().equals("2")){
+                        //已经是超级会员
+                        mImgSuperUserIcon.setVisibility(View.VISIBLE);
+                    }
+                }else {
+                    Toast(data.toString());
+                }
+            }
+        });
     }
     /**
      * 初始化用户信息
      */
+    public UserInfo mUserInfo;
     private void initUserDate() {
         HashMap<String,String> map=new HashMap<>();
         map.put("udid", Utis.getIMEI(getActivity()));
         OkHttpUtil.getInstance().Post(map, constance.URL.USER_INFO, new OkHttpUtil.FinishListener() {
-            public UserInfo mUserInfo;
             @Override
             public void Successfully(boolean IsSuccess, String data, String Msg) {
                 Log.i("个人资料",""+data.toString());
@@ -282,6 +406,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
                     mUserInfo= GsonUtils.parseJSON(data,UserInfo.class);
                     UILUtils.displayImage(mUserInfo.getHeadportrait(),mImgHead);
                     mTvUserid.setText("ID:"+SharePre.getUserId(getActivity()));
+                    if(mUserInfo.getTel()!=null){
+                         IsBindPhone=true;
+                    }else {
+                         IsBindPhone=false;
+                    }
                 }
             }
         });
@@ -329,8 +458,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
                     }
                     Log.i("用户mUserId",""+mUserId.toString());
                     JqzStoreRecord();
-//                    new Thread(mRbUserRecord).start();
-//                    setUserTx();
                 }else {
                     Toast(data.toString());
                 }
@@ -355,7 +482,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
                     for (int i=0;i<mCrJqz.size();i++){
                         mJqzCrUserId.add("用户"+mCrJqz.get(i).getUserid());
                         mJqzCrTime.add(Utis.getDistanceTime(Utis.getTime(),mCrJqz.get(i).getTdate())+"前");
-                        mJqzCrMoney.add("成功转入聚钱庄"+mCrJqz.get(i).getMoney()+"元");
+                        mJqzCrMoney.add("任务收益"+mCrJqz.get(i).getMoney()+"元");
                     }
                     new Thread(mRbUserRecord).start();
                     mLlLoadTxRecord.setVisibility(View.GONE);
@@ -365,103 +492,65 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
             }
         });
     }
+
     /**
-     * 用户金额，聚钱庄金额
+     * 用户金额，聚钱庄金额，用户状态
      */
-    private void UserMoney() {
-        if (SharePre.getUserId(getActivity()).equals("")){
-            HashMap<String,String> map=new HashMap<>();
-            map.put("udid", Utis.getIMEI(getActivity()));
-            OkHttpUtil.getInstance().Post(map, constance.URL.USER_INFO, new OkHttpUtil.FinishListener() {
-                public UserInfo mUserInfo;
-                @Override
-                public void Successfully(boolean IsSuccess, String data, String Msg) {
-                    Log.i("个人资料",""+data.toString());
-                    if(IsSuccess){
-                        mUserInfo= GsonUtils.parseJSON(data, UserInfo.class);
-                        SharePre.saveUserId(getActivity(),mUserInfo.getId());
-                        getAccountInfo();
-                    } else {
-                        Toast(data.toString());
-                    }
-                }
-            });
-        } else { getAccountInfo();
-        }
-    }
     public  void getAccountInfo(){
-        UserAccount();  //用户余额
-        JqzAccount();  //聚钱庄余额
-        UserAllYue();//用户总余额
-    }
-    /**
-     * 用户总余额
-     */
-    private void UserAllYue() {
         HashMap<String,String> map=new HashMap<>();
         map.put("userid",""+SharePre.getUserId(getActivity()));
-        OkHttpUtil.getInstance().Post(map, constance.URL.USER_ALL_YUE, new OkHttpUtil.FinishListener() {
+        OkHttpUtil.getInstance().Post(map, constance.URL.USER_ACCOUNT, new OkHttpUtil.FinishListener() {
             @Override
             public void Successfully(boolean IsSuccess, String data, String Msg) {
                 if(IsSuccess){
-                    UserAllYue userAllYue = GsonUtils.parseJSON(data, UserAllYue.class);
-                    if(userAllYue.getAllsr()==null){
+                    UserAccounts userAccounts = GsonUtils.parseJSON(data, UserAccounts.class);
+                    //总收入
+                    if(userAccounts.getAllsr()==null){
                         mTvTodyIncome.setText("0.0元");
                     }else {
-                        mTvTodyIncome.setText(""+userAllYue.getAllsr()+"元");
+                        mTvTodyIncome.setText(""+userAccounts.getAllsr()+"元");
                     }
-                }else {
-                }
-            }
-        });
-    }
-
-    private void UserAccount() {   //用户余额
-            HashMap<String,String> maps=new HashMap<>();
-            maps.put("udid", Utis.getIMEI(getActivity()));
-            OkHttpUtil.getInstance().Post(maps, constance.URL.MONEY, new OkHttpUtil.FinishListener() {
-                @Override
-                public void Successfully(boolean IsSuccess, String data, String Msg) {
-                    if(IsSuccess){
-                        Log.i("数据",""+data.toString());
-//                  showTip(data.toString());
-                        UserMoney userMoney = GsonUtils.parseJSON(data, UserMoney.class);
-                        if(userMoney.getfTodayIncome()==null){
-                            UserAccount=0.0;
-                            mTvAllIncome.setText("0.0元");
-//                            mTvTodyIncome.setText("0.0元");
-                        }else {
-                            UserAccount=Double.parseDouble(userMoney.getfNotPayIncome());
-                            mTvAllIncome.setText(userMoney.getfNotPayIncome()+"元");
-//                            mTvTodyIncome.setText(""+userMoney.getfTodayIncome()+"元");
-                        }
+                    //总余额
+                    if(userAccounts.getfNotPayIncome()==null){
+                        UserAccount=0.0;
+                        mTvAllIncome.setText("0.0元");
+                    }else {
+                        UserAccount=Double.parseDouble(userAccounts.getfNotPayIncome());
+                        mTvAllIncome.setText(userAccounts.getfNotPayIncome()+"元");
                     }
-                }
-            });
-    }
-    private void JqzAccount() { //聚钱庄余额
-        HashMap<String,String> maps1=new HashMap<>();
-        maps1.put("udid", Utis.getIMEI(getActivity()));
-        OkHttpUtil.getInstance().Post(maps1, constance.URL.JQZ_MONEY, new OkHttpUtil.FinishListener() {
-            @Override
-            public void Successfully(boolean IsSuccess, String data, String Msg) {
-                if(IsSuccess){
-                    Log.i("数据",""+data.toString());
-//                showTip(data.toString());
-                    JxzAccount mJxzAccount =GsonUtils.parseJSON(data, JxzAccount.class);
-                    if(mJxzAccount.getAccrual()==null){
+                    //聚钱装余额
+                    if(userAccounts.getYue()==null){
                         mTvJxzYue.setText("0.0元");
+                    } else {
+                        mTvJxzYue.setText(userAccounts.getYue()+"元");
+                    }
+                    //聚钱庄收益
+                    if(userAccounts.getAccrual()==null){
                         mTvJxzAccrual.setText("0.0元");
                     } else {
-                        mTvJxzYue.setText(mJxzAccount.getYue()+"元");
-                        mTvJxzAccrual.setText(mJxzAccount.getAccrual()+"元");
+                        mTvJxzAccrual.setText(userAccounts.getAccrual()+"元");
                     }
+                    //用户等级
+                    if(userAccounts.getUserdj().equals("0")){
+                      //账户异常
+                        mImgSuperUserIcon.setVisibility(View.GONE);
+                        SharePre.IsAccountInnoval(getActivity(),true);
+                        ShowDialogMessage("您的账户异常");
+                    }else if (userAccounts.getUserdj().equals("1")){
+                      //账户正常
+                        SharePre.IsAccountInnoval(getActivity(),false);
+                        mImgSuperUserIcon.setVisibility(View.GONE);
+                    }else if (userAccounts.getUserdj().equals("2")){
+                        //会员
+                        SharePre.IsAccountInnoval(getActivity(),false);
+                        mImgSuperUserIcon.setVisibility(View.VISIBLE);
+                    }
+                }else {
+                    Toast(data.toString());
                 }
             }
         });
     }
-
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -495,7 +584,13 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
         mTvTime1.setResource(mJqzCrTime);
         mTvTime1.startRolling();
     }
+
+    /**
+     * 初始化控件
+     * @param layout
+     */
     private void initview(View layout) {
+        mImgSuperUserIcon = (ImageView) layout.findViewById(R.id.img_super_user);
         mTvUserid = (TextView) layout.findViewById(R.id.tv_userid);
         mLlTxRecord = (LinearLayout) layout.findViewById(R.id.ll_tx_record);
         mLlLoadTxRecord = (LinearLayout) layout.findViewById(R.id.ll_load_tx_record);
@@ -517,21 +612,37 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
         mTvAllIncome = (TextView) layout.findViewById(R.id.tv_all_income);
         mTvJxzYue = (TextView) layout.findViewById(R.id.tv_jqzyue);
         mTvJxzAccrual = (TextView) layout.findViewById(R.id.tv_jxz_accrual);
-        layout.findViewById(R.id.tv_unit_task).setOnClickListener(this);
-        layout.findViewById(R.id.tv_fast_task).setOnClickListener(this);
-        layout.findViewById(R.id.tv_yq).setOnClickListener(this);
-        layout.findViewById(R.id.tv_day_sign).setOnClickListener(this);
-        layout.findViewById(R.id.rtl_save_money).setOnClickListener(this);
-        layout.findViewById(R.id.tv_newer_task).setOnClickListener(this);
-        layout.findViewById(R.id.tv_take_red).setOnClickListener(this);
-        layout.findViewById(R.id.rtl_withdraw).setOnClickListener(this);
-        layout.findViewById(R.id.tv_jxz).setOnClickListener(this);
-        layout.findViewById(R.id.tv_open_box).setOnClickListener(this);
-        layout.findViewById(R.id.tv_help_center).setOnClickListener(this);
-        layout.findViewById(R.id.rtl_howto_earn).setOnClickListener(this);
-        layout.findViewById(R.id.tv_master_center).setOnClickListener(this);
-        layout.findViewById(R.id.tv_jxz).setOnClickListener(this);
-         mEmptyDate.findViewById(R.id.tv_upload).setOnClickListener(this);
+        mTvUnitTask= (TextView) layout.findViewById(R.id.tv_unit_task);
+        mTvFastTask=  (TextView) layout.findViewById(R.id.tv_fast_task);
+        mTvYq = (TextView) layout.findViewById(R.id.tv_yq);
+        mTvUnitTask.setOnClickListener(this);
+        mTvFastTask.setOnClickListener(this);
+        mTvDaySign = (TextView) layout.findViewById(R.id.tv_day_sign);
+        mRtlSaveMoney = (RelativeLayout) layout.findViewById(R.id.rtl_save_money);
+        mTvNewerTask = (TextView) layout.findViewById(R.id.tv_newer_task);
+        mTvTakeRed = (TextView) layout.findViewById(R.id.tv_take_red);
+        mRtlWithDraw = (RelativeLayout) layout.findViewById(R.id.rtl_withdraw);
+        mTvJqz = (TextView) layout.findViewById(R.id.tv_jxz);
+        mTvOpenBox = (TextView) layout.findViewById(R.id.tv_open_box);
+        mTvHelpCenter = (TextView) layout.findViewById(R.id.tv_help_center);
+        mRtlHowToEarn = (RelativeLayout) layout.findViewById(R.id.rtl_howto_earn);
+        mTvMastCenter = (TextView) layout.findViewById(R.id.tv_master_center);
+        mTvJqz=  (TextView) layout.findViewById(R.id.tv_jxz);
+        mTvUpload = (TextView) mEmptyDate.findViewById(R.id.tv_upload);
+        mRtlHowToEarn  .setOnClickListener(this);
+        mRtlWithDraw.setOnClickListener(this);
+        mTvJqz.setOnClickListener(this);
+        mTvDaySign.setOnClickListener(this);
+        mTvYq.setOnClickListener(this);
+        mTvTakeRed.setOnClickListener(this);
+        mRtlSaveMoney.setOnClickListener(this);
+        mTvNewerTask .setOnClickListener(this);
+        mTvTakeRed.setOnClickListener(this);
+        mTvOpenBox.setOnClickListener(this);
+        mTvHelpCenter.setOnClickListener(this);
+        mTvMastCenter.setOnClickListener(this);
+        mTvJqz.setOnClickListener(this);
+        mTvUpload.setOnClickListener(this);
         mTvId.setEnabled(false);
         mTvId1.setEnabled(false);
         mTvState.setEnabled(false);
@@ -539,6 +650,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
         mTvTime.setEnabled(false);
         mTvTime1.setEnabled(false);
     }
+
+    /**
+     * 轮播
+     */
     private void initViewPage() {
         OkHttpUtil.getInstance().Get(constance.URL.BANNER, new OkHttpUtil.FinishListener() {
             @Override
@@ -572,74 +687,90 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
     public void onClick(View view) {
         switch (view.getId()){
             case  R.id.tv_fast_task://快速任务
-                if(Utis.HasSimCard(getActivity())){
-                    Intent intent_Task=new Intent(getActivity(), FaskTaskActivity.class);
-                    getActivity().startActivity(intent_Task);
-                }else {
-//                    Intent intent_Task=new Intent(getActivity(), FaskTaskActivity.class);
-//                    getActivity().startActivity(intent_Task);
-                    Toast("抱歉，您的SIM卡异常，请检查");
-                }
-//                Toast("待开放中...");
+                Intent intent1=new Intent(getActivity(),FaskTaskActivity.class);
+                getActivity().startActivity(intent1);
+                    if(mUserInfo!=null){
+                        if(AndroidSystem.getAllApps(getActivity()).size()<=5 || !Utis.checkApkExist(getActivity(),"com.eg.android.AlipayGphone")){
+                            Toast("抱歉，您未满足做任务条件");
+                        }
+                        else  if(mUserInfo.getTel()==null){
+                            Toast("抱歉，您还未绑定手机号码");
+                        }else if(!Utis.HasSimCard(getActivity())){
+                            Toast("抱歉，您的SIM卡异常，请检查");
+                        } else {
+                            Intent intent=new Intent(getActivity(),FaskTaskActivity.class);
+                            getActivity().startActivity(intent);
+                        }
+                    }else {
+                        Toast("加载中...");
+                    }
                 break;
             case  R.id.tv_unit_task://联盟任务
-                if(Utis.HasSimCard(getActivity())){
-                    Intent intent=new Intent(getActivity(), UnitTaskActivity.class);
-                    getActivity().startActivity(intent);
-                }else {
-                    Intent intent=new Intent(getActivity(), UnitTaskActivity.class);
-                    getActivity().startActivity(intent);
-                    Toast("抱歉，您的SIM卡异常，请检查");
-                }
+                    if(mUserInfo!=null){
+                         if(AndroidSystem.getAllApps(getActivity()).size()<=5 || !Utis.checkApkExist(getActivity(),"com.eg.android.AlipayGphone")){
+                            Toast("抱歉，您未满足做任务条件");
+                        }
+                        else if(mUserInfo.getTel()==null){
+                            Toast("抱歉，您还未绑定手机号码");
+                        }else if(!Utis.HasSimCard(getActivity())){
+                            Toast("抱歉，您的SIM卡异常，请检查");
+                        }else {
+                            Intent intent=new Intent(getActivity(),UnitTaskActivity.class);
+                            getActivity().startActivity(intent);
+                        }
+                    }else {
+                        Toast("加载中...");
+                    }
                 break;
             case  R.id.tv_yq://邀请分享
-                Intent intent_shop=new Intent(getActivity(), YaoQingSharesActivity.class);
-                getActivity().startActivity(intent_shop);
+                    Intent intent_shop=new Intent(getActivity(), YaoQingSharesActivity.class);
+                    getActivity().startActivity(intent_shop);
                 break;
             case  R.id.tv_day_sign://每日签到
-                Intent intent_sign=new Intent(getActivity(), SignActivity.class);
-                getActivity().startActivity(intent_sign);
+                    Intent intent_sign=new Intent(getActivity(), SignActivity.class);
+                    getActivity().startActivity(intent_sign);
                 break;
             case  R.id.rtl_save_money://转入钱庄
-//                Intent intent_store=new Intent(getActivity(), IntoMoneyJqzActivity.class);
-//                intent_store.putExtra("money",UserAccount);
-//                getActivity().startActivityForResult(intent_store,12);
-                Toast("待开放中...");
+                    Intent intent_store=new Intent(getActivity(), IntoMoneyJqzActivity.class);
+                    intent_store.putExtra("jzq","int");
+                    getActivity().startActivityForResult(intent_store,12);
                 break;
             case  R.id.tv_newer_task://新手任务
-                Intent intent_newerTask=new Intent(getActivity(), NewerTaskActivity.class);
-                getActivity().startActivity(intent_newerTask);
+                    Log.i("新手任务完成状态","绑定支付宝"+IsBindAliPay+"绑定手机"+IsBindPhone+"是否了解平台"+IsLjpt+"是否完成首次分享"+IsShare);
+                    if(IsLjpt && IsShare && IsBindPhone && IsBindAliPay){
+                        Toast("您已完成新手任务");
+                    }else {
+                        Intent intent_newerTask=new Intent(getActivity(), NewerTaskActivity.class);
+                        getActivity().startActivity(intent_newerTask);
+                    }
                 break;
             case  R.id.tv_take_red://抢红包
-                Intent intent_take_red=new Intent(getActivity(), TakeRedActivity.class);
-                getActivity().startActivity(intent_take_red);
+                    Intent intent_take_red=new Intent(getActivity(), TakeRedActivity.class);
+                    getActivity().startActivity(intent_take_red);
                 break;
             case  R.id.rtl_withdraw://提现
-                Intent intent_tx=new Intent(getActivity(), WithDrawActivity.class);
-                intent_tx.putExtra("money",UserAccount);
-                getActivity().startActivity(intent_tx);
+                    Intent intent_tx=new Intent(getActivity(), WithDrawActivity.class);
+                    intent_tx.putExtra("money",UserAccount);
+                    getActivity().startActivity(intent_tx);
                 break;
-            case  R.id.tv_jxz://抢红包
-//                Intent intent_jxz=new Intent(getActivity(), JXZActivity.class);
-//                getActivity().startActivity(intent_jxz);
-                Toast("待开放中...");
+            case  R.id.tv_jxz://聚钱装
+                    Intent intent_jxz=new Intent(getActivity(), JXZActivity.class);
+                    getActivity().startActivity(intent_jxz);
                 break;
             case  R.id.tv_open_box://开宝箱
-//                Intent intent_openbox=new Intent(getActivity(), BannerLinkActivity.class);
-//                getActivity().startActivity(intent_openbox);
                 Toast("待开放中...");
                 break;
             case  R.id.tv_help_center://帮助中心
-                Intent intent_help_center=new Intent(getActivity(), HelpCenterActivity.class);
-                getActivity().startActivity(intent_help_center);
+                    Intent intent_help_center=new Intent(getActivity(), HelpCenterActivity.class);
+                    getActivity().startActivity(intent_help_center);
                 break;
             case  R.id.rtl_howto_earn://赚钱攻略
-                Intent intent_howtoearn=new Intent(getActivity(), HowToEarnActivity.class);
-                getActivity().startActivity(intent_howtoearn);
+                    Intent intent_howtoearn=new Intent(getActivity(), HowToEarnActivity.class);
+                    getActivity().startActivity(intent_howtoearn);
                 break;
             case  R.id.tv_master_center://师徒中心
-                Intent intent_st=new Intent(getActivity(), ApprenticeListActivity.class);
-                getActivity().startActivity(intent_st);
+                    Intent intent_st=new Intent(getActivity(), ApprenticeListActivity.class);
+                    getActivity().startActivity(intent_st);
                 break;
             case  R.id.tv_upload://点击网络加载
                 if(Utis.isNetworkConnected(getActivity())){
@@ -656,8 +787,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode==constance.INTENT.INTO_JQZ_SUCCESS){ //聚钱庄钱转入成功
             Toast.makeText(getActivity(),"转入成功",Toast.LENGTH_SHORT).show();
-            UserAccount();  //用户余额
-            JqzAccount();
+            getAccountInfo();  //用户余额
         }
     }
 }

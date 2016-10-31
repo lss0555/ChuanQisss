@@ -94,10 +94,13 @@ public class WxRegistActivity extends BaseActivity {
             public void onClick(View v) {
                 HashMap<String,String> map=new HashMap<>();
                 map.put("udid",Utis.getIMEI(getApplicationContext()));
+                map.put("newudid",Utis.getIMEI(getApplicationContext()));
+                map.put("nudid",Utis.getIMEI(getApplicationContext()));
                 OkHttpUtil.getInstance().Post(map, constance.URL.USER_UDID, new OkHttpUtil.FinishListener() {
                     @Override
                     public void Successfully(boolean IsSuccess, String data, String Msg) {
                         if(IsSuccess){
+                            Log.i("微信注册",""+data.toString());
                             SharePre.saveIsPostUdid(getApplicationContext(),true);
                             HashMap<String,String> map1=new HashMap<>();
                             map1.put("udid", Utis.getIMEI(getApplicationContext()));
@@ -145,29 +148,46 @@ public class WxRegistActivity extends BaseActivity {
             Toast("抱歉，请输入正确的名字");
         }else {
             startProgressDialog("加载中...");
-             HashMap<String,String> map=new HashMap<>();
-            map.put("userid",""+SharePre.getUserId(getApplicationContext()));
-            map.put("name",""+mEtName.getText().toString().trim());
-            map.put("openid",""+mEtWxKey.getText().toString().trim());
-            OkHttpUtil.getInstance().Post(map, constance.URL.REGIST, new OkHttpUtil.FinishListener() {
+            HashMap<String,String> map1=new HashMap<>();
+            map1.put("udid", Utis.getIMEI(WxRegistActivity.this));
+            OkHttpUtil.getInstance().Post(map1, constance.URL.USER_INFO, new OkHttpUtil.FinishListener() {
                 @Override
                 public void Successfully(boolean IsSuccess, String data, String Msg) {
                     stopProgressDialog();
-//                    Toast(data.toString());
-                    if(IsSuccess){
-                        Result result = GsonUtils.parseJSON(data, Result.class);
-                        if(result.getRun().equals("1")){
-                            setResult(11);
-                            Intent intent = new Intent();
-                            intent.putExtra(constance.INTENT.UPDATE_ADD_USER_MONEY,true);
-                            intent.setAction(constance.INTENT.UPDATE_ADD_USER_MONEY);   //
-                            sendBroadcast(intent);   //发送广播
-                            finish();
-                        }else if (result.getRun().equals("2")){
-                            Toast("抱歉，您的微信唯一码已被绑定过");
-                        }else {
-                            Toast("抱歉，您的唯一码有误");
-                        }
+                    if(IsSuccess){ //获取useid
+                        UserInfo mUserInfo= GsonUtils.parseJSON(data, UserInfo.class);
+                        SharePre.saveUserId(getApplicationContext(),mUserInfo.getId());
+
+                        HashMap<String,String> map=new HashMap<>();
+                        map.put("userid",""+mUserInfo.getId());
+                        map.put("name",""+mEtName.getText().toString().trim());
+                        map.put("openid",""+mEtWxKey.getText().toString().trim());
+                        OkHttpUtil.getInstance().Post(map, constance.URL.REGIST, new OkHttpUtil.FinishListener() {
+                            @Override
+                            public void Successfully(boolean IsSuccess, String data, String Msg) {
+                                if(IsSuccess){
+                                    Result result = GsonUtils.parseJSON(data, Result.class);
+                                    if(result.getRun().equals("1")){
+                                        setResult(11);
+                                        if(getIntent().getBooleanExtra("update",false)){
+                                            Intent intent = new Intent();
+                                            intent.putExtra(constance.INTENT.UPDATE_ADD_USER_MONEY,true);
+                                            intent.setAction(constance.INTENT.UPDATE_ADD_USER_MONEY);   //
+                                            sendBroadcast(intent);   //发送广播
+                                        }
+                                        finish();
+                                    }else if (result.getRun().equals("2")){
+                                        Toast("抱歉，您的微信唯一码已被绑定过");
+                                    }else {
+                                        Toast("抱歉，您的唯一码有误");
+                                    }
+                                }else {
+                                    Toast(data.toString());
+                                }
+                            }
+                        });
+                    }else {
+                        Toast(data.toString());
                     }
                 }
             });

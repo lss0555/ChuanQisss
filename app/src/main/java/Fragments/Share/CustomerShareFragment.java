@@ -60,7 +60,6 @@ public class CustomerShareFragment extends BaseFragment {
         initevent();
         return layout;
     }
-
     private void initevent() {
         rtlCustomer.setOnClickListener(new View.OnClickListener() {
             @Override

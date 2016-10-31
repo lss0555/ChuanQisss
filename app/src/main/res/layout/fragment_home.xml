@@ -19,15 +19,28 @@
             android:layout_marginTop="20dp"
             android:orientation="vertical"
             android:layout_height="match_parent">
-           <Views.CircleImageView
-               android:id="@+id/img_head"
-               android:layout_width="80dp"
-               android:layout_weight="1"
-               android:layout_marginTop="15dp"
+            <FrameLayout
+                android:layout_width="110dp"
                 android:layout_gravity="center"
-               android:src="@mipmap/ic_empty"
-               android:layout_height="80dp">
-           </Views.CircleImageView>
+                android:layout_marginTop="10dp"
+                android:layout_height="110dp">
+                <ImageView
+                    android:id="@+id/img_super_user"
+                    android:layout_width="50dp"
+                    android:layout_gravity="top|left"
+                    android:visibility="gone"
+                    android:background="@mipmap/ic_vip"
+                    android:layout_height="50dp" />
+                <Views.CircleImageView
+                    android:id="@+id/img_head"
+                    android:layout_width="80dp"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/ic_empty"
+                    android:layout_height="80dp">
+                </Views.CircleImageView>
+
+            </FrameLayout>
+
             <TextView
                 android:id="@+id/tv_userid"
                 android:layout_weight="1"
@@ -240,6 +253,7 @@
         android:orientation="horizontal"
         android:background="@color/red"
         android:layout_height="40dp">
+
         <RelativeLayout
             android:id="@+id/rtl_withdraw"
             android:layout_width="match_parent"
@@ -259,6 +273,7 @@
                 android:drawablePadding="10dp"
                 android:layout_height="wrap_content" />
         </RelativeLayout>
+
         <RelativeLayout
             android:id="@+id/rtl_howto_earn"
             android:layout_width="match_parent"

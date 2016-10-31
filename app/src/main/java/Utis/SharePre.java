@@ -13,21 +13,6 @@ import java.util.Map;
 public class SharePre {
     private static final String sharedPreferencesName = "DATA_CACHE";
     /**
-     * 登录状态
-     * @param context
-     * @param
-     */
-//    public  static void saveLoginState(Context context,boolean logined) {
-//        SharedPreferences sp = context.getSharedPreferences(Constant.SP.LOGIN_STATE, Context.MODE_PRIVATE);
-//        sp.edit().putBoolean(Constant.SP.LOGIN_STATE, logined).commit();
-//    }
-//    public static boolean islogined(Context context) {
-//        SharedPreferences sp = context.getSharedPreferences(Constant.SP.LOGIN_STATE, Context.MODE_PRIVATE);
-//        boolean logined = sp.getBoolean(Constant.SP.LOGIN_STATE, false);
-//        return logined;
-//    }
-
-    /**
      * 缓存引导图
      * @param context
      * @param GuideImgUrl
@@ -43,23 +28,21 @@ public class SharePre {
         SharedPreferences sp = context.getSharedPreferences("GuideImgUrl", Context.MODE_PRIVATE);
         return  sp.getString("GuideImgUrl", "");
     }
-
-//    /**
-//     * 缓存引导图
-//     * @param context
-//     * @param GuideBp
-//     */
-//    public static void saveGuideBp(Context context, Bitmap GuideBp) {
-//        SharedPreferences sp = context.getSharedPreferences("GuideBp", Context.MODE_PRIVATE);
-//        sp.edit().put("GuideImgUrl", GuideBp).commit();
-//    }
-//    /**
-//     * 读取引导图
-//     */
-//    public static String getGuideBp(Context context) {
-//        SharedPreferences sp = context.getSharedPreferences("GuideBp", Context.MODE_PRIVATE);
-//        return  sp.getString("GuideBp", "");
-//    }
+    /**
+     * @param context
+     * @param DownLoadTime
+     */
+    public static void saveDownLoadTime(Context context, String DownLoadTime) {
+        SharedPreferences sp = context.getSharedPreferences("DownLoadTime", Context.MODE_PRIVATE);
+        sp.edit().putString("DownLoadTime", DownLoadTime).commit();
+    }
+    /**
+     * 读取用户DownLoadTime
+     */
+    public static String getDownLoadTime(Context context) {
+        SharedPreferences sp = context.getSharedPreferences("DownLoadTime", Context.MODE_PRIVATE);
+        return  sp.getString("DownLoadTime", "");
+    }
 
     /**
      * 缓存用户Id
@@ -90,6 +73,34 @@ public class SharePre {
         SharedPreferences sp = context.getSharedPreferences("IsPostUdid", Context.MODE_PRIVATE);
         boolean IsPostUdid = sp.getBoolean("IsPostUdid", false);
         return IsPostUdid;
+    }
+
+    /**
+     * @param context
+     * @param IsPostDevice
+     */
+    public  static void saveIsPostDevice(Context context,boolean IsPostDevice) {
+        SharedPreferences sp = context.getSharedPreferences("IsPostDevice", Context.MODE_PRIVATE);
+        sp.edit().putBoolean("IsPostDevice", IsPostDevice).commit();
+    }
+    public static boolean getIsPostDevice(Context context) {
+        SharedPreferences sp = context.getSharedPreferences("IsPostDevice", Context.MODE_PRIVATE);
+        boolean IsPostDevice = sp.getBoolean("IsPostDevice", false);
+        return IsPostDevice;
+    }
+    /**
+     * 账户异常
+     * @param context
+     * @param IsAccountInnoval
+     */
+    public  static void IsAccountInnoval(Context context,boolean IsAccountInnoval) {
+        SharedPreferences sp = context.getSharedPreferences("IsAccountInnoval", Context.MODE_PRIVATE);
+        sp.edit().putBoolean("IsAccountInnoval", IsAccountInnoval).commit();
+    }
+    public static boolean getAccountInnoval(Context context) {
+        SharedPreferences sp = context.getSharedPreferences("IsAccountInnoval", Context.MODE_PRIVATE);
+        boolean IsAccountInnoval = sp.getBoolean("IsAccountInnoval", false);
+        return IsAccountInnoval;
     }
 
 

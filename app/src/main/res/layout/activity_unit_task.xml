@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:background="@color/white"
     android:orientation="vertical"
     android:layout_height="match_parent">
     <View
@@ -31,331 +32,360 @@
                 android:layout_height="wrap_content" />
         </RelativeLayout>
     </RelativeLayout>
-    <ScrollView
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout
+        android:layout_height="match_parent">
+        <ScrollView
             android:layout_width="match_parent"
-            android:orientation="vertical"
             android:layout_height="wrap_content">
-            <RelativeLayout
-                android:id="@+id/rtl_youmi"
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="70dp">
-                <ImageView
-                    android:id="@+id/img_youmi"
-                    android:layout_width="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:textSize="17sp"
-                    android:gravity="center"
-                    android:drawablePadding="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:background="@mipmap/youmi"
-                    android:textColor="@drawable/black2gray_seleclor"
-                    android:layout_height="wrap_content" />
-                <LinearLayout
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:orientation="vertical"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_toRightOf="@+id/img_youmi"
-                    android:layout_marginLeft="10dp"
-                    android:layout_height="match_parent">
+                    android:layout_height="40dp">
                     <TextView
                         android:layout_width="wrap_content"
-                        android:text="易钻ATM1"
-                        android:layout_weight="1"
-                        android:textSize="17sp"
+                        android:text="完成联盟任务 100积分=1元"
+                        android:layout_centerVertical="true"
+                        android:drawableLeft="@mipmap/l_toutiao"
+                        android:layout_marginLeft="15dp"
                         android:gravity="center"
+                        android:drawablePadding="10dp"
                         android:textColor="@color/black"
                         android:layout_height="wrap_content" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:text="100积分=1元"
-                        android:textColor="@color/darks_gray"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:background="@mipmap/w_tiaozhuan1"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="10dp"
-                    android:layout_height="wrap_content" />
-            </RelativeLayout>
-            <View
-                android:layout_width="match_parent"
-                android:background="@color/gray"
-                android:layout_height="1dp"></View>
-            <RelativeLayout
-                android:id="@+id/rtl_dianle"
-                android:layout_width="match_parent"
-                android:layout_height="70dp">
-                <ImageView
-                    android:id="@+id/img_dianle"
-                    android:layout_width="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:textSize="17sp"
-                    android:gravity="center"
-                    android:drawablePadding="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:background="@mipmap/dianle"
-                    android:textColor="@drawable/black2gray_seleclor"
-                    android:layout_height="wrap_content" />
-                <LinearLayout
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/rtl_youmi"
                     android:layout_width="match_parent"
-                    android:orientation="vertical"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_toRightOf="@+id/img_dianle"
-                    android:layout_marginLeft="10dp"
-                    android:layout_height="match_parent">
-                    <TextView
+                    android:visibility="gone"
+                    android:layout_height="70dp">
+                    <ImageView
+                        android:id="@+id/img_youmi"
                         android:layout_width="wrap_content"
-                        android:text="易钻ATM2"
-                        android:layout_weight="1"
+                        android:layout_centerVertical="true"
                         android:textSize="17sp"
                         android:gravity="center"
-                        android:textColor="@color/black"
+                        android:drawablePadding="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@mipmap/youmi"
+                        android:textColor="@drawable/black2gray_seleclor"
                         android:layout_height="wrap_content" />
-                    <TextView
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="vertical"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toRightOf="@+id/img_youmi"
+                        android:layout_marginLeft="10dp"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:text="易钻ATM1"
+                            android:layout_weight="1"
+                            android:textSize="17sp"
+                            android:gravity="center"
+                            android:textColor="@drawable/black2gray_seleclor"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                    <ImageView
                         android:layout_width="wrap_content"
-                        android:text="100积分=1元"
-                        android:textColor="@color/darks_gray"
-                        android:layout_weight="1"
+                        android:layout_centerVertical="true"
+                        android:background="@mipmap/w_tiaozhuan1"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="10dp"
                         android:layout_height="wrap_content" />
-                </LinearLayout>
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:background="@mipmap/w_tiaozhuan1"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="10dp"
-                    android:layout_height="wrap_content" />
-            </RelativeLayout>
-            <View
-                android:layout_width="match_parent"
-                android:background="@color/gray"
-                android:layout_height="1dp"></View>
-            <RelativeLayout
-                android:id="@+id/rtl_dianlu"
-                android:layout_width="match_parent"
-                android:layout_height="70dp">
-                <ImageView
-                    android:id="@+id/img_dl"
-                    android:layout_width="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:textSize="17sp"
-                    android:gravity="center"
-                    android:drawablePadding="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:background="@mipmap/dianlu"
-                    android:textColor="@drawable/black2gray_seleclor"
-                    android:layout_height="wrap_content" />
-                <LinearLayout
+                </RelativeLayout>
+                <View
                     android:layout_width="match_parent"
-                    android:orientation="vertical"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_toRightOf="@+id/img_dl"
-                    android:layout_marginLeft="10dp"
-                    android:layout_height="match_parent">
-                    <TextView
+                    android:background="@color/gray"
+                    android:layout_height="1dp"></View>
+                <RelativeLayout
+                    android:id="@+id/rtl_dianle"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp">
+                    <ImageView
+                        android:id="@+id/img_dianle"
                         android:layout_width="wrap_content"
-                        android:text="易钻ATM3"
-                        android:layout_weight="1"
+                        android:layout_centerVertical="true"
                         android:textSize="17sp"
                         android:gravity="center"
-                        android:textColor="@color/black"
+                        android:drawablePadding="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@mipmap/dianle"
+                        android:textColor="@drawable/black2gray_seleclor"
                         android:layout_height="wrap_content" />
-                    <TextView
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="vertical"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toRightOf="@+id/img_dianle"
+                        android:layout_marginLeft="10dp"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:text="易钻ATM2"
+                            android:layout_weight="1"
+                            android:textSize="17sp"
+                            android:gravity="center"
+                            android:textColor="@drawable/black2gray_seleclor"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                    <ImageView
                         android:layout_width="wrap_content"
-                        android:text="100积分=1元"
-                        android:textColor="@color/darks_gray"
-                        android:layout_weight="1"
+                        android:layout_centerVertical="true"
+                        android:background="@mipmap/w_tiaozhuan1"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="10dp"
                         android:layout_height="wrap_content" />
-                </LinearLayout>
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:background="@mipmap/w_tiaozhuan1"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="10dp"
-                    android:layout_height="wrap_content" />
-            </RelativeLayout>
-            <View
-                android:layout_width="match_parent"
-                android:background="@color/gray"
-                android:layout_height="1dp"></View>
-            <RelativeLayout
-                android:id="@+id/rtl_wanpu"
-                android:layout_width="match_parent"
-                android:layout_height="70dp">
-                <ImageView
-                    android:id="@+id/img_wp"
-                    android:layout_width="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:textSize="17sp"
-                    android:gravity="center"
-                    android:drawablePadding="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:background="@mipmap/wanpu"
-                    android:textColor="@drawable/black2gray_seleclor"
-                    android:layout_height="wrap_content" />
-                <LinearLayout
+                </RelativeLayout>
+                <View
                     android:layout_width="match_parent"
-                    android:orientation="vertical"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_toRightOf="@+id/img_wp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_height="match_parent">
-                    <TextView
+                    android:background="@color/gray"
+                    android:layout_height="1dp"></View>
+                <RelativeLayout
+                    android:id="@+id/rtl_dianlu"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp">
+                    <ImageView
+                        android:id="@+id/img_dl"
                         android:layout_width="wrap_content"
-                        android:text="易钻ATM4"
-                        android:layout_weight="1"
+                        android:layout_centerVertical="true"
                         android:textSize="17sp"
                         android:gravity="center"
-                        android:textColor="@color/black"
+                        android:drawablePadding="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@mipmap/dianlu"
+                        android:textColor="@drawable/black2gray_seleclor"
                         android:layout_height="wrap_content" />
-                    <TextView
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="vertical"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toRightOf="@+id/img_dl"
+                        android:layout_marginLeft="10dp"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:text="易钻ATM3"
+                            android:layout_weight="1"
+                            android:textSize="17sp"
+                            android:gravity="center"
+                            android:textColor="@drawable/black2gray_seleclor"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                    <ImageView
                         android:layout_width="wrap_content"
-                        android:text="100积分=1元"
-                        android:textColor="@color/darks_gray"
-                        android:layout_weight="1"
+                        android:layout_centerVertical="true"
+                        android:background="@mipmap/w_tiaozhuan1"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="10dp"
                         android:layout_height="wrap_content" />
-                </LinearLayout>
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:background="@mipmap/w_tiaozhuan1"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="10dp"
-                    android:layout_height="wrap_content" />
-            </RelativeLayout>
-            <View
-                android:layout_width="match_parent"
-                android:background="@color/gray"
-                android:layout_height="1dp"></View>
-            <RelativeLayout
-                android:id="@+id/rtl_duomeng"
-                android:layout_width="match_parent"
-                android:layout_height="70dp">
-                <ImageView
-                    android:id="@+id/img_dm"
-                    android:layout_width="wrap_content"
-                    android:text="易钻ATM5"
-                    android:layout_centerVertical="true"
-                    android:textSize="17sp"
-                    android:gravity="center"
-                    android:drawablePadding="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:background="@mipmap/duomeng"
-                    android:textColor="@drawable/black2gray_seleclor"
-                    android:layout_height="wrap_content" />
-                <LinearLayout
+                </RelativeLayout>
+                <View
                     android:layout_width="match_parent"
-                    android:orientation="vertical"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_toRightOf="@+id/img_dm"
-                    android:layout_marginLeft="10dp"
-                    android:layout_height="match_parent">
-                    <TextView
+                    android:background="@color/gray"
+                    android:layout_height="1dp"></View>
+                <RelativeLayout
+                    android:id="@+id/rtl_wanpu"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp">
+                    <ImageView
+                        android:id="@+id/img_wp"
+                        android:layout_width="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:textSize="17sp"
+                        android:gravity="center"
+                        android:drawablePadding="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@mipmap/wanpu"
+                        android:textColor="@drawable/black2gray_seleclor"
+                        android:layout_height="wrap_content" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="vertical"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toRightOf="@+id/img_wp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:text="易钻ATM4"
+                            android:layout_weight="1"
+                            android:textSize="17sp"
+                            android:gravity="center"
+                            android:textColor="@drawable/black2gray_seleclor"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:background="@mipmap/w_tiaozhuan1"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="10dp"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:background="@color/gray"
+                    android:layout_height="1dp"></View>
+                <RelativeLayout
+                    android:id="@+id/rtl_duomeng"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp">
+                    <ImageView
+                        android:id="@+id/img_dm"
                         android:layout_width="wrap_content"
                         android:text="易钻ATM5"
-                        android:layout_weight="1"
+                        android:layout_centerVertical="true"
                         android:textSize="17sp"
                         android:gravity="center"
-                        android:textColor="@color/black"
+                        android:drawablePadding="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@mipmap/duomeng"
+                        android:textColor="@drawable/black2gray_seleclor"
                         android:layout_height="wrap_content" />
-                    <TextView
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="vertical"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toRightOf="@+id/img_dm"
+                        android:layout_marginLeft="10dp"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:text="易钻ATM5"
+                            android:layout_weight="1"
+                            android:textSize="17sp"
+                            android:gravity="center"
+                            android:textColor="@drawable/black2gray_seleclor"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                    <ImageView
                         android:layout_width="wrap_content"
-                        android:text="100积分=1元"
-                        android:textColor="@color/darks_gray"
-                        android:layout_weight="1"
+                        android:layout_centerVertical="true"
+                        android:background="@mipmap/w_tiaozhuan1"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="10dp"
                         android:layout_height="wrap_content" />
-                </LinearLayout>
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:background="@mipmap/w_tiaozhuan1"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="10dp"
-                    android:layout_height="wrap_content" />
-            </RelativeLayout>
-            <View
-                android:layout_width="match_parent"
-                android:background="@color/gray"
-                android:layout_height="1dp"></View>
-            <RelativeLayout
-                android:id="@+id/rtl_qumi"
-                android:layout_width="match_parent"
-                android:layout_height="70dp">
-                <ImageView
-                    android:id="@+id/img_qm"
-                    android:layout_width="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:textSize="17sp"
-                    android:gravity="center"
-                    android:drawablePadding="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:background="@mipmap/qumi"
-                    android:textColor="@drawable/black2gray_seleclor"
-                    android:layout_height="wrap_content" />
-                <LinearLayout
+                </RelativeLayout>
+                <View
                     android:layout_width="match_parent"
-                    android:orientation="vertical"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_toRightOf="@+id/img_qm"
-                    android:layout_marginLeft="10dp"
-                    android:layout_height="match_parent">
-                    <TextView
+                    android:background="@color/gray"
+                    android:layout_height="1dp"></View>
+                <RelativeLayout
+                    android:id="@+id/rtl_qumi"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp">
+                    <ImageView
+                        android:id="@+id/img_qm"
                         android:layout_width="wrap_content"
-                        android:text="易钻ATM6"
-                        android:layout_weight="1"
+                        android:layout_centerVertical="true"
                         android:textSize="17sp"
                         android:gravity="center"
-                        android:textColor="@color/black"
+                        android:drawablePadding="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@mipmap/qumi"
+                        android:textColor="@drawable/black2gray_seleclor"
                         android:layout_height="wrap_content" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="vertical"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toRightOf="@+id/img_qm"
+                        android:layout_marginLeft="10dp"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:text="易钻ATM6"
+                            android:layout_weight="1"
+                            android:textSize="17sp"
+                            android:gravity="center"
+                            android:textColor="@drawable/black2gray_seleclor"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:background="@mipmap/w_tiaozhuan1"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="10dp"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:background="@color/gray"
+                    android:layout_height="1dp"></View>
+                <RelativeLayout
+                    android:id="@+id/rtl_quying"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp">
+                    <ImageView
+                        android:id="@+id/img_qy"
+                        android:layout_width="wrap_content"
+                        android:text="易钻ATM7"
+                        android:layout_centerVertical="true"
+                        android:textSize="17sp"
+                        android:gravity="center"
+                        android:drawablePadding="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@mipmap/quying"
+                        android:textColor="@drawable/black2gray_seleclor"
+                        android:layout_height="wrap_content" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="vertical"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toRightOf="@+id/img_qy"
+                        android:layout_marginLeft="10dp"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:text="易钻ATM7"
+                            android:layout_weight="1"
+                            android:textSize="17sp"
+                            android:gravity="center"
+                            android:textColor="@drawable/black2gray_seleclor"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:background="@mipmap/w_tiaozhuan1"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="10dp"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_gravity="bottom"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content">
                     <TextView
                         android:layout_width="wrap_content"
-                        android:text="100积分=1元"
-                        android:textColor="@color/darks_gray"
-                        android:layout_weight="1"
+                        android:text="联盟任务为广告主的任务，做任务需要回调，偶尔出现到账时间延迟，这是少数情况，如有上述问题敬请耐心等待，谢谢！"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:gravity="bottom"
+                        android:textSize="13sp"
+                        android:layout_alignParentBottom="true"
+                        android:textColor="@color/black"
                         android:layout_height="wrap_content" />
-                </LinearLayout>
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:background="@mipmap/w_tiaozhuan1"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="10dp"
-                    android:layout_height="wrap_content" />
-            </RelativeLayout>
-            <View
-                android:layout_width="match_parent"
-                android:background="@color/gray"
-                android:layout_height="1dp"></View>
+                </RelativeLayout>
+            </LinearLayout>
+        </ScrollView>
 
-        </LinearLayout>
-    </ScrollView>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_gravity="bottom"
-        android:layout_weight="1"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="wrap_content"
-            android:text="联盟任务为广告主的任务，做任务需要回调，偶尔出现到账时间延迟，这是少数情况，如有上述问题敬请耐心等待，谢谢！"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:gravity="bottom"
-            android:textSize="13sp"
-            android:layout_alignParentBottom="true"
-            android:textColor="@color/black"
-            android:layout_height="wrap_content" />
-    </RelativeLayout>
+    </FrameLayout>
+
 </LinearLayout>

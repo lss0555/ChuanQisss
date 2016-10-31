@@ -15,8 +15,8 @@ android {
         applicationId "com.chuanqi.yz"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 6
-        versionName '1.23'
+        versionCode 13
+        versionName '1.31'
         // dex突破65535限制
         multiDexEnabled true
         signingConfig signingConfigs.config
@@ -83,11 +83,8 @@ dependencies {
     compile files('libs/ShareSDK-Wechat-Core-2.7.4.jar')
     compile files('libs/ShareSDK-QZone-2.7.4.jar')
     compile files('libs/AMap_Location_V2.8.0_20160811.jar')
-    compile files('libs/libammsdk.jar')
     compile files('libs/dianru_sdk_v1.2.1.jar')
     compile files('libs/yzhuanatm.jar')
-    compile files('libs/dm_offerwall_4.2.0.jar')
-    compile files('libs/YoumiSdk_v6.1.0_2016-02-26.jar')
     compile files('libs/jg_filter_sdk_1.1.jar')
     compile files('libs/Xg_sdk_v2.46_20160602_1638.jar')
     compile files('libs/wup-1.0.0.E-SNAPSHOT.jar')
@@ -96,4 +93,9 @@ dependencies {
     compile 'com.githang:status-bar-compat:0.3'
     compile 'com.android.support:appcompat-v7:23.4.0'
     compile files('libs/zixing-core-3.2.0.jar')
+    compile files('libs/dynamic-4.3.0.jar')
+    compile files('libs/QuYingSDK1.0.6.jar')
+    compile files('libs/ShareSDK-Alipay-2.7.4.jar')
+    compile files('libs/YoumiSdk_v6.5.0_2016-09-23.jar')
+    compile files('libs/libammsdk.jar')
 }

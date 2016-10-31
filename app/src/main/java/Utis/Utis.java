@@ -27,6 +27,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -71,7 +73,24 @@ public class Utis {
     public static String formatTimeForFile(Date date) {
         return fileDateFormat.format(date);
     }
-
+    /* 32位小md5加密
+    *
+            * @return md5(value) or ""
+            */
+    public static String md5(String val) {
+        try {
+            String result = null;
+            if (val != null && val.length() > 0) {
+                MessageDigest md5 = MessageDigest.getInstance("MD5");
+                md5.update(val.getBytes(), 0, val.length());
+                result = String.format("%032x", new BigInteger(1, md5.digest()));
+            }
+            return result;
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
     /**
      * 获取文件后缀名,如果没有后缀名则返回""
      */
@@ -468,7 +487,7 @@ public class Utis {
      * 返回app文件夹，在内存卡的一级目录下，以该应用名称建立的文件夹
      */
     public static String getAppFolder() {
-        String path = Environment.getExternalStorageDirectory() + "/" +"易钻ATM" + "/";
+        String path = Environment.getExternalStorageDirectory() + "/" +"YiZuanATM" + "/";
         File f = new File(path);
         if(!f.exists()) f.mkdir();
         return path;
@@ -621,5 +640,53 @@ public class Utis {
             e.printStackTrace();
             return null;
         }
+    }
+    public static boolean compareDouble(BigDecimal val1, BigDecimal val2) {
+        boolean result = false;
+        if (val1.compareTo(val2) < 0) {
+            result = false; //第二位比较大
+        }
+        if (val1.compareTo(val2) == 0) {    //xiandeng
+            result = true;
+        }
+        if (val1.compareTo(val2) > 0) { //第一位比较大
+            result =true;
+        }
+        return result;
+    }
+
+    /**
+     * 两个时间相差距离多少天多少小时多少分多少秒
+     * @param str1 时间参数 1 格式：1990-01-01 12:00:00
+     * @param str2 时间参数 2 格式：2009-01-01 12:00:00
+     * @return String 返回值为：xx天xx小时xx分xx秒
+     */
+    public static long getTimeDistance(String str1, String str2) {
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date one;
+        Date two;
+        long day = 0;
+        long hour = 0;
+        long min = 0;
+        long sec = 0;
+        try {
+            one = df.parse(str1);
+            two = df.parse(str2);
+            long time1 = one.getTime();
+            long time2 = two.getTime();
+            long diff ;
+            if(time1<time2) {
+                diff = time2 - time1;
+            } else {
+                diff = time1 - time2;
+            }
+            sec = (diff/1000-day*24*60*60-hour*60*60-min*60);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        if(sec!=0){
+            return sec;
+        }
+        return 0;
     }
 }

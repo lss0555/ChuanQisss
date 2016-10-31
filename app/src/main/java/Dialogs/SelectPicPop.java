@@ -21,7 +21,6 @@ public class SelectPicPop extends PopupWindow{
     private OnSelecListner listner;
     private Button mBtnCancle;
     private Button mBtnSave;
-
     @TargetApi(Build.VERSION_CODES.KITKAT)
     public SelectPicPop(Context context){
         view = View.inflate(context, R.layout.item_img_select_pop, null);

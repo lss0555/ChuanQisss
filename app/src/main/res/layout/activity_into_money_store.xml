@@ -12,6 +12,7 @@
       android:background="@color/red"
       android:layout_height="50dp">
       <TextView
+          android:id="@+id/tv_title"
           android:layout_width="wrap_content"
           android:text="转入聚钱庄"
           android:textColor="@color/white"
@@ -45,7 +46,7 @@
         <TextView
             android:id="@+id/tv_left_money"
             android:layout_width="wrap_content"
-            android:text="100元"
+            android:text="加载中"
             android:textColor="@color/red"
             android:textSize="18sp"
             android:layout_marginLeft="10dp"
@@ -72,12 +73,11 @@
         <EditText
             android:id="@+id/et_money"
             android:layout_width="wrap_content"
-            android:textColor="@color/red"
+            android:textColor="@color/black"
             android:textSize="18sp"
             android:hint="输入金额"
             android:layout_marginLeft="10dp"
             android:layout_centerVertical="true"
-            android:inputType="number"
             android:layout_toRightOf="@+id/tv_nums"
             android:layout_height="wrap_content" />
     </RelativeLayout>
@@ -96,6 +96,22 @@
         <TextView
             android:layout_width="wrap_content"
             android:text="完成"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:layout_centerInParent="true"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rtl_jqz"
+        android:layout_width="match_parent"
+        android:background="@drawable/round_red_bg"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_height="40dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="去聚钱庄"
             android:textColor="@color/white"
             android:textSize="18sp"
             android:layout_centerInParent="true"

@@ -21,6 +21,7 @@ import Utis.GsonUtils;
 import Utis.MD5Utis;
 import Utis.OkHttpUtil;
 import Utis.SharePre;
+import model.Result;
 import model.Yzm;
 
 public class BindPhoneActivity extends BaseActivity{
@@ -85,7 +86,11 @@ public class BindPhoneActivity extends BaseActivity{
                         @Override
                         public void Successfully(boolean IsSuccess, String data, String Msg) {
                             mYzm= GsonUtils.parseJSON(data,Yzm.class);
-                            yzms=mYzm.getRun();
+                            if(mYzm.getRun().equals("1")){
+                                Toast("抱歉，该手机号码已被绑定");
+                            }else if(mYzm.getRun().equals("0")){
+                                Toast("验证码发送成功！");
+                            }
                         }
                     });
                 }
@@ -96,15 +101,19 @@ public class BindPhoneActivity extends BaseActivity{
             public void onClick(View view) {
                 if(mEtPhone.getText().toString().equals("") || mEtYzm.getText().toString().equals("")){
                        Toast("请输入完整");
-                }else if(yzms.equals("")||yzms==null){
-                    Toast("抱歉，您的验证码有误");
-                }else if(!yzms.equals(mEtYzm.getText().toString().trim())){
-                    Toast("抱歉，您的验证码有误");
-                }else{
+                }
+//                else if(yzms.equals("")||yzms==null){
+//                    Toast("抱歉，您的验证码有误");
+//                }
+//                else if(!yzms.equals(mEtYzm.getText().toString().trim())){
+//                    Toast("抱歉，您的验证码有误");
+//                }
+                else{
                     startProgressDialog("加载中...");
                     HashMap<String,String> map=new HashMap<String, String>();
                     map.put("userid",SharePre.getUserId(BindPhoneActivity.this));
                     map.put("tel",mEtPhone.getText().toString().trim());
+                    map.put("mobile_code",mEtYzm.getText().toString().trim());
                     map.put("sign", MD5Utis.MD5_Encode(mEtPhone.getText().toString().trim()+"传祺chuanqi"));
                     OkHttpUtil.getInstance().Post(map, constance.URL.BIND_PHONE, new OkHttpUtil.FinishListener() {
                         @Override
@@ -126,6 +135,8 @@ public class BindPhoneActivity extends BaseActivity{
                                     Toast("抱歉，非法操作");
                                 }else if(yzm.getRun().equals("0")){
                                     Toast("抱歉，该手机已绑定过");
+                                }else if(yzm.getRun().equals("3")){
+                                    Toast("抱歉，验证码错误");
                                 }
                             }else {
                                 Toast(data.toString());
